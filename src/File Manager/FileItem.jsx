@@ -119,6 +119,7 @@ const FileItem = ({
         className={`file-item ${
           fileSelected ? "background-secondary text-white" : ""
         }`}
+        title={file.name}
         onClick={handleFileSelection}
         onKeyUp={handleOnKeyUp}
         onContextMenu={() => {
@@ -133,9 +134,7 @@ const FileItem = ({
         ) : (
           <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
         )}
-        <span className="text-truncate file-name" title={file.name}>
-          {file.name}
-        </span>
+        <span className="text-truncate file-name">{file.name}</span>
       </div>
       {/* </Popover> */}
 

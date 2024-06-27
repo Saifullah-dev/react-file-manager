@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import SideBarSubDirectories from "./SideBarSubDirectories";
+import SideBarSubDirectories from "./SideBarSubDirectories";
 
 const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
   const [foldersTree, setFoldersTree] = useState([]);
@@ -38,18 +38,21 @@ const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
 
   return (
     <div className="sb-folders-list">
-      {/* {
-                foldersTree?.length > 0 ?
-                    <>
-                        {
-                            foldersTree?.map((folder) => {
-                                return (
-                                    <SideBarSubDirectories folder={folder} setCurrentPath={setCurrentPath} currentPath={currentPath} />
-                                )
-                            })
-                        }</> :
-                    <div className='centered-div'>Nothing here yet</div>
-            } */}
+      {foldersTree?.length > 0 ? (
+        <>
+          {foldersTree?.map((folder) => {
+            return (
+              <SideBarSubDirectories
+                folder={folder}
+                setCurrentPath={setCurrentPath}
+                currentPath={currentPath}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <div className="centered-div">Nothing here yet</div>
+      )}
     </div>
   );
 };

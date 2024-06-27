@@ -43,7 +43,57 @@ const FileManager = () => {
       path: "",
     },
     {
+      name: "Folder New",
+      isDirectory: true,
+      path: "Folder 1",
+    },
+    {
+      name: "Folder New 2",
+      isDirectory: true,
+      path: "Folder 1/Folder New",
+    },
+    {
+      name: "Folder New 3",
+      isDirectory: true,
+      path: "Folder 1/Folder New/Folder New 2",
+    },
+    {
+      name: "Folder New 4",
+      isDirectory: true,
+      path: "Folder 1/Folder New/Folder New 2/Folder New 3",
+    },
+    {
+      name: "Folder New 5",
+      isDirectory: true,
+      path: "Folder 1/Folder New/Folder New 2/Folder New 3/Folder New 4",
+    },
+    {
+      name: "Folder New 6",
+      isDirectory: true,
+      path: "Folder 1/Folder New/Folder New 2/Folder New 3/Folder New 4/Folder New 5",
+    },
+    {
       name: "Folder 2",
+      isDirectory: true,
+      path: "",
+    },
+    {
+      name: "Folder 3",
+      isDirectory: true,
+      path: "",
+    },
+    {
+      name: "Folder 4",
+      isDirectory: true,
+      path: "",
+    },
+    {
+      name: "Folder 5",
+      isDirectory: true,
+      path: "",
+    },
+    {
+      name: "Folder 6",
       isDirectory: true,
       path: "",
     },
@@ -53,7 +103,7 @@ const FileManager = () => {
       path: "",
     },
     {
-      name: "File 1.txt",
+      name: "File 1asdfsdfsdfsdfsdf.txt",
       isDirectory: false,
       path: "",
     },
@@ -403,7 +453,7 @@ const FileManager = () => {
             >
               <section
                 style={{
-                  borderBottom: "1px solid grey",
+                  borderBottom: "1px solid #dddddd",
                   padding: "10px 15px",
                 }}
               >
@@ -412,7 +462,12 @@ const FileManager = () => {
                   setCurrentPath={setCurrentPath}
                 />
               </section>
-              <section className="p-2 pe-1">
+              <section
+                style={{
+                  padding: "8px",
+                  paddingRight: "4px",
+                }}
+              >
                 <Files
                   currentPathFiles={currentPathFiles}
                   setCurrentPath={setCurrentPath}

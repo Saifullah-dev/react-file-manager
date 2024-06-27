@@ -1,14 +1,33 @@
-// @import "../../../../variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
-$layout-contrast-color: black;
-$primary-color: #ff0000;
-$secondary-color: #00ff00;
-$accent-color: #0000ff;
-$background-color: #ffff00;
-$text-color: #00ffff;
-$border-color: #ff00ff;
+$secondary-color: #6155b4;
+$primary-color: #6155b4;
+$secondary-color-lighter: #5549a3;
+
+.background-secondary {
+  background-color: $secondary-color !important;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
 
 .file-explorer {
+  font-family: "Nunito Sans", sans-serif;
+  button {
+    font-family: "Nunito Sans", sans-serif;
+  }
   border: 1px solid #dddddd;
   height: 72dvh;
   width: 100%;
@@ -50,7 +69,7 @@ $border-color: #ff00ff;
         cursor: pointer;
         background-color: rgb(0, 0, 0, 0.04) !important;
         border-radius: 3px;
-        color: $layout-contrast-color;
+        color: $secondary-color-lighter;
       }
     }
 
@@ -223,7 +242,7 @@ $border-color: #ff00ff;
 
       &:hover {
         cursor: pointer;
-        color: $layout-contrast-color;
+        color: $secondary-color;
       }
     }
 
@@ -236,7 +255,7 @@ $border-color: #ff00ff;
       height: 60dvh;
 
       .file-item {
-        height: 98px;
+        height: 80px;
         width: 118px;
         display: flex;
         flex-direction: column;
