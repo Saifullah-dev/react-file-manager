@@ -210,14 +210,23 @@ const FileExplorerToolbar = ({
       </div>
 
       {/* Create Folder */}
-      {/* <FileExplorerAction
+      <FileExplorerAction
         heading={"Folder"}
         show={showCreateFolder}
         setShow={setShowCreateFolder}
         dialogClassName={"w-25"}
       >
-        <div className="py-2">
-          <div className="border-bottom px-3 pt-2 pb-3">
+        <div
+          style={{
+            padding: "8px 0",
+          }}
+        >
+          <div
+            style={{
+              borderBottom: "1px solid #c6c6c6",
+              padding: "8px 12px 12px",
+            }}
+          >
             <input
               ref={folderNameRef}
               type="text"
@@ -229,11 +238,17 @@ const FileExplorerToolbar = ({
               <div className="folder-error">{folderErrorMessage}</div>
             )}
           </div>
-          <div className="d-flex justify-content-end pt-2 pe-2">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              padding: "8px 8px 0 0",
+            }}
+          >
             <button onClick={handleFolderCreating}>Create</button>
           </div>
         </div>
-      </FileExplorerAction> */}
+      </FileExplorerAction>
       {/* Create Folder */}
 
       {/* Upload File */}

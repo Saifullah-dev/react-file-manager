@@ -23,6 +23,19 @@ svg {
   vertical-align: middle;
 }
 
+.fm-modal {
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  width: fit-content;
+  overflow-x: hidden;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.253);
+}
+
+.w-25 {
+  width: 25%;
+}
+
 .file-explorer {
   font-family: "Nunito Sans", sans-serif;
   button {
@@ -329,10 +342,11 @@ svg {
   border-bottom: 1px solid grey;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  width: 100%;
   transition: box-shadow 0.3s;
   background-color: #f5f5f5;
   padding: 6px 9px;
+  margin-right: 8px;
+  width: calc(100% - 18px);
 
   &:focus {
     outline: none;
