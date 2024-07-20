@@ -1,9 +1,8 @@
-// import { Modal } from "react-bootstrap"
 import { MdClose } from "react-icons/md";
-
 import { useEffect, useRef } from "react";
+import "./Modal.scss";
 
-const FileExplorerAction = ({
+const Modal = ({
   children,
   show,
   setShow,
@@ -22,7 +21,7 @@ const FileExplorerAction = ({
   }, [show]);
 
   return (
-    <dialog ref={modalRef} className={`fm-modal ${dialogClassName}`}>
+    <dialog ref={modalRef} className={`fm-modal ${dialogClassName} dialog`}>
       <div
         className="modal-header"
         style={{
@@ -51,25 +50,7 @@ const FileExplorerAction = ({
       </div>
       {children}
     </dialog>
-    // <Modal
-    //   show={show}
-    //   backdrop={true}
-    //   centered
-    //   contentClassName={`rounded ${contentClassName}`}
-    //   dialogClassName={dialogClassName}
-    // >
-    //   <Modal.Header className="modal-header border-bottom pb-2 d-flex justify-content-between">
-    //     <h6 className="mb-0 fw-bold text-dark">{heading}</h6>
-    //     <MdClose
-    //       size={25}
-    //       onClick={() => setShow(false)}
-    //       className="close-icon"
-    //       title="Close"
-    //     />
-    //   </Modal.Header>
-    //   <Modal.Body>{children}</Modal.Body>
-    // </Modal>
   );
 };
 
-export default FileExplorerAction;
+export default Modal;

@@ -3,7 +3,8 @@ import { BsFolderPlus, BsGridFill } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import FileExplorerAction from "./FileExplorerAction";
+import Modal from "./components/Modal/Modal";
+import Button from "./components/Button/Button";
 // import Button from "../../../button/Button";
 // import { setErrorAlert } from "../../../../redux/reducers/patientSlice";
 // import { Message, Uploader, useToaster } from "rsuite";
@@ -210,7 +211,7 @@ const FileExplorerToolbar = ({
       </div>
 
       {/* Create Folder */}
-      <FileExplorerAction
+      <Modal
         heading={"Folder"}
         show={showCreateFolder}
         setShow={setShowCreateFolder}
@@ -241,18 +242,21 @@ const FileExplorerToolbar = ({
           <div
             style={{
               display: "flex",
+              gap: 8,
               justifyContent: "flex-end",
               padding: "8px 8px 0 0",
             }}
           >
-            <button onClick={handleFolderCreating}>Create</button>
+            <Button onClick={handleFolderCreating} type="primary">
+              Create
+            </Button>
           </div>
         </div>
-      </FileExplorerAction>
+      </Modal>
       {/* Create Folder */}
 
       {/* Upload File */}
-      {/* <FileExplorerAction
+      {/* <Modal
         heading={"File Upload"}
         show={showUploadFile}
         setShow={setShowUploadFile}
@@ -369,7 +373,7 @@ const FileExplorerToolbar = ({
             </div>
           )}
         </div>
-      </FileExplorerAction> */}
+      </Modal> */}
       {/* Upload File */}
     </div>
   );

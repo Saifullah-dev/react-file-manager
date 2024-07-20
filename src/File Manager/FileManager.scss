@@ -80,7 +80,7 @@ svg {
 
       &:hover {
         cursor: pointer;
-        background-color: rgb(0, 0, 0, 0.04) !important;
+        background-color: rgb(0 0 0 / 12%) !important;
         border-radius: 3px;
         color: $secondary-color-lighter;
       }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
-import { FaRegFolderOpen } from "react-icons/fa";
+import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
@@ -54,12 +54,21 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
             />
           </span>
           <div className="sb-folder-details">
-            <FaRegFolderOpen
-              size={20}
-              style={{
-                margin: "0 7px",
-              }}
-            />
+            {isOpen || isActive ? (
+              <FaRegFolderOpen
+                size={20}
+                style={{
+                  margin: "0 7px",
+                }}
+              />
+            ) : (
+              <FaRegFolder
+                size={17}
+                style={{
+                  margin: "1px 9px 0px 8px",
+                }}
+              />
+            )}
             <span className="sb-folder-name" title={folder.name}>
               {folder.name}
             </span>
@@ -90,12 +99,21 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
       >
         <span className="non-expanable"></span>
         <div className="sb-folder-details">
-          <FaRegFolderOpen
-            size={20}
-            style={{
-              margin: "0 7px",
-            }}
-          />
+          {isActive ? (
+            <FaRegFolderOpen
+              size={20}
+              style={{
+                margin: "0 7px",
+              }}
+            />
+          ) : (
+            <FaRegFolder
+              size={17}
+              style={{
+                margin: "1px 9px 0px 8px",
+              }}
+            />
+          )}
           <span className="sb-folder-name" title={folder.name}>
             {folder.name}
           </span>
