@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import FileExplorerToolbar from "./FileExplorerToolbar";
 import "./FileManager.scss";
-// import { Col, Container, Row } from "react-bootstrap";
 import FoldersPath from "./FoldersPath";
 import Files from "./Files";
 // import { useAddData, useDeleteData, useGetByMultiParams } from "../../../../api/apiCalls";
@@ -9,10 +8,10 @@ import Files from "./Files";
 // import { endPoints } from "../../../../api/api";
 // import { setAlertTitle, setSuccessAlert } from "../../../../redux/reducers/patientSlice";
 // import { useCreateFile } from "../../../../api/documentManagerServices";
-// import FileExplorerAction from "./FileExplorerAction";
-// import { Button as BsButton } from 'react-bootstrap';
 // import ReactLoading from "react-loading";
 import SideBarDirectories from "./SideBarDirectories";
+import Modal from "./components/Modal/Modal";
+import Button from "./components/Button/Button";
 
 const allowedFileExtensions = [
   ".txt",
@@ -45,6 +44,11 @@ const FileManager = () => {
     {
       name: "Folder New",
       isDirectory: true,
+      path: "Folder 1",
+    },
+    {
+      name: "File 2.jpg",
+      isDirectory: false,
       path: "Folder 1",
     },
     {
@@ -207,50 +211,60 @@ const FileManager = () => {
   //
 
   // Create Folder
-  //   const createFolder = useAddData("createFolder");
-  //   const handleCreateFolder = async (folderName, setShowCreateFolder) => {
-  //     const folderPath =
-  //       currentPath === "" ? folderName : currentPath + "/" + folderName;
-  //     var folderData = {
-  //       Name: folderName,
-  //       FolderLocation: folderPath,
-  //       PatientID: patientID,
-  //       PracticeID: practiceID,
-  //     };
+  // const createFolder = useAddData("createFolder");
+  const handleCreateFolder = async (folderName, setShowCreateFolder) => {
+    // const folderPath =
+    //   currentPath === "" ? folderName : currentPath + "/" + folderName;
+    // var folderData = {
+    //   Name: folderName,
+    //   FolderLocation: folderPath,
+    //   PatientID: patientID,
+    //   PracticeID: practiceID,
+    // };
 
-  //     // Adding Parent ID if folder is located in a Directory
-  //     if (currentPath !== "") {
-  //       folderData = {
-  //         ...folderData,
-  //         ParentID: currentFolder?.ID,
-  //       };
-  //     }
-  //     //
+    // Adding Parent ID if folder is located in a Directory
+    // if (currentPath !== "") {
+    //   folderData = {
+    //     ...folderData,
+    //     ParentID: currentFolder?.ID,
+    //   };
+    // }
+    //
 
-  //     setShowCreateFolder(false);
+    setFiles((prev) => {
+      return [
+        ...prev,
+        {
+          name: folderName,
+          path: currentPath,
+          isDirectory: true,
+        },
+      ];
+    });
+    setShowCreateFolder(false);
 
-  //     const response = await createFolder.mutateAsync({
-  //       sendData: folderData,
-  //       endPoint: endPoints.createEditFolder,
-  //     });
+    // const response = await createFolder.mutateAsync({
+    //   sendData: folderData,
+    //   endPoint: endPoints.createEditFolder,
+    // });
 
-  //     if (response?.status === 200) {
-  //       setFiles((prev) => {
-  //         const newFolder = response.data;
-  //         return [
-  //           ...prev,
-  //           {
-  //             ...newFolder,
-  //             name: newFolder.Name,
-  //             path: currentPath,
-  //             isDirectory: true,
-  //           },
-  //         ];
-  //       });
-  //       //   dispatch(setSuccessAlert(true));
-  //       //   dispatch(setAlertTitle("Folder Created Successfully!"));
-  //     }
-  //   };
+    // if (response?.status === 200) {
+    //   setFiles((prev) => {
+    //     const newFolder = response.data;
+    //     return [
+    //       ...prev,
+    //       {
+    //         ...newFolder,
+    //         name: newFolder.Name,
+    //         path: currentPath,
+    //         isDirectory: true,
+    //       },
+    //     ];
+    //   });
+    //   dispatch(setSuccessAlert(true));
+    //   dispatch(setAlertTitle("Folder Created Successfully!"));
+    // }
+  };
   //
 
   // Upload File
@@ -324,16 +338,29 @@ const FileManager = () => {
   //     }
   //   }, [deleteFile?.data?.data, deleteFile?.isFetching]);
 
-  //   const handleDelete = (file) => {
-  //     if (file.isDirectory) {
-  //       setDeleteFolderID(file?.ID);
-  //       setIsFolderDelete(true);
-  //     } else {
-  //       setDeleteFileID(file?.ID);
-  //       setIsFileDelete(true);
-  //     }
-  //     setShowDelete(false);
-  //   };
+  const handleDelete = (file) => {
+    if (file.isDirectory) {
+      setFiles((prev) => {
+        // Also delete all files in this folder
+        return prev.filter(
+          (f) => !(f.name === file.name && f.path === file.path)
+        );
+      });
+      // setDeleteFolderID(file?.ID);
+      // setIsFolderDelete(true);
+    } else {
+      setFiles((prev) => {
+        return prev.filter(
+          (f) => !(f.name === file.name && f.path === file.path)
+        );
+      });
+      // setDeleteFileID(file?.ID);
+      // setIsFileDelete(true);
+    }
+    setShowDelete(false);
+    setIsItemSelection(false);
+    setSelectedFile(null);
+  };
   //
 
   //   useEffect(() => {
@@ -410,7 +437,7 @@ const FileManager = () => {
           <FileExplorerToolbar
             allowCreateFolder
             allowUploadFile
-            // handleCreateFolder={handleCreateFolder}
+            handleCreateFolder={handleCreateFolder}
             // handleFileUpload={handleFileUpload}
             // handleRefreshFiles={handleRefreshFiles}
             currentPathFiles={currentPathFiles}
@@ -483,28 +510,38 @@ const FileManager = () => {
         </div>
 
         {/* Delete Folder/File */}
-        {/* <FileExplorerAction
+        <Modal
           heading={"Delete"}
           show={showDelete}
           setShow={setShowDelete}
           dialogClassName={"w-25"}
         >
-          <p className="p-3 mb-2 border-bottom">
+          <p
+            style={{
+              borderBottom: "1px solid #dddddd",
+              padding: "10px 15px",
+              marginBottom: "1rem",
+            }}
+          >
             Are you sure you want to delete {selectedFile?.name}?
           </p>
-          <div className="d-flex gap-2 justify-content-end mb-2 me-2">
-            <BsButton variant="secondary" onClick={() => setShowDelete(false)}>
+          <div
+            style={{
+              display: "flex",
+              gap: "0.5rem",
+              justifyContent: "flex-end",
+              marginBottom: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            <Button type="secondary" onClick={() => setShowDelete(false)}>
               Cancel
-            </BsButton>
-            <BsButton
-              variant="danger"
-              autoFocus
-              onClick={() => handleDelete(selectedFile)}
-            >
+            </Button>
+            <Button type="danger" onClick={() => handleDelete(selectedFile)}>
               Delete
-            </BsButton>
+            </Button>
           </div>
-        </FileExplorerAction> */}
+        </Modal>
         {/* Delete Folder/File */}
       </main>
     </>
