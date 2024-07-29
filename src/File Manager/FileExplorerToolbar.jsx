@@ -56,6 +56,19 @@ const FileExplorerToolbar = ({
   //
 
   // Validate folder name and call "handleCreateFolder" function
+  const handleValidateFolderName = (e) => {
+    const invalidCharsRegex = /[\\/:*?"<>|]/;
+    if (invalidCharsRegex.test(e.key)) {
+      e.preventDefault();
+      setFolderErrorMessage(
+        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
+      );
+      setFolderNameError(true);
+    } else {
+      setFolderNameError(false);
+    }
+  };
+
   const handleFolderCreating = () => {
     const newFolderName = folderName.trim();
     // Validation non-empty folder name
@@ -233,6 +246,7 @@ const FileExplorerToolbar = ({
               type="text"
               value={folderName}
               onChange={handleFolderNameChange}
+              onKeyDown={handleValidateFolderName}
               className="action-input"
             />
             {folderNameError && (

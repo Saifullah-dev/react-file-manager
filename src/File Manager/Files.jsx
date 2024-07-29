@@ -18,6 +18,7 @@ const Files = ({
         <>
           {currentPathFiles.map((file, index) => (
             <FileItem
+              key={index}
               file={file}
               index={index}
               selectedFileIndex={selectedFileIndex}

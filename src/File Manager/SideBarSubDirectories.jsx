@@ -80,8 +80,9 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
               marginLeft: "10px",
             }}
           >
-            {folder.subDirectories.map((item) => (
+            {folder.subDirectories.map((item, index) => (
               <SideBarSubDirectories
+                key={index}
                 folder={item}
                 setCurrentPath={setCurrentPath}
                 currentPath={currentPath}

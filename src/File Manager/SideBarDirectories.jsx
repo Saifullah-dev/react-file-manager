@@ -40,9 +40,10 @@ const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
     <div className="sb-folders-list">
       {foldersTree?.length > 0 ? (
         <>
-          {foldersTree?.map((folder) => {
+          {foldersTree?.map((folder, index) => {
             return (
               <SideBarSubDirectories
+                key={index}
                 folder={folder}
                 setCurrentPath={setCurrentPath}
                 currentPath={currentPath}
@@ -51,7 +52,16 @@ const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
           })}
         </>
       ) : (
-        <div className="centered-div">Nothing here yet</div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          Nothing here yet
+        </div>
       )}
     </div>
   );

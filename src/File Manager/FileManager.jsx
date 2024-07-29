@@ -341,10 +341,23 @@ const FileManager = () => {
   const handleDelete = (file) => {
     if (file.isDirectory) {
       setFiles((prev) => {
-        // Also delete all files in this folder
-        return prev.filter(
-          (f) => !(f.name === file.name && f.path === file.path)
-        );
+        return prev.filter((f) => {
+          if (f.name === file.name && f.path === file.path) {
+            // Delete the folder itself
+            return false;
+          } else if (
+            file.path === "" &&
+            (f.path === file.name || f.path.startsWith(file.name + "/"))
+          ) {
+            // Root folder delete case (delete all files in this folder)
+            return false;
+          } else if (f.path.startsWith(file.path + "/")) {
+            // Delete all files in this folder
+            return false;
+          } else {
+            return true;
+          }
+        });
       });
       // setDeleteFolderID(file?.ID);
       // setIsFolderDelete(true);
