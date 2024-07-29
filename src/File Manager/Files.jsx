@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FileItem from "./FileItem";
 
 const Files = ({
@@ -12,11 +12,19 @@ const Files = ({
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
+  useEffect(() => {
+    setSelectedFileIndex(null);
+    setIsItemSelection(false);
+    setSelectedFile(null);
+  }, [currentPath]);
+
   return (
     <div
       className="files"
-      style={{
-        overflowY: "auto",
+      onClick={(e) => {
+        setSelectedFileIndex(null);
+        setIsItemSelection(false);
+        setSelectedFile(null);
       }}
     >
       {currentPathFiles?.length > 0 ? (

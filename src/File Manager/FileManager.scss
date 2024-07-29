@@ -267,6 +267,16 @@ svg {
       column-gap: 0.5em;
       row-gap: 5px;
       height: 60dvh;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        padding-top: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $primary-color !important;
+      }
 
       .file-item {
         height: 80px;
@@ -421,14 +431,11 @@ svg {
 
 .file-context-menu-list {
   font-size: 1.1em;
-  border: 1px solid #c6c6c6;
-  border-radius: 5px;
 
   ul {
     list-style-type: none;
     padding-left: 0;
-    margin-bottom: 4px;
-    margin-top: 4px;
+    margin: 0;
 
     li {
       display: flex;

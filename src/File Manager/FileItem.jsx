@@ -8,10 +8,9 @@ import {
   FaRegFolderOpen,
 } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
-// import FilePreviewer from "./FilePreviewer";
-// import Popover from '../../../Popover/Popover';
 import { MdOutlineDelete } from "react-icons/md";
 import ContextMenu from "./components/Context Menu/ContextMenu";
+import { useDetectOutsideClick } from "./hooks/useDetectOutsideClick";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -35,18 +34,23 @@ const FileItem = ({
   setShowDelete,
   currentPath,
 }) => {
+  const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [showFilePreview, setShowFilePreview] = useState(false);
-  const contextMenuRef = useRef(null);
 
-  const handleDelete = () => {
-    contextMenuRef.current?.close();
+  const contextMenuRef = useDetectOutsideClick(() => {
+    setVisible(false);
+  });
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    setVisible(false);
     setShowDelete(true);
   };
 
   const handleFileAccess = () => {
-    contextMenuRef.current?.close();
+    setVisible(false);
     if (file.isDirectory) {
       setCurrentPath((prev) => {
         if (prev === "") {
@@ -62,7 +66,8 @@ const FileItem = ({
     }
   };
 
-  const handleFileSelection = () => {
+  const handleFileSelection = (e) => {
+    e.stopPropagation();
     setIsItemSelection(true);
     setSelectedFile(file);
     setSelectedFileIndex(index);
@@ -82,7 +87,6 @@ const FileItem = ({
 
   useEffect(() => {
     setFileSelected(selectedFileIndex === index);
-    selectedFileIndex !== index && contextMenuRef.current?.close();
   }, [selectedFileIndex]);
 
   useEffect(() => {
@@ -90,7 +94,7 @@ const FileItem = ({
   }, [isItemSelection]);
 
   const menuItems = (
-    <div className="py-1 file-context-menu-list">
+    <div className="file-context-menu-list">
       <ul>
         <li onClick={handleFileAccess}>
           {file.isDirectory ? (
@@ -111,6 +115,9 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
+        triggerRef={contextMenuRef.ref}
+        visible={visible}
+        setVisible={setVisible}
         // placement={'autoHorizontalStart'}
         // triggerType={'contextMenu'}
         content={menuItems}

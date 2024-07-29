@@ -1,10 +1,15 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-const ContextMenu = ({ children, content }) => {
-  const contentRef = useRef(null);
-  const [visible, setVisible] = useState(false);
+const ContextMenu = ({
+  children,
+  triggerRef,
+  content,
+  visible,
+  setVisible,
+}) => {
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
+
   const handleContextMenu = (e) => {
     e.preventDefault();
     setVisible(true);
@@ -31,18 +36,22 @@ const ContextMenu = ({ children, content }) => {
       setTop(`${clickY - rootH - 5}px`);
     }
   };
+
   return (
-    <div onContextMenu={handleContextMenu}>
+    <div onContextMenu={handleContextMenu} onClick={(e) => setVisible(false)}>
       {children}
       {visible && (
         <div
-          ref={contentRef}
+          ref={triggerRef}
           style={{
             position: "absolute",
             left: left,
             top: top,
             backgroundColor: "white",
+            border: "1px solid #c6c6c6",
             borderRadius: "5px",
+            paddingTop: "5px",
+            paddingBottom: "5px",
           }}
         >
           {content}
