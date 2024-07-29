@@ -13,7 +13,12 @@ const Files = ({
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
   return (
-    <div className="files overflow-content-scroll">
+    <div
+      className="files"
+      style={{
+        overflowY: "auto",
+      }}
+    >
       {currentPathFiles?.length > 0 ? (
         <>
           {currentPathFiles.map((file, index) => (

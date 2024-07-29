@@ -126,12 +126,13 @@ svg {
       .sb-folders-list {
         list-style: none;
         padding: 0px 6px;
-        height: 54vh;
+        height: 100%;
 
         overflow-y: auto !important;
 
         &::-webkit-scrollbar {
           width: 5px;
+          height: 8px;
           padding-top: 2px;
         }
 
@@ -419,12 +420,15 @@ svg {
 }
 
 .file-context-menu-list {
-  font-size: 1.3em;
+  font-size: 1.1em;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
 
   ul {
     list-style-type: none;
     padding-left: 0;
-    margin-bottom: 0;
+    margin-bottom: 4px;
+    margin-top: 4px;
 
     li {
       display: flex;

@@ -11,6 +11,7 @@ import { PiFolderOpen } from "react-icons/pi";
 // import FilePreviewer from "./FilePreviewer";
 // import Popover from '../../../Popover/Popover';
 import { MdOutlineDelete } from "react-icons/md";
+import ContextMenu from "./components/Context Menu/ContextMenu";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -88,7 +89,7 @@ const FileItem = ({
     selectedFileIndex === index && setFileSelected(isItemSelection);
   }, [isItemSelection]);
 
-  const contextMenu = (
+  const menuItems = (
     <div className="py-1 file-context-menu-list">
       <ul>
         <li onClick={handleFileAccess}>
@@ -109,34 +110,34 @@ const FileItem = ({
 
   return (
     <>
-      {/* <Popover
-                placement={'autoHorizontalStart'}
-                triggerType={'contextMenu'}
-                content={contextMenu}
-                triggerRef={contextMenuRef}
-            > */}
-      <div
-        className={`file-item ${
-          fileSelected ? "background-secondary text-white" : ""
-        }`}
-        title={file.name}
-        onClick={handleFileSelection}
-        onKeyUp={handleOnKeyUp}
-        onContextMenu={() => {
-          setIsItemSelection(true);
-          setSelectedFile(file);
-          setSelectedFileIndex(index);
-        }}
-        tabIndex={0}
+      <ContextMenu
+        // placement={'autoHorizontalStart'}
+        // triggerType={'contextMenu'}
+        content={menuItems}
+        // triggerRef={contextMenuRef}
       >
-        {file.isDirectory ? (
-          <FaRegFolderOpen size={48} />
-        ) : (
-          <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
-        )}
-        <span className="text-truncate file-name">{file.name}</span>
-      </div>
-      {/* </Popover> */}
+        <div
+          className={`file-item ${
+            fileSelected ? "background-secondary text-white" : ""
+          }`}
+          title={file.name}
+          onClick={handleFileSelection}
+          onKeyUp={handleOnKeyUp}
+          onContextMenu={() => {
+            setIsItemSelection(true);
+            setSelectedFile(file);
+            setSelectedFileIndex(index);
+          }}
+          tabIndex={0}
+        >
+          {file.isDirectory ? (
+            <FaRegFolderOpen size={48} />
+          ) : (
+            <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
+          )}
+          <span className="text-truncate file-name">{file.name}</span>
+        </div>
+      </ContextMenu>
 
       {/* <FilePreviewer
         file={file}
