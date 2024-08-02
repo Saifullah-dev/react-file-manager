@@ -52,16 +52,7 @@ const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
           })}
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          Nothing here yet
-        </div>
+        <div className="empty-nav-pane">Nothing here yet</div>
       )}
     </div>
   );

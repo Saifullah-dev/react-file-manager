@@ -5,7 +5,6 @@ import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Modal from "./components/Modal/Modal";
 import Button from "./components/Button/Button";
-// import Button from "../../../button/Button";
 // import { setErrorAlert } from "../../../../redux/reducers/patientSlice";
 // import { Message, Uploader, useToaster } from "rsuite";
 // import { useSelector } from "react-redux";
@@ -152,46 +151,29 @@ const FileExplorerToolbar = ({
   // Selected File/Folder Actions
   if (isItemSelection) {
     return (
-      <>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
+      <div className="file-action-container">
+        <button
+          className="item-action file-action"
+          onClick={() => setShowDelete(true)}
         >
-          <button
-            className="item-action file-action"
-            onClick={() => setShowDelete(true)}
-          >
-            <MdOutlineDelete size={19} />
-            <span>Delete</span>
-          </button>
-          {/* <div onClick={() => setShowDelete(true)}>dfs</div> */}
-          <button
-            className="item-action file-action"
-            onClick={() => setIsItemSelection(false)}
-          >
-            <MdClear size={18} />
-            <span>Clear Selection</span>
-          </button>
-        </div>
-      </>
+          <MdOutlineDelete size={19} />
+          <span>Delete</span>
+        </button>
+        <button
+          className="item-action file-action"
+          onClick={() => setIsItemSelection(false)}
+        >
+          <MdClear size={18} />
+          <span>Clear Selection</span>
+        </button>
+      </div>
     );
   }
   //
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
+    <div className="fm-toolbar">
+      <div>
         {toolbarLeftItems
           .filter((item) => item.permission)
           .map((item, index) => (
@@ -201,11 +183,7 @@ const FileExplorerToolbar = ({
             </button>
           ))}
       </div>
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
+      <div>
         {toolbarRightItems.map((item, index) => (
           <div key={index}>
             <div
@@ -230,17 +208,8 @@ const FileExplorerToolbar = ({
         setShow={setShowCreateFolder}
         dialogClassName={"w-25"}
       >
-        <div
-          style={{
-            padding: "8px 0",
-          }}
-        >
-          <div
-            style={{
-              borderBottom: "1px solid #c6c6c6",
-              padding: "8px 12px 12px",
-            }}
-          >
+        <div className="fm-create-folder-container">
+          <div className="fm-create-folder-input">
             <input
               ref={folderNameRef}
               type="text"
@@ -253,14 +222,7 @@ const FileExplorerToolbar = ({
               <div className="folder-error">{folderErrorMessage}</div>
             )}
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 8,
-              justifyContent: "flex-end",
-              padding: "8px 8px 0 0",
-            }}
-          >
+          <div className="fm-create-folder-action">
             <Button onClick={handleFolderCreating} type="primary">
               Create
             </Button>

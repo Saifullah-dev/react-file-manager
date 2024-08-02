@@ -22,25 +22,8 @@ const Modal = ({
 
   return (
     <dialog ref={modalRef} className={`fm-modal ${dialogClassName} dialog`}>
-      <div
-        className="modal-header"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          borderBottom: "1px solid #e9ecef",
-          padding: "0.50rem 1rem",
-          alignItems: "center",
-        }}
-      >
-        <span
-          style={{
-            margin: "0",
-            fontWeight: "bold",
-            color: "black",
-          }}
-        >
-          {heading}
-        </span>
+      <div className="fm-modal-header">
+        <span className="fm-modal-heading">{heading}</span>
         <MdClose
           size={18}
           onClick={() => setShow(false)}

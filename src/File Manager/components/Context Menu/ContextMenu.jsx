@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./ContextMenu.scss";
 
 const ContextMenu = ({
   children,
@@ -43,15 +44,10 @@ const ContextMenu = ({
       {visible && (
         <div
           ref={triggerRef}
+          className="fm-context-menu"
           style={{
-            position: "absolute",
-            left: left,
             top: top,
-            backgroundColor: "white",
-            border: "1px solid #c6c6c6",
-            borderRadius: "5px",
-            paddingTop: "5px",
-            paddingBottom: "5px",
+            left: left,
           }}
         >
           {content}

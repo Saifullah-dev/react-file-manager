@@ -46,17 +46,7 @@ const Files = ({
           ))}
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          This folder is empty.
-        </div>
+        <div className="empty-folder">This folder is empty.</div>
       )}
     </div>
   );
