@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaRegFile,
   FaRegFileImage,
@@ -8,9 +8,9 @@ import {
   FaRegFolderOpen,
 } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
-// import FilePreviewer from "./FilePreviewer";
-// import Popover from '../../../Popover/Popover';
 import { MdOutlineDelete } from "react-icons/md";
+import ContextMenu from "./components/Context Menu/ContextMenu";
+import { useDetectOutsideClick } from "./hooks/useDetectOutsideClick";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -34,18 +34,23 @@ const FileItem = ({
   setShowDelete,
   currentPath,
 }) => {
+  const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [showFilePreview, setShowFilePreview] = useState(false);
-  const contextMenuRef = useRef(null);
 
-  const handleDelete = () => {
-    contextMenuRef.current?.close();
+  const contextMenuRef = useDetectOutsideClick(() => {
+    setVisible(false);
+  });
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    setVisible(false);
     setShowDelete(true);
   };
 
   const handleFileAccess = () => {
-    contextMenuRef.current?.close();
+    setVisible(false);
     if (file.isDirectory) {
       setCurrentPath((prev) => {
         if (prev === "") {
@@ -61,7 +66,8 @@ const FileItem = ({
     }
   };
 
-  const handleFileSelection = () => {
+  const handleFileSelection = (e) => {
+    e.stopPropagation();
     setIsItemSelection(true);
     setSelectedFile(file);
     setSelectedFileIndex(index);
@@ -81,15 +87,14 @@ const FileItem = ({
 
   useEffect(() => {
     setFileSelected(selectedFileIndex === index);
-    selectedFileIndex !== index && contextMenuRef.current?.close();
   }, [selectedFileIndex]);
 
   useEffect(() => {
     selectedFileIndex === index && setFileSelected(isItemSelection);
   }, [isItemSelection]);
 
-  const contextMenu = (
-    <div className="py-1 file-context-menu-list">
+  const menuItems = (
+    <div className="file-context-menu-list">
       <ul>
         <li onClick={handleFileAccess}>
           {file.isDirectory ? (
@@ -109,34 +114,37 @@ const FileItem = ({
 
   return (
     <>
-      {/* <Popover
-                placement={'autoHorizontalStart'}
-                triggerType={'contextMenu'}
-                content={contextMenu}
-                triggerRef={contextMenuRef}
-            > */}
-      <div
-        className={`file-item ${
-          fileSelected ? "background-secondary text-white" : ""
-        }`}
-        title={file.name}
-        onClick={handleFileSelection}
-        onKeyUp={handleOnKeyUp}
-        onContextMenu={() => {
-          setIsItemSelection(true);
-          setSelectedFile(file);
-          setSelectedFileIndex(index);
-        }}
-        tabIndex={0}
+      <ContextMenu
+        ref={contextMenuRef.ref}
+        visible={visible}
+        setVisible={setVisible}
+        // placement={'autoHorizontalStart'}
+        // triggerType={'contextMenu'}
+        content={menuItems}
+        // triggerRef={contextMenuRef}
       >
-        {file.isDirectory ? (
-          <FaRegFolderOpen size={48} />
-        ) : (
-          <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
-        )}
-        <span className="text-truncate file-name">{file.name}</span>
-      </div>
-      {/* </Popover> */}
+        <div
+          className={`file-item ${
+            fileSelected ? "background-secondary text-white" : ""
+          }`}
+          title={file.name}
+          onClick={handleFileSelection}
+          onKeyUp={handleOnKeyUp}
+          onContextMenu={() => {
+            setIsItemSelection(true);
+            setSelectedFile(file);
+            setSelectedFileIndex(index);
+          }}
+          tabIndex={0}
+        >
+          {file.isDirectory ? (
+            <FaRegFolderOpen size={48} />
+          ) : (
+            <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
+          )}
+          <span className="text-truncate file-name">{file.name}</span>
+        </div>
+      </ContextMenu>
 
       {/* <FilePreviewer
         file={file}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FileItem from "./FileItem";
 
 const Files = ({
@@ -12,8 +12,21 @@ const Files = ({
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
+  useEffect(() => {
+    setSelectedFileIndex(null);
+    setIsItemSelection(false);
+    setSelectedFile(null);
+  }, [currentPath]);
+
   return (
-    <div className="files overflow-content-scroll">
+    <div
+      className="files"
+      onClick={(e) => {
+        setSelectedFileIndex(null);
+        setIsItemSelection(false);
+        setSelectedFile(null);
+      }}
+    >
       {currentPathFiles?.length > 0 ? (
         <>
           {currentPathFiles.map((file, index) => (
@@ -33,17 +46,7 @@ const Files = ({
           ))}
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          This folder is empty.
-        </div>
+        <div className="empty-folder">This folder is empty.</div>
       )}
     </div>
   );

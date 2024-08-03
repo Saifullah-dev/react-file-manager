@@ -25,8 +25,6 @@ const allowedFileExtensions = [
 
 const FileManager = () => {
   //   const dispatch = useDispatch();
-  //   const patientID = useSelector((e) => e.show.selectedPatientId);
-  //   const practiceID = useSelector((e) => e.show.practiceID);
 
   // States
   const [isItemSelection, setIsItemSelection] = useState(false);
@@ -119,27 +117,13 @@ const FileManager = () => {
   ]);
   //
 
-  // Getting Patient's Folder by ID
+  // Getting Files API Call
   //   const getPatientFolders = useGetByMultiParams(
   //     [{ paramName: "id", paramValue: patientID }],
   //     "getPatientFolders",
   //     endPoints.getPatientFolders,
   //     patientID ? true : false
   //   );
-  //
-
-  // Refetching getPatientFolders when patientID is changed
-  //   useEffect(() => {
-  //     if (patientID) {
-  //       setSelectedFile(null);
-  //       setIsItemSelection(false);
-  //       setCurrentFolder(null);
-  //       setCurrentPath("");
-  //       setFiles([]);
-  //       setCurrentPathFiles([]);
-  //       getPatientFolders.refetch();
-  //     }
-  //   }, [patientID]);
   //
 
   // Setting All Files & Folders of Patient
@@ -412,18 +396,6 @@ const FileManager = () => {
     }
   };
 
-  // No Patient Selected
-  //   if (!patientID) {
-  //     return (
-  //       <div className="file-explorer border-0">
-  //         <h6 className="centered-div h-100 text-primary-color">
-  //           Please Select a Pateint!
-  //         </h6>
-  //       </div>
-  //     );
-  //   }
-  //
-
   return (
     <>
       <main className="file-explorer">
@@ -465,8 +437,6 @@ const FileManager = () => {
         </section>
         <div
           ref={containerRef}
-          className="px-0"
-          //   fluid
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
         >
@@ -488,36 +458,22 @@ const FileManager = () => {
               />
             </div>
             <div
-              className="px-0 folers-preview"
+              className="folers-preview"
               style={{ width: colSizes.col2 + "%" }}
             >
-              <section
-                style={{
-                  borderBottom: "1px solid #dddddd",
-                  padding: "10px 15px",
-                }}
-              >
-                <FoldersPath
-                  currentPath={currentPath}
-                  setCurrentPath={setCurrentPath}
-                />
-              </section>
-              <section
-                style={{
-                  padding: "8px",
-                  paddingRight: "4px",
-                }}
-              >
-                <Files
-                  currentPathFiles={currentPathFiles}
-                  setCurrentPath={setCurrentPath}
-                  isItemSelection={isItemSelection}
-                  setIsItemSelection={setIsItemSelection}
-                  setSelectedFile={setSelectedFile}
-                  setShowDelete={setShowDelete}
-                  currentPath={currentPath}
-                />
-              </section>
+              <FoldersPath
+                currentPath={currentPath}
+                setCurrentPath={setCurrentPath}
+              />
+              <Files
+                currentPathFiles={currentPathFiles}
+                setCurrentPath={setCurrentPath}
+                isItemSelection={isItemSelection}
+                setIsItemSelection={setIsItemSelection}
+                setSelectedFile={setSelectedFile}
+                setShowDelete={setShowDelete}
+                currentPath={currentPath}
+              />
             </div>
           </div>
         </div>
@@ -529,30 +485,18 @@ const FileManager = () => {
           setShow={setShowDelete}
           dialogClassName={"w-25"}
         >
-          <p
-            style={{
-              borderBottom: "1px solid #dddddd",
-              padding: "10px 15px",
-              marginBottom: "1rem",
-            }}
-          >
-            Are you sure you want to delete {selectedFile?.name}?
-          </p>
-          <div
-            style={{
-              display: "flex",
-              gap: "0.5rem",
-              justifyContent: "flex-end",
-              marginBottom: "1rem",
-              marginRight: "1rem",
-            }}
-          >
-            <Button type="secondary" onClick={() => setShowDelete(false)}>
-              Cancel
-            </Button>
-            <Button type="danger" onClick={() => handleDelete(selectedFile)}>
-              Delete
-            </Button>
+          <div className="file-delete-confirm">
+            <p className="file-delete-confirm-text">
+              Are you sure you want to delete {selectedFile?.name}?
+            </p>
+            <div className="file-delete-confirm-actions">
+              <Button type="secondary" onClick={() => setShowDelete(false)}>
+                Cancel
+              </Button>
+              <Button type="danger" onClick={() => handleDelete(selectedFile)}>
+                Delete
+              </Button>
+            </div>
           </div>
         </Modal>
         {/* Delete Folder/File */}

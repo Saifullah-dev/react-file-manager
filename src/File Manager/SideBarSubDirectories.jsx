@@ -55,19 +55,9 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
           </span>
           <div className="sb-folder-details">
             {isOpen || isActive ? (
-              <FaRegFolderOpen
-                size={20}
-                style={{
-                  margin: "0 7px",
-                }}
-              />
+              <FaRegFolderOpen size={20} className="folder-open-icon" />
             ) : (
-              <FaRegFolder
-                size={17}
-                style={{
-                  margin: "1px 9px 0px 8px",
-                }}
-              />
+              <FaRegFolder size={17} className="folder-close-icon" />
             )}
             <span className="sb-folder-name" title={folder.name}>
               {folder.name}
@@ -75,11 +65,7 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
           </div>
         </div>
         <Collapsible open={isOpen}>
-          <div
-            style={{
-              marginLeft: "10px",
-            }}
-          >
+          <div className="folder-collapsible">
             {folder.subDirectories.map((item, index) => (
               <SideBarSubDirectories
                 key={index}
@@ -101,19 +87,9 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
         <span className="non-expanable"></span>
         <div className="sb-folder-details">
           {isActive ? (
-            <FaRegFolderOpen
-              size={20}
-              style={{
-                margin: "0 7px",
-              }}
-            />
+            <FaRegFolderOpen size={20} className="folder-open-icon" />
           ) : (
-            <FaRegFolder
-              size={17}
-              style={{
-                margin: "1px 9px 0px 8px",
-              }}
-            />
+            <FaRegFolder size={17} className="folder-close-icon" />
           )}
           <span className="sb-folder-name" title={folder.name}>
             {folder.name}
