@@ -115,7 +115,7 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
-        triggerRef={contextMenuRef.ref}
+        ref={contextMenuRef.ref}
         visible={visible}
         setVisible={setVisible}
         // placement={'autoHorizontalStart'}
