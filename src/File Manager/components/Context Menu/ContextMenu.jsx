@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "./ContextMenu.scss";
 
-const ContextMenu = ({ children, ref, content, visible, setVisible }) => {
+const ContextMenu = ({
+  children,
+  contextMenuRef,
+  content,
+  visible,
+  setVisible,
+}) => {
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
 
@@ -52,7 +58,7 @@ const ContextMenu = ({ children, ref, content, visible, setVisible }) => {
       {children}
       {visible && (
         <div
-          ref={ref}
+          ref={contextMenuRef}
           className="fm-context-menu"
           style={{
             top: top,
