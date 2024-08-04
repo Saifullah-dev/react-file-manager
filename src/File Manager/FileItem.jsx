@@ -115,13 +115,10 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
-        ref={contextMenuRef.ref}
+        contextMenuRef={contextMenuRef.ref}
         visible={visible}
         setVisible={setVisible}
-        // placement={'autoHorizontalStart'}
-        // triggerType={'contextMenu'}
         content={menuItems}
-        // triggerRef={contextMenuRef}
       >
         <div
           className={`file-item ${
