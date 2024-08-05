@@ -82,31 +82,6 @@ const FileManager = () => {
       path: "Folder 1/Folder New/Folder New 2/Folder New 3/Folder New 4/Folder New 5",
     },
     {
-      name: "Folder 2",
-      isDirectory: true,
-      path: "",
-    },
-    {
-      name: "Folder 3",
-      isDirectory: true,
-      path: "",
-    },
-    {
-      name: "Folder 4",
-      isDirectory: true,
-      path: "",
-    },
-    {
-      name: "Folder 5",
-      isDirectory: true,
-      path: "",
-    },
-    {
-      name: "Folder 6",
-      isDirectory: true,
-      path: "",
-    },
-    {
       name: "Profile Pic.jpg",
       isDirectory: false,
       path: "",
@@ -123,6 +98,8 @@ const FileManager = () => {
     },
   ]);
   //
+
+  console.log(files);
 
   // Getting Files API Call
   //   const getPatientFolders = useGetByMultiParams(
@@ -409,6 +386,7 @@ const FileManager = () => {
         return;
       }
     }
+    const isRootFolder = selectedFile.path === "";
     setFiles((prev) => {
       return prev.map((file) => {
         if (
@@ -420,20 +398,27 @@ const FileManager = () => {
             ...file,
             name: renameFile,
           };
-        } else if (
-          selectedFile.path === "" &&
-          file.path === selectedFile.name
-        ) {
+        } else if (isRootFolder && file.path === selectedFile.name) {
           // Direct child of root folder
           return {
             ...file,
             path: renameFile,
           };
-        } else if (file.path.startsWith(selectedFile.name + "/")) {
+        } else if (
+          file.path.startsWith(selectedFile.path + "/" + selectedFile.name) ||
+          (isRootFolder && file.path.startsWith(selectedFile.name + "/"))
+        ) {
           // All files in the folder
+          const basePath = isRootFolder
+            ? selectedFile.name
+            : selectedFile.path + "/" + selectedFile.name;
+          const newBasePath = isRootFolder
+            ? renameFile
+            : basePath.split("/").slice(0, -1).join("/") + "/" + renameFile;
+          const newPath = newBasePath + file.path.slice(basePath.length);
           return {
             ...file,
-            path: renameFile + file.path.slice(selectedFile.name.length),
+            path: newPath,
           };
         } else {
           return file;
