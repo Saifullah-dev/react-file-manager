@@ -114,13 +114,13 @@ const FileItem = ({
           )}
           <span>Open</span>
         </li>
-        <li onClick={handleDelete}>
-          <MdOutlineDelete size={19} />
-          <span>Delete</span>
-        </li>
         <li onClick={handleRename}>
           <BiRename size={19} />
           <span>Rename</span>
+        </li>
+        <li onClick={handleDelete}>
+          <MdOutlineDelete size={19} />
+          <span>Delete</span>
         </li>
       </ul>
     </div>
@@ -151,7 +151,11 @@ const FileItem = ({
           {file.isDirectory ? (
             <FaRegFolderOpen size={48} />
           ) : (
-            <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
+            <>
+              {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
+                <FaRegFile size={48} />
+              )}
+            </>
           )}
           <span className="text-truncate file-name">{file.name}</span>
         </div>

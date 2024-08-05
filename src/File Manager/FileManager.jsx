@@ -6,6 +6,7 @@ import BreadCrumb from "./Bread Crumb/BreadCrumb";
 import Files from "./Files/Files";
 import Modal from "../components/Modal/Modal";
 import Button from "../components/Button/Button";
+import { IoWarningOutline } from "react-icons/io5";
 // import { useAddData, useDeleteData, useGetByMultiParams } from "../../../../api/apiCalls";
 // import { useDispatch, useSelector } from "react-redux";
 // import { endPoints } from "../../../../api/api";
@@ -36,6 +37,9 @@ const FileManager = () => {
   const [showRename, setShowRename] = useState(false);
   const [renameFile, setRenameFile] = useState("");
   const renameFileRef = useRef(null);
+  const [renameFileWarning, setRenameFileWarning] = useState(false);
+  const [fileRenameError, setFileRenameError] = useState(false);
+  const [renameErrorMessage, setRenameErrorMessage] = useState("");
   const [files, setFiles] = useState([
     {
       name: "Folder 1",
@@ -366,20 +370,45 @@ const FileManager = () => {
   // Rename Folder/File
   useEffect(() => {
     if (showRename && selectedFile) {
-      renameFileRef.current.focus();
+      renameFileRef?.current?.focus();
 
       if (selectedFile.isDirectory) {
-        renameFileRef.current.select();
+        renameFileRef?.current?.select();
       } else {
         const fileExtension = selectedFile.name.split(".").pop();
         const fileNameLength =
           selectedFile.name.length - fileExtension.length - 1;
-        renameFileRef.current.setSelectionRange(0, fileNameLength);
+        renameFileRef?.current?.setSelectionRange(0, fileNameLength);
       }
+    } else {
+      setRenameFileWarning(false);
     }
   }, [showRename]);
 
-  const handleFileRename = () => {
+  const handleFileRename = (e, isConfirmed = false) => {
+    if (renameFile === "") {
+      setFileRenameError(true);
+      setRenameErrorMessage(
+        `${selectedFile.isDirectory ? "Folder" : "File"} name is required!`
+      );
+      return;
+    } else if (renameFile === selectedFile.name) {
+      setShowRename(false);
+      return;
+    } else if (currentPathFiles.some((file) => file.name === renameFile)) {
+      setFileRenameError(true);
+      setRenameErrorMessage(
+        "A file or folder with the same name already exists!"
+      );
+      return;
+    } else if (!selectedFile.isDirectory && !isConfirmed) {
+      const fileExtension = selectedFile.name.split(".").pop();
+      const renameFileExtension = renameFile.split(".").pop();
+      if (fileExtension !== renameFileExtension) {
+        setRenameFileWarning(true);
+        return;
+      }
+    }
     setFiles((prev) => {
       return prev.map((file) => {
         if (
@@ -413,6 +442,19 @@ const FileManager = () => {
     });
     setSelectedFile((prev) => ({ ...prev, name: renameFile }));
     setShowRename(false);
+  };
+
+  const handleValidateFolderRename = (e) => {
+    const invalidCharsRegex = /[\\/:*?"<>|]/;
+    if (invalidCharsRegex.test(e.key)) {
+      e.preventDefault();
+      setRenameErrorMessage(
+        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
+      );
+      setFileRenameError(true);
+    } else {
+      setFileRenameError(false);
+    }
   };
   //
 
@@ -552,26 +594,54 @@ const FileManager = () => {
         setShow={setShowRename}
         dialogClassName={"w-25"}
       >
-        <div className="fm-rename-folder-container">
-          <div className="fm-rename-folder-input">
-            <input
-              ref={renameFileRef}
-              type="text"
-              value={renameFile}
-              onChange={(e) => setRenameFile(e.target.value)}
-              // onKeyDown={handleValidateFolderName}
-              className="action-input"
-            />
-            {/* {folderNameError && (
-              <div className="folder-error">{folderErrorMessage}</div>
-            )} */}
+        {renameFileWarning ? (
+          <div className="fm-rename-folder-container">
+            <div className="fm-rename-folder-input">
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <IoWarningOutline size={70} color="orange" />
+                <div>
+                  If you change a file name extension, the file might become
+                  unusable. Are you sure you want to change it?
+                </div>
+              </div>
+            </div>
+            <div className="fm-rename-folder-action">
+              <Button
+                type="secondary"
+                onClick={() => setRenameFileWarning(false)}
+              >
+                No
+              </Button>
+              <Button type="danger" onClick={(e) => handleFileRename(e, true)}>
+                Yes
+              </Button>
+            </div>
           </div>
-          <div className="fm-rename-folder-action">
-            <Button onClick={handleFileRename} type="primary">
-              Save
-            </Button>
+        ) : (
+          <div className="fm-rename-folder-container">
+            <div className="fm-rename-folder-input">
+              <input
+                ref={renameFileRef}
+                type="text"
+                value={renameFile}
+                onChange={(e) => {
+                  setRenameFile(e.target.value);
+                  setFileRenameError(false);
+                }}
+                onKeyDown={handleValidateFolderRename}
+                className="action-input"
+              />
+              {fileRenameError && (
+                <div className="folder-error">{renameErrorMessage}</div>
+              )}
+            </div>
+            <div className="fm-rename-folder-action">
+              <Button onClick={handleFileRename} type="primary">
+                Save
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </Modal>
       {/* Rename Folder/File */}
     </main>

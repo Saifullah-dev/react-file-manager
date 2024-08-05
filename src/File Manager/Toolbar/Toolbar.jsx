@@ -159,13 +159,6 @@ const Toolbar = ({
         <div>
           <button
             className="item-action file-action"
-            onClick={() => setShowDelete(true)}
-          >
-            <MdOutlineDelete size={19} />
-            <span>Delete</span>
-          </button>
-          <button
-            className="item-action file-action"
             onClick={() => {
               setRenameFile(selectedFile.name);
               setShowRename(true);
@@ -173,6 +166,13 @@ const Toolbar = ({
           >
             <BiRename size={19} />
             <span>Rename</span>
+          </button>
+          <button
+            className="item-action file-action"
+            onClick={() => setShowDelete(true)}
+          >
+            <MdOutlineDelete size={19} />
+            <span>Delete</span>
           </button>
         </div>
         <button
