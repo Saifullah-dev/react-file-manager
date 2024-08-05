@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBarSubDirectories from "./SideBarSubDirectories";
 
-const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
+const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
   const [foldersTree, setFoldersTree] = useState([]);
 
   const createSubDirectories = (folder, foldersStruct) => {
@@ -58,4 +58,4 @@ const SideBarDirectories = ({ files, currentPath, setCurrentPath }) => {
   );
 };
 
-export default SideBarDirectories;
+export default NavigationPane;

@@ -3,14 +3,15 @@ import { BsFolderPlus, BsGridFill } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import Modal from "./components/Modal/Modal";
-import Button from "./components/Button/Button";
+import Modal from "../../components/Modal/Modal";
+import Button from "../../components/Button/Button";
+import { BiRename } from "react-icons/bi";
 // import { setErrorAlert } from "../../../../redux/reducers/patientSlice";
 // import { Message, Uploader, useToaster } from "rsuite";
 // import { useSelector } from "react-redux";
 // import { endPoints } from "../../../../api/api";
 
-const FileExplorerToolbar = ({
+const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
   handleCreateFolder = () => {},
@@ -22,6 +23,9 @@ const FileExplorerToolbar = ({
   currentPath,
   currentFolder,
   setShowDelete,
+  setShowRename,
+  setRenameFile,
+  selectedFile,
   setFiles,
   handleDelete,
 }) => {
@@ -152,13 +156,25 @@ const FileExplorerToolbar = ({
   if (isItemSelection) {
     return (
       <div className="file-action-container">
-        <button
-          className="item-action file-action"
-          onClick={() => setShowDelete(true)}
-        >
-          <MdOutlineDelete size={19} />
-          <span>Delete</span>
-        </button>
+        <div>
+          <button
+            className="item-action file-action"
+            onClick={() => setShowDelete(true)}
+          >
+            <MdOutlineDelete size={19} />
+            <span>Delete</span>
+          </button>
+          <button
+            className="item-action file-action"
+            onClick={() => {
+              setRenameFile(selectedFile.name);
+              setShowRename(true);
+            }}
+          >
+            <BiRename size={19} />
+            <span>Rename</span>
+          </button>
+        </div>
         <button
           className="item-action file-action"
           onClick={() => setIsItemSelection(false)}
@@ -355,4 +371,4 @@ const FileExplorerToolbar = ({
   );
 };
 
-export default FileExplorerToolbar;
+export default Toolbar;

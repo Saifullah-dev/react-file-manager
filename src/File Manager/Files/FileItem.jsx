@@ -9,8 +9,9 @@ import {
 } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
 import { MdOutlineDelete } from "react-icons/md";
-import ContextMenu from "./components/Context Menu/ContextMenu";
-import { useDetectOutsideClick } from "./hooks/useDetectOutsideClick";
+import ContextMenu from "../../components/Context Menu/ContextMenu";
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import { BiRename } from "react-icons/bi";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -32,6 +33,8 @@ const FileItem = ({
   setIsItemSelection,
   setSelectedFile,
   setShowDelete,
+  setShowRename,
+  setRenameFile,
   currentPath,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -47,6 +50,13 @@ const FileItem = ({
     e.stopPropagation();
     setVisible(false);
     setShowDelete(true);
+  };
+
+  const handleRename = (e) => {
+    e.stopPropagation();
+    setVisible(false);
+    setRenameFile(file.name);
+    setShowRename(true);
   };
 
   const handleFileAccess = () => {
@@ -107,6 +117,10 @@ const FileItem = ({
         <li onClick={handleDelete}>
           <MdOutlineDelete size={19} />
           <span>Delete</span>
+        </li>
+        <li onClick={handleRename}>
+          <BiRename size={19} />
+          <span>Rename</span>
         </li>
       </ul>
     </div>
