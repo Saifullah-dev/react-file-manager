@@ -72,6 +72,10 @@ svg {
       display: flex;
       justify-content: space-between;
 
+      > div {
+        display: flex;
+      }
+
       .file-action {
         background-color: transparent;
         gap: 5px;
@@ -81,7 +85,7 @@ svg {
           background-color: rgb(0, 0, 0, 0.55) !important;
           border-radius: 3px;
           color: white;
-          font-weight: bold;
+          text-shadow: 0px 0px 1px white;
         }
       }
     }
@@ -133,7 +137,7 @@ svg {
     display: flex;
     height: calc(72dvh - 52px);
 
-    .folders-sidebar {
+    .navigation-pane {
       z-index: 1;
       padding: 8px 0px;
 
@@ -267,7 +271,7 @@ svg {
       padding-left: 0px;
     }
 
-    .folders-path {
+    .breadcrumb {
       display: flex;
       gap: 0.5rem;
       overflow-x: scroll;
@@ -525,7 +529,23 @@ svg {
 
   .fm-create-folder-action {
     display: flex;
-    gap: 8;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 8px 8px 0 0;
+  }
+}
+
+.fm-rename-folder-container {
+  padding: 8px 0;
+
+  .fm-rename-folder-input {
+    border-bottom: 1px solid #c6c6c6;
+    padding: 8px 12px 12px;
+  }
+
+  .fm-rename-folder-action {
+    display: flex;
+    gap: 8px;
     justify-content: flex-end;
     padding: 8px 8px 0 0;
   }

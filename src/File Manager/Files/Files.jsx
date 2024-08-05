@@ -8,6 +8,8 @@ const Files = ({
   setIsItemSelection,
   setSelectedFile,
   setShowDelete,
+  setShowRename,
+  setRenameFile,
   currentPath,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
@@ -41,6 +43,8 @@ const Files = ({
               setIsItemSelection={setIsItemSelection}
               setSelectedFile={setSelectedFile}
               setShowDelete={setShowDelete}
+              setShowRename={setShowRename}
+              setRenameFile={setRenameFile}
               currentPath={currentPath}
             />
           ))}

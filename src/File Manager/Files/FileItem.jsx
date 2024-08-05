@@ -9,8 +9,9 @@ import {
 } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
 import { MdOutlineDelete } from "react-icons/md";
-import ContextMenu from "./components/Context Menu/ContextMenu";
-import { useDetectOutsideClick } from "./hooks/useDetectOutsideClick";
+import ContextMenu from "../../components/Context Menu/ContextMenu";
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import { BiRename } from "react-icons/bi";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -32,6 +33,8 @@ const FileItem = ({
   setIsItemSelection,
   setSelectedFile,
   setShowDelete,
+  setShowRename,
+  setRenameFile,
   currentPath,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -47,6 +50,13 @@ const FileItem = ({
     e.stopPropagation();
     setVisible(false);
     setShowDelete(true);
+  };
+
+  const handleRename = (e) => {
+    e.stopPropagation();
+    setVisible(false);
+    setRenameFile(file.name);
+    setShowRename(true);
   };
 
   const handleFileAccess = () => {
@@ -104,6 +114,10 @@ const FileItem = ({
           )}
           <span>Open</span>
         </li>
+        <li onClick={handleRename}>
+          <BiRename size={19} />
+          <span>Rename</span>
+        </li>
         <li onClick={handleDelete}>
           <MdOutlineDelete size={19} />
           <span>Delete</span>
@@ -137,7 +151,11 @@ const FileItem = ({
           {file.isDirectory ? (
             <FaRegFolderOpen size={48} />
           ) : (
-            <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()]}</>
+            <>
+              {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
+                <FaRegFile size={48} />
+              )}
+            </>
           )}
           <span className="text-truncate file-name">{file.name}</span>
         </div>

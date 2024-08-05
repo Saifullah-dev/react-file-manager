@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { MdHome, MdOutlineNavigateNext } from "react-icons/md";
 
-const FoldersPath = ({ currentPath, setCurrentPath }) => {
+const BreadCrumb = ({ currentPath, setCurrentPath }) => {
   const [folders, setFolders] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const FoldersPath = ({ currentPath, setCurrentPath }) => {
   };
 
   return (
-    <div className="folders-path">
+    <div className="breadcrumb">
       <div className="folder-name" onClick={() => setCurrentPath("")}>
         <MdHome /> Home
       </div>
@@ -38,4 +38,4 @@ const FoldersPath = ({ currentPath, setCurrentPath }) => {
   );
 };
 
-export default FoldersPath;
+export default BreadCrumb;
