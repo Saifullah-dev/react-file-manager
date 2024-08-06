@@ -55,38 +55,21 @@ const FileItem = ({
     setVisible(false);
   });
 
-  const handleCut = (e) => {
-    e.stopPropagation();
-    setClipBoard(() => {
-      var filesToPaste = [];
-      if (file.isDirectory) {
-        filesToPaste.push(file);
-        files.forEach((f) => {
-          if (
-            file.path === "" &&
-            (f.path === file.name || f.path.startsWith(file.name + "/"))
-          ) {
-            filesToPaste.push(f);
-          } else if (f.path.startsWith(file.path + "/")) {
-            filesToPaste.push(f);
-          }
-        });
-      } else {
-        filesToPaste.push(file);
-      }
-      return {
-        files: filesToPaste,
-        isMoving: true,
-      };
-    });
-    setVisible(false);
+  const getFileHierarchy = (selectedFile, files) => {
+    const directChildren = files.filter(
+      (f) => f.path === selectedFile.path + "/" + selectedFile.name
+    );
+    return {
+      ...selectedFile,
+      children: directChildren.map((f) => getFileHierarchy(f, files)),
+    };
   };
 
-  const handleCopy = (e) => {
+  const handleCutCopy = (e, isMoving) => {
     e.stopPropagation();
     setClipBoard({
-      files: [file],
-      isMoving: false,
+      files: [{ ...getFileHierarchy(file, files) }],
+      isMoving: isMoving,
     });
     setVisible(false);
   };
@@ -94,9 +77,18 @@ const FileItem = ({
   const handleFilePasting = (e) => {
     e.stopPropagation();
     if (clipBoard) {
-      const pastePath =
-        file.path === "" ? file.name : file.path + "/" + file.name;
-      handlePaste(e, pastePath);
+      const pastePath = file.path + "/" + file.name;
+      const selectedCopiedFile = clipBoard.files[0];
+      const copiedFiles = files.filter((f) => {
+        const folderToCopy =
+          f.path === selectedCopiedFile.path &&
+          f.name === selectedCopiedFile.name;
+        const folderChildren = f.path.startsWith(
+          selectedCopiedFile.path + "/" + selectedCopiedFile.name
+        );
+        return folderToCopy || folderChildren;
+      });
+      handlePaste(e, pastePath, copiedFiles);
       setVisible(false);
     }
   };
@@ -117,13 +109,7 @@ const FileItem = ({
   const handleFileAccess = () => {
     setVisible(false);
     if (file.isDirectory) {
-      setCurrentPath((prev) => {
-        if (prev === "") {
-          return file.name;
-        } else {
-          return prev + "/" + file.name;
-        }
-      });
+      setCurrentPath((prev) => prev + "/" + file.name);
       setSelectedFileIndex(null);
     } else {
       // Display File Image/PDF/Txt etc
@@ -169,11 +155,11 @@ const FileItem = ({
           )}
           <span>Open</span>
         </li>
-        <li onClick={handleCut}>
+        <li onClick={(e) => handleCutCopy(e, true)}>
           <BsScissors size={19} />
           <span>Cut</span>
         </li>
-        <li onClick={handleCopy}>
+        <li onClick={(e) => handleCutCopy(e, false)}>
           <BsCopy strokeWidth={0.1} size={17} />
           <span>Copy</span>
         </li>

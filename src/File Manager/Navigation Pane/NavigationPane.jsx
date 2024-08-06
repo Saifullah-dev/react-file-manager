@@ -5,7 +5,7 @@ const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
   const [foldersTree, setFoldersTree] = useState([]);
 
   const createSubDirectories = (folder, foldersStruct) => {
-    var pathName = (folder.path === "" ? "" : folder.path + "/") + folder.name;
+    var pathName = folder.path + "/" + folder.name;
     if (foldersStruct[pathName]) {
       return foldersStruct[pathName]?.map((item) => {
         return {

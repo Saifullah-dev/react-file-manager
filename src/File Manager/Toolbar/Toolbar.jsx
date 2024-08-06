@@ -27,6 +27,7 @@ const Toolbar = ({
   setShowRename,
   setRenameFile,
   selectedFile,
+  files,
   setFiles,
   clipBoard,
   setClipBoard,
@@ -132,13 +133,23 @@ const Toolbar = ({
 
   useEffect(() => {
     if (clipBoard) {
+      const selectedCopiedFile = clipBoard.files[0];
+      const copiedFiles = files.filter((f) => {
+        const folderToCopy =
+          f.path === selectedCopiedFile.path &&
+          f.name === selectedCopiedFile.name;
+        const folderChildren = f.path.startsWith(
+          selectedCopiedFile.path + "/" + selectedCopiedFile.name
+        );
+        return folderToCopy || folderChildren;
+      });
       if (toolbarLeftItems.find((item) => item.text === "Paste")) {
         setToolbarLeftItems((prev) => {
           return prev.map((item) => {
             if (item.text === "Paste") {
               return {
                 ...item,
-                onClick: (e) => handlePaste(e, currentPath),
+                onClick: (e) => handlePaste(e, currentPath, copiedFiles),
               };
             }
             return item;
@@ -152,7 +163,7 @@ const Toolbar = ({
               icon: <FaRegPaste size={18} />,
               text: "Paste",
               permission: true,
-              onClick: (e) => handlePaste(e, currentPath),
+              onClick: (e) => handlePaste(e, currentPath, copiedFiles),
             },
           ];
         });
@@ -162,7 +173,7 @@ const Toolbar = ({
         return prev.filter((item) => item.text !== "Paste");
       });
     }
-  }, [clipBoard, currentPath]);
+  }, [clipBoard, currentPath, files]);
 
   const toolbarRightItems = [
     // {
@@ -210,10 +221,17 @@ const Toolbar = ({
 
   // Selected File/Folder Actions
   if (isItemSelection) {
-    const pastePath =
-      selectedFile.path === ""
-        ? selectedFile.name
-        : selectedFile.path + "/" + selectedFile.name;
+    const pastePath = selectedFile.path + "/" + selectedFile.name;
+    const selectedCopiedFile = clipBoard?.files[0];
+    const copiedFiles = files.filter((f) => {
+      const folderToCopy =
+        f.path === selectedCopiedFile?.path &&
+        f.name === selectedCopiedFile?.name;
+      const folderChildren = f.path.startsWith(
+        selectedCopiedFile?.path + "/" + selectedCopiedFile?.name
+      );
+      return folderToCopy || folderChildren;
+    });
     return (
       <div className="file-action-container">
         <div>
@@ -228,7 +246,7 @@ const Toolbar = ({
           {selectedFile.isDirectory ? (
             <button
               className="item-action file-action"
-              onClick={(e) => handlePaste(e, pastePath)}
+              onClick={(e) => handlePaste(e, pastePath, copiedFiles)}
               disabled={!clipBoard}
             >
               <FaRegPaste size={18} />

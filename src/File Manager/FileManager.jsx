@@ -43,52 +43,22 @@ const FileManager = () => {
   const [clipBoard, setClipBoard] = useState(null);
   const [files, setFiles] = useState([
     {
-      name: "Folder 1",
+      name: "DCIM",
       isDirectory: true,
       path: "",
     },
     {
-      name: "Folder New",
+      name: "Camera",
       isDirectory: true,
-      path: "Folder 1",
+      path: "/DCIM",
     },
     {
-      name: "File 2.jpg",
-      isDirectory: false,
-      path: "Folder 1",
-    },
-    {
-      name: "Folder New 2",
+      name: "Portraits",
       isDirectory: true,
-      path: "Folder 1/Folder New",
+      path: "/DCIM/Camera",
     },
     {
-      name: "Folder New 3",
-      isDirectory: true,
-      path: "Folder 1/Folder New/Folder New 2",
-    },
-    {
-      name: "Folder New 4",
-      isDirectory: true,
-      path: "Folder 1/Folder New/Folder New 2/Folder New 3",
-    },
-    {
-      name: "Folder New 5",
-      isDirectory: true,
-      path: "Folder 1/Folder New/Folder New 2/Folder New 3/Folder New 4",
-    },
-    {
-      name: "Folder New 6",
-      isDirectory: true,
-      path: "Folder 1/Folder New/Folder New 2/Folder New 3/Folder New 4/Folder New 5",
-    },
-    {
-      name: "Profile Pic.jpg",
-      isDirectory: false,
-      path: "",
-    },
-    {
-      name: "File 1asdfsdfsdfsdfsdf.txt",
+      name: "Pic.png",
       isDirectory: false,
       path: "",
     },
@@ -253,22 +223,29 @@ const FileManager = () => {
   //
 
   // Handle Paste
-  const handlePaste = (e, pastePath) => {
+  const getCopiedFiles = (file, pastePath) => {
+    const children = file.children;
+    delete file.children;
+    return [
+      { ...file, path: pastePath },
+      ...children?.flatMap((child) =>
+        getCopiedFiles(child, pastePath + "/" + file.name)
+      ),
+    ];
+  };
+
+  const handlePaste = (e, pastePath, filesCopied) => {
     if (clipBoard.isMoving) {
       setFiles((prev) => {
         const filteredFiles = prev.filter((f) => {
-          return !clipBoard.files.find(
+          return !filesCopied.find(
             (cf) => cf.name === f.name && cf.path === f.path
           );
         });
+
         return [
           ...filteredFiles,
-          ...clipBoard.files.map((f) => {
-            return {
-              ...f,
-              path: f.path === "" ? pastePath : `${pastePath}/${f.path}`, // Invalid!
-            };
-          }),
+          ...clipBoard.files.flatMap((file) => getCopiedFiles(file, pastePath)),
         ];
       });
       setClipBoard(null);
@@ -344,21 +321,9 @@ const FileManager = () => {
     if (file.isDirectory) {
       setFiles((prev) => {
         return prev.filter((f) => {
-          if (f.name === file.name && f.path === file.path) {
-            // Delete the folder itself
-            return false;
-          } else if (
-            file.path === "" &&
-            (f.path === file.name || f.path.startsWith(file.name + "/"))
-          ) {
-            // Root folder delete case (delete all files in this folder)
-            return false;
-          } else if (f.path.startsWith(file.path + "/")) {
-            // Delete all files in this folder
-            return false;
-          } else {
-            return true;
-          }
+          const folderToDelete = f.path === file.path && f.name === file.name;
+          const folderChildren = f.path.startsWith(file.path + "/" + file.name);
+          return !folderToDelete && !folderChildren;
         });
       });
       // setDeleteFolderID(file?.ID);
@@ -420,7 +385,7 @@ const FileManager = () => {
         return;
       }
     }
-    const isRootFolder = selectedFile.path === "";
+
     setFiles((prev) => {
       return prev.map((file) => {
         if (
@@ -432,23 +397,13 @@ const FileManager = () => {
             ...file,
             name: renameFile,
           };
-        } else if (isRootFolder && file.path === selectedFile.name) {
-          // Direct child of root folder
-          return {
-            ...file,
-            path: renameFile,
-          };
         } else if (
-          file.path.startsWith(selectedFile.path + "/" + selectedFile.name) ||
-          (isRootFolder && file.path.startsWith(selectedFile.name + "/"))
+          file.path.startsWith(selectedFile.path + "/" + selectedFile.name)
         ) {
           // All files in the folder
-          const basePath = isRootFolder
-            ? selectedFile.name
-            : selectedFile.path + "/" + selectedFile.name;
-          const newBasePath = isRootFolder
-            ? renameFile
-            : basePath.split("/").slice(0, -1).join("/") + "/" + renameFile;
+          const basePath = selectedFile.path + "/" + selectedFile.name;
+          const newBasePath =
+            basePath.split("/").slice(0, -1).join("/") + "/" + renameFile;
           const newPath = newBasePath + file.path.slice(basePath.length);
           return {
             ...file,
@@ -542,6 +497,7 @@ const FileManager = () => {
           setShowRename={setShowRename}
           setRenameFile={setRenameFile}
           selectedFile={selectedFile}
+          files={files}
           setFiles={setFiles}
           clipBoard={clipBoard}
           setClipBoard={setClipBoard}
