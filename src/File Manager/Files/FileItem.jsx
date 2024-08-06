@@ -6,12 +6,14 @@ import {
   FaRegFilePdf,
   FaRegFileWord,
   FaRegFolderOpen,
+  FaRegPaste,
 } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
 import { MdOutlineDelete } from "react-icons/md";
 import ContextMenu from "../../components/Context Menu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { BiRename } from "react-icons/bi";
+import { BsCopy, BsScissors } from "react-icons/bs";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -36,20 +38,67 @@ const FileItem = ({
   setShowRename,
   setRenameFile,
   currentPath,
+  clipBoard,
+  setClipBoard,
+  handlePaste,
+  files,
 }) => {
   const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [showFilePreview, setShowFilePreview] = useState(false);
+  const isFileMoving =
+    clipBoard?.isMoving &&
+    clipBoard.files.find((f) => f.name === file.name && f.path === file.path);
 
   const contextMenuRef = useDetectOutsideClick(() => {
     setVisible(false);
   });
 
-  const handleDelete = (e) => {
+  const handleCut = (e) => {
     e.stopPropagation();
+    setClipBoard(() => {
+      var filesToPaste = [];
+      if (file.isDirectory) {
+        filesToPaste.push(file);
+        files.forEach((f) => {
+          if (
+            file.path === "" &&
+            (f.path === file.name || f.path.startsWith(file.name + "/"))
+          ) {
+            filesToPaste.push(f);
+          } else if (f.path.startsWith(file.path + "/")) {
+            filesToPaste.push(f);
+          }
+        });
+      } else {
+        filesToPaste.push(file);
+      }
+      return {
+        files: filesToPaste,
+        isMoving: true,
+      };
+    });
     setVisible(false);
-    setShowDelete(true);
+  };
+
+  const handleCopy = (e) => {
+    e.stopPropagation();
+    setClipBoard({
+      files: [file],
+      isMoving: false,
+    });
+    setVisible(false);
+  };
+
+  const handleFilePasting = (e) => {
+    e.stopPropagation();
+    if (clipBoard) {
+      const pastePath =
+        file.path === "" ? file.name : file.path + "/" + file.name;
+      handlePaste(e, pastePath);
+      setVisible(false);
+    }
   };
 
   const handleRename = (e) => {
@@ -57,6 +106,12 @@ const FileItem = ({
     setVisible(false);
     setRenameFile(file.name);
     setShowRename(true);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    setVisible(false);
+    setShowDelete(true);
   };
 
   const handleFileAccess = () => {
@@ -108,12 +163,31 @@ const FileItem = ({
       <ul>
         <li onClick={handleFileAccess}>
           {file.isDirectory ? (
-            <PiFolderOpen size={19} />
+            <PiFolderOpen size={20} />
           ) : (
             <FaRegFile size={16} />
           )}
           <span>Open</span>
         </li>
+        <li onClick={handleCut}>
+          <BsScissors size={19} />
+          <span>Cut</span>
+        </li>
+        <li onClick={handleCopy}>
+          <BsCopy strokeWidth={0.1} size={17} />
+          <span>Copy</span>
+        </li>
+        {file.isDirectory ? (
+          <li
+            onClick={handleFilePasting}
+            className={`${clipBoard ? "" : "disable-paste"}`}
+          >
+            <FaRegPaste size={18} />
+            <span>Paste</span>
+          </li>
+        ) : (
+          <></>
+        )}
         <li onClick={handleRename}>
           <BiRename size={19} />
           <span>Rename</span>
@@ -137,7 +211,7 @@ const FileItem = ({
         <div
           className={`file-item ${
             fileSelected ? "background-secondary text-white" : ""
-          }`}
+          } ${isFileMoving ? "file-moving" : ""}`}
           title={file.name}
           onClick={handleFileSelection}
           onKeyUp={handleOnKeyUp}

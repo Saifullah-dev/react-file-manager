@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { BsFolderPlus, BsGridFill } from "react-icons/bs";
+import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Modal from "../../components/Modal/Modal";
 import Button from "../../components/Button/Button";
 import { BiRename } from "react-icons/bi";
+import { FaRegPaste } from "react-icons/fa6";
 // import { setErrorAlert } from "../../../../redux/reducers/patientSlice";
 // import { Message, Uploader, useToaster } from "rsuite";
 // import { useSelector } from "react-redux";
@@ -27,7 +28,10 @@ const Toolbar = ({
   setRenameFile,
   selectedFile,
   setFiles,
+  clipBoard,
+  setClipBoard,
   handleDelete,
+  handlePaste,
 }) => {
   //   const practiceID = useSelector((e) => e.show.practiceID);
   //   const patientID = useSelector((e) => e.show.selectedPatientId);
@@ -111,7 +115,7 @@ const Toolbar = ({
   //
 
   // Toolbar Items
-  const toolbarLeftItems = [
+  const [toolbarLeftItems, setToolbarLeftItems] = useState([
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
       text: "New Folder",
@@ -124,7 +128,41 @@ const Toolbar = ({
       permission: allowUploadFile,
       onClick: () => setShowUploadFile(true),
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (clipBoard) {
+      if (toolbarLeftItems.find((item) => item.text === "Paste")) {
+        setToolbarLeftItems((prev) => {
+          return prev.map((item) => {
+            if (item.text === "Paste") {
+              return {
+                ...item,
+                onClick: (e) => handlePaste(e, currentPath),
+              };
+            }
+            return item;
+          });
+        });
+      } else {
+        setToolbarLeftItems((prev) => {
+          return [
+            ...prev,
+            {
+              icon: <FaRegPaste size={18} />,
+              text: "Paste",
+              permission: true,
+              onClick: (e) => handlePaste(e, currentPath),
+            },
+          ];
+        });
+      }
+    } else {
+      setToolbarLeftItems((prev) => {
+        return prev.filter((item) => item.text !== "Paste");
+      });
+    }
+  }, [clipBoard, currentPath]);
 
   const toolbarRightItems = [
     // {
@@ -138,6 +176,24 @@ const Toolbar = ({
       onClick: handleRefreshFiles,
     },
   ];
+  //
+
+  // Handle Copy
+  const handleCut = () => {
+    setClipBoard({
+      files: [selectedFile],
+      isMoving: true,
+    });
+  };
+  //
+
+  // Handle Copy
+  const handleCopy = () => {
+    setClipBoard({
+      files: [selectedFile],
+      isMoving: false,
+    });
+  };
   //
 
   // Handle Remove File
@@ -154,9 +210,33 @@ const Toolbar = ({
 
   // Selected File/Folder Actions
   if (isItemSelection) {
+    const pastePath =
+      selectedFile.path === ""
+        ? selectedFile.name
+        : selectedFile.path + "/" + selectedFile.name;
     return (
       <div className="file-action-container">
         <div>
+          <button className="item-action file-action" onClick={handleCut}>
+            <BsScissors size={18} />
+            <span>Cut</span>
+          </button>
+          <button className="item-action file-action" onClick={handleCopy}>
+            <BsCopy strokeWidth={0.1} size={17} />
+            <span>Copy</span>
+          </button>
+          {selectedFile.isDirectory ? (
+            <button
+              className="item-action file-action"
+              onClick={(e) => handlePaste(e, pastePath)}
+              disabled={!clipBoard}
+            >
+              <FaRegPaste size={18} />
+              <span>Paste</span>
+            </button>
+          ) : (
+            <></>
+          )}
           <button
             className="item-action file-action"
             onClick={() => {

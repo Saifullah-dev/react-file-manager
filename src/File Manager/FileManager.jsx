@@ -40,6 +40,7 @@ const FileManager = () => {
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
+  const [clipBoard, setClipBoard] = useState(null);
   const [files, setFiles] = useState([
     {
       name: "Folder 1",
@@ -88,11 +89,6 @@ const FileManager = () => {
     },
     {
       name: "File 1asdfsdfsdfsdfsdf.txt",
-      isDirectory: false,
-      path: "",
-    },
-    {
-      name: "File 2.jpg",
       isDirectory: false,
       path: "",
     },
@@ -254,6 +250,44 @@ const FileManager = () => {
   //       // getPatientFolders.refetch();
   //     }
   //   };
+  //
+
+  // Handle Paste
+  const handlePaste = (e, pastePath) => {
+    if (clipBoard.isMoving) {
+      setFiles((prev) => {
+        const filteredFiles = prev.filter((f) => {
+          return !clipBoard.files.find(
+            (cf) => cf.name === f.name && cf.path === f.path
+          );
+        });
+        return [
+          ...filteredFiles,
+          ...clipBoard.files.map((f) => {
+            return {
+              ...f,
+              path: f.path === "" ? pastePath : `${pastePath}/${f.path}`, // Invalid!
+            };
+          }),
+        ];
+      });
+      setClipBoard(null);
+    } else {
+      setFiles((prev) => {
+        return [
+          ...prev,
+          ...clipBoard.files.map((file) => {
+            return {
+              ...file,
+              path: pastePath,
+            };
+          }),
+        ];
+      });
+    }
+    setIsItemSelection(false);
+    setSelectedFile(null);
+  };
   //
 
   // Refresh Files
@@ -509,6 +543,9 @@ const FileManager = () => {
           setRenameFile={setRenameFile}
           selectedFile={selectedFile}
           setFiles={setFiles}
+          clipBoard={clipBoard}
+          setClipBoard={setClipBoard}
+          handlePaste={handlePaste}
           // handleDelete={handleDelete}
         />
       </section>
@@ -545,6 +582,10 @@ const FileManager = () => {
             setShowRename={setShowRename}
             setRenameFile={setRenameFile}
             currentPath={currentPath}
+            clipBoard={clipBoard}
+            setClipBoard={setClipBoard}
+            handlePaste={handlePaste}
+            files={files}
           />
         </div>
       </section>
