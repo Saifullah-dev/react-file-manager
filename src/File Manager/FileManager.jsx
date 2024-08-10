@@ -7,12 +7,6 @@ import Files from "./Files/Files";
 import Modal from "../components/Modal/Modal";
 import Button from "../components/Button/Button";
 import { IoWarningOutline } from "react-icons/io5";
-// import { useAddData, useDeleteData, useGetByMultiParams } from "../../../../api/apiCalls";
-// import { useDispatch, useSelector } from "react-redux";
-// import { endPoints } from "../../../../api/api";
-// import { setAlertTitle, setSuccessAlert } from "../../../../redux/reducers/patientSlice";
-// import { useCreateFile } from "../../../../api/documentManagerServices";
-// import ReactLoading from "react-loading";
 
 const allowedFileExtensions = [
   ".txt",
@@ -25,8 +19,6 @@ const allowedFileExtensions = [
 ];
 
 const FileManager = () => {
-  //   const dispatch = useDispatch();
-
   // States
   const [isItemSelection, setIsItemSelection] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -67,67 +59,6 @@ const FileManager = () => {
 
   console.log(files);
 
-  // Getting Files API Call
-  //   const getPatientFolders = useGetByMultiParams(
-  //     [{ paramName: "id", paramValue: patientID }],
-  //     "getPatientFolders",
-  //     endPoints.getPatientFolders,
-  //     patientID ? true : false
-  //   );
-  //
-
-  // Setting All Files & Folders of Patient
-  //   useEffect(() => {
-  //     if (
-  //       getPatientFolders?.data &&
-  //       !getPatientFolders?.isFetching &&
-  //       !getPatientFolders?.isRefetching
-  //     ) {
-  //       // Folders
-  //       var folders = [];
-  //       if (getPatientFolders?.data?.Folder?.length > 0) {
-  //         folders = getPatientFolders.data.Folder.map((folder) => {
-  //           var folderPath = "";
-  //           if (folder.FolderLocation !== folder.Name) {
-  //             const pathArray = folder.FolderLocation?.split("/");
-  //             pathArray.pop();
-  //             folderPath = pathArray?.join("/");
-  //           }
-
-  //           return {
-  //             ...folder,
-  //             name: folder.Name,
-  //             path: folderPath,
-  //             isDirectory: true,
-  //           };
-  //         });
-  //       }
-  //       //
-
-  //       // Files
-  //       var files = [];
-  //       if (getPatientFolders?.data?.Files?.length > 0) {
-  //         files = getPatientFolders.data.Files.map((file) => {
-  //           console.log(file, "lakdjlaksjdlasdjlka");
-  //           return {
-  //             ...file,
-  //             name: file.Name,
-  //             path: file.Location ? file.Location : "",
-  //             isDirectory: false,
-  //           };
-  //         });
-  //       }
-  //       //
-
-  //       setFiles([...folders, ...files]);
-  //     }
-  //   }, [
-  //     getPatientFolders?.data,
-  //     getPatientFolders?.isFetching,
-  //     getPatientFolders?.isRefetching,
-  //   ]);
-  //
-
   // Settings Current Path Files
   useEffect(() => {
     setCurrentPathFiles(() => {
@@ -145,26 +76,7 @@ const FileManager = () => {
   //
 
   // Create Folder
-  // const createFolder = useAddData("createFolder");
   const handleCreateFolder = async (folderName, setShowCreateFolder) => {
-    // const folderPath =
-    //   currentPath === "" ? folderName : currentPath + "/" + folderName;
-    // var folderData = {
-    //   Name: folderName,
-    //   FolderLocation: folderPath,
-    //   PatientID: patientID,
-    //   PracticeID: practiceID,
-    // };
-
-    // Adding Parent ID if folder is located in a Directory
-    // if (currentPath !== "") {
-    //   folderData = {
-    //     ...folderData,
-    //     ParentID: currentFolder?.ID,
-    //   };
-    // }
-    //
-
     setFiles((prev) => {
       return [
         ...prev,
@@ -176,59 +88,16 @@ const FileManager = () => {
       ];
     });
     setShowCreateFolder(false);
-
-    // const response = await createFolder.mutateAsync({
-    //   sendData: folderData,
-    //   endPoint: endPoints.createEditFolder,
-    // });
-
-    // if (response?.status === 200) {
-    //   setFiles((prev) => {
-    //     const newFolder = response.data;
-    //     return [
-    //       ...prev,
-    //       {
-    //         ...newFolder,
-    //         name: newFolder.Name,
-    //         path: currentPath,
-    //         isDirectory: true,
-    //       },
-    //     ];
-    //   });
-    //   dispatch(setSuccessAlert(true));
-    //   dispatch(setAlertTitle("Folder Created Successfully!"));
-    // }
   };
-  //
-
-  // Upload File
-  //   const uploadFile = useCreateFile("uploadFile");
-  //   const handleFileUpload = async (file) => {
-  //     const formData = new FormData();
-  //     formData.append("file", file.blobFile);
-  //     formData.append("PracticeID", practiceID);
-  //     formData.append("PatientID", patientID);
-  //     formData.append("Name", file.name);
-  //     formData.append("Location", currentPath);
-  //     currentFolder && formData.append("FolderID", currentFolder.ID);
-
-  //     const response = await uploadFile.mutateAsync(formData);
-
-  //     if (response.status === 200) {
-  //       dispatch(setSuccessAlert(true));
-  //       dispatch(setAlertTitle("File Uploaded SuccessFully!"));
-  //       // getPatientFolders.refetch();
-  //     }
-  //   };
   //
 
   // Handle Paste
   const getCopiedFiles = (file, pastePath) => {
-    const children = file.children;
+    const children = file.children ?? [];
     delete file.children;
     return [
       { ...file, path: pastePath },
-      ...children?.flatMap((child) =>
+      ...children.flatMap((child) =>
         getCopiedFiles(child, pastePath + "/" + file.name)
       ),
     ];
@@ -253,12 +122,7 @@ const FileManager = () => {
       setFiles((prev) => {
         return [
           ...prev,
-          ...clipBoard.files.map((file) => {
-            return {
-              ...file,
-              path: pastePath,
-            };
-          }),
+          ...clipBoard.files.flatMap((file) => getCopiedFiles(file, pastePath)),
         ];
       });
     }
@@ -266,56 +130,6 @@ const FileManager = () => {
     setSelectedFile(null);
   };
   //
-
-  // Refresh Files
-  //   const handleRefreshFiles = () => {
-  //     getPatientFolders.refetch();
-  //   };
-  //
-
-  // Delete Folder
-  // const [isFolderDelete, setIsFolderDelete] = useState(false);
-  // const [deleteFolderID, setDeleteFolderID] = useState(null);
-
-  //   const deleteFolder = useDeleteData(
-  //     [{ paramName: "ID", paramValue: deleteFolderID }],
-  //     "deleteFolder",
-  //     endPoints.deleteFolder,
-  //     isFolderDelete && !!deleteFolderID
-  //   );
-
-  //   useEffect(() => {
-  //     setIsFolderDelete(false);
-  //     if (deleteFolder?.data?.status === 200 && !deleteFolder?.isFetching) {
-  //       getPatientFolders.refetch();
-  //       setDeleteFolderID(null);
-  //       setIsItemSelection(false);
-  //       dispatch(setSuccessAlert(true));
-  //       dispatch(setAlertTitle("Folder Deleted Successfully!"));
-  //     }
-  //   }, [deleteFolder?.data?.data, deleteFolder?.isFetching]);
-
-  // Delete File
-  //   const [isFileDelete, setIsFileDelete] = useState(false);
-  //   const [deleteFileID, setDeleteFileID] = useState(null);
-
-  //   const deleteFile = useDeleteData(
-  //     [{ paramName: "ID", paramValue: deleteFileID }],
-  //     "deleteFile",
-  //     endPoints.deleteFile,
-  //     isFileDelete && !!deleteFileID
-  //   );
-
-  //   useEffect(() => {
-  //     setIsFileDelete(false);
-  //     if (deleteFile?.data?.status === 200 && !deleteFile?.isFetching) {
-  //       getPatientFolders.refetch();
-  //       setDeleteFolderID(null);
-  //       setIsItemSelection(false);
-  //       dispatch(setSuccessAlert(true));
-  //       dispatch(setAlertTitle("File Deleted Successfully!"));
-  //     }
-  //   }, [deleteFile?.data?.data, deleteFile?.isFetching]);
 
   const handleDelete = (file) => {
     if (file.isDirectory) {
@@ -326,16 +140,12 @@ const FileManager = () => {
           return !folderToDelete && !folderChildren;
         });
       });
-      // setDeleteFolderID(file?.ID);
-      // setIsFolderDelete(true);
     } else {
       setFiles((prev) => {
         return prev.filter(
           (f) => !(f.name === file.name && f.path === file.path)
         );
       });
-      // setDeleteFileID(file?.ID);
-      // setIsFileDelete(true);
     }
     setShowDelete(false);
     setIsItemSelection(false);
@@ -431,13 +241,6 @@ const FileManager = () => {
     }
   };
   //
-
-  //   useEffect(() => {
-  //     return () => {
-  //       deleteFolder.remove();
-  //       deleteFile.remove();
-  //     };
-  //   }, []);
 
   // Dragging Resizer
   const [colSizes, setColSizes] = useState({ col1: "20", col2: "80" });

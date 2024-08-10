@@ -14,6 +14,7 @@ import ContextMenu from "../../components/Context Menu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { BiRename } from "react-icons/bi";
 import { BsCopy, BsScissors } from "react-icons/bs";
+import { createFolderTree } from "../../utils/createFolderTree";
 
 const fileIcons = {
   pdf: <FaRegFilePdf size={48} />,
@@ -55,20 +56,10 @@ const FileItem = ({
     setVisible(false);
   });
 
-  const getFileHierarchy = (selectedFile, files) => {
-    const directChildren = files.filter(
-      (f) => f.path === selectedFile.path + "/" + selectedFile.name
-    );
-    return {
-      ...selectedFile,
-      children: directChildren.map((f) => getFileHierarchy(f, files)),
-    };
-  };
-
   const handleCutCopy = (e, isMoving) => {
     e.stopPropagation();
     setClipBoard({
-      files: [{ ...getFileHierarchy(file, files) }],
+      files: [{ ...createFolderTree(file, files) }],
       isMoving: isMoving,
     });
     setVisible(false);
