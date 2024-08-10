@@ -6,14 +6,11 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const folderPath =
-    folder.path === "" ? folder.name : `${folder.path}/${folder.name}`;
+  const folderPath = `${folder.path}/${folder.name}`;
 
   const handleFolderSwitch = () => {
     setIsActive(true);
-    setCurrentPath(() => {
-      return folderPath;
-    });
+    setCurrentPath(folderPath);
   };
 
   const handleCollapseChange = (e) => {
