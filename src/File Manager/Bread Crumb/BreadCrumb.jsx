@@ -5,9 +5,7 @@ const BreadCrumb = ({ currentPath, setCurrentPath }) => {
   const [folders, setFolders] = useState([]);
 
   useEffect(() => {
-    setFolders(() => {
-      return currentPath?.split("/")?.filter((path) => path !== "");
-    });
+    setFolders(currentPath?.split("/"));
   }, [currentPath]);
 
   const switchPath = (index) => {
@@ -22,16 +20,21 @@ const BreadCrumb = ({ currentPath, setCurrentPath }) => {
 
   return (
     <div className="breadcrumb">
-      <div className="folder-name" onClick={() => setCurrentPath("")}>
-        <MdHome /> Home
-      </div>
       {folders.map((folder, index) => (
         <span
           key={index}
           className="folder-name"
           onClick={() => switchPath(index)}
         >
-          <MdOutlineNavigateNext /> {folder}
+          {index === 0 ? (
+            <>
+              <MdHome /> Home
+            </>
+          ) : (
+            <>
+              <MdOutlineNavigateNext /> {folder}
+            </>
+          )}
         </span>
       ))}
     </div>

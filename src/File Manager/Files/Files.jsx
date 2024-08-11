@@ -11,6 +11,10 @@ const Files = ({
   setShowRename,
   setRenameFile,
   currentPath,
+  clipBoard,
+  setClipBoard,
+  handlePaste,
+  files,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
@@ -46,6 +50,10 @@ const Files = ({
               setShowRename={setShowRename}
               setRenameFile={setRenameFile}
               currentPath={currentPath}
+              clipBoard={clipBoard}
+              setClipBoard={setClipBoard}
+              handlePaste={handlePaste}
+              files={files}
             />
           ))}
         </>

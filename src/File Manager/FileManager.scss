@@ -80,12 +80,19 @@ svg {
         background-color: transparent;
         gap: 5px;
 
-        &:hover {
+        &:hover:not(:disabled) {
           cursor: pointer;
           background-color: rgb(0, 0, 0, 0.55) !important;
           border-radius: 3px;
           color: white;
           text-shadow: 0px 0px 1px white;
+        }
+
+        &:hover:disabled {
+          cursor: default;
+          background-color: transparent !important;
+          color: #b0b0b0;
+          text-shadow: none;
         }
       }
     }
@@ -342,6 +349,10 @@ svg {
           max-width: 115px;
         }
       }
+
+      .file-moving {
+        opacity: 0.5;
+      }
     }
 
     .empty-folder {
@@ -498,6 +509,15 @@ svg {
       &:hover {
         cursor: pointer;
         background-color: rgb(0, 0, 0, 0.04);
+      }
+    }
+
+    li.disable-paste {
+      opacity: 0.5;
+
+      &:hover {
+        cursor: default;
+        background-color: transparent;
       }
     }
   }
