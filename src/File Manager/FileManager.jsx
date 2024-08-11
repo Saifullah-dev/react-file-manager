@@ -126,7 +126,7 @@ const FileManager = () => {
   const handlePaste = (e, pastePath, filesCopied) => {
     setFiles((prevFiles) => {
       if (clipBoard.isMoving) {
-        prevFiles = prev.filter((f) => {
+        prevFiles = prevFiles.filter((f) => {
           return !filesCopied.find((cf) => cf.name === f.name && cf.path === f.path);
         });
       }
