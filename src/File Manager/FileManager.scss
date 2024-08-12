@@ -561,6 +561,12 @@ svg {
   .fm-rename-folder-input {
     border-bottom: 1px solid #c6c6c6;
     padding: 8px 12px 12px;
+
+    .fm-rename-warning {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
   }
 
   .fm-rename-folder-action {

@@ -35,14 +35,12 @@ const FileItem = ({
   isItemSelection,
   setIsItemSelection,
   setSelectedFile,
-  setShowDelete,
-  setShowRename,
-  setRenameFile,
   currentPath,
   clipBoard,
   setClipBoard,
   handlePaste,
   files,
+  triggerAction,
 }) => {
   const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
@@ -72,8 +70,7 @@ const FileItem = ({
       const selectedCopiedFile = clipBoard.files[0];
       const copiedFiles = files.filter((f) => {
         const folderToCopy =
-          f.path === selectedCopiedFile.path &&
-          f.name === selectedCopiedFile.name;
+          f.path === selectedCopiedFile.path && f.name === selectedCopiedFile.name;
         const folderChildren = f.path.startsWith(
           selectedCopiedFile.path + "/" + selectedCopiedFile.name
         );
@@ -87,14 +84,13 @@ const FileItem = ({
   const handleRename = (e) => {
     e.stopPropagation();
     setVisible(false);
-    setRenameFile(file.name);
-    setShowRename(true);
+    triggerAction.show("rename");
   };
 
   const handleDelete = (e) => {
     e.stopPropagation();
     setVisible(false);
-    setShowDelete(true);
+    triggerAction.show("delete");
   };
 
   const handleFileAccess = () => {
@@ -139,11 +135,7 @@ const FileItem = ({
     <div className="file-context-menu-list">
       <ul>
         <li onClick={handleFileAccess}>
-          {file.isDirectory ? (
-            <PiFolderOpen size={20} />
-          ) : (
-            <FaRegFile size={16} />
-          )}
+          {file.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />}
           <span>Open</span>
         </li>
         <li onClick={(e) => handleCutCopy(e, true)}>
@@ -155,10 +147,7 @@ const FileItem = ({
           <span>Copy</span>
         </li>
         {file.isDirectory ? (
-          <li
-            onClick={handleFilePasting}
-            className={`${clipBoard ? "" : "disable-paste"}`}
-          >
+          <li onClick={handleFilePasting} className={`${clipBoard ? "" : "disable-paste"}`}>
             <FaRegPaste size={18} />
             <span>Paste</span>
           </li>
@@ -186,9 +175,9 @@ const FileItem = ({
         content={menuItems}
       >
         <div
-          className={`file-item ${
-            fileSelected ? "background-secondary text-white" : ""
-          } ${isFileMoving ? "file-moving" : ""}`}
+          className={`file-item ${fileSelected ? "background-secondary text-white" : ""} ${
+            isFileMoving ? "file-moving" : ""
+          }`}
           title={file.name}
           onClick={handleFileSelection}
           onKeyUp={handleOnKeyUp}
@@ -202,11 +191,7 @@ const FileItem = ({
           {file.isDirectory ? (
             <FaRegFolderOpen size={48} />
           ) : (
-            <>
-              {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
-                <FaRegFile size={48} />
-              )}
-            </>
+            <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={48} />}</>
           )}
           <span className="text-truncate file-name">{file.name}</span>
         </div>
