@@ -7,14 +7,12 @@ const Files = ({
   isItemSelection,
   setIsItemSelection,
   setSelectedFile,
-  setShowDelete,
-  setShowRename,
-  setRenameFile,
   currentPath,
   clipBoard,
   setClipBoard,
   handlePaste,
   files,
+  triggerAction,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
@@ -46,14 +44,12 @@ const Files = ({
               isItemSelection={isItemSelection}
               setIsItemSelection={setIsItemSelection}
               setSelectedFile={setSelectedFile}
-              setShowDelete={setShowDelete}
-              setShowRename={setShowRename}
-              setRenameFile={setRenameFile}
               currentPath={currentPath}
               clipBoard={clipBoard}
               setClipBoard={setClipBoard}
               handlePaste={handlePaste}
               files={files}
+              triggerAction={triggerAction}
             />
           ))}
         </>

@@ -4,26 +4,20 @@ import Toolbar from "./Toolbar/Toolbar";
 import NavigationPane from "./Navigation Pane/NavigationPane";
 import BreadCrumb from "./Bread Crumb/BreadCrumb";
 import Files from "./Files/Files";
-import Modal from "../components/Modal/Modal";
-import Button from "../components/Button/Button";
-import { IoWarningOutline } from "react-icons/io5";
+import { useTriggerAction } from "../hooks/useTriggerAction";
+import Actions from "./Actions/Actions";
 
 const allowedFileExtensions = [".txt", ".png", ".jpg", ".jpeg", ".pdf", ".doc", ".docx"];
 
 const FileManager = () => {
+  const triggerAction = useTriggerAction();
+
   // States
   const [isItemSelection, setIsItemSelection] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null); // This will be selectedFiles as an array for multiple selection in future
   const [currentPath, setCurrentPath] = useState("");
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
   const [currentFolder, setCurrentFolder] = useState(null);
-  const [showDelete, setShowDelete] = useState(false);
-  const [showRename, setShowRename] = useState(false);
-  const [renameFile, setRenameFile] = useState("");
-  const renameFileRef = useRef(null);
-  const [renameFileWarning, setRenameFileWarning] = useState(false);
-  const [fileRenameError, setFileRenameError] = useState(false);
-  const [renameErrorMessage, setRenameErrorMessage] = useState("");
   const [clipBoard, setClipBoard] = useState(null);
   const [files, setFiles] = useState([
     {
@@ -49,8 +43,6 @@ const FileManager = () => {
   ]);
   //
 
-  console.log(files);
-
   // Settings Current Path Files
   useEffect(() => {
     setCurrentPathFiles(() => {
@@ -61,14 +53,14 @@ const FileManager = () => {
       if (currentPath === "") {
         return null;
       } else {
-        return files?.find((file) => file.FolderLocation === currentPath);
+        return files?.find((file) => file.path === currentPath);
       }
     });
   }, [files, currentPath]);
   //
 
   // Create Folder
-  const handleCreateFolder = async (folderName, setShowCreateFolder) => {
+  const handleCreateFolder = async (folderName) => {
     setFiles((prev) => {
       return [
         ...prev,
@@ -79,7 +71,6 @@ const FileManager = () => {
         },
       ];
     });
-    setShowCreateFolder(false);
   };
   //
 
@@ -161,62 +152,25 @@ const FileManager = () => {
         return prev.filter((f) => !(f.name === file.name && f.path === file.path));
       });
     }
-    setShowDelete(false);
     setIsItemSelection(false);
     setSelectedFile(null);
   };
   //
 
   // Rename Folder/File
-  useEffect(() => {
-    if (showRename && selectedFile) {
-      renameFileRef?.current?.focus();
-
-      if (selectedFile.isDirectory) {
-        renameFileRef?.current?.select();
-      } else {
-        const fileExtension = selectedFile.name.split(".").pop();
-        const fileNameLength = selectedFile.name.length - fileExtension.length - 1;
-        renameFileRef?.current?.setSelectionRange(0, fileNameLength);
-      }
-    } else {
-      setRenameFileWarning(false);
-    }
-  }, [showRename]);
-
-  const handleFileRename = (e, isConfirmed = false) => {
-    if (renameFile === "") {
-      setFileRenameError(true);
-      setRenameErrorMessage(`${selectedFile.isDirectory ? "Folder" : "File"} name is required!`);
-      return;
-    } else if (renameFile === selectedFile.name) {
-      setShowRename(false);
-      return;
-    } else if (currentPathFiles.some((file) => file.name === renameFile)) {
-      setFileRenameError(true);
-      setRenameErrorMessage("A file or folder with the same name already exists!");
-      return;
-    } else if (!selectedFile.isDirectory && !isConfirmed) {
-      const fileExtension = selectedFile.name.split(".").pop();
-      const renameFileExtension = renameFile.split(".").pop();
-      if (fileExtension !== renameFileExtension) {
-        setRenameFileWarning(true);
-        return;
-      }
-    }
-
+  const handleFileRename = async (selectedFile, newName) => {
     setFiles((prev) => {
       return prev.map((file) => {
         if (file.name === selectedFile?.name && file.path === selectedFile?.path) {
           return {
             // Rename the file itself
             ...file,
-            name: renameFile,
+            name: newName,
           };
         } else if (file.path.startsWith(selectedFile.path + "/" + selectedFile.name)) {
           // Path update for all files in the folder
           const basePath = selectedFile.path + "/" + selectedFile.name;
-          const newBasePath = basePath.split("/").slice(0, -1).join("/") + "/" + renameFile;
+          const newBasePath = basePath.split("/").slice(0, -1).join("/") + "/" + newName;
           const newPath = newBasePath + file.path.slice(basePath.length);
           return {
             ...file,
@@ -227,23 +181,8 @@ const FileManager = () => {
         }
       });
     });
-    setSelectedFile((prev) => ({ ...prev, name: renameFile }));
-    setShowRename(false);
+    setSelectedFile((prev) => ({ ...prev, name: newName }));
   };
-
-  const handleValidateFolderRename = (e) => {
-    const invalidCharsRegex = /[\\/:*?"<>|]/;
-    if (invalidCharsRegex.test(e.key)) {
-      e.preventDefault();
-      setRenameErrorMessage(
-        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
-      );
-      setFileRenameError(true);
-    } else {
-      setFileRenameError(false);
-    }
-  };
-  //
 
   // Dragging Resizer
   const [colSizes, setColSizes] = useState({ col1: "20", col2: "80" });
@@ -268,6 +207,7 @@ const FileManager = () => {
     const containerRect = container.getBoundingClientRect();
     const newCol1Size = ((e.clientX - containerRect.left) / containerRect.width) * 100;
 
+    // Limiting the resizing to 15% to 60% for better UX
     if (newCol1Size >= 15 && newCol1Size <= 60) {
       setColSizes({ col1: newCol1Size, col2: 100 - newCol1Size });
     }
@@ -276,40 +216,24 @@ const FileManager = () => {
 
   return (
     <main className="file-explorer">
-      {/* { isLoading && (
-          <div className="file-explorer-loading">
-            <ReactLoading
-              type={"spokes"}
-              color={"#000"}
-              height={"45px"}
-              width={"45px"}
-            />
-          </div>
-        )} */}
-      <section className={`toolbar ${isItemSelection ? "file-selected" : ""}`}>
-        <Toolbar
-          allowCreateFolder
-          allowUploadFile
-          handleCreateFolder={handleCreateFolder}
-          // handleFileUpload={handleFileUpload}
-          // handleRefreshFiles={handleRefreshFiles}
-          currentPathFiles={currentPathFiles}
-          isItemSelection={isItemSelection}
-          currentPath={currentPath}
-          currentFolder={currentFolder}
-          setIsItemSelection={setIsItemSelection}
-          setShowDelete={setShowDelete}
-          setShowRename={setShowRename}
-          setRenameFile={setRenameFile}
-          selectedFile={selectedFile}
-          files={files}
-          setFiles={setFiles}
-          clipBoard={clipBoard}
-          setClipBoard={setClipBoard}
-          handlePaste={handlePaste}
-          // handleDelete={handleDelete}
-        />
-      </section>
+      <Toolbar
+        allowCreateFolder
+        allowUploadFile
+        // handleFileUpload={handleFileUpload}
+        // handleRefreshFiles={handleRefreshFiles}
+        currentPathFiles={currentPathFiles}
+        isItemSelection={isItemSelection}
+        currentPath={currentPath}
+        currentFolder={currentFolder}
+        setIsItemSelection={setIsItemSelection}
+        selectedFile={selectedFile}
+        files={files}
+        setFiles={setFiles}
+        clipBoard={clipBoard}
+        setClipBoard={setClipBoard}
+        handlePaste={handlePaste}
+        triggerAction={triggerAction}
+      />
       <section
         ref={containerRef}
         onMouseMove={handleMouseMove}
@@ -332,83 +256,25 @@ const FileManager = () => {
             isItemSelection={isItemSelection}
             setIsItemSelection={setIsItemSelection}
             setSelectedFile={setSelectedFile}
-            setShowDelete={setShowDelete}
-            setShowRename={setShowRename}
-            setRenameFile={setRenameFile}
             currentPath={currentPath}
             clipBoard={clipBoard}
             setClipBoard={setClipBoard}
             handlePaste={handlePaste}
             files={files}
+            triggerAction={triggerAction}
           />
         </div>
       </section>
 
-      {/* Delete Folder/File */}
-      <Modal heading={"Delete"} show={showDelete} setShow={setShowDelete} dialogClassName={"w-25"}>
-        <div className="file-delete-confirm">
-          <p className="file-delete-confirm-text">
-            Are you sure you want to delete {selectedFile?.name}?
-          </p>
-          <div className="file-delete-confirm-actions">
-            <Button type="secondary" onClick={() => setShowDelete(false)}>
-              Cancel
-            </Button>
-            <Button type="danger" onClick={() => handleDelete(selectedFile)}>
-              Delete
-            </Button>
-          </div>
-        </div>
-      </Modal>
-      {/* Delete Folder/File */}
-
-      {/* Rename Folder/File */}
-      <Modal heading={"Rename"} show={showRename} setShow={setShowRename} dialogClassName={"w-25"}>
-        {renameFileWarning ? (
-          <div className="fm-rename-folder-container">
-            <div className="fm-rename-folder-input">
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <IoWarningOutline size={70} color="orange" />
-                <div>
-                  If you change a file name extension, the file might become unusable. Are you sure
-                  you want to change it?
-                </div>
-              </div>
-            </div>
-            <div className="fm-rename-folder-action">
-              <Button type="secondary" onClick={() => setRenameFileWarning(false)}>
-                No
-              </Button>
-              <Button type="danger" onClick={(e) => handleFileRename(e, true)}>
-                Yes
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="fm-rename-folder-container">
-            <div className="fm-rename-folder-input">
-              <input
-                ref={renameFileRef}
-                type="text"
-                value={renameFile}
-                onChange={(e) => {
-                  setRenameFile(e.target.value);
-                  setFileRenameError(false);
-                }}
-                onKeyDown={handleValidateFolderRename}
-                className="action-input"
-              />
-              {fileRenameError && <div className="folder-error">{renameErrorMessage}</div>}
-            </div>
-            <div className="fm-rename-folder-action">
-              <Button onClick={handleFileRename} type="primary">
-                Save
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
-      {/* Rename Folder/File */}
+      <Actions
+        currentPath={currentPath}
+        currentPathFiles={currentPathFiles}
+        selectedFile={selectedFile}
+        triggerAction={triggerAction}
+        handleCreateFolder={handleCreateFolder}
+        handleFileRename={handleFileRename}
+        handleDelete={handleDelete}
+      />
     </main>
   );
 };
