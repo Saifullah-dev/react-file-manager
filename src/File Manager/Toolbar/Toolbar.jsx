@@ -48,7 +48,7 @@ const Toolbar = ({
       icon: <MdOutlineFileUpload size={18} />,
       text: "Upload File",
       permission: allowUploadFile,
-      onClick: () => setShowUploadFile(true),
+      onClick: () => triggerAction.show("uploadFile"),
     },
   ]);
 

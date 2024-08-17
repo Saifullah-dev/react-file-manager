@@ -7,7 +7,7 @@ const Modal = ({
   show,
   setShow,
   heading,
-  dialogClassName,
+  dialogWidth = "25%",
   contentClassName = "",
 }) => {
   const modalRef = useRef(null);
@@ -21,15 +21,10 @@ const Modal = ({
   }, [show]);
 
   return (
-    <dialog ref={modalRef} className={`fm-modal ${dialogClassName} dialog`}>
+    <dialog ref={modalRef} className={`fm-modal dialog`} style={{ width: dialogWidth }}>
       <div className="fm-modal-header">
         <span className="fm-modal-heading">{heading}</span>
-        <MdClose
-          size={18}
-          onClick={() => setShow(false)}
-          className="close-icon"
-          title="Close"
-        />
+        <MdClose size={18} onClick={() => setShow(false)} className="close-icon" title="Close" />
       </div>
       {children}
     </dialog>

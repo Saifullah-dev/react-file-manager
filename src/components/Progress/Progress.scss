@@ -1,0 +1,23 @@
+.fm-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .fm-progress-bar {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #c6c6c6;
+    height: 5px;
+
+    .fm-progress-bar-fill {
+      height: 100%;
+      background-color: #6155b4;
+      border-radius: 5px;
+      max-width: 100%;
+    }
+  }
+
+  .fm-progress-status {
+    font-size: 0.7em;
+  }
+}

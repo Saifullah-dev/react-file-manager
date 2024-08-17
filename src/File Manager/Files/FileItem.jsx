@@ -15,16 +15,7 @@ import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { BiRename } from "react-icons/bi";
 import { BsCopy, BsScissors } from "react-icons/bs";
 import { createFolderTree } from "../../utils/createFolderTree";
-
-const fileIcons = {
-  pdf: <FaRegFilePdf size={48} />,
-  jpg: <FaRegFileImage size={48} />,
-  jpeg: <FaRegFileImage size={48} />,
-  png: <FaRegFileImage size={48} />,
-  txt: <FaRegFileLines size={48} />,
-  doc: <FaRegFileWord size={48} />,
-  docx: <FaRegFileWord size={48} />,
-};
+import { useFileIcons } from "../../hooks/useFileIcons";
 
 const FileItem = ({
   file,
@@ -42,6 +33,8 @@ const FileItem = ({
   files,
   triggerAction,
 }) => {
+  const fileIcons = useFileIcons(48);
+
   const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);

@@ -3,6 +3,7 @@ import Modal from "../../components/Modal/Modal";
 import CreateFolderAction from "./CreateFolder.action";
 import RenameAction from "./Rename.action";
 import DeleteAction from "./Delete.action";
+import UploadFileAction from "./UploadFile.action";
 
 const Actions = ({
   triggerAction,
@@ -13,8 +14,8 @@ const Actions = ({
   handleFileRename,
   handleDelete,
 }) => {
-  const [actionHeading, setActionHeading] = useState("");
-  const [actionComponent, setActionComponent] = useState(null);
+  const [activeAction, setActiveAction] = useState(null);
+
   const actionTypes = {
     createFolder: {
       title: "Create Folder",
@@ -26,9 +27,12 @@ const Actions = ({
           handleCreateFolder={handleCreateFolder}
         />
       ),
+      width: "25%",
     },
     uploadFile: {
       title: "Upload File",
+      component: <UploadFileAction />,
+      width: "35%",
     },
     rename: {
       title: "Rename",
@@ -40,6 +44,7 @@ const Actions = ({
           handleFileRename={handleFileRename}
         />
       ),
+      width: "25%",
     },
     delete: {
       title: "Delete",
@@ -50,6 +55,7 @@ const Actions = ({
           handleDelete={handleDelete}
         />
       ),
+      width: "25%",
     },
     preview: {
       title: "Preview",
@@ -59,21 +65,19 @@ const Actions = ({
   useEffect(() => {
     if (triggerAction.isActive) {
       const actionType = triggerAction.actionType;
-      setActionHeading(actionTypes[actionType].title);
-      setActionComponent(actionTypes[actionType].component);
+      setActiveAction(actionTypes[actionType]);
     } else {
-      setActionHeading("");
-      setActionComponent(null);
+      setActiveAction(null);
     }
   }, [triggerAction.isActive]);
   return (
     <Modal
-      heading={actionHeading}
+      heading={activeAction?.title}
       show={triggerAction.isActive}
       setShow={triggerAction.close}
-      dialogClassName={"w-25"}
+      dialogWidth={activeAction?.width}
     >
-      {actionComponent}
+      {activeAction?.component}
     </Modal>
   );
 };
