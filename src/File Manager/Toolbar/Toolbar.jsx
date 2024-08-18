@@ -18,7 +18,6 @@ const Toolbar = ({
   currentFolder,
   selectedFile,
   files,
-  setFiles,
   clipBoard,
   setClipBoard,
   handleDelete,
@@ -63,13 +62,14 @@ const Toolbar = ({
         );
         return folderToCopy || folderChildren;
       });
+
       if (toolbarLeftItems.find((item) => item.text === "Paste")) {
         setToolbarLeftItems((prev) => {
           return prev.map((item) => {
             if (item.text === "Paste") {
               return {
                 ...item,
-                onClick: (e) => handlePaste(e, currentPath, copiedFiles),
+                onClick: (e) => handlePaste(e, currentPath, clipBoard, copiedFiles),
               };
             }
             return item;
@@ -83,7 +83,7 @@ const Toolbar = ({
               icon: <FaRegPaste size={18} />,
               text: "Paste",
               permission: true,
-              onClick: (e) => handlePaste(e, currentPath, copiedFiles),
+              onClick: (e) => handlePaste(e, currentPath, clipBoard, copiedFiles),
             },
           ];
         });
@@ -156,7 +156,7 @@ const Toolbar = ({
             {selectedFile.isDirectory ? (
               <button
                 className="item-action file-action"
-                onClick={(e) => handlePaste(e, pastePath, copiedFiles)}
+                onClick={(e) => handlePaste(e, pastePath, clipBoard, copiedFiles)}
                 disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />

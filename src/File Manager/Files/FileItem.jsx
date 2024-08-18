@@ -69,7 +69,10 @@ const FileItem = ({
         );
         return folderToCopy || folderChildren;
       });
-      handlePaste(e, pastePath, copiedFiles);
+      handlePaste(e, pastePath, clipBoard, copiedFiles);
+      clipBoard.isMoving && setClipBoard(null);
+      setIsItemSelection(false);
+      setSelectedFile(null);
       setVisible(false);
     }
   };

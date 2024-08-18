@@ -9,7 +9,7 @@ import Actions from "./Actions/Actions";
 
 const allowedFileExtensions = [".txt", ".png", ".jpg", ".jpeg", ".pdf", ".doc", ".docx"];
 
-const FileManager = () => {
+const FileManager = ({ files, onCreateFolder, onRename, onDelete, onPaste }) => {
   const triggerAction = useTriggerAction();
 
   // States
@@ -19,28 +19,6 @@ const FileManager = () => {
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
   const [currentFolder, setCurrentFolder] = useState(null);
   const [clipBoard, setClipBoard] = useState(null);
-  const [files, setFiles] = useState([
-    {
-      name: "DCIM",
-      isDirectory: true,
-      path: "",
-    },
-    {
-      name: "Camera",
-      isDirectory: true,
-      path: "/DCIM",
-    },
-    {
-      name: "Portraits",
-      isDirectory: true,
-      path: "/DCIM/Camera",
-    },
-    {
-      name: "Pic.png",
-      isDirectory: false,
-      path: "",
-    },
-  ]);
   //
 
   // Settings Current Path Files
@@ -58,131 +36,6 @@ const FileManager = () => {
     });
   }, [files, currentPath]);
   //
-
-  // Create Folder
-  const handleCreateFolder = async (folderName) => {
-    setFiles((prev) => {
-      return [
-        ...prev,
-        {
-          name: folderName,
-          path: currentPath,
-          isDirectory: true,
-        },
-      ];
-    });
-  };
-  //
-
-  // Handle Paste
-  const getCopiedFiles = (file, pastePath) => {
-    const children = file.children ?? [];
-    delete file.children;
-    return [
-      { ...file, path: pastePath },
-      ...children.flatMap((child) => getCopiedFiles(child, pastePath + "/" + file.name)),
-    ];
-  };
-
-  const handleDuplicateFile = (file, pastePath, pastePathFiles) => {
-    if (file.path === pastePath || pastePathFiles.find((f) => f.name === file.name)) {
-      const fileExtension = file.isDirectory ? "" : "." + file.name.split(".").pop();
-      const fileName = file.isDirectory ? file.name : file.name.split(".").slice(0, -1).join(".");
-
-      // Generating new file name for duplicate file
-      let maxFileNum = 0;
-      // If there exists a file with name fileName (1), fileName (2), etc.
-      // Check if the number is greater than the maxFileNum, then set it to that greater number
-      const fileNameRegex = new RegExp(`${fileName} \\(\\d+\\)`);
-      pastePathFiles.forEach((f) => {
-        const fName = f.isDirectory ? f.name : f.name.split(".").slice(0, -1).join(".");
-        if (fileNameRegex.test(fName)) {
-          const fileNumStr = fName.split(`${fileName} (`).pop().slice(0, -1);
-          const fileNum = parseInt(fileNumStr);
-          if (!isNaN(fileNum) && fileNum > maxFileNum) {
-            maxFileNum = fileNum;
-          }
-        }
-      });
-      const appendNum = ` (${++maxFileNum})`;
-      const newFileName = fileName + appendNum + fileExtension;
-      //
-
-      return { ...file, name: newFileName };
-    } else {
-      return file;
-    }
-  };
-
-  const handlePaste = (e, pastePath, filesCopied) => {
-    setFiles((prevFiles) => {
-      if (clipBoard.isMoving) {
-        prevFiles = prevFiles.filter((f) => {
-          return !filesCopied.find((cf) => cf.name === f.name && cf.path === f.path);
-        });
-      }
-
-      return [
-        ...prevFiles,
-        ...clipBoard.files.flatMap((file) => {
-          const pastePathFiles = prevFiles.filter((f) => f.path === pastePath);
-          const nonDuplicateFile = handleDuplicateFile(file, pastePath, pastePathFiles);
-          return getCopiedFiles(nonDuplicateFile, pastePath);
-        }),
-      ];
-    });
-
-    clipBoard.isMoving && setClipBoard(null);
-    setIsItemSelection(false);
-    setSelectedFile(null);
-  };
-  //
-
-  const handleDelete = (file) => {
-    if (file.isDirectory) {
-      setFiles((prev) => {
-        return prev.filter((f) => {
-          const folderToDelete = f.path === file.path && f.name === file.name;
-          const folderChildren = f.path.startsWith(file.path + "/" + file.name);
-          return !folderToDelete && !folderChildren;
-        });
-      });
-    } else {
-      setFiles((prev) => {
-        return prev.filter((f) => !(f.name === file.name && f.path === file.path));
-      });
-    }
-    setIsItemSelection(false);
-    setSelectedFile(null);
-  };
-  //
-
-  // Rename Folder/File
-  const handleFileRename = async (selectedFile, newName) => {
-    setFiles((prev) => {
-      return prev.map((file) => {
-        if (file.name === selectedFile?.name && file.path === selectedFile?.path) {
-          return {
-            // Rename the file itself
-            ...file,
-            name: newName,
-          };
-        } else if (file.path.startsWith(selectedFile.path + "/" + selectedFile.name)) {
-          // Path update for all files in the folder
-          const basePath = selectedFile.path + "/" + selectedFile.name;
-          const newBasePath = basePath.split("/").slice(0, -1).join("/") + "/" + newName;
-          const newPath = newBasePath + file.path.slice(basePath.length);
-          return {
-            ...file,
-            path: newPath,
-          };
-        } else {
-          return file;
-        }
-      });
-    });
-    setSelectedFile((prev) => ({ ...prev, name: newName }));
-  };
 
   // Dragging Resizer
   const [colSizes, setColSizes] = useState({ col1: "20", col2: "80" });
@@ -228,10 +81,9 @@ const FileManager = () => {
         setIsItemSelection={setIsItemSelection}
         selectedFile={selectedFile}
         files={files}
-        setFiles={setFiles}
         clipBoard={clipBoard}
         setClipBoard={setClipBoard}
-        handlePaste={handlePaste}
+        handlePaste={onPaste}
         triggerAction={triggerAction}
       />
       <section
@@ -259,7 +111,7 @@ const FileManager = () => {
             currentPath={currentPath}
             clipBoard={clipBoard}
             setClipBoard={setClipBoard}
-            handlePaste={handlePaste}
+            handlePaste={onPaste}
             files={files}
             triggerAction={triggerAction}
           />
@@ -271,9 +123,11 @@ const FileManager = () => {
         currentPathFiles={currentPathFiles}
         selectedFile={selectedFile}
         triggerAction={triggerAction}
-        handleCreateFolder={handleCreateFolder}
-        handleFileRename={handleFileRename}
-        handleDelete={handleDelete}
+        handleCreateFolder={onCreateFolder}
+        handleRename={onRename}
+        handleDelete={onDelete}
+        setIsItemSelection={setIsItemSelection}
+        setSelectedFile={setSelectedFile}
       />
     </main>
   );

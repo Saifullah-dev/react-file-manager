@@ -10,8 +10,10 @@ const Actions = ({
   currentPath,
   currentPathFiles,
   selectedFile,
+  setSelectedFile,
   handleCreateFolder,
-  handleFileRename,
+  handleRename,
+  setIsItemSelection,
   handleDelete,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
@@ -41,7 +43,8 @@ const Actions = ({
           selectedFile={selectedFile}
           currentPathFiles={currentPathFiles}
           triggerAction={triggerAction}
-          handleFileRename={handleFileRename}
+          handleRename={handleRename}
+          setSelectedFile={setSelectedFile}
         />
       ),
       width: "25%",
@@ -53,6 +56,8 @@ const Actions = ({
           selectedFile={selectedFile}
           triggerAction={triggerAction}
           handleDelete={handleDelete}
+          setIsItemSelection={setIsItemSelection}
+          setSelectedFile={setSelectedFile}
         />
       ),
       width: "25%",
