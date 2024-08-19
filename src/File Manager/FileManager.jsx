@@ -7,9 +7,14 @@ import Files from "./Files/Files";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import Actions from "./Actions/Actions";
 
-const allowedFileExtensions = [".txt", ".png", ".jpg", ".jpeg", ".pdf", ".doc", ".docx"];
-
-const FileManager = ({ files, onCreateFolder, onRename, onDelete, onPaste }) => {
+const FileManager = ({
+  files,
+  onCreateFolder,
+  onRename,
+  onDelete,
+  onPaste,
+  allowedFileExtensions,
+}) => {
   const triggerAction = useTriggerAction();
 
   // States
@@ -17,7 +22,6 @@ const FileManager = ({ files, onCreateFolder, onRename, onDelete, onPaste }) => 
   const [selectedFile, setSelectedFile] = useState(null); // This will be selectedFiles as an array for multiple selection in future
   const [currentPath, setCurrentPath] = useState("");
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
-  const [currentFolder, setCurrentFolder] = useState(null);
   const [clipBoard, setClipBoard] = useState(null);
   //
 
@@ -25,14 +29,6 @@ const FileManager = ({ files, onCreateFolder, onRename, onDelete, onPaste }) => 
   useEffect(() => {
     setCurrentPathFiles(() => {
       return files?.filter((file) => file.path === currentPath);
-    });
-
-    setCurrentFolder(() => {
-      if (currentPath === "") {
-        return null;
-      } else {
-        return files?.find((file) => file.path === currentPath);
-      }
     });
   }, [files, currentPath]);
   //
@@ -72,14 +68,11 @@ const FileManager = ({ files, onCreateFolder, onRename, onDelete, onPaste }) => 
       <Toolbar
         allowCreateFolder
         allowUploadFile
-        // handleFileUpload={handleFileUpload}
-        // handleRefreshFiles={handleRefreshFiles}
-        currentPathFiles={currentPathFiles}
         isItemSelection={isItemSelection}
-        currentPath={currentPath}
-        currentFolder={currentFolder}
         setIsItemSelection={setIsItemSelection}
+        currentPath={currentPath}
         selectedFile={selectedFile}
+        setSelectedFile={setSelectedFile}
         files={files}
         clipBoard={clipBoard}
         setClipBoard={setClipBoard}
@@ -128,6 +121,7 @@ const FileManager = ({ files, onCreateFolder, onRename, onDelete, onPaste }) => 
         handleDelete={onDelete}
         setIsItemSelection={setIsItemSelection}
         setSelectedFile={setSelectedFile}
+        allowedFileExtensions={allowedFileExtensions}
       />
     </main>
   );

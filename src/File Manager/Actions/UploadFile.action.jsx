@@ -6,11 +6,12 @@ import { useFileIcons } from "../../hooks/useFileIcons";
 import { FaRegFile } from "react-icons/fa6";
 import Progress from "../../components/Progress/Progress";
 
-const UploadFileAction = ({ onFilesSelected }) => {
+const UploadFileAction = ({ onFilesSelected, allowedFileExtensions }) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileIcons = useFileIcons(33);
 
+  // Todo: Also validate allowed file extensions on drop
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
@@ -51,6 +52,7 @@ const UploadFileAction = ({ onFilesSelected }) => {
               className="choose-file-input"
               onChange={handleChooseFile}
               multiple
+              accept={allowedFileExtensions}
             />
           </Button>
         </div>

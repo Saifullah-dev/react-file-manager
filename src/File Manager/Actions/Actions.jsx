@@ -15,6 +15,7 @@ const Actions = ({
   handleRename,
   setIsItemSelection,
   handleDelete,
+  allowedFileExtensions,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
 
@@ -33,7 +34,7 @@ const Actions = ({
     },
     uploadFile: {
       title: "Upload File",
-      component: <UploadFileAction />,
+      component: <UploadFileAction allowedFileExtensions={allowedFileExtensions} />,
       width: "35%",
     },
     rename: {

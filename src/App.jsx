@@ -26,7 +26,7 @@ function App() {
   ]);
 
   // Create Folder
-  const handleCreateFolder = async (folderName, currentPath) => {
+  const handleCreateFolder = (folderName, currentPath) => {
     setFiles((prev) => {
       return [
         ...prev,
@@ -41,7 +41,7 @@ function App() {
   //
 
   // Rename File/Folder
-  const handleRename = async (selectedFile, newName) => {
+  const handleRename = (selectedFile, newName) => {
     setFiles((prev) => {
       return prev.map((file) => {
         if (file.name === selectedFile?.name && file.path === selectedFile?.path) {
@@ -88,9 +88,8 @@ function App() {
   // Handle Paste
   const getCopiedFiles = (file, pastePath) => {
     const children = file.children ?? [];
-    delete file.children;
     return [
-      { ...file, path: pastePath },
+      { name: file.name, isDirectory: file.isDirectory, path: pastePath },
       ...children.flatMap((child) => getCopiedFiles(child, pastePath + "/" + file.name)),
     ];
   };
@@ -125,7 +124,7 @@ function App() {
     }
   };
 
-  const handlePaste = (e, pastePath, clipBoard, filesCopied) => {
+  const handlePaste = (pastePath, clipBoard, filesCopied) => {
     setFiles((prevFiles) => {
       if (clipBoard.isMoving) {
         prevFiles = prevFiles.filter((f) => {
@@ -152,6 +151,7 @@ function App() {
       onRename={handleRename}
       onDelete={handleDelete}
       onPaste={handlePaste}
+      allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
     />
   );
 }

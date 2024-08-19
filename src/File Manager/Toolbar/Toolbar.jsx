@@ -9,32 +9,18 @@ import { createFolderTree } from "../../utils/createFolderTree";
 const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
-  currentPathFiles,
-  handleFileUpload = () => {},
   handleRefreshFiles,
   isItemSelection,
   setIsItemSelection,
   currentPath,
-  currentFolder,
   selectedFile,
+  setSelectedFile,
   files,
   clipBoard,
   setClipBoard,
-  handleDelete,
   handlePaste,
   triggerAction,
 }) => {
-  // File Upload States
-  const [showUploadFile, setShowUploadFile] = useState(false);
-  const [fileList, setFileList] = useState([]);
-
-  useEffect(() => {
-    if (!showUploadFile) {
-      setFileList([]);
-    }
-  }, [showUploadFile]);
-  //
-
   // Toolbar Items
   const [toolbarLeftItems, setToolbarLeftItems] = useState([
     {
@@ -49,57 +35,19 @@ const Toolbar = ({
       permission: allowUploadFile,
       onClick: () => triggerAction.show("uploadFile"),
     },
+    {
+      icon: <FaRegPaste size={18} />,
+      text: "Paste",
+      permission: false,
+      onClick: () => {},
+    },
   ]);
-
-  useEffect(() => {
-    if (clipBoard) {
-      const selectedCopiedFile = clipBoard.files[0];
-      const copiedFiles = files.filter((f) => {
-        const folderToCopy =
-          f.path === selectedCopiedFile.path && f.name === selectedCopiedFile.name;
-        const folderChildren = f.path.startsWith(
-          selectedCopiedFile.path + "/" + selectedCopiedFile.name
-        );
-        return folderToCopy || folderChildren;
-      });
-
-      if (toolbarLeftItems.find((item) => item.text === "Paste")) {
-        setToolbarLeftItems((prev) => {
-          return prev.map((item) => {
-            if (item.text === "Paste") {
-              return {
-                ...item,
-                onClick: (e) => handlePaste(e, currentPath, clipBoard, copiedFiles),
-              };
-            }
-            return item;
-          });
-        });
-      } else {
-        setToolbarLeftItems((prev) => {
-          return [
-            ...prev,
-            {
-              icon: <FaRegPaste size={18} />,
-              text: "Paste",
-              permission: true,
-              onClick: (e) => handlePaste(e, currentPath, clipBoard, copiedFiles),
-            },
-          ];
-        });
-      }
-    } else {
-      setToolbarLeftItems((prev) => {
-        return prev.filter((item) => item.text !== "Paste");
-      });
-    }
-  }, [clipBoard, currentPath, files]);
 
   const toolbarRightItems = [
     // {
-    //     icon: <BsGridFill size={16} />,
-    //     title: "View",
-    //     onClick: handleRefreshFiles,
+    //   icon: <BsGridFill size={16} />,
+    //   title: "View",
+    //   onClick: handleViewChange,
     // },
     {
       icon: <FiRefreshCw size={16} />,
@@ -107,10 +55,42 @@ const Toolbar = ({
       onClick: handleRefreshFiles,
     },
   ];
-  //
+
+  // Handle Pasting
+  const handlePasting = (pastePath, clipBoard) => {
+    const selectedCopiedFile = clipBoard.files[0];
+    const copiedFiles = files.filter((f) => {
+      const folderToCopy = f.path === selectedCopiedFile.path && f.name === selectedCopiedFile.name;
+      const folderChildren = f.path.startsWith(
+        selectedCopiedFile.path + "/" + selectedCopiedFile.name
+      );
+      return folderToCopy || folderChildren;
+    });
+
+    handlePaste(pastePath, clipBoard, copiedFiles);
+    clipBoard.isMoving && setClipBoard(null);
+    setIsItemSelection(false);
+    setSelectedFile(null);
+  };
+
+  useEffect(() => {
+    setToolbarLeftItems((prev) => {
+      return prev.map((item) => {
+        if (item.text === "Paste") {
+          return {
+            ...item,
+            permission: !!clipBoard,
+            onClick: () => handlePasting(currentPath, clipBoard),
+          };
+        } else {
+          return item;
+        }
+      });
+    });
+  }, [clipBoard, currentPath]);
 
   // Handle Cut / Copy
-  const handleCutCopy = (e, isMoving) => {
+  const handleCutCopy = (isMoving) => {
     setClipBoard({
       files: [{ ...createFolderTree(selectedFile, files) }],
       isMoving: isMoving,
@@ -118,45 +98,26 @@ const Toolbar = ({
   };
   //
 
-  // Handle Remove File
-  const [isFileUploading, setIsFileUploading] = useState(false);
-  const handleRemoveFile = (file) => {
-    if (file.status !== "error") {
-      const fileToDelete = currentPathFiles.find((item) => item.fileKey === file.fileKey);
-      handleDelete(fileToDelete);
-    }
-  };
-  //
-
   // Selected File/Folder Actions
   if (isItemSelection) {
     const pastePath = selectedFile.path + "/" + selectedFile.name;
-    const selectedCopiedFile = clipBoard?.files[0];
-    const copiedFiles = files.filter((f) => {
-      const folderToCopy =
-        f.path === selectedCopiedFile?.path && f.name === selectedCopiedFile?.name;
-      const folderChildren = f.path.startsWith(
-        selectedCopiedFile?.path + "/" + selectedCopiedFile?.name
-      );
-      return folderToCopy || folderChildren;
-    });
 
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
-            <button className="item-action file-action" onClick={(e) => handleCutCopy(e, true)}>
+            <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
               <BsScissors size={18} />
               <span>Cut</span>
             </button>
-            <button className="item-action file-action" onClick={(e) => handleCutCopy(e, false)}>
+            <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
               <BsCopy strokeWidth={0.1} size={17} />
               <span>Copy</span>
             </button>
             {selectedFile.isDirectory ? (
               <button
                 className="item-action file-action"
-                onClick={(e) => handlePaste(e, pastePath, clipBoard, copiedFiles)}
+                onClick={() => handlePasting(pastePath, clipBoard)}
                 disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
@@ -205,7 +166,7 @@ const Toolbar = ({
         </div>
         <div>
           {toolbarRightItems.map((item, index) => (
-            <div key={index}>
+            <div key={index} className="toolbar-left-items">
               <div
                 className="item-action icon-only"
                 title={item.title}
@@ -214,7 +175,7 @@ const Toolbar = ({
               >
                 {item.icon}
               </div>
-              {index + 1 !== toolbarRightItems.length && <div className="item-separator"></div>}
+              {index !== toolbarRightItems.length - 1 && <div className="item-separator"></div>}
             </div>
           ))}
         </div>
