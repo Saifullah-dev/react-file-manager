@@ -6,6 +6,7 @@ import BreadCrumb from "./Bread Crumb/BreadCrumb";
 import Files from "./Files/Files";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import Actions from "./Actions/Actions";
+import Loader from "../components/Loader/Loader";
 
 const FileManager = ({
   files,
@@ -13,6 +14,8 @@ const FileManager = ({
   onRename,
   onDelete,
   onPaste,
+  onRefresh,
+  isLoading,
   allowedFileExtensions,
 }) => {
   const triggerAction = useTriggerAction();
@@ -65,9 +68,11 @@ const FileManager = ({
 
   return (
     <main className="file-explorer">
+      <Loader isLoading={isLoading} />
       <Toolbar
         allowCreateFolder
         allowUploadFile
+        handleRefresh={onRefresh}
         isItemSelection={isItemSelection}
         setIsItemSelection={setIsItemSelection}
         currentPath={currentPath}

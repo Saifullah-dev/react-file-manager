@@ -9,7 +9,7 @@ import { createFolderTree } from "../../utils/createFolderTree";
 const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
-  handleRefreshFiles,
+  handleRefresh,
   isItemSelection,
   setIsItemSelection,
   currentPath,
@@ -52,7 +52,7 @@ const Toolbar = ({
     {
       icon: <FiRefreshCw size={16} />,
       title: "Refresh",
-      onClick: handleRefreshFiles,
+      onClick: handleRefresh,
     },
   ];
 

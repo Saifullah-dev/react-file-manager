@@ -24,6 +24,7 @@ function App() {
       path: "",
     },
   ]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Create Folder
   const handleCreateFolder = (folderName, currentPath) => {
@@ -85,7 +86,7 @@ function App() {
   };
   //
 
-  // Handle Paste
+  // Paste File/Folder
   const getCopiedFiles = (file, pastePath) => {
     const children = file.children ?? [];
     return [
@@ -144,6 +145,12 @@ function App() {
   };
   //
 
+  // Refresh Files
+  const handleRefresh = () => {
+    // Refresh Files API call here...
+  };
+  //
+
   return (
     <FileManager
       files={files}
@@ -151,6 +158,8 @@ function App() {
       onRename={handleRename}
       onDelete={handleDelete}
       onPaste={handlePaste}
+      onRefresh={handleRefresh}
+      isLoading={isLoading}
       allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
     />
   );
