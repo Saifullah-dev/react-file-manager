@@ -45,7 +45,7 @@ const CreateFolderAction = ({
 
       if (!alreadyExists) {
         // Current path doesn't have the same folder name
-        handleCreateFolder(newFolderName);
+        handleCreateFolder(newFolderName, currentPath);
         triggerAction.close();
       } else {
         setFolderErrorMessage(`A folder with the name "${newFolderName}" already exits.`);

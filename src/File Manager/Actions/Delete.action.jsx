@@ -1,9 +1,17 @@
 import React from "react";
 import Button from "../../components/Button/Button";
 
-const DeleteAction = ({ selectedFile, triggerAction, handleDelete }) => {
+const DeleteAction = ({
+  selectedFile,
+  triggerAction,
+  handleDelete,
+  setIsItemSelection,
+  setSelectedFile,
+}) => {
   const handleDeleting = (file) => {
     handleDelete(file);
+    setIsItemSelection(false);
+    setSelectedFile(null);
     triggerAction.close();
   };
 

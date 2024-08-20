@@ -69,7 +69,10 @@ const FileItem = ({
         );
         return folderToCopy || folderChildren;
       });
-      handlePaste(e, pastePath, copiedFiles);
+      handlePaste(pastePath, clipBoard, copiedFiles);
+      clipBoard.isMoving && setClipBoard(null);
+      setIsItemSelection(false);
+      setSelectedFile(null);
       setVisible(false);
     }
   };
@@ -162,7 +165,7 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
-        contextMenuRef={contextMenuRef.ref}
+        contextMenuRef={contextMenuRef}
         visible={visible}
         setVisible={setVisible}
         content={menuItems}

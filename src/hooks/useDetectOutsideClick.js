@@ -16,5 +16,5 @@ export const useDetectOutsideClick = (handleOutsideClick) => {
     };
   }, []);
 
-  return { ref };
+  return ref;
 };

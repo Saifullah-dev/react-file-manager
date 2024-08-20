@@ -2,7 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "../../components/Button/Button";
 import { IoWarningOutline } from "react-icons/io5";
 
-const RenameAction = ({ selectedFile, currentPathFiles, handleFileRename, triggerAction }) => {
+const RenameAction = ({
+  selectedFile,
+  currentPathFiles,
+  handleRename,
+  triggerAction,
+  setSelectedFile,
+}) => {
   const [renameFile, setRenameFile] = useState(selectedFile?.name);
   const renameFileRef = useRef(null);
   const [renameFileWarning, setRenameFileWarning] = useState(false);
@@ -58,7 +64,8 @@ const RenameAction = ({ selectedFile, currentPathFiles, handleFileRename, trigge
         return;
       }
     }
-    handleFileRename(selectedFile, renameFile);
+    handleRename(selectedFile, renameFile);
+    setSelectedFile((prev) => ({ ...prev, name: renameFile }));
     triggerAction.close();
   };
 

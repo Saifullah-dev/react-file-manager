@@ -43,6 +43,7 @@ svg {
   }
   border: 1px solid #dddddd;
   height: 72dvh;
+  position: relative;
   width: 100%;
   background-color: white;
   margin-top: 1rem;
@@ -102,6 +103,10 @@ svg {
       justify-content: space-between;
 
       > div {
+        display: flex;
+      }
+
+      .toolbar-left-items {
         display: flex;
       }
     }
@@ -586,6 +591,7 @@ svg {
     width: 100%;
     .draggable-file-input {
       color: #696969;
+      background-color: #f7f7f7;
       margin-bottom: 18px;
       height: 220px;
       border: 2px dashed #ccc;
