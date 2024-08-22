@@ -6,6 +6,7 @@ import DeleteAction from "./Delete.action";
 import UploadFileAction from "./UploadFile.action";
 
 const Actions = ({
+  files,
   triggerAction,
   currentPath,
   currentPathFiles,
@@ -24,6 +25,7 @@ const Actions = ({
       title: "Create Folder",
       component: (
         <CreateFolderAction
+          files={files}
           currentPath={currentPath}
           currentPathFiles={currentPathFiles}
           triggerAction={triggerAction}
@@ -41,6 +43,7 @@ const Actions = ({
       title: "Rename",
       component: (
         <RenameAction
+          files={files}
           selectedFile={selectedFile}
           currentPathFiles={currentPathFiles}
           triggerAction={triggerAction}
@@ -54,6 +57,7 @@ const Actions = ({
       title: "Delete",
       component: (
         <DeleteAction
+          files={files}
           selectedFile={selectedFile}
           triggerAction={triggerAction}
           handleDelete={handleDelete}

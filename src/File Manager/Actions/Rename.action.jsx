@@ -3,6 +3,7 @@ import Button from "../../components/Button/Button";
 import { IoWarningOutline } from "react-icons/io5";
 
 const RenameAction = ({
+  files,
   selectedFile,
   currentPathFiles,
   handleRename,
@@ -64,7 +65,7 @@ const RenameAction = ({
         return;
       }
     }
-    handleRename(selectedFile, renameFile);
+    handleRename(files, selectedFile, renameFile);
     setSelectedFile((prev) => ({ ...prev, name: renameFile }));
     triggerAction.close();
   };

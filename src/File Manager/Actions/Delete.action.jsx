@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../components/Button/Button";
 
 const DeleteAction = ({
+  files,
   selectedFile,
   triggerAction,
   handleDelete,
@@ -9,7 +10,7 @@ const DeleteAction = ({
   setSelectedFile,
 }) => {
   const handleDeleting = (file) => {
-    handleDelete(file);
+    handleDelete(files, file);
     setIsItemSelection(false);
     setSelectedFile(null);
     triggerAction.close();

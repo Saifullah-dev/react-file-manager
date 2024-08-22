@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  FaRegFile,
-  FaRegFileImage,
-  FaRegFileLines,
-  FaRegFilePdf,
-  FaRegFileWord,
-  FaRegFolderOpen,
-  FaRegPaste,
-} from "react-icons/fa6";
+import { FaRegFile, FaRegFolderOpen, FaRegPaste } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
 import { MdOutlineDelete } from "react-icons/md";
 import ContextMenu from "../../components/Context Menu/ContextMenu";
@@ -69,7 +61,7 @@ const FileItem = ({
         );
         return folderToCopy || folderChildren;
       });
-      handlePaste(pastePath, clipBoard, copiedFiles);
+      handlePaste(files, pastePath, clipBoard, copiedFiles);
       clipBoard.isMoving && setClipBoard(null);
       setIsItemSelection(false);
       setSelectedFile(null);
