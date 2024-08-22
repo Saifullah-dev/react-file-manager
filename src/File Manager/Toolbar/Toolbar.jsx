@@ -57,7 +57,7 @@ const Toolbar = ({
   ];
 
   // Handle Pasting
-  const handlePasting = (pastePath, clipBoard) => {
+  const handlePasting = (files, pastePath, clipBoard) => {
     const selectedCopiedFile = clipBoard.files[0];
     const copiedFiles = files.filter((f) => {
       const folderToCopy = f.path === selectedCopiedFile.path && f.name === selectedCopiedFile.name;
@@ -67,7 +67,7 @@ const Toolbar = ({
       return folderToCopy || folderChildren;
     });
 
-    handlePaste(pastePath, clipBoard, copiedFiles);
+    handlePaste(files, pastePath, clipBoard, copiedFiles);
     clipBoard.isMoving && setClipBoard(null);
     setIsItemSelection(false);
     setSelectedFile(null);
@@ -80,14 +80,14 @@ const Toolbar = ({
           return {
             ...item,
             permission: !!clipBoard,
-            onClick: () => handlePasting(currentPath, clipBoard),
+            onClick: () => handlePasting(files, currentPath, clipBoard),
           };
         } else {
           return item;
         }
       });
     });
-  }, [clipBoard, currentPath]);
+  }, [clipBoard, currentPath, files]);
 
   // Handle Cut / Copy
   const handleCutCopy = (isMoving) => {
@@ -117,7 +117,7 @@ const Toolbar = ({
             {selectedFile.isDirectory ? (
               <button
                 className="item-action file-action"
-                onClick={() => handlePasting(pastePath, clipBoard)}
+                onClick={() => handlePasting(files, pastePath, clipBoard)}
                 disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />

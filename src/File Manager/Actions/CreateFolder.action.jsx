@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../../components/Button/Button";
 
 const CreateFolderAction = ({
+  files,
   currentPath,
   currentPathFiles,
   handleCreateFolder,
@@ -45,7 +46,7 @@ const CreateFolderAction = ({
 
       if (!alreadyExists) {
         // Current path doesn't have the same folder name
-        handleCreateFolder(newFolderName, currentPath);
+        handleCreateFolder(files, newFolderName, currentPath);
         triggerAction.close();
       } else {
         setFolderErrorMessage(`A folder with the name "${newFolderName}" already exits.`);
