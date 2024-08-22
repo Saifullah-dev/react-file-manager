@@ -117,6 +117,7 @@ const FileManager = ({
       </section>
 
       <Actions
+        files={files}
         currentPath={currentPath}
         currentPathFiles={currentPathFiles}
         selectedFile={selectedFile}
