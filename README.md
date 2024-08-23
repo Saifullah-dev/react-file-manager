@@ -1,83 +1,71 @@
-# File Manager Component
+# React File Manager
 
-## Overview
-
-The File Manager Component is an open-source React.js package designed to help developers easily integrate a file manager into their applications. This component provides a user-friendly interface along with essential functionalities for managing files and folders, such as viewing, uploading and deleting within a specified directory structure. Ideal for anyone looking to build or enhance a file management system, this package offers both UI and backend integration capabilities.
+An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
 
 ## Features
 
 - **View Files and Folders**: Display the directory structure with folders and files.
 - **Upload Files**: Upload new files to a selected directory.
 - **Delete Files and Folders**: Remove unwanted files or folders.
+- **Toolbar**: Access common file operations such as upload, delete, and refresh with a convenient toolbar.
 - **Breadcrumb Navigation**: Easily navigate through the directory structure.
-- **Responsive Design**: Works seamlessly on both desktop and mobile devices.
+- **Navigation Pane**: Easily switch between folders and directories with a sidebar navigation pane.
+- **Context Menu**: Right-click to open a context menu with options for cutting, copying, pasting, renaming, and deleting files or folders.
 
 ## Installation
 
-To get started with the File Manager Component, follow these steps:
-
-### Prerequisites
-
-Ensure you have the following installed on your system:
-
-- Node.js (v14 or later)
-- npm (v6 or later)
-
-### Clone the Repository
+To install `React File Manager`, use the following command:
 
 ```bash
-git clone https://github.com/Saifullah-dev/react-file-manager.git
-cd react-file-manager
+npm i @cubone/react-file-manager
 ```
-
-### Install Dependencies
-
-Using npm:
-
-```bash
-npm i
-```
-
-### Start the Development Server
-
-To start the development server and see the File Manager in action:
-
-```bash
-npm run dev
-```
-
-The application should now be running on `http://localhost:5173`.
 
 ## Usage
 
-### File Structure
+Here’s a basic example of how to use the File Manager Component in your React application:
 
-- **src/**: Contains all the source code.
-  - **components/**: Reusable components like `Button`, `Context Menu`, `Modal`, etc.
-  - **File Manager/**: The main directory for the File Manager component.
-  - **hooks/**: Custom hooks for handling various interactions and UI state.
-  - **Mock APIs/**: Simulated API functions for demonstration purposes.
-  - **utils/**: Utility functions and helpers.
-  - **App.js**: Main entry point of the application.
-  - **index.js**: Application bootstrap and rendering.
+```javascript
+import { useState } from "react";
+import { FileManager } from "@cubone/react-file-manager";
+import "@cubone/react-file-manager/dist/style.css";
 
-## Available Scripts
+function App() {
+  const [files, setFiles] = useState([
+    {
+      name: "Documents",
+      isDirectory: true,
+      path: "", // Root directory
+    },
+    {
+      name: "Pictures",
+      isDirectory: true,
+      path: "", // Root directory
+    },
+    {
+      name: "Pic.png",
+      isDirectory: false,
+      path: "/Pictures", // Located inside the "Pictures" folder
+    },
+  ]);
 
-In the project directory, you can run:
-
-- `npm run dev`: Runs the app in development mode.
-- `npm run build`: Builds the app for production.
-- `npm test`: Launches the test runner.
-
-## Deployment
-
-To deploy the app, first build the project:
-
-```bash
-npm run build
+  return (
+    <>
+      <FileManager files={files} />
+    </>
+  );
+}
 ```
+## Props
 
-This will create a `build/` directory containing the production-ready code. You can then deploy the contents of this directory to your preferred hosting service.
+| Name       | Type                                                                                           | Description                                                                 |
+|-----------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `files`         | `Array<{ name: string, isDirectory: boolean, path: string }>`                                 | An array of file and folder objects representing the current directory structure. Each object includes `name`, `isDirectory`, and `path` properties. |
+| `isLoading`     | `boolean`                                                                                      | A boolean indicating whether the application is currently performing an operation, such as creating, renaming, or deleting a file/folder. Displays a loading state if `true`. |
+| `onCreateFolder`| `(files: { name: string, isDirectory: boolean, path: string }[], folderName: string, folderPath: string) => void` | A callback function triggered when a new folder is created. Update the `files` state to include the new folder in the specified path. |
+| `onRename`      | `(files: { name: string, isDirectory: boolean, path: string }[], selectedFile: { name: string, isDirectory: boolean, path: string }, newName: string) => void` | A callback function triggered when a file or folder is renamed. Update the `files` state to reflect the new name for the specified file or folder. |
+| `onDelete`      | `(files: { name: string, isDirectory: boolean, path: string }[], file: { name: string, isDirectory: boolean, path: string }) => void` | A callback function triggered when a file or folder is deleted. Update the `files` state to remove the specified file or folder from the structure. |
+| `onPaste`       | `(files: { name: string, isDirectory: boolean, path: string }[], pastePath: string, clipBoard: { isMoving: boolean, files: { name: string, isDirectory: boolean, path: string, children?: { name: string, isDirectory: boolean, path: string }[] }[] }) => void` | A callback function triggered when a file or folder is pasted (moved or copied). Update the files state to reflect the new location of the pasted items based on the clipBoard data. |
+| `onRefresh`     | `() => void`                                                                                   | A callback function triggered when the file manager is refreshed. Use this to reload or refresh the `files` state to reflect any changes or updates. |
 
 ## Contributing
 
@@ -90,13 +78,16 @@ Contributions are welcome! To contribute:
 5. Push to the branch (`git push origin feature/branch-name`).
 6. Open a Pull Request.
 
+Get started by running following commands:
+
+```bash
+git clone https://github.com/Saifullah-dev/react-file-manager.git
+cd react-file-manager
+npm i
+npm run dev
+```
+The application should now be running on `http://localhost:5173`, have fun!
+
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact
-
-For any questions, feel free to reach out:
-
-- **Email**: saifullah.contact@gmail.com
-- **GitHub**: [Saifullah-dev](https://github.com/Saifullah-dev)
+React File Manager is [MIT Licensed](LICENSE).
