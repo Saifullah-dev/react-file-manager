@@ -7,6 +7,12 @@ import { fileTransferAPI } from "./Mock APIs/fileTransferAPI";
 import { refreshAPI } from "./Mock APIs/refreshAPI";
 
 function App() {
+  const fileUploadConfig = {
+    url: "https://file.io",
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_FILE_IO_API_KEY}`,
+    },
+  };
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([
     {
@@ -78,12 +84,13 @@ function App() {
   return (
     <FileManager
       files={files}
+      fileUploadConfig={fileUploadConfig}
+      isLoading={isLoading}
       onCreateFolder={handleCreateFolder}
       onRename={handleRename}
       onDelete={handleDelete}
       onPaste={handlePaste}
       onRefresh={handleRefresh}
-      isLoading={isLoading}
       allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
     />
   );

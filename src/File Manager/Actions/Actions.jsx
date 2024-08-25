@@ -3,10 +3,11 @@ import Modal from "../../components/Modal/Modal";
 import CreateFolderAction from "./CreateFolder.action";
 import RenameAction from "./Rename.action";
 import DeleteAction from "./Delete.action";
-import UploadFileAction from "./UploadFile.action";
+import UploadFileAction from "./Upload File/UploadFile.action";
 
 const Actions = ({
   files,
+  fileUploadConfig,
   triggerAction,
   currentPath,
   currentPathFiles,
@@ -36,7 +37,12 @@ const Actions = ({
     },
     uploadFile: {
       title: "Upload File",
-      component: <UploadFileAction allowedFileExtensions={allowedFileExtensions} />,
+      component: (
+        <UploadFileAction
+          fileUploadConfig={fileUploadConfig}
+          allowedFileExtensions={allowedFileExtensions}
+        />
+      ),
       width: "35%",
     },
     rename: {
@@ -80,6 +86,7 @@ const Actions = ({
       setActiveAction(null);
     }
   }, [triggerAction.isActive]);
+
   return (
     <Modal
       heading={activeAction?.title}

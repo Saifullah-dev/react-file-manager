@@ -10,12 +10,13 @@ import Loader from "../components/Loader/Loader";
 
 const FileManager = ({
   files,
+  fileUploadConfig,
+  isLoading,
   onCreateFolder,
   onRename,
   onDelete,
   onPaste,
   onRefresh,
-  isLoading,
   allowedFileExtensions,
 }) => {
   const triggerAction = useTriggerAction();
@@ -118,6 +119,7 @@ const FileManager = ({
 
       <Actions
         files={files}
+        fileUploadConfig={fileUploadConfig}
         currentPath={currentPath}
         currentPathFiles={currentPathFiles}
         selectedFile={selectedFile}

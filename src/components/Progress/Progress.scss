@@ -18,6 +18,15 @@
   }
 
   .fm-progress-status {
-    font-size: 0.7em;
+    font-size: 0.75em;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .fm-upload-canceled {
+    font-size: 0.75em;
+    font-weight: 600;
+    color: red;
   }
 }
