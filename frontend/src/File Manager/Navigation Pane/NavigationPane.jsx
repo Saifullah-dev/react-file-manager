@@ -19,7 +19,14 @@ const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
   };
 
   useEffect(() => {
-    const folders = files.filter((file) => file.isDirectory);
+    const folders = files
+      .filter((file) => file.isDirectory)
+      .map((file) => {
+        return {
+          ...file,
+          path: file.path.split("/").slice(0, -1).join("/"),
+        };
+      });
     const foldersStruct = Object.groupBy(folders, ({ path }) => path);
     setFoldersTree(() => {
       if (folders.length > 0) {

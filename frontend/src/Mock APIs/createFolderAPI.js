@@ -1,14 +1,10 @@
-export const createFolderAPI = (files, folderName, folderPath) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        ...files,
-        {
-          name: folderName,
-          isDirectory: true,
-          path: folderPath,
-        },
-      ]);
-    }, 700);
-  });
+import { api } from "./api";
+
+export const createFolderAPI = async (name, parentId) => {
+  try {
+    const response = await api.post("/folder", { name, parentId });
+    return response;
+  } catch (error) {
+    return error;
+  }
 };

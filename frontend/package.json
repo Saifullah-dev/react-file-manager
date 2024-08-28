@@ -19,6 +19,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
+    "axios": "^1.7.5",
     "react": "^18.3.1",
     "react-collapsible": "^2.10.0",
     "react-dom": "^18.3.1",

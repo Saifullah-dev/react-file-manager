@@ -14,6 +14,7 @@ const Actions = ({
   selectedFile,
   setSelectedFile,
   handleCreateFolder,
+  currentFolder,
   handleRename,
   setIsItemSelection,
   handleDelete,
@@ -31,6 +32,7 @@ const Actions = ({
           currentPathFiles={currentPathFiles}
           triggerAction={triggerAction}
           handleCreateFolder={handleCreateFolder}
+          currentFolder={currentFolder}
         />
       ),
       width: "25%",

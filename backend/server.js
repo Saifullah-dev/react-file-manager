@@ -1,9 +1,24 @@
 const express = require("express");
+const connectDB = require("./config/db");
+const cors = require("cors");
+const fileSystemRoutes = require("./routes/fileSystem");
+
 const app = express();
 
-app.get("/", (req, res) => {
-  console.log("Hi");
-  res.send("Backend for React File Manager");
-});
+// Database connection
+connectDB();
 
-app.listen(3000);
+// CORS setup
+app.use(cors());
+
+// Middlewaere to parse JSON
+app.use(express.json());
+
+// Routes
+app.use("/api/file-system", fileSystemRoutes);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

@@ -6,6 +6,7 @@ const CreateFolderAction = ({
   currentPath,
   currentPathFiles,
   handleCreateFolder,
+  currentFolder,
   triggerAction,
 }) => {
   const [folderName, setFolderName] = useState("New Folder");
@@ -46,7 +47,7 @@ const CreateFolderAction = ({
 
       if (!alreadyExists) {
         // Current path doesn't have the same folder name
-        handleCreateFolder(files, newFolderName, currentPath);
+        handleCreateFolder(newFolderName, currentFolder);
         triggerAction.close();
       } else {
         setFolderErrorMessage(`A folder with the name "${newFolderName}" already exits.`);

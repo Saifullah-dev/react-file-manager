@@ -25,6 +25,7 @@ const FileManager = ({
   const [isItemSelection, setIsItemSelection] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null); // This will be selectedFiles as an array for multiple selection in future
   const [currentPath, setCurrentPath] = useState("");
+  const [currentFolder, setCurrentFolder] = useState(null);
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
   const [clipBoard, setClipBoard] = useState(null);
   //
@@ -32,7 +33,11 @@ const FileManager = ({
   // Settings Current Path Files
   useEffect(() => {
     setCurrentPathFiles(() => {
-      return files?.filter((file) => file.path === currentPath);
+      return files?.filter((file) => file.path === `${currentPath}/${file.name}`);
+    });
+
+    setCurrentFolder(() => {
+      return files?.find((file) => file.path === currentPath);
     });
   }, [files, currentPath]);
   //
@@ -125,6 +130,7 @@ const FileManager = ({
         selectedFile={selectedFile}
         triggerAction={triggerAction}
         handleCreateFolder={onCreateFolder}
+        currentFolder={currentFolder}
         handleRename={onRename}
         handleDelete={onDelete}
         setIsItemSelection={setIsItemSelection}

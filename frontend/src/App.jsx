@@ -14,34 +14,17 @@ function App() {
     },
   };
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState([
-    {
-      name: "DCIM",
-      isDirectory: true,
-      path: "",
-    },
-    {
-      name: "Camera",
-      isDirectory: true,
-      path: "/DCIM",
-    },
-    {
-      name: "Portraits",
-      isDirectory: true,
-      path: "/DCIM/Camera",
-    },
-    {
-      name: "Pic.png",
-      isDirectory: false,
-      path: "",
-    },
-  ]);
+  const [files, setFiles] = useState([]);
 
   // Create Folder
-  const handleCreateFolder = async (files, folderName, folderPath) => {
+  const handleCreateFolder = async (name, parentFolder) => {
     setIsLoading(true);
-    const responseFiles = await createFolderAPI(files, folderName, folderPath);
-    setFiles(responseFiles);
+    const response = await createFolderAPI(name, parentFolder?._id);
+    if (response.status === 200 || response.status === 201) {
+      setFiles((prev) => [...prev, response.data]);
+    } else {
+      console.error(response);
+    }
     setIsLoading(false);
   };
   //
