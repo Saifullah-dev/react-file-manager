@@ -3,7 +3,7 @@ import FileManager from "./File Manager/FileManager";
 import { createFolderAPI } from "./Mock APIs/createFolderAPI";
 import { renameAPI } from "./Mock APIs/renameAPI";
 import { deleteAPI } from "./Mock APIs/deleteAPI";
-import { fileTransferAPI } from "./Mock APIs/fileTransferAPI";
+import { copyItemAPI, moveItemAPI } from "./Mock APIs/fileTransferAPI";
 import { getAllFilesAPI } from "./Mock APIs/getAllFilesAPI";
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
 
   // File Upload Handlers
   const handleFileUploading = (file, parentFolder) => {
-    return { parentId: parentFolder._id };
+    return { parentId: parentFolder?._id };
   };
 
   const handleFileUploaded = (response) => {
@@ -80,11 +80,14 @@ function App() {
   //
 
   // Paste File/Folder
-  const handlePaste = async (files, pastePath, clipBoard, filesCopied) => {
+  const handlePaste = async (sourceItem, destinationFolder, operationType) => {
     setIsLoading(true);
-    const response = await fileTransferAPI(files, pastePath, clipBoard, filesCopied);
-    setFiles(response);
-    setIsLoading(false);
+    if (operationType === "copy") {
+      const response = await copyItemAPI(sourceItem._id, destinationFolder?._id);
+    } else {
+      const response = await moveItemAPI(sourceItem._id, destinationFolder?._id);
+    }
+    await getFiles();
   };
   //
 

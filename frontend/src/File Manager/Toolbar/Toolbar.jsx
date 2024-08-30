@@ -67,7 +67,10 @@ const Toolbar = ({
       return folderToCopy || folderChildren;
     });
 
-    handlePaste(files, pastePath, clipBoard, copiedFiles);
+    const destinationFolder = files.find((file) => file.path === pastePath);
+    const operationType = clipBoard.isMoving ? "move" : "copy";
+
+    handlePaste(selectedCopiedFile, destinationFolder, operationType);
     clipBoard.isMoving && setClipBoard(null);
     setIsItemSelection(false);
     setSelectedFile(null);
@@ -100,7 +103,7 @@ const Toolbar = ({
 
   // Selected File/Folder Actions
   if (isItemSelection) {
-    const pastePath = selectedFile.path + "/" + selectedFile.name;
+    const pastePath = selectedFile.path;
 
     return (
       <div className="toolbar file-selected">

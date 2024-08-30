@@ -51,7 +51,7 @@ const FileItem = ({
   const handleFilePasting = (e) => {
     e.stopPropagation();
     if (clipBoard) {
-      const pastePath = file.path + "/" + file.name;
+      const pastePath = file.path;
       const selectedCopiedFile = clipBoard.files[0];
       const copiedFiles = files.filter((f) => {
         const folderToCopy =
@@ -61,7 +61,11 @@ const FileItem = ({
         );
         return folderToCopy || folderChildren;
       });
-      handlePaste(files, pastePath, clipBoard, copiedFiles);
+
+      const destinationFolder = files.find((f) => f.path === pastePath);
+      const operationType = clipBoard.isMoving ? "move" : "copy";
+
+      handlePaste(selectedCopiedFile, destinationFolder, operationType);
       clipBoard.isMoving && setClipBoard(null);
       setIsItemSelection(false);
       setSelectedFile(null);

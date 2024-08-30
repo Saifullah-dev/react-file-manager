@@ -56,7 +56,7 @@ const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, handleF
       const formData = new FormData();
       const appendData = fileData?.appendData;
       for (let key in appendData) {
-        formData.append(key, appendData[key]);
+        appendData[key] && formData.append(key, appendData[key]);
       }
       formData.append("file", fileData.file);
 
