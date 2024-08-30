@@ -1,4 +1,4 @@
-# React File Manager
+![React File Manager](https://github.com/user-attachments/assets/45994895-0269-43bb-b268-06bd2dd85397)
 
 An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
 
