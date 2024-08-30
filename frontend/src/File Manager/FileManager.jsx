@@ -13,6 +13,8 @@ const FileManager = ({
   fileUploadConfig,
   isLoading,
   onCreateFolder,
+  onFileUploading,
+  onFileUploaded,
   onRename,
   onDelete,
   onPaste,
@@ -130,6 +132,8 @@ const FileManager = ({
         selectedFile={selectedFile}
         triggerAction={triggerAction}
         handleCreateFolder={onCreateFolder}
+        handleFileUploading={onFileUploading}
+        handleFileUploaded={onFileUploaded}
         currentFolder={currentFolder}
         handleRename={onRename}
         handleDelete={onDelete}

@@ -65,7 +65,7 @@ const RenameAction = ({
         return;
       }
     }
-    handleRename(files, selectedFile, renameFile);
+    handleRename(selectedFile, renameFile);
     setSelectedFile((prev) => ({ ...prev, name: renameFile }));
     triggerAction.close();
   };

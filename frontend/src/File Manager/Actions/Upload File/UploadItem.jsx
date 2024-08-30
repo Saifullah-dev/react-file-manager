@@ -8,14 +8,14 @@ import { getDataSize } from "../../../utils/getDataSize";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 
-const UploadItem = ({ index, file, setIsUploading, fileUploadConfig }) => {
+const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, handleFileUploaded }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
   const fileIcons = useFileIcons(33);
   const xhrRef = useRef();
 
-  const fileUpload = (file) => {
+  const fileUpload = (fileData) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhrRef.current = xhr;
@@ -36,8 +36,9 @@ const UploadItem = ({ index, file, setIsUploading, fileUploadConfig }) => {
           ...prev,
           [index]: false,
         }));
-        if (xhr.status === 200) {
+        if (xhr.status === 200 || xhr.status === 201) {
           setIsUploaded(true);
+          handleFileUploaded(xhr.response);
           resolve(xhr.response);
         } else {
           reject(xhr.statusText);
@@ -51,8 +52,14 @@ const UploadItem = ({ index, file, setIsUploading, fileUploadConfig }) => {
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
       }
+
       const formData = new FormData();
-      formData.append("file", file);
+      const appendData = fileData?.appendData;
+      for (let key in appendData) {
+        formData.append(key, appendData[key]);
+      }
+      formData.append("file", fileData.file);
+
       xhr.send(formData);
     });
   };
@@ -60,7 +67,7 @@ const UploadItem = ({ index, file, setIsUploading, fileUploadConfig }) => {
   useEffect(() => {
     // Prevent double uploads with strict mode
     if (!xhrRef.current) {
-      fileUpload(file);
+      fileUpload(fileData);
     }
   }, []);
 
@@ -77,8 +84,8 @@ const UploadItem = ({ index, file, setIsUploading, fileUploadConfig }) => {
   };
 
   const handleRetry = () => {
-    if (file) {
-      fileUpload(file);
+    if (fileData?.file) {
+      fileUpload(fileData);
       setIsCanceled(false);
     }
   };
@@ -86,15 +93,15 @@ const UploadItem = ({ index, file, setIsUploading, fileUploadConfig }) => {
   return (
     <li>
       <div className="file-icon">
-        {fileIcons[getFileExtension(file.name)] ?? <FaRegFile size={33} />}
+        {fileIcons[getFileExtension(fileData.file?.name)] ?? <FaRegFile size={33} />}
       </div>
       <div className="file">
         <div className="file-details">
           <div className="file-info">
-            <span className="file-name text-truncate" title={file.name}>
-              {file.name}
+            <span className="file-name text-truncate" title={fileData.file?.name}>
+              {fileData.file?.name}
             </span>
-            <span className="file-size">{getDataSize(file.size)}</span>
+            <span className="file-size">{getDataSize(fileData.file?.size)}</span>
           </div>
           {isUploaded ? (
             <FaRegCheckCircle color="#5c5bb1" title="Uploaded" />

@@ -42,21 +42,40 @@ function App() {
   };
   //
 
+  // File Upload Handlers
+  const handleFileUploading = (file, parentFolder) => {
+    return { parentId: parentFolder._id };
+  };
+
+  const handleFileUploaded = (response) => {
+    const uploadedFile = JSON.parse(response);
+    setFiles((prev) => [...prev, uploadedFile]);
+  };
+  //
+
   // Rename File/Folder
-  const handleRename = async (files, selectedFile, newName) => {
+  const handleRename = async (file, newName) => {
     setIsLoading(true);
-    const response = await renameAPI(files, selectedFile, newName);
-    setFiles(response);
+    const response = await renameAPI(file._id, newName);
+    if (response.status === 200) {
+      getFiles();
+    } else {
+      console.error(response);
+    }
     setIsLoading(false);
   };
   //
 
   // Delete File/Folder
-  const handleDelete = async (files, file) => {
+  const handleDelete = async (file) => {
     setIsLoading(true);
-    const response = await deleteAPI(files, file);
-    setFiles(response);
-    setIsLoading(false);
+    const response = await deleteAPI(file._id);
+    if (response.status === 200) {
+      getFiles();
+    } else {
+      console.error(response);
+      setIsLoading(false);
+    }
   };
   //
 
@@ -81,6 +100,8 @@ function App() {
       fileUploadConfig={fileUploadConfig}
       isLoading={isLoading}
       onCreateFolder={handleCreateFolder}
+      onFileUploading={handleFileUploading}
+      onFileUploaded={handleFileUploaded}
       onRename={handleRename}
       onDelete={handleDelete}
       onPaste={handlePaste}

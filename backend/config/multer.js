@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
       try {
         const parentFolder = await FileSystem.findById(req.body.parentId);
         if (!parentFolder || !parentFolder.isDirectory) {
-          return cb(new Error("Invalid parent folder!"), false);
+          return cb(new Error("Invalid parentId!"), false);
         }
         uploadPath = path.join(__dirname, "../uploads", parentFolder.path);
       } catch (error) {

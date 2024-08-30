@@ -1,18 +1,6 @@
-export const deleteAPI = (files, file) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let response;
-      if (file.isDirectory) {
-        response = files.filter((f) => {
-          const folderToDelete = f.path === file.path && f.name === file.name;
-          const folderChildren = f.path.startsWith(file.path + "/" + file.name);
-          return !folderToDelete && !folderChildren;
-        });
-      } else {
-        response = files.filter((f) => !(f.name === file.name && f.path === file.path));
-      }
+import { api } from "./api";
 
-      resolve(response);
-    }, 700);
-  });
+export const deleteAPI = async (id) => {
+  const response = await api.delete(`${import.meta.env.VITE_API_BASE_URL}/${id}`);
+  return response;
 };

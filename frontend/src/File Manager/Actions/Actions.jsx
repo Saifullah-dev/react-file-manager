@@ -14,6 +14,8 @@ const Actions = ({
   selectedFile,
   setSelectedFile,
   handleCreateFolder,
+  handleFileUploading,
+  handleFileUploaded,
   currentFolder,
   handleRename,
   setIsItemSelection,
@@ -43,6 +45,9 @@ const Actions = ({
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
           allowedFileExtensions={allowedFileExtensions}
+          handleFileUploading={handleFileUploading}
+          handleFileUploaded={handleFileUploaded}
+          currentFolder={currentFolder}
         />
       ),
       width: "35%",

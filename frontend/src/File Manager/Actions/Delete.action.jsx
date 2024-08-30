@@ -10,7 +10,7 @@ const DeleteAction = ({
   setSelectedFile,
 }) => {
   const handleDeleting = (file) => {
-    handleDelete(files, file);
+    handleDelete(file);
     setIsItemSelection(false);
     setSelectedFile(null);
     triggerAction.close();

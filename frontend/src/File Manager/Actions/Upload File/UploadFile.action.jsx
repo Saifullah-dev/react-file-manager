@@ -4,7 +4,13 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
 import ReactLoading from "react-loading";
 
-const UploadFileAction = ({ fileUploadConfig, allowedFileExtensions }) => {
+const UploadFileAction = ({
+  fileUploadConfig,
+  allowedFileExtensions,
+  handleFileUploading,
+  handleFileUploaded,
+  currentFolder,
+}) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState({});
@@ -15,14 +21,28 @@ const UploadFileAction = ({ fileUploadConfig, allowedFileExtensions }) => {
     setIsDragging(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
     if (droppedFiles.length > 0) {
-      setFiles((prev) => [...prev, ...droppedFiles]);
+      const choosenFiles = droppedFiles.map((file) => {
+        const appendData = handleFileUploading(file, currentFolder);
+        return {
+          file: file,
+          appendData: appendData,
+        };
+      });
+      setFiles((prev) => [...prev, ...choosenFiles]);
     }
   };
 
   const handleChooseFile = (e) => {
     const selectedFiles = Array.from(e.target.files);
     if (selectedFiles.length > 0) {
-      setFiles((prev) => [...prev, ...selectedFiles]);
+      const choosenFiles = selectedFiles.map((file) => {
+        const appendData = handleFileUploading(file, currentFolder);
+        return {
+          file: file,
+          appendData: appendData,
+        };
+      });
+      setFiles((prev) => [...prev, ...choosenFiles]);
     }
   };
 
@@ -68,13 +88,14 @@ const UploadFileAction = ({ fileUploadConfig, allowedFileExtensions }) => {
             )}
           </div>
           <ul>
-            {files.map((file, index) => (
+            {files.map((fileData, index) => (
               <UploadItem
                 index={index}
                 key={index}
-                file={file}
+                fileData={fileData}
                 fileUploadConfig={fileUploadConfig}
                 setIsUploading={setIsUploading}
+                handleFileUploaded={handleFileUploaded}
               />
             ))}
           </ul>
