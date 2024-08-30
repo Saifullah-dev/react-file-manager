@@ -6,7 +6,7 @@
   "module": "dist/react-file-manager.es.js",
   "files": [
     "dist/",
-    "../README.md"
+    "README.md"
   ],
   "publishConfig": {
     "access": "public"
