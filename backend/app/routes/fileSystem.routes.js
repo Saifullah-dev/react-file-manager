@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const fileSystemController = require("../controllers/fileSystemController");
-const upload = require("../config/multer");
+const fileSystemController = require("../controllers/fileSystem.controller");
+const upload = require("../middlewares/multer.middleware");
 
-router.get("/", fileSystemController.getFiles);
 router.post("/folder", fileSystemController.createFolder);
 router.post("/upload", upload.single("file"), fileSystemController.uploadFile);
-router.delete("/:id", fileSystemController.delete);
-router.patch("/rename", fileSystemController.rename);
+router.get("/", fileSystemController.getItems);
 router.post("/copy", fileSystemController.copyItem);
 router.put("/move", fileSystemController.moveItem);
+router.patch("/rename", fileSystemController.renameItem);
+router.delete("/:id", fileSystemController.deleteItem);
 
 module.exports = router;

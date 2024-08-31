@@ -1,11 +1,11 @@
 const multer = require("multer");
 const path = require("path");
-const FileSystem = require("../models/FileSystem");
+const FileSystem = require("../models/FileSystem.model");
 const fs = require("fs");
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
-    let uploadPath = path.join(__dirname, "../uploads");
+    let uploadPath = path.join(__dirname, "../../public/uploads");
 
     if (req.body.parentId) {
       try {
@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
         if (!parentFolder || !parentFolder.isDirectory) {
           return cb(new Error("Invalid parentId!"), false);
         }
-        uploadPath = path.join(__dirname, "../uploads", parentFolder.path);
+        uploadPath = path.join(__dirname, "../../public/uploads", parentFolder.path);
       } catch (error) {
         return cb(error, false);
       }
