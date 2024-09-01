@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import FileItem from "./FileItem";
+import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 
 const Files = ({
   currentPathFiles,
+  setCurrentPathFiles,
   setCurrentPath,
   isItemSelection,
   setIsItemSelection,
@@ -13,6 +15,8 @@ const Files = ({
   handlePaste,
   files,
   triggerAction,
+  currentFolder,
+  handleCreateFolder,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
@@ -21,6 +25,31 @@ const Files = ({
     setIsItemSelection(false);
     setSelectedFile(null);
   }, [currentPath]);
+
+  const handleFolderCreating = () => {
+    setCurrentPathFiles((prev) => {
+      return [
+        ...prev,
+        {
+          name: duplicateNameHandler("New Folder", true, prev),
+          isDirectory: true,
+          path: currentPath,
+          isEditing: true,
+          key: new Date().valueOf(),
+        },
+      ];
+    });
+  };
+
+  useEffect(() => {
+    if (triggerAction.isActive) {
+      switch (triggerAction.actionType) {
+        case "createFolder":
+          handleFolderCreating();
+          break;
+      }
+    }
+  }, [triggerAction.isActive]);
 
   return (
     <div
@@ -50,6 +79,9 @@ const Files = ({
               handlePaste={handlePaste}
               files={files}
               triggerAction={triggerAction}
+              currentPathFiles={currentPathFiles}
+              currentFolder={currentFolder}
+              handleCreateFolder={handleCreateFolder}
             />
           ))}
         </>

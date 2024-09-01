@@ -8,6 +8,7 @@ import { BiRename } from "react-icons/bi";
 import { BsCopy, BsScissors } from "react-icons/bs";
 import { createFolderTree } from "../../utils/createFolderTree";
 import { useFileIcons } from "../../hooks/useFileIcons";
+import CreateFolderAction from "../Actions/CreateFolder.action";
 
 const FileItem = ({
   file,
@@ -24,6 +25,9 @@ const FileItem = ({
   handlePaste,
   files,
   triggerAction,
+  currentFolder,
+  handleCreateFolder,
+  currentPathFiles,
 }) => {
   const fileIcons = useFileIcons(48);
 
@@ -102,14 +106,14 @@ const FileItem = ({
     setSelectedFile(file);
     setSelectedFileIndex(index);
     const currentTime = new Date().getTime();
-    if (currentTime - lastClickTime < 300) {
+    if (currentTime - lastClickTime < 300 && !file.isEditing) {
       setIsItemSelection(false);
       handleFileAccess();
     }
     setLastClickTime(currentTime);
   };
 
-  const handleOnKeyUp = (e) => {
+  const handleOnKeyDown = (e) => {
     if (e.key === "Enter") {
       handleFileAccess();
     }
@@ -161,18 +165,18 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
-        contextMenuRef={contextMenuRef}
+        contextMenuRef={contextMenuRef.ref}
         visible={visible}
         setVisible={setVisible}
         content={menuItems}
       >
         <div
-          className={`file-item ${fileSelected ? "background-secondary text-white" : ""} ${
-            isFileMoving ? "file-moving" : ""
-          }`}
+          className={`file-item ${
+            fileSelected || !!file.isEditing ? "background-secondary text-white" : ""
+          } ${isFileMoving ? "file-moving" : ""}`}
           title={file.name}
           onClick={handleFileSelection}
-          onKeyUp={handleOnKeyUp}
+          onKeyDown={handleOnKeyDown}
           onContextMenu={() => {
             setIsItemSelection(true);
             setSelectedFile(file);
@@ -185,7 +189,18 @@ const FileItem = ({
           ) : (
             <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={48} />}</>
           )}
-          <span className="text-truncate file-name">{file.name}</span>
+
+          {file.isEditing ? (
+            <CreateFolderAction
+              file={file}
+              currentFolder={currentFolder}
+              currentPathFiles={currentPathFiles}
+              handleCreateFolder={handleCreateFolder}
+              triggerAction={triggerAction}
+            />
+          ) : (
+            <span className="text-truncate file-name">{file.name}</span>
+          )}
         </div>
       </ContextMenu>
 

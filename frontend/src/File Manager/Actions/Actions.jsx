@@ -25,22 +25,22 @@ const Actions = ({
   const [activeAction, setActiveAction] = useState(null);
 
   const actionTypes = {
-    createFolder: {
-      title: "Create Folder",
-      component: (
-        <CreateFolderAction
-          files={files}
-          currentPath={currentPath}
-          currentPathFiles={currentPathFiles}
-          triggerAction={triggerAction}
-          handleCreateFolder={handleCreateFolder}
-          currentFolder={currentFolder}
-        />
-      ),
-      width: "25%",
-    },
+    // createFolder: {
+    //   title: "Create Folder",
+    //   component: (
+    //     <CreateFolderAction
+    //       files={files}
+    //       currentPath={currentPath}
+    //       currentPathFiles={currentPathFiles}
+    //       triggerAction={triggerAction}
+    //       handleCreateFolder={handleCreateFolder}
+    //       currentFolder={currentFolder}
+    //     />
+    //   ),
+    //   width: "25%",
+    // },
     uploadFile: {
-      title: "Upload File",
+      title: "Upload Files",
       component: (
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
@@ -94,16 +94,18 @@ const Actions = ({
     }
   }, [triggerAction.isActive]);
 
-  return (
-    <Modal
-      heading={activeAction?.title}
-      show={triggerAction.isActive}
-      setShow={triggerAction.close}
-      dialogWidth={activeAction?.width}
-    >
-      {activeAction?.component}
-    </Modal>
-  );
+  if (activeAction) {
+    return (
+      <Modal
+        heading={activeAction.title}
+        show={triggerAction.isActive}
+        setShow={triggerAction.close}
+        dialogWidth={activeAction.width}
+      >
+        {activeAction?.component}
+      </Modal>
+    );
+  }
 };
 
 export default Actions;

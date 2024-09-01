@@ -110,6 +110,7 @@ const FileManager = ({
           <BreadCrumb currentPath={currentPath} setCurrentPath={setCurrentPath} />
           <Files
             currentPathFiles={currentPathFiles}
+            setCurrentPathFiles={setCurrentPathFiles}
             setCurrentPath={setCurrentPath}
             isItemSelection={isItemSelection}
             setIsItemSelection={setIsItemSelection}
@@ -120,6 +121,8 @@ const FileManager = ({
             handlePaste={onPaste}
             files={files}
             triggerAction={triggerAction}
+            currentFolder={currentFolder}
+            handleCreateFolder={onCreateFolder}
           />
         </div>
       </section>
