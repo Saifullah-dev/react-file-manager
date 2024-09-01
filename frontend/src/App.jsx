@@ -5,6 +5,7 @@ import { renameAPI } from "./Mock APIs/renameAPI";
 import { deleteAPI } from "./Mock APIs/deleteAPI";
 import { copyItemAPI, moveItemAPI } from "./Mock APIs/fileTransferAPI";
 import { getAllFilesAPI } from "./Mock APIs/getAllFilesAPI";
+import "./App.scss";
 
 function App() {
   const fileUploadConfig = {
@@ -98,19 +99,23 @@ function App() {
   //
 
   return (
-    <FileManager
-      files={files}
-      fileUploadConfig={fileUploadConfig}
-      isLoading={isLoading}
-      onCreateFolder={handleCreateFolder}
-      onFileUploading={handleFileUploading}
-      onFileUploaded={handleFileUploaded}
-      onRename={handleRename}
-      onDelete={handleDelete}
-      onPaste={handlePaste}
-      onRefresh={handleRefresh}
-      allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
-    />
+    <div className="app">
+      <div className="file-manager-container">
+        <FileManager
+          files={files}
+          fileUploadConfig={fileUploadConfig}
+          isLoading={isLoading}
+          onCreateFolder={handleCreateFolder}
+          onFileUploading={handleFileUploading}
+          onFileUploaded={handleFileUploaded}
+          onRename={handleRename}
+          onDelete={handleDelete}
+          onPaste={handlePaste}
+          onRefresh={handleRefresh}
+          allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
+        />
+      </div>
+    </div>
   );
 }
 

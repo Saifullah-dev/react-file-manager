@@ -42,11 +42,11 @@ svg {
     font-family: "Nunito Sans", sans-serif;
   }
   border: 1px solid #dddddd;
-  height: 72dvh;
-  position: relative;
+  border-radius: 8px;
+  height: 100%;
   width: 100%;
+  position: relative;
   background-color: white;
-  margin-top: 1rem;
   cursor: default;
   // Disable Text Selection on Double Click
   -webkit-user-select: none;
@@ -65,6 +65,7 @@ svg {
   }
 
   .toolbar {
+    height: calc(7.6% - 13px);
     min-height: 35px;
     border-bottom: 1px solid #dddddd;
     padding: 6px 10px;
@@ -147,15 +148,15 @@ svg {
 
   .files-container {
     display: flex;
-    height: calc(72dvh - 52px);
+    height: 92.4%;
 
     .navigation-pane {
       z-index: 1;
-      padding: 8px 0px;
+      padding-top: 8px;
 
       .sb-folders-list {
         list-style: none;
-        padding: 0px 6px;
+        margin: 0px 4px;
         height: 100%;
 
         overflow-y: auto !important;
@@ -168,6 +169,7 @@ svg {
 
         &::-webkit-scrollbar-thumb {
           background: $primary-color !important;
+          border-radius: 8px;
         }
 
         .folder-collapsible {
@@ -276,14 +278,16 @@ svg {
       }
     }
 
-    .folers-preview {
+    .folders-preview {
       z-index: 2;
       background-color: white;
       padding-right: 0px;
       padding-left: 0px;
+      border-bottom-right-radius: 8px;
     }
 
     .breadcrumb {
+      height: calc(5.8% - 21px);
       display: flex;
       gap: 0.5rem;
       overflow-x: scroll;
@@ -320,7 +324,7 @@ svg {
       flex-wrap: wrap;
       column-gap: 0.5em;
       row-gap: 5px;
-      height: 60dvh;
+      height: calc(94.2% - 16px);
       overflow-y: auto;
       padding: 8px;
       padding-right: 4px;

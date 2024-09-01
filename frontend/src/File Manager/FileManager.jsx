@@ -106,7 +106,7 @@ const FileManager = ({
           />
         </div>
 
-        <div className="folers-preview" style={{ width: colSizes.col2 + "%" }}>
+        <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
           <BreadCrumb currentPath={currentPath} setCurrentPath={setCurrentPath} />
           <Files
             currentPathFiles={currentPathFiles}
