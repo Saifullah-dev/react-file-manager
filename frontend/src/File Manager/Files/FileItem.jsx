@@ -28,6 +28,7 @@ const FileItem = ({
   currentFolder,
   handleCreateFolder,
   currentPathFiles,
+  setCurrentPathFiles,
 }) => {
   const fileIcons = useFileIcons(48);
 
@@ -102,11 +103,13 @@ const FileItem = ({
 
   const handleFileSelection = (e) => {
     e.stopPropagation();
+    if (file.isEditing) return;
+
     setIsItemSelection(true);
     setSelectedFile(file);
     setSelectedFileIndex(index);
     const currentTime = new Date().getTime();
-    if (currentTime - lastClickTime < 300 && !file.isEditing) {
+    if (currentTime - lastClickTime < 300) {
       setIsItemSelection(false);
       handleFileAccess();
     }
@@ -195,6 +198,7 @@ const FileItem = ({
               file={file}
               currentFolder={currentFolder}
               currentPathFiles={currentPathFiles}
+              setCurrentPathFiles={setCurrentPathFiles}
               handleCreateFolder={handleCreateFolder}
               triggerAction={triggerAction}
             />

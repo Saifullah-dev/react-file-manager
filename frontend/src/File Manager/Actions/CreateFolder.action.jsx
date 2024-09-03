@@ -7,6 +7,7 @@ const maxNameLength = 220;
 const CreateFolderAction = ({
   file,
   currentPathFiles,
+  setCurrentPathFiles,
   handleCreateFolder,
   currentFolder,
   triggerAction,
@@ -14,6 +15,10 @@ const CreateFolderAction = ({
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
+  const outsideClick = useDetectOutsideClick((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
 
   // Folder name change handler function
   const handleFolderNameChange = (e) => {
@@ -34,15 +39,28 @@ const CreateFolderAction = ({
     const invalidCharsRegex = /[\\/:*?"<>|]/;
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();
-      // Todo: Show this error in tooltip instead
       setFolderErrorMessage(
         "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
       );
       setFolderNameError(true);
     } else {
       setFolderNameError(false);
+      setFolderErrorMessage("");
     }
   };
+
+  // Auto hide error message after 7 seconds
+  useEffect(() => {
+    if (folderNameError) {
+      const autoHideError = setTimeout(() => {
+        setFolderNameError(false);
+        setFolderErrorMessage("");
+      }, 7000);
+
+      return () => clearTimeout(autoHideError);
+    }
+  }, [folderNameError]);
+  //
 
   function handleFolderCreating() {
     let newFolderName = folderName.trim();
@@ -53,9 +71,11 @@ const CreateFolderAction = ({
     });
 
     if (alreadyExists) {
-      // Todo: Open modal here to show error and suggest to name "alreadyExistName (n)" instead.
-      setFolderErrorMessage(`A folder with the name "${newFolderName}" already exits.`);
+      setFolderErrorMessage(`This destination already contains a folder named '${newFolderName}'.`);
       setFolderNameError(true);
+      outsideClick.ref.current?.focus();
+      outsideClick.ref.current?.select();
+      outsideClick.setIsClicked(false);
       return;
     }
 
@@ -64,11 +84,10 @@ const CreateFolderAction = ({
     }
 
     handleCreateFolder(newFolderName, currentFolder);
+    setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     triggerAction.close();
   }
   //
-
-  const outsideClick = useDetectOutsideClick();
 
   // Folder name text selection upon visible
   useEffect(() => {
@@ -84,15 +103,18 @@ const CreateFolderAction = ({
   }, [outsideClick.isClicked]);
 
   return (
-    <textarea
-      ref={outsideClick.ref}
-      className="rename-file"
-      maxLength={maxNameLength}
-      value={folderName}
-      onChange={handleFolderNameChange}
-      onKeyDown={handleValidateFolderName}
-      onClick={(e) => e.stopPropagation()}
-    />
+    <div className="rename-file-container">
+      <textarea
+        ref={outsideClick.ref}
+        className="rename-file"
+        maxLength={maxNameLength}
+        value={folderName}
+        onChange={handleFolderNameChange}
+        onKeyDown={handleValidateFolderName}
+        onClick={(e) => e.stopPropagation()}
+      />
+      {folderNameError && <p className="folder-name-error">{folderErrorMessage}</p>}
+    </div>
   );
 };
 

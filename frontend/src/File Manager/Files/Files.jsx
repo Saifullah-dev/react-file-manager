@@ -80,6 +80,7 @@ const Files = ({
               files={files}
               triggerAction={triggerAction}
               currentPathFiles={currentPathFiles}
+              setCurrentPathFiles={setCurrentPathFiles}
               currentFolder={currentFolder}
               handleCreateFolder={handleCreateFolder}
             />
