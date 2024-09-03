@@ -73,7 +73,7 @@ const RenameAction = ({
       return;
     } else if (currentPathFiles.some((file) => file.name === renameFile)) {
       setFileRenameError(true);
-      setRenameErrorMessage("A file or folder with the same name already exists!");
+      setRenameErrorMessage(`This destination already contains a folder named '${renameFile}'.`);
       outsideClick.setIsClicked(false);
       return;
     } else if (!file.isDirectory && !isConfirmed) {

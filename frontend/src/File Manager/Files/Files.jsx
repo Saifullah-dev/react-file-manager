@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FileItem from "./FileItem";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 
@@ -20,6 +20,7 @@ const Files = ({
   handleRename,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
+  const filesViewRef = useRef(null);
 
   useEffect(() => {
     setSelectedFileIndex(null);
@@ -70,6 +71,7 @@ const Files = ({
 
   return (
     <div
+      ref={filesViewRef}
       className="files"
       onClick={(e) => {
         setSelectedFileIndex(null);
@@ -81,6 +83,7 @@ const Files = ({
         <>
           {currentPathFiles.map((file, index) => (
             <FileItem
+              filesViewRef={filesViewRef}
               key={index}
               file={file}
               index={index}

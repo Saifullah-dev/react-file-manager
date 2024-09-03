@@ -12,6 +12,7 @@ import CreateFolderAction from "../Actions/CreateFolder.action";
 import RenameAction from "../Actions/Rename.action";
 
 const FileItem = ({
+  filesViewRef,
   file,
   index,
   selectedFileIndex,
@@ -170,6 +171,7 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
+        filesViewRef={filesViewRef}
         contextMenuRef={contextMenuRef.ref}
         visible={visible}
         setVisible={setVisible}

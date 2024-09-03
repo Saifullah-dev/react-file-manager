@@ -319,6 +319,7 @@ svg {
     }
 
     .files {
+      position: relative;
       display: flex;
       align-content: flex-start;
       flex-wrap: wrap;
@@ -576,7 +577,7 @@ svg {
       display: flex;
       gap: 6px;
       align-items: center;
-      padding: 6px 18px 6px 14px;
+      padding: 6px 22px 6px 14px;
 
       &:hover {
         cursor: pointer;
