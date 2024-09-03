@@ -9,6 +9,7 @@ import { BsCopy, BsScissors } from "react-icons/bs";
 import { createFolderTree } from "../../utils/createFolderTree";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder.action";
+import RenameAction from "../Actions/Rename.action";
 
 const FileItem = ({
   file,
@@ -29,6 +30,7 @@ const FileItem = ({
   handleCreateFolder,
   currentPathFiles,
   setCurrentPathFiles,
+  handleRename,
 }) => {
   const fileIcons = useFileIcons(48);
 
@@ -78,7 +80,7 @@ const FileItem = ({
     }
   };
 
-  const handleRename = (e) => {
+  const handleRenaming = (e) => {
     e.stopPropagation();
     setVisible(false);
     triggerAction.show("rename");
@@ -153,7 +155,7 @@ const FileItem = ({
         ) : (
           <></>
         )}
-        <li onClick={handleRename}>
+        <li onClick={handleRenaming}>
           <BiRename size={19} />
           <span>Rename</span>
         </li>
@@ -180,7 +182,12 @@ const FileItem = ({
           title={file.name}
           onClick={handleFileSelection}
           onKeyDown={handleOnKeyDown}
-          onContextMenu={() => {
+          onContextMenu={(e) => {
+            if (currentPathFiles.some((f) => f.isEditing)) {
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
             setIsItemSelection(true);
             setSelectedFile(file);
             setSelectedFileIndex(index);
@@ -194,14 +201,26 @@ const FileItem = ({
           )}
 
           {file.isEditing ? (
-            <CreateFolderAction
-              file={file}
-              currentFolder={currentFolder}
-              currentPathFiles={currentPathFiles}
-              setCurrentPathFiles={setCurrentPathFiles}
-              handleCreateFolder={handleCreateFolder}
-              triggerAction={triggerAction}
-            />
+            <>
+              {triggerAction.actionType === "createFolder" ? (
+                <CreateFolderAction
+                  file={file}
+                  currentFolder={currentFolder}
+                  currentPathFiles={currentPathFiles}
+                  setCurrentPathFiles={setCurrentPathFiles}
+                  handleCreateFolder={handleCreateFolder}
+                  triggerAction={triggerAction}
+                />
+              ) : (
+                <RenameAction
+                  file={file}
+                  currentPathFiles={currentPathFiles}
+                  setCurrentPathFiles={setCurrentPathFiles}
+                  handleRename={handleRename}
+                  triggerAction={triggerAction}
+                />
+              )}
+            </>
           ) : (
             <span className="text-truncate file-name">{file.name}</span>
           )}

@@ -75,7 +75,7 @@ const FileManager = ({
   //
 
   return (
-    <main className="file-explorer">
+    <main className="file-explorer" onContextMenu={(e) => e.preventDefault()}>
       <Loader isLoading={isLoading} />
       <Toolbar
         allowCreateFolder
@@ -123,6 +123,7 @@ const FileManager = ({
             triggerAction={triggerAction}
             currentFolder={currentFolder}
             handleCreateFolder={onCreateFolder}
+            handleRename={onRename}
           />
         </div>
       </section>

@@ -52,20 +52,20 @@ const Actions = ({
       ),
       width: "35%",
     },
-    rename: {
-      title: "Rename",
-      component: (
-        <RenameAction
-          files={files}
-          selectedFile={selectedFile}
-          currentPathFiles={currentPathFiles}
-          triggerAction={triggerAction}
-          handleRename={handleRename}
-          setSelectedFile={setSelectedFile}
-        />
-      ),
-      width: "25%",
-    },
+    // rename: {
+    //   title: "Rename",
+    //   component: (
+    //     <RenameAction
+    //       files={files}
+    //       selectedFile={selectedFile}
+    //       currentPathFiles={currentPathFiles}
+    //       triggerAction={triggerAction}
+    //       handleRename={handleRename}
+    //       setSelectedFile={setSelectedFile}
+    //     />
+    //   ),
+    //   width: "25%",
+    // },
     delete: {
       title: "Delete",
       component: (

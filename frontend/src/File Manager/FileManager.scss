@@ -407,6 +407,16 @@ svg {
           }
         }
 
+        .folder-name-error.rename-file-warning {
+          bottom: -88px;
+          width: 279px;
+
+          &::before {
+            top: -15%;
+            left: 12%;
+          }
+        }
+
         .file-name {
           max-width: 115px;
         }
@@ -590,6 +600,7 @@ svg {
     border-bottom: 1px solid #dddddd;
     padding: 10px 15px;
     margin-bottom: 1rem;
+    word-wrap: break-word;
   }
 
   .file-delete-confirm-actions {

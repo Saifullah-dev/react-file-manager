@@ -17,6 +17,7 @@ const Files = ({
   triggerAction,
   currentFolder,
   handleCreateFolder,
+  handleRename,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
 
@@ -41,11 +42,27 @@ const Files = ({
     });
   };
 
+  const handleItemRenaming = () => {
+    setCurrentPathFiles((prev) => {
+      if (prev[selectedFileIndex]) {
+        prev[selectedFileIndex].isEditing = true;
+      }
+      return prev;
+    });
+
+    setIsItemSelection(false);
+    setSelectedFileIndex(null);
+    setSelectedFile(null);
+  };
+
   useEffect(() => {
     if (triggerAction.isActive) {
       switch (triggerAction.actionType) {
         case "createFolder":
           handleFolderCreating();
+          break;
+        case "rename":
+          handleItemRenaming();
           break;
       }
     }
@@ -83,6 +100,7 @@ const Files = ({
               setCurrentPathFiles={setCurrentPathFiles}
               currentFolder={currentFolder}
               handleCreateFolder={handleCreateFolder}
+              handleRename={handleRename}
             />
           ))}
         </>
