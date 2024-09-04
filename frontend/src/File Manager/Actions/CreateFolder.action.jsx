@@ -5,6 +5,7 @@ import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 const maxNameLength = 220;
 
 const CreateFolderAction = ({
+  filesViewRef,
   file,
   currentPathFiles,
   setCurrentPathFiles,
@@ -15,6 +16,7 @@ const CreateFolderAction = ({
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
+  const [errorPlacement, setErrorPlacement] = useState("right");
   const outsideClick = useDetectOutsideClick((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -93,6 +95,17 @@ const CreateFolderAction = ({
   useEffect(() => {
     outsideClick.ref.current?.focus();
     outsideClick.ref.current?.select();
+
+    // Dynamic Error Message Placement based on available space
+    if (outsideClick.ref?.current) {
+      const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
+      const filesContainer = filesViewRef.current.getBoundingClientRect();
+      const nameInputContainer = outsideClick.ref.current.getBoundingClientRect();
+      const rightAvailableSpace = filesContainer.right - nameInputContainer.left;
+      rightAvailableSpace > errorMessageWidth
+        ? setErrorPlacement("right")
+        : setErrorPlacement("left");
+    }
   }, []);
   //
 
@@ -113,7 +126,9 @@ const CreateFolderAction = ({
         onKeyDown={handleValidateFolderName}
         onClick={(e) => e.stopPropagation()}
       />
-      {folderNameError && <p className="folder-name-error">{folderErrorMessage}</p>}
+      {folderNameError && (
+        <p className={`folder-name-error ${errorPlacement}`}>{folderErrorMessage}</p>
+      )}
     </div>
   );
 };

@@ -50,16 +50,16 @@ const RenameAction = ({
   };
 
   // Auto hide error message after 7 seconds
-  // useEffect(() => {
-  //   if (fileRenameError) {
-  //     const autoHideError = setTimeout(() => {
-  //       setFileRenameError(false);
-  //       setRenameErrorMessage("");
-  //     }, 7000);
+  useEffect(() => {
+    if (fileRenameError) {
+      const autoHideError = setTimeout(() => {
+        setFileRenameError(false);
+        setRenameErrorMessage("");
+      }, 7000);
 
-  //     return () => clearTimeout(autoHideError);
-  //   }
-  // }, [fileRenameError]);
+      return () => clearTimeout(autoHideError);
+    }
+  }, [fileRenameError]);
   //
 
   function handleFileRenaming(isConfirmed) {
