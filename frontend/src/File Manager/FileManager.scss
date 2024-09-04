@@ -396,11 +396,9 @@ svg {
           text-align: left;
           margin: 0;
           font-size: 0.9em;
-
           &::before {
             content: "";
             position: absolute;
-            left: 11%;
             top: -20%;
             rotate: -45deg;
             border: 15px solid #696969;
@@ -408,13 +406,18 @@ svg {
           }
         }
 
-        .folder-name-error.rename-file-warning {
-          bottom: -88px;
-          width: 279px;
-
+        .folder-name-error.right {
+          left: 16px;
           &::before {
-            top: -15%;
-            left: 12%;
+            left: 11%;
+          }
+        }
+
+        .folder-name-error.left {
+          left: -180px;
+          &::before {
+            left: 76%;
+            transform: rotate(90deg) scaleX(-1);
           }
         }
 

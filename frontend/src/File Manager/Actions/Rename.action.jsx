@@ -8,6 +8,7 @@ import { getFileExtension } from "../../utils/getFileExtension";
 const maxNameLength = 220;
 
 const RenameAction = ({
+  filesViewRef,
   file,
   currentPathFiles,
   setCurrentPathFiles,
@@ -18,6 +19,8 @@ const RenameAction = ({
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
+  const [errorPlacement, setErrorPlacement] = useState("right");
+
   const warningModalRef = useRef(null);
   const outsideClick = useDetectOutsideClick((e) => {
     if (!warningModalRef.current?.contains(e.target)) {
@@ -47,16 +50,16 @@ const RenameAction = ({
   };
 
   // Auto hide error message after 7 seconds
-  useEffect(() => {
-    if (fileRenameError) {
-      const autoHideError = setTimeout(() => {
-        setFileRenameError(false);
-        setRenameErrorMessage("");
-      }, 7000);
+  // useEffect(() => {
+  //   if (fileRenameError) {
+  //     const autoHideError = setTimeout(() => {
+  //       setFileRenameError(false);
+  //       setRenameErrorMessage("");
+  //     }, 7000);
 
-      return () => clearTimeout(autoHideError);
-    }
-  }, [fileRenameError]);
+  //     return () => clearTimeout(autoHideError);
+  //   }
+  // }, [fileRenameError]);
   //
 
   function handleFileRenaming(isConfirmed) {
@@ -104,6 +107,17 @@ const RenameAction = ({
 
   useEffect(() => {
     focusName();
+
+    // Dynamic Error Message Placement based on available space
+    if (outsideClick.ref?.current) {
+      const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
+      const filesContainer = filesViewRef.current.getBoundingClientRect();
+      const renameInputContainer = outsideClick.ref.current.getBoundingClientRect();
+      const rightAvailableSpace = filesContainer.right - renameInputContainer.left;
+      rightAvailableSpace > errorMessageWidth
+        ? setErrorPlacement("right")
+        : setErrorPlacement("left");
+    }
   }, []);
 
   useEffect(() => {
@@ -128,7 +142,9 @@ const RenameAction = ({
           onKeyDown={handleValidateFolderRename}
           onClick={(e) => e.stopPropagation()}
         />
-        {fileRenameError && <p className="folder-name-error">{renameErrorMessage}</p>}
+        {fileRenameError && (
+          <p className={`folder-name-error ${errorPlacement}`}>{renameErrorMessage}</p>
+        )}
       </div>
 
       <Modal

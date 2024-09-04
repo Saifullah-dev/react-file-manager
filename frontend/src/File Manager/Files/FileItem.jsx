@@ -120,6 +120,7 @@ const FileItem = ({
   };
 
   const handleOnKeyDown = (e) => {
+    e.stopPropagation();
     if (e.key === "Enter") {
       handleFileAccess();
     }
@@ -206,6 +207,7 @@ const FileItem = ({
             <>
               {triggerAction.actionType === "createFolder" ? (
                 <CreateFolderAction
+                  filesViewRef={filesViewRef}
                   file={file}
                   currentFolder={currentFolder}
                   currentPathFiles={currentPathFiles}
@@ -215,6 +217,7 @@ const FileItem = ({
                 />
               ) : (
                 <RenameAction
+                  filesViewRef={filesViewRef}
                   file={file}
                   currentPathFiles={currentPathFiles}
                   setCurrentPathFiles={setCurrentPathFiles}

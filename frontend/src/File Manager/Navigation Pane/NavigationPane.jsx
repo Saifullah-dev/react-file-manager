@@ -17,13 +17,15 @@ const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
   };
 
   useEffect(() => {
-    const folders = files.filter((file) => file.isDirectory);
-    // Grouping folders by parent path
-    const foldersStruct = Object.groupBy(folders, ({ path }) => getParentPath(path));
-    setFoldersTree(() => {
-      const rootPath = "";
-      return createChildRecursive(rootPath, foldersStruct);
-    });
+    if (Array.isArray(files)) {
+      const folders = files.filter((file) => file.isDirectory);
+      // Grouping folders by parent path
+      const foldersStruct = Object.groupBy(folders, ({ path }) => getParentPath(path));
+      setFoldersTree(() => {
+        const rootPath = "";
+        return createChildRecursive(rootPath, foldersStruct);
+      });
+    }
   }, [files]);
 
   return (

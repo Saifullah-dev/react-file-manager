@@ -7,9 +7,10 @@ import Files from "./Files/Files";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import Actions from "./Actions/Actions";
 import Loader from "../components/Loader/Loader";
+import PropTypes from "prop-types";
 
 const FileManager = ({
-  files,
+  files = [],
   fileUploadConfig,
   isLoading,
   onCreateFolder,
@@ -34,13 +35,15 @@ const FileManager = ({
 
   // Settings Current Path Files
   useEffect(() => {
-    setCurrentPathFiles(() => {
-      return files?.filter((file) => file.path === `${currentPath}/${file.name}`);
-    });
+    if (Array.isArray(files)) {
+      setCurrentPathFiles(() => {
+        return files.filter((file) => file.path === `${currentPath}/${file.name}`);
+      });
 
-    setCurrentFolder(() => {
-      return files?.find((file) => file.path === currentPath);
-    });
+      setCurrentFolder(() => {
+        return files?.find((file) => file.path === currentPath);
+      });
+    }
   }, [files, currentPath]);
   //
 
@@ -148,4 +151,9 @@ const FileManager = ({
     </main>
   );
 };
+
+FileManager.propTypes = {
+  files: PropTypes.arrayOf(PropTypes.object),
+};
+
 export default FileManager;
