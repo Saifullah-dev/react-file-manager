@@ -17,6 +17,13 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        assetFileNames: (assetInfo) => {
+          if(assetInfo.name.endsWith('.png')) {
+            return '';
+          }else {
+            return 'assets/[name]-[hash][extname]';
+          }
+        },
       },
     },
   },
