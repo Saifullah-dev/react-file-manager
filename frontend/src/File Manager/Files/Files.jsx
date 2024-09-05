@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FileItem from "./FileItem";
+import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 
 const Files = ({
   currentPathFiles,
+  setCurrentPathFiles,
   setCurrentPath,
   isItemSelection,
   setIsItemSelection,
@@ -13,8 +15,12 @@ const Files = ({
   handlePaste,
   files,
   triggerAction,
+  currentFolder,
+  handleCreateFolder,
+  handleRename,
 }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
+  const filesViewRef = useRef(null);
 
   useEffect(() => {
     setSelectedFileIndex(null);
@@ -22,8 +28,50 @@ const Files = ({
     setSelectedFile(null);
   }, [currentPath]);
 
+  const handleFolderCreating = () => {
+    setCurrentPathFiles((prev) => {
+      return [
+        ...prev,
+        {
+          name: duplicateNameHandler("New Folder", true, prev),
+          isDirectory: true,
+          path: currentPath,
+          isEditing: true,
+          key: new Date().valueOf(),
+        },
+      ];
+    });
+  };
+
+  const handleItemRenaming = () => {
+    setCurrentPathFiles((prev) => {
+      if (prev[selectedFileIndex]) {
+        prev[selectedFileIndex].isEditing = true;
+      }
+      return prev;
+    });
+
+    setIsItemSelection(false);
+    setSelectedFileIndex(null);
+    setSelectedFile(null);
+  };
+
+  useEffect(() => {
+    if (triggerAction.isActive) {
+      switch (triggerAction.actionType) {
+        case "createFolder":
+          handleFolderCreating();
+          break;
+        case "rename":
+          handleItemRenaming();
+          break;
+      }
+    }
+  }, [triggerAction.isActive]);
+
   return (
     <div
+      ref={filesViewRef}
       className="files"
       onClick={(e) => {
         setSelectedFileIndex(null);
@@ -35,6 +83,7 @@ const Files = ({
         <>
           {currentPathFiles.map((file, index) => (
             <FileItem
+              filesViewRef={filesViewRef}
               key={index}
               file={file}
               index={index}
@@ -50,6 +99,11 @@ const Files = ({
               handlePaste={handlePaste}
               files={files}
               triggerAction={triggerAction}
+              currentPathFiles={currentPathFiles}
+              setCurrentPathFiles={setCurrentPathFiles}
+              currentFolder={currentFolder}
+              handleCreateFolder={handleCreateFolder}
+              handleRename={handleRename}
             />
           ))}
         </>

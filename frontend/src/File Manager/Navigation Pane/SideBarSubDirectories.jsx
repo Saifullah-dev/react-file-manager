@@ -6,11 +6,10 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const folderPath = `${folder.path}/${folder.name}`;
 
   const handleFolderSwitch = () => {
     setIsActive(true);
-    setCurrentPath(folderPath);
+    setCurrentPath(folder.path);
   };
 
   const handleCollapseChange = (e) => {
@@ -19,7 +18,7 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
   };
 
   useEffect(() => {
-    setIsActive(currentPath === folderPath); //Setting isActive to a folder if its path matches currentPath
+    setIsActive(currentPath === folder.path); //Setting isActive to a folder if its path matches currentPath
 
     // Auto expand parent folder if its child is accessed via file navigation
     // Explanation: Checks if the current folder's parent path matches with any folder path i.e. Folder's parent
@@ -27,27 +26,23 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
     const currentPathArray = currentPath.split("/");
     currentPathArray.pop(); //splits with '/' and pops to remove last element to get current folder's parent path
     const currentFolderParentPath = currentPathArray.join("/");
-    if (currentFolderParentPath === folderPath) {
+    if (currentFolderParentPath === folder.path) {
       setIsOpen(true);
     }
     //
   }, [currentPath]);
 
-  if (folder.subDirectories) {
+  if (folder.subDirectories.length > 0) {
     return (
       <>
         <div
-          className={`sb-folders-list-item ${
-            isActive ? "active-list-item" : ""
-          }`}
+          className={`sb-folders-list-item ${isActive ? "active-list-item" : ""}`}
           onClick={handleFolderSwitch}
         >
           <span onClick={handleCollapseChange}>
             <MdKeyboardArrowRight
               size={20}
-              className={`${
-                isOpen ? "folder-rotate-down" : "folder-rotate-right"
-              }`}
+              className={`${isOpen ? "folder-rotate-down" : "folder-rotate-right"}`}
             />
           </span>
           <div className="sb-folder-details">

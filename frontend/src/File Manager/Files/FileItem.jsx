@@ -8,8 +8,11 @@ import { BiRename } from "react-icons/bi";
 import { BsCopy, BsScissors } from "react-icons/bs";
 import { createFolderTree } from "../../utils/createFolderTree";
 import { useFileIcons } from "../../hooks/useFileIcons";
+import CreateFolderAction from "../Actions/CreateFolder.action";
+import RenameAction from "../Actions/Rename.action";
 
 const FileItem = ({
+  filesViewRef,
   file,
   index,
   selectedFileIndex,
@@ -24,6 +27,11 @@ const FileItem = ({
   handlePaste,
   files,
   triggerAction,
+  currentFolder,
+  handleCreateFolder,
+  currentPathFiles,
+  setCurrentPathFiles,
+  handleRename,
 }) => {
   const fileIcons = useFileIcons(48);
 
@@ -73,7 +81,7 @@ const FileItem = ({
     }
   };
 
-  const handleRename = (e) => {
+  const handleRenaming = (e) => {
     e.stopPropagation();
     setVisible(false);
     triggerAction.show("rename");
@@ -98,6 +106,8 @@ const FileItem = ({
 
   const handleFileSelection = (e) => {
     e.stopPropagation();
+    if (file.isEditing) return;
+
     setIsItemSelection(true);
     setSelectedFile(file);
     setSelectedFileIndex(index);
@@ -109,7 +119,8 @@ const FileItem = ({
     setLastClickTime(currentTime);
   };
 
-  const handleOnKeyUp = (e) => {
+  const handleOnKeyDown = (e) => {
+    e.stopPropagation();
     if (e.key === "Enter") {
       handleFileAccess();
     }
@@ -146,7 +157,7 @@ const FileItem = ({
         ) : (
           <></>
         )}
-        <li onClick={handleRename}>
+        <li onClick={handleRenaming}>
           <BiRename size={19} />
           <span>Rename</span>
         </li>
@@ -161,19 +172,25 @@ const FileItem = ({
   return (
     <>
       <ContextMenu
-        contextMenuRef={contextMenuRef}
+        filesViewRef={filesViewRef}
+        contextMenuRef={contextMenuRef.ref}
         visible={visible}
         setVisible={setVisible}
         content={menuItems}
       >
         <div
-          className={`file-item ${fileSelected ? "background-secondary text-white" : ""} ${
-            isFileMoving ? "file-moving" : ""
-          }`}
+          className={`file-item ${
+            fileSelected || !!file.isEditing ? "background-secondary text-white" : ""
+          } ${isFileMoving ? "file-moving" : ""}`}
           title={file.name}
           onClick={handleFileSelection}
-          onKeyUp={handleOnKeyUp}
-          onContextMenu={() => {
+          onKeyDown={handleOnKeyDown}
+          onContextMenu={(e) => {
+            if (currentPathFiles.some((f) => f.isEditing)) {
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
             setIsItemSelection(true);
             setSelectedFile(file);
             setSelectedFileIndex(index);
@@ -185,7 +202,33 @@ const FileItem = ({
           ) : (
             <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={48} />}</>
           )}
-          <span className="text-truncate file-name">{file.name}</span>
+
+          {file.isEditing ? (
+            <>
+              {triggerAction.actionType === "createFolder" ? (
+                <CreateFolderAction
+                  filesViewRef={filesViewRef}
+                  file={file}
+                  currentFolder={currentFolder}
+                  currentPathFiles={currentPathFiles}
+                  setCurrentPathFiles={setCurrentPathFiles}
+                  handleCreateFolder={handleCreateFolder}
+                  triggerAction={triggerAction}
+                />
+              ) : (
+                <RenameAction
+                  filesViewRef={filesViewRef}
+                  file={file}
+                  currentPathFiles={currentPathFiles}
+                  setCurrentPathFiles={setCurrentPathFiles}
+                  handleRename={handleRename}
+                  triggerAction={triggerAction}
+                />
+              )}
+            </>
+          ) : (
+            <span className="text-truncate file-name">{file.name}</span>
+          )}
         </div>
       </ContextMenu>
 

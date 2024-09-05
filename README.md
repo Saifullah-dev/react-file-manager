@@ -1,18 +1,20 @@
-![React File Manager](https://github.com/user-attachments/assets/45994895-0269-43bb-b268-06bd2dd85397)
+![React File Manager](https://github.com/user-attachments/assets/53b09633-220e-460d-a5a5-48f553640dd0)
 
 An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
 
-## Features
+## ✨ Features
 
 - **View Files and Folders**: Display the directory structure with folders and files.
 - **Upload Files**: Upload new files to a selected directory.
 - **Delete Files and Folders**: Remove unwanted files or folders.
+- **Copy and Move Files**: Easily copy or move files and folders to a different directory.
+- **Inline Folder Creation and Renaming**: Create new folders and rename files or folders directly within the file list.
 - **Toolbar**: Access common file operations such as upload, delete, and refresh with a convenient toolbar.
-- **Breadcrumb Navigation**: Easily navigate through the directory structure.
-- **Navigation Pane**: Easily switch between folders and directories with a sidebar navigation pane.
+- **Breadcrumb Navigation**: Navigate through the directory structure with a breadcrumb trail.
+- **Navigation Pane**: Quickly switch between folders and directories using a sidebar navigation pane.
 - **Context Menu**: Right-click to open a context menu with options for cutting, copying, pasting, renaming, and deleting files or folders.
 
-## Installation
+## 🚀 Installation
 
 To install `React File Manager`, use the following command:
 
@@ -20,7 +22,7 @@ To install `React File Manager`, use the following command:
 npm i @cubone/react-file-manager
 ```
 
-## Usage
+## 💻 Usage
 
 Here’s a basic example of how to use the File Manager Component in your React application:
 
@@ -55,7 +57,7 @@ function App() {
   );
 }
 ```
-## Props
+## ⚙️ Props
 
 | Name       | Type                                                                                           | Description                                                                 |
 |-----------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
@@ -70,7 +72,7 @@ function App() {
 | onPaste | (sourceItem: { name: string, isDirectory: boolean, path: string }, destinationFolder: { name: string, isDirectory: boolean, path: string }, operationType: "copy" or "move") => void | A callback function triggered when a file or folder is pasted into a new location. Depending on operationType, use this to either copy or move the sourceItem to the destinationFolder, updating the files state accordingly. |
 | `onRefresh`     | `() => void`                                                                                   | A callback function triggered when the file manager is refreshed. Use this to refresh the `files` state to reflect any changes or updates. |
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! To contribute:
 
@@ -91,6 +93,6 @@ npm run dev
 ```
 The application should now be running on `http://localhost:5173`, have fun!
 
-## License
+## ©️ License
 
 React File Manager is [MIT Licensed](LICENSE).

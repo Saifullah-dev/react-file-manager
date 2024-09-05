@@ -1,17 +1,26 @@
-import { useEffect, useRef, useState } from "react";
-import Button from "../../components/Button/Button";
+import { useEffect, useState } from "react";
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
+
+const maxNameLength = 220;
 
 const CreateFolderAction = ({
-  files,
-  currentPath,
+  filesViewRef,
+  file,
   currentPathFiles,
+  setCurrentPathFiles,
   handleCreateFolder,
   currentFolder,
   triggerAction,
 }) => {
-  const [folderName, setFolderName] = useState("New Folder");
+  const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
+  const [errorPlacement, setErrorPlacement] = useState("right");
+  const outsideClick = useDetectOutsideClick((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
 
   // Folder name change handler function
   const handleFolderNameChange = (e) => {
@@ -22,6 +31,13 @@ const CreateFolderAction = ({
 
   // Validate folder name and call "handleCreateFolder" function
   const handleValidateFolderName = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      handleFolderCreating();
+      return;
+    }
+
     const invalidCharsRegex = /[\\/:*?"<>|]/;
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();
@@ -31,58 +47,88 @@ const CreateFolderAction = ({
       setFolderNameError(true);
     } else {
       setFolderNameError(false);
+      setFolderErrorMessage("");
     }
   };
 
-  const handleFolderCreating = () => {
-    const newFolderName = folderName.trim();
-    // Validation non-empty folder name
-    if (newFolderName === "") {
-      setFolderErrorMessage("Folder name cannot be empty.");
+  // Auto hide error message after 7 seconds
+  useEffect(() => {
+    if (folderNameError) {
+      const autoHideError = setTimeout(() => {
+        setFolderNameError(false);
+        setFolderErrorMessage("");
+      }, 7000);
+
+      return () => clearTimeout(autoHideError);
+    }
+  }, [folderNameError]);
+  //
+
+  function handleFolderCreating() {
+    let newFolderName = folderName.trim();
+    const syncedCurrPathFiles = currentPathFiles.filter((f) => !(!!f.key && f.key === file.key));
+
+    const alreadyExists = syncedCurrPathFiles.find((f) => {
+      return f.name.toLowerCase() === newFolderName.toLowerCase();
+    });
+
+    if (alreadyExists) {
+      setFolderErrorMessage(`This destination already contains a folder named '${newFolderName}'.`);
       setFolderNameError(true);
-    } else {
-      const alreadyExists = currentPathFiles.find((file) => {
-        return file.name.toLowerCase() === newFolderName.toLowerCase();
-      });
-
-      if (!alreadyExists) {
-        // Current path doesn't have the same folder name
-        handleCreateFolder(newFolderName, currentFolder);
-        triggerAction.close();
-      } else {
-        setFolderErrorMessage(`A folder with the name "${newFolderName}" already exits.`);
-        setFolderNameError(true);
-      }
+      outsideClick.ref.current?.focus();
+      outsideClick.ref.current?.select();
+      outsideClick.setIsClicked(false);
+      return;
     }
-  };
+
+    if (newFolderName === "") {
+      newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
+    }
+
+    handleCreateFolder(newFolderName, currentFolder);
+    setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
+    triggerAction.close();
+  }
   //
 
   // Folder name text selection upon visible
-  const folderNameRef = useRef(null);
   useEffect(() => {
-    folderNameRef.current.focus();
-    folderNameRef.current.select();
+    outsideClick.ref.current?.focus();
+    outsideClick.ref.current?.select();
+
+    // Dynamic Error Message Placement based on available space
+    if (outsideClick.ref?.current) {
+      const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
+      const filesContainer = filesViewRef.current.getBoundingClientRect();
+      const nameInputContainer = outsideClick.ref.current.getBoundingClientRect();
+      const rightAvailableSpace = filesContainer.right - nameInputContainer.left;
+      rightAvailableSpace > errorMessageWidth
+        ? setErrorPlacement("right")
+        : setErrorPlacement("left");
+    }
   }, []);
   //
 
+  useEffect(() => {
+    if (outsideClick.isClicked) {
+      handleFolderCreating();
+    }
+  }, [outsideClick.isClicked]);
+
   return (
-    <div className="fm-create-folder-container">
-      <div className="fm-create-folder-input">
-        <input
-          ref={folderNameRef}
-          type="text"
-          value={folderName}
-          onChange={handleFolderNameChange}
-          onKeyDown={handleValidateFolderName}
-          className="action-input"
-        />
-        {folderNameError && <div className="folder-error">{folderErrorMessage}</div>}
-      </div>
-      <div className="fm-create-folder-action">
-        <Button onClick={handleFolderCreating} type="primary">
-          Create
-        </Button>
-      </div>
+    <div className="rename-file-container">
+      <textarea
+        ref={outsideClick.ref}
+        className="rename-file"
+        maxLength={maxNameLength}
+        value={folderName}
+        onChange={handleFolderNameChange}
+        onKeyDown={handleValidateFolderName}
+        onClick={(e) => e.stopPropagation()}
+      />
+      {folderNameError && (
+        <p className={`folder-name-error ${errorPlacement}`}>{folderErrorMessage}</p>
+      )}
     </div>
   );
 };

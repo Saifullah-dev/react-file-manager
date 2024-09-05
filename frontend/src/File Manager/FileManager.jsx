@@ -7,9 +7,10 @@ import Files from "./Files/Files";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import Actions from "./Actions/Actions";
 import Loader from "../components/Loader/Loader";
+import PropTypes from "prop-types";
 
 const FileManager = ({
-  files,
+  files = [],
   fileUploadConfig,
   isLoading,
   onCreateFolder,
@@ -34,13 +35,15 @@ const FileManager = ({
 
   // Settings Current Path Files
   useEffect(() => {
-    setCurrentPathFiles(() => {
-      return files?.filter((file) => file.path === `${currentPath}/${file.name}`);
-    });
+    if (Array.isArray(files)) {
+      setCurrentPathFiles(() => {
+        return files.filter((file) => file.path === `${currentPath}/${file.name}`);
+      });
 
-    setCurrentFolder(() => {
-      return files?.find((file) => file.path === currentPath);
-    });
+      setCurrentFolder(() => {
+        return files?.find((file) => file.path === currentPath);
+      });
+    }
   }, [files, currentPath]);
   //
 
@@ -75,7 +78,7 @@ const FileManager = ({
   //
 
   return (
-    <main className="file-explorer">
+    <main className="file-explorer" onContextMenu={(e) => e.preventDefault()}>
       <Loader isLoading={isLoading} />
       <Toolbar
         allowCreateFolder
@@ -106,10 +109,11 @@ const FileManager = ({
           />
         </div>
 
-        <div className="folers-preview" style={{ width: colSizes.col2 + "%" }}>
+        <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
           <BreadCrumb currentPath={currentPath} setCurrentPath={setCurrentPath} />
           <Files
             currentPathFiles={currentPathFiles}
+            setCurrentPathFiles={setCurrentPathFiles}
             setCurrentPath={setCurrentPath}
             isItemSelection={isItemSelection}
             setIsItemSelection={setIsItemSelection}
@@ -120,6 +124,9 @@ const FileManager = ({
             handlePaste={onPaste}
             files={files}
             triggerAction={triggerAction}
+            currentFolder={currentFolder}
+            handleCreateFolder={onCreateFolder}
+            handleRename={onRename}
           />
         </div>
       </section>
@@ -144,4 +151,9 @@ const FileManager = ({
     </main>
   );
 };
+
+FileManager.propTypes = {
+  files: PropTypes.arrayOf(PropTypes.object),
+};
+
 export default FileManager;
