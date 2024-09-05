@@ -3,6 +3,7 @@ import FileItem from "./FileItem";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 
 const Files = ({
+  activeLayout,
   currentPathFiles,
   setCurrentPathFiles,
   setCurrentPath,
@@ -72,17 +73,25 @@ const Files = ({
   return (
     <div
       ref={filesViewRef}
-      className="files"
+      className={`files ${activeLayout}`}
       onClick={(e) => {
         setSelectedFileIndex(null);
         setIsItemSelection(false);
         setSelectedFile(null);
       }}
     >
+      {activeLayout === "list" && (
+        <div className="files-header">
+          <div className="file-name">Name</div>
+          <div className="file-date">Modified</div>
+          <div className="file-size">Size</div>
+        </div>
+      )}
       {currentPathFiles?.length > 0 ? (
         <>
           {currentPathFiles.map((file, index) => (
             <FileItem
+              activeLayout={activeLayout}
               filesViewRef={filesViewRef}
               key={index}
               file={file}

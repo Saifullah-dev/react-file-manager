@@ -19,6 +19,7 @@ const FileManager = ({
   onRename,
   onDelete,
   onPaste,
+  onLayoutChange,
   onRefresh,
   allowedFileExtensions,
 }) => {
@@ -31,6 +32,7 @@ const FileManager = ({
   const [currentFolder, setCurrentFolder] = useState(null);
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
   const [clipBoard, setClipBoard] = useState(null);
+  const [activeLayout, setActiveLayout] = useState("grid");
   //
 
   // Settings Current Path Files
@@ -94,6 +96,9 @@ const FileManager = ({
         setClipBoard={setClipBoard}
         handlePaste={onPaste}
         triggerAction={triggerAction}
+        activeLayout={activeLayout}
+        setActiveLayout={setActiveLayout}
+        onLayoutChange={onLayoutChange}
       />
       <section
         ref={containerRef}
@@ -127,6 +132,7 @@ const FileManager = ({
             currentFolder={currentFolder}
             handleCreateFolder={onCreateFolder}
             handleRename={onRename}
+            activeLayout={activeLayout}
           />
         </div>
       </section>
