@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  publicDir: false,
   plugins: [react()],
   build: {
     lib: {
@@ -16,13 +17,6 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-        },
-        assetFileNames: (assetInfo) => {
-          if(assetInfo.name.endsWith('.png')) {
-            return '';
-          }else {
-            return 'assets/[name]-[hash][extname]';
-          }
         },
       },
     },
