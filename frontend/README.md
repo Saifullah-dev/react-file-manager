@@ -1,18 +1,20 @@
-![React File Manager](https://github.com/user-attachments/assets/45994895-0269-43bb-b268-06bd2dd85397)
+![React File Manager](https://github.com/user-attachments/assets/53b09633-220e-460d-a5a5-48f553640dd0)
 
 An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
 
-## Features
+## ✨ Features
 
 - **View Files and Folders**: Display the directory structure with folders and files.
 - **Upload Files**: Upload new files to a selected directory.
 - **Delete Files and Folders**: Remove unwanted files or folders.
+- **Copy and Move Files**: Easily copy or move files and folders to a different directory.
+- **Inline Folder Creation and Renaming**: Create new folders and rename files or folders directly within the file list.
 - **Toolbar**: Access common file operations such as upload, delete, and refresh with a convenient toolbar.
-- **Breadcrumb Navigation**: Easily navigate through the directory structure.
-- **Navigation Pane**: Easily switch between folders and directories with a sidebar navigation pane.
+- **Breadcrumb Navigation**: Navigate through the directory structure with a breadcrumb trail.
+- **Navigation Pane**: Quickly switch between folders and directories using a sidebar navigation pane.
 - **Context Menu**: Right-click to open a context menu with options for cutting, copying, pasting, renaming, and deleting files or folders.
 
-## Installation
+## 🚀 Installation
 
 To install `React File Manager`, use the following command:
 
@@ -20,7 +22,7 @@ To install `React File Manager`, use the following command:
 npm i @cubone/react-file-manager
 ```
 
-## Usage
+## 💻 Usage
 
 Here’s a basic example of how to use the File Manager Component in your React application:
 
@@ -33,17 +35,17 @@ function App() {
   const [files, setFiles] = useState([
     {
       name: "Documents",
-      isDirectory: true,  // Folder
+      isDirectory: true, // Folder
       path: "/Documents", // Located in Root directory
     },
     {
       name: "Pictures",
-      isDirectory: true,  // Folder
+      isDirectory: true, // Folder
       path: "/Pictures", // Located in Root directory
     },
     {
       name: "Pic.png",
-      isDirectory: false,  // File
+      isDirectory: false, // File
       path: "/Pictures/Pic.png", // Located inside the "Pictures" folder
     },
   ]);
@@ -55,22 +57,23 @@ function App() {
   );
 }
 ```
-## Props
 
-| Name       | Type                                                                                           | Description                                                                 |
-|-----------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| `files`         | `Array<{ name: string, isDirectory: boolean, path: string }>`                                 | An array of file and folder objects representing the current directory structure. Each object includes `name`, `isDirectory`, and `path` properties. |
-| `isLoading`     | `boolean`                                                                                      | A boolean state indicating whether the application is currently performing an operation, such as creating, renaming, or deleting a file/folder. Displays a loading state if set `true`. |
-| `fileUploadConfig`| `{ url: string; headers?: { [key: string]: string } }` | Configuration object for file uploads. It includes the upload URL (`url`) and an optional `headers` object for setting custom HTTP headers in the upload request. The `headers` object can accept any standard or custom headers required by the server. Example: `{ url: "https://example.com/fileupload", headers: { Authorization: "Bearer" + TOKEN, "X-Custom-Header": "value" } }` |
-| onCreateFolder | (name: string, parentFolder: { name: string, isDirectory: boolean, path: string }) => void | A callback function triggered when a new folder is created. Use this function to update the files state to include the new folder under the specified parent folder using create folder API call to your server. |
-| `onFileUploading`   | `(file: { name: string, isDirectory: boolean, path: string }, parentFolder: { name: string, isDirectory: boolean, path: string }) => { [key: string]: any }`  | A callback function triggered during the file upload process. You can also return an object with key-value pairs that will be appended to the `FormData` along with the file being uploaded. The object can contain any number of valid properties. |
-| `onFileUploaded`    | `(response: { [key: string]: any }) => void`                                                                                               | A callback function triggered after a file is successfully uploaded. Provides JSON `response` holding uploaded file details, use it to extracts the uploaded file details and add it to the `files` state e.g. ``setFiles((prev) => [...prev, JSON.parse(response)]);`` | 
-| onRename | (file: { name: string, isDirectory: boolean, path: string }, newName: string) => void | A callback function triggered when a file or folder is renamed. |
-| onDelete | (file: { name: string, isDirectory: boolean, path: string }) => void | A callback function triggered when a file or folder is deleted. |
-| onPaste | (sourceItem: { name: string, isDirectory: boolean, path: string }, destinationFolder: { name: string, isDirectory: boolean, path: string }, operationType: "copy" or "move") => void | A callback function triggered when a file or folder is pasted into a new location. Depending on operationType, use this to either copy or move the sourceItem to the destinationFolder, updating the files state accordingly. |
-| `onRefresh`     | `() => void`                                                                                   | A callback function triggered when the file manager is refreshed. Use this to refresh the `files` state to reflect any changes or updates. |
+## ⚙️ Props
 
-## Contributing
+| Name               | Type                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `files`            | `Array<{ name: string, isDirectory: boolean, path: string }>`                                                                                                                        | An array of file and folder objects representing the current directory structure. Each object includes `name`, `isDirectory`, and `path` properties.                                                                                                                                                                                                                                    |
+| `isLoading`        | `boolean`                                                                                                                                                                            | A boolean state indicating whether the application is currently performing an operation, such as creating, renaming, or deleting a file/folder. Displays a loading state if set `true`.                                                                                                                                                                                                 |
+| `fileUploadConfig` | `{ url: string; headers?: { [key: string]: string } }`                                                                                                                               | Configuration object for file uploads. It includes the upload URL (`url`) and an optional `headers` object for setting custom HTTP headers in the upload request. The `headers` object can accept any standard or custom headers required by the server. Example: `{ url: "https://example.com/fileupload", headers: { Authorization: "Bearer" + TOKEN, "X-Custom-Header": "value" } }` |
+| onCreateFolder     | (name: string, parentFolder: { name: string, isDirectory: boolean, path: string }) => void                                                                                           | A callback function triggered when a new folder is created. Use this function to update the files state to include the new folder under the specified parent folder using create folder API call to your server.                                                                                                                                                                        |
+| `onFileUploading`  | `(file: { name: string, isDirectory: boolean, path: string }, parentFolder: { name: string, isDirectory: boolean, path: string }) => { [key: string]: any }`                         | A callback function triggered during the file upload process. You can also return an object with key-value pairs that will be appended to the `FormData` along with the file being uploaded. The object can contain any number of valid properties.                                                                                                                                     |
+| `onFileUploaded`   | `(response: { [key: string]: any }) => void`                                                                                                                                         | A callback function triggered after a file is successfully uploaded. Provides JSON `response` holding uploaded file details, use it to extracts the uploaded file details and add it to the `files` state e.g. `setFiles((prev) => [...prev, JSON.parse(response)]);`                                                                                                                   |
+| onRename           | (file: { name: string, isDirectory: boolean, path: string }, newName: string) => void                                                                                                | A callback function triggered when a file or folder is renamed.                                                                                                                                                                                                                                                                                                                         |
+| onDelete           | (file: { name: string, isDirectory: boolean, path: string }) => void                                                                                                                 | A callback function triggered when a file or folder is deleted.                                                                                                                                                                                                                                                                                                                         |
+| onPaste            | (sourceItem: { name: string, isDirectory: boolean, path: string }, destinationFolder: { name: string, isDirectory: boolean, path: string }, operationType: "copy" or "move") => void | A callback function triggered when a file or folder is pasted into a new location. Depending on operationType, use this to either copy or move the sourceItem to the destinationFolder, updating the files state accordingly.                                                                                                                                                           |
+| `onRefresh`        | `() => void`                                                                                                                                                                         | A callback function triggered when the file manager is refreshed. Use this to refresh the `files` state to reflect any changes or updates.                                                                                                                                                                                                                                              |
+
+## 🤝 Contributing
 
 Contributions are welcome! To contribute:
 
@@ -89,8 +92,9 @@ cd react-file-manager
 npm i
 npm run dev
 ```
+
 The application should now be running on `http://localhost:5173`, have fun!
 
-## License
+## ©️ License
 
 React File Manager is [MIT Licensed](LICENSE).
