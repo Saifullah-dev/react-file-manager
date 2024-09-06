@@ -419,6 +419,28 @@ svg {
           text-align: center;
         }
 
+        .rename-file-container.list {
+          top: 6px;
+          left: 48px;
+          text-align: left;
+
+          .rename-file {
+            min-width: 15%;
+            text-align: left;
+            border-radius: 3px;
+            border: none;
+            top: 5px;
+            white-space: nowrap;
+            overflow-x: hidden;
+            max-width: calc(100% - 48px);
+          }
+
+          .folder-name-error.right {
+            left: 0px;
+            bottom: -72px;
+          }
+        }
+
         .rename-file {
           position: relative;
           min-width: 69%;
@@ -507,7 +529,6 @@ svg {
         font-weight: 600;
         display: flex;
         gap: 5px;
-        padding-left: 48px;
         border-bottom: 1px solid #dddddd;
         padding: 4px 0;
         position: sticky;
@@ -516,8 +537,8 @@ svg {
         z-index: 1;
 
         .file-name {
-          width: 70%;
-          padding-left: 45px;
+          width: calc(70% - 65px);
+          padding-left: 65px;
         }
 
         .file-date {

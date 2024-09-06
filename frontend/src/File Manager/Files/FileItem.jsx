@@ -185,7 +185,7 @@ const FileItem = ({
         <div
           className={`file-item-container ${
             fileSelected || !!file.isEditing ? "file-selected" : ""
-          }`}
+          } ${isFileMoving ? "file-moving" : ""}`}
           title={file.name}
           onClick={handleFileSelection}
           onKeyDown={handleOnKeyDown}
@@ -201,7 +201,7 @@ const FileItem = ({
           }}
           tabIndex={0}
         >
-          <div className={`file-item ${isFileMoving ? "file-moving" : ""}`}>
+          <div className="file-item">
             {file.isDirectory ? (
               <FaRegFolderOpen size={iconSize} />
             ) : (
@@ -216,6 +216,7 @@ const FileItem = ({
               <>
                 {triggerAction.actionType === "createFolder" ? (
                   <CreateFolderAction
+                    activeLayout={activeLayout}
                     filesViewRef={filesViewRef}
                     file={file}
                     currentFolder={currentFolder}
@@ -226,6 +227,7 @@ const FileItem = ({
                   />
                 ) : (
                   <RenameAction
+                    activeLayout={activeLayout}
                     filesViewRef={filesViewRef}
                     file={file}
                     currentPathFiles={currentPathFiles}

@@ -8,6 +8,7 @@ import { getFileExtension } from "../../utils/getFileExtension";
 const maxNameLength = 220;
 
 const RenameAction = ({
+  activeLayout,
   filesViewRef,
   file,
   currentPathFiles,
@@ -129,7 +130,7 @@ const RenameAction = ({
 
   return (
     <>
-      <div className="rename-file-container">
+      <div className={`rename-file-container ${activeLayout}`}>
         <textarea
           ref={outsideClick.ref}
           className="rename-file"
@@ -141,6 +142,7 @@ const RenameAction = ({
           }}
           onKeyDown={handleValidateFolderRename}
           onClick={(e) => e.stopPropagation()}
+          {...(activeLayout === "list" && { rows: 1 })}
         />
         {fileRenameError && (
           <p className={`folder-name-error ${errorPlacement}`}>{renameErrorMessage}</p>

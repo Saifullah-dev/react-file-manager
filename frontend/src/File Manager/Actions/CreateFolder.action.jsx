@@ -5,6 +5,7 @@ import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 const maxNameLength = 220;
 
 const CreateFolderAction = ({
+  activeLayout,
   filesViewRef,
   file,
   currentPathFiles,
@@ -116,7 +117,7 @@ const CreateFolderAction = ({
   }, [outsideClick.isClicked]);
 
   return (
-    <div className="rename-file-container">
+    <div className={`rename-file-container ${activeLayout}`}>
       <textarea
         ref={outsideClick.ref}
         className="rename-file"
@@ -125,6 +126,7 @@ const CreateFolderAction = ({
         onChange={handleFolderNameChange}
         onKeyDown={handleValidateFolderName}
         onClick={(e) => e.stopPropagation()}
+        {...(activeLayout === "list" && { rows: 1 })}
       />
       {folderNameError && (
         <p className={`folder-name-error ${errorPlacement}`}>{folderErrorMessage}</p>
