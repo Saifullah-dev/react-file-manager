@@ -25,7 +25,7 @@ const Toolbar = ({
   activeLayout,
   setActiveLayout,
 }) => {
-  const [isToggleViewOpen, setIsToggleViewOpen] = useState(false);
+  const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   // Toolbar Items
   const [toolbarLeftItems, setToolbarLeftItems] = useState([
     {
@@ -52,7 +52,7 @@ const Toolbar = ({
     {
       icon: activeLayout === "grid" ? <BsGridFill size={16} /> : <FaListUl size={16} />,
       title: "Change View",
-      onClick: () => setIsToggleViewOpen((prev) => !prev),
+      onClick: () => setShowToggleViewMenu((prev) => !prev),
     },
     {
       icon: <FiRefreshCw size={16} />,
@@ -185,11 +185,11 @@ const Toolbar = ({
             </div>
           ))}
 
-          {isToggleViewOpen && (
+          {showToggleViewMenu && (
             <ToggleView
               activeLayout={activeLayout}
               setActiveLayout={setActiveLayout}
-              setIsToggleViewOpen={setIsToggleViewOpen}
+              setShowToggleViewMenu={setShowToggleViewMenu}
               onLayoutChange={onLayoutChange}
             />
           )}

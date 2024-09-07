@@ -17,7 +17,8 @@ const CreateFolderAction = ({
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
-  const [errorPlacement, setErrorPlacement] = useState("right");
+  const [errorXPlacement, setErrorXPlacement] = useState("right");
+  const [errorYPlacement, setErrorYPlacement] = useState("bottom");
   const outsideClick = useDetectOutsideClick((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -100,12 +101,22 @@ const CreateFolderAction = ({
     // Dynamic Error Message Placement based on available space
     if (outsideClick.ref?.current) {
       const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
-      const filesContainer = filesViewRef.current.getBoundingClientRect();
-      const nameInputContainer = outsideClick.ref.current.getBoundingClientRect();
-      const rightAvailableSpace = filesContainer.right - nameInputContainer.left;
+      const errorMessageHeight = 56 + 20 + 10 + 2; // 20px :before height
+      const filesContainer = filesViewRef.current;
+      const filesContainerRect = filesContainer.getBoundingClientRect();
+      const nameInputContainer = outsideClick.ref.current;
+      const nameInputContainerRect = nameInputContainer.getBoundingClientRect();
+
+      const rightAvailableSpace = filesContainerRect.right - nameInputContainerRect.left;
       rightAvailableSpace > errorMessageWidth
-        ? setErrorPlacement("right")
-        : setErrorPlacement("left");
+        ? setErrorXPlacement("right")
+        : setErrorXPlacement("left");
+
+      const bottomAvailableSpace =
+        filesContainerRect.bottom - (nameInputContainerRect.top + nameInputContainer.clientHeight);
+      bottomAvailableSpace > errorMessageHeight
+        ? setErrorYPlacement("bottom")
+        : setErrorYPlacement("top");
     }
   }, []);
   //
@@ -129,7 +140,9 @@ const CreateFolderAction = ({
         {...(activeLayout === "list" && { rows: 1 })}
       />
       {folderNameError && (
-        <p className={`folder-name-error ${errorPlacement}`}>{folderErrorMessage}</p>
+        <p className={`folder-name-error ${errorXPlacement} ${errorYPlacement}`}>
+          {folderErrorMessage}
+        </p>
       )}
     </div>
   );

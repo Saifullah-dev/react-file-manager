@@ -2,9 +2,9 @@ import { BsGridFill } from "react-icons/bs";
 import { FaCheck, FaListUl } from "react-icons/fa6";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 
-const ToggleView = ({ activeLayout, setActiveLayout, setIsToggleViewOpen, onLayoutChange }) => {
+const ToggleView = ({ activeLayout, setActiveLayout, setShowToggleViewMenu, onLayoutChange }) => {
   const toggleViewRef = useDetectOutsideClick(() => {
-    setIsToggleViewOpen(false);
+    setShowToggleViewMenu(false);
   });
   const layoutOptions = [
     {
@@ -21,7 +21,7 @@ const ToggleView = ({ activeLayout, setActiveLayout, setIsToggleViewOpen, onLayo
 
   const handleSelection = (key) => {
     setActiveLayout(key);
-    setIsToggleViewOpen(false);
+    setShowToggleViewMenu(false);
     onLayoutChange(key);
   };
 

@@ -497,6 +497,30 @@ svg {
           }
         }
 
+        .folder-name-error.top {
+          bottom: unset !important;
+          top: -68px;
+          &::before {
+            content: none;
+          }
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -20%;
+            left: 11%;
+            rotate: -45deg;
+            border: 15px solid #696969;
+            border-color: transparent transparent #696969 transparent;
+          }
+        }
+
+        .folder-name-error.top.left {
+          &::after {
+            left: 76%;
+            transform: rotate(90deg) scaleX(-1);
+          }
+        }
+
         .file-name {
           max-width: 115px;
         }
@@ -520,7 +544,7 @@ svg {
     .files.list {
       flex-direction: column;
       flex-wrap: nowrap;
-      gap: 0.45rem;
+      gap: 0;
       padding-left: 0px;
       padding-top: 0px;
 
