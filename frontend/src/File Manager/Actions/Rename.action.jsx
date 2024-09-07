@@ -8,6 +8,7 @@ import { getFileExtension } from "../../utils/getFileExtension";
 const maxNameLength = 220;
 
 const RenameAction = ({
+  activeLayout,
   filesViewRef,
   file,
   currentPathFiles,
@@ -19,7 +20,8 @@ const RenameAction = ({
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
-  const [errorPlacement, setErrorPlacement] = useState("right");
+  const [errorXPlacement, setErrorXPlacement] = useState("right");
+  const [errorYPlacement, setErrorYPlacement] = useState("bottom");
 
   const warningModalRef = useRef(null);
   const outsideClick = useDetectOutsideClick((e) => {
@@ -111,12 +113,23 @@ const RenameAction = ({
     // Dynamic Error Message Placement based on available space
     if (outsideClick.ref?.current) {
       const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
-      const filesContainer = filesViewRef.current.getBoundingClientRect();
-      const renameInputContainer = outsideClick.ref.current.getBoundingClientRect();
-      const rightAvailableSpace = filesContainer.right - renameInputContainer.left;
+      const errorMessageHeight = 56 + 20 + 10 + 2; // 20px :before height
+      const filesContainer = filesViewRef.current;
+      const filesContainerRect = filesContainer.getBoundingClientRect();
+      const renameInputContainer = outsideClick.ref.current;
+      const renameInputContainerRect = renameInputContainer.getBoundingClientRect();
+
+      const rightAvailableSpace = filesContainerRect.right - renameInputContainerRect.left;
       rightAvailableSpace > errorMessageWidth
-        ? setErrorPlacement("right")
-        : setErrorPlacement("left");
+        ? setErrorXPlacement("right")
+        : setErrorXPlacement("left");
+
+      const bottomAvailableSpace =
+        filesContainerRect.bottom -
+        (renameInputContainerRect.top + renameInputContainer.clientHeight);
+      bottomAvailableSpace > errorMessageHeight
+        ? setErrorYPlacement("bottom")
+        : setErrorYPlacement("top");
     }
   }, []);
 
@@ -129,7 +142,7 @@ const RenameAction = ({
 
   return (
     <>
-      <div className="rename-file-container">
+      <div className={`rename-file-container ${activeLayout}`}>
         <textarea
           ref={outsideClick.ref}
           className="rename-file"
@@ -141,9 +154,12 @@ const RenameAction = ({
           }}
           onKeyDown={handleValidateFolderRename}
           onClick={(e) => e.stopPropagation()}
+          {...(activeLayout === "list" && { rows: 1 })}
         />
         {fileRenameError && (
-          <p className={`folder-name-error ${errorPlacement}`}>{renameErrorMessage}</p>
+          <p className={`folder-name-error ${errorXPlacement} ${errorYPlacement}`}>
+            {renameErrorMessage}
+          </p>
         )}
       </div>
 

@@ -3,8 +3,9 @@ import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { BiRename } from "react-icons/bi";
-import { FaRegPaste } from "react-icons/fa6";
+import { FaListUl, FaRegPaste } from "react-icons/fa6";
 import { createFolderTree } from "../../utils/createFolderTree";
+import ToggleView from "./ToggleView";
 
 const Toolbar = ({
   allowCreateFolder = true,
@@ -20,7 +21,11 @@ const Toolbar = ({
   setClipBoard,
   handlePaste,
   triggerAction,
+  onLayoutChange,
+  activeLayout,
+  setActiveLayout,
 }) => {
+  const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   // Toolbar Items
   const [toolbarLeftItems, setToolbarLeftItems] = useState([
     {
@@ -44,15 +49,18 @@ const Toolbar = ({
   ]);
 
   const toolbarRightItems = [
-    // {
-    //   icon: <BsGridFill size={16} />,
-    //   title: "View",
-    //   onClick: handleViewChange,
-    // },
+    {
+      icon: activeLayout === "grid" ? <BsGridFill size={16} /> : <FaListUl size={16} />,
+      title: "Change View",
+      onClick: () => setShowToggleViewMenu((prev) => !prev),
+    },
     {
       icon: <FiRefreshCw size={16} />,
       title: "Refresh",
-      onClick: handleRefresh,
+      onClick: () => {
+        handleRefresh();
+        setClipBoard(null);
+      },
     },
   ];
 
@@ -170,17 +178,21 @@ const Toolbar = ({
         <div>
           {toolbarRightItems.map((item, index) => (
             <div key={index} className="toolbar-left-items">
-              <div
-                className="item-action icon-only"
-                title={item.title}
-                role="button"
-                onClick={item.onClick}
-              >
+              <button className="item-action icon-only" title={item.title} onClick={item.onClick}>
                 {item.icon}
-              </div>
+              </button>
               {index !== toolbarRightItems.length - 1 && <div className="item-separator"></div>}
             </div>
           ))}
+
+          {showToggleViewMenu && (
+            <ToggleView
+              activeLayout={activeLayout}
+              setActiveLayout={setActiveLayout}
+              setShowToggleViewMenu={setShowToggleViewMenu}
+              onLayoutChange={onLayoutChange}
+            />
+          )}
         </div>
       </div>
     </div>

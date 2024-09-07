@@ -10,8 +10,11 @@ import { createFolderTree } from "../../utils/createFolderTree";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder.action";
 import RenameAction from "../Actions/Rename.action";
+import { getDataSize } from "../../utils/getDataSize";
+import { formatDate } from "../../utils/formatDate";
 
 const FileItem = ({
+  activeLayout,
   filesViewRef,
   file,
   index,
@@ -33,7 +36,8 @@ const FileItem = ({
   setCurrentPathFiles,
   handleRename,
 }) => {
-  const fileIcons = useFileIcons(48);
+  const iconSize = activeLayout === "grid" ? 48 : 20;
+  const fileIcons = useFileIcons(iconSize);
 
   const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
@@ -179,8 +183,8 @@ const FileItem = ({
         content={menuItems}
       >
         <div
-          className={`file-item ${
-            fileSelected || !!file.isEditing ? "background-secondary text-white" : ""
+          className={`file-item-container ${
+            fileSelected || !!file.isEditing ? "file-selected" : ""
           } ${isFileMoving ? "file-moving" : ""}`}
           title={file.name}
           onClick={handleFileSelection}
@@ -197,37 +201,52 @@ const FileItem = ({
           }}
           tabIndex={0}
         >
-          {file.isDirectory ? (
-            <FaRegFolderOpen size={48} />
-          ) : (
-            <>{fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={48} />}</>
-          )}
+          <div className="file-item">
+            {file.isDirectory ? (
+              <FaRegFolderOpen size={iconSize} />
+            ) : (
+              <>
+                {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
+                  <FaRegFile size={iconSize} />
+                )}
+              </>
+            )}
 
-          {file.isEditing ? (
+            {file.isEditing ? (
+              <>
+                {triggerAction.actionType === "createFolder" ? (
+                  <CreateFolderAction
+                    activeLayout={activeLayout}
+                    filesViewRef={filesViewRef}
+                    file={file}
+                    currentFolder={currentFolder}
+                    currentPathFiles={currentPathFiles}
+                    setCurrentPathFiles={setCurrentPathFiles}
+                    handleCreateFolder={handleCreateFolder}
+                    triggerAction={triggerAction}
+                  />
+                ) : (
+                  <RenameAction
+                    activeLayout={activeLayout}
+                    filesViewRef={filesViewRef}
+                    file={file}
+                    currentPathFiles={currentPathFiles}
+                    setCurrentPathFiles={setCurrentPathFiles}
+                    handleRename={handleRename}
+                    triggerAction={triggerAction}
+                  />
+                )}
+              </>
+            ) : (
+              <span className="text-truncate file-name">{file.name}</span>
+            )}
+          </div>
+
+          {activeLayout === "list" && (
             <>
-              {triggerAction.actionType === "createFolder" ? (
-                <CreateFolderAction
-                  filesViewRef={filesViewRef}
-                  file={file}
-                  currentFolder={currentFolder}
-                  currentPathFiles={currentPathFiles}
-                  setCurrentPathFiles={setCurrentPathFiles}
-                  handleCreateFolder={handleCreateFolder}
-                  triggerAction={triggerAction}
-                />
-              ) : (
-                <RenameAction
-                  filesViewRef={filesViewRef}
-                  file={file}
-                  currentPathFiles={currentPathFiles}
-                  setCurrentPathFiles={setCurrentPathFiles}
-                  handleRename={handleRename}
-                  triggerAction={triggerAction}
-                />
-              )}
+              <div className="modified-date">{formatDate(file.updatedAt)}</div>
+              <div className="size">{file?.size > 0 ? getDataSize(file?.size) : ""}</div>
             </>
-          ) : (
-            <span className="text-truncate file-name">{file.name}</span>
           )}
         </div>
       </ContextMenu>
@@ -237,7 +256,7 @@ const FileItem = ({
         showFilePreview={showFilePreview}
         setShowFilePreview={setShowFilePreview}
         currentPath={currentPath}
-      /> */}
+        /> */}
     </>
   );
 };

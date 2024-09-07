@@ -1,56 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ContextMenu.scss";
 
 const ContextMenu = ({ children, filesViewRef, contextMenuRef, content, visible, setVisible }) => {
+  const [clickPosition, setClickPosition] = useState({ clickX: 0, clickY: 0 });
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
+    setClickPosition({ clickX: e.clientX, clickY: e.clientY });
     setVisible(true);
+  };
 
-    // Click position
-    const clickX = e.clientX;
-    const clickY = e.clientY;
+  const contextMenuPosition = () => {
+    const { clickX, clickY } = clickPosition;
 
     const container = filesViewRef.current;
     const containerRect = container.getBoundingClientRect();
+    const scrollBarWidth = container.offsetWidth - container.clientWidth;
 
-    // Files Viewer's Screen size
-    const screenW = containerRect.width;
-    const screenH = containerRect.height;
-
-    // Context menu size i.e. 112 x 82 px hardcoded
-    // Todo: Refactor this to get dynamic size
-    // Context menu ref is null here as it is not rendered yet
-    // Otherwise, we can get the size of the context menu using its ref
-    const rootW = 135;
-    const rootH = 242;
+    // Context menu size
+    const contextMenuContainer = contextMenuRef.current.getBoundingClientRect();
+    const menuWidth = contextMenuContainer.width;
+    const menuHeight = contextMenuContainer.height;
 
     // Check if there is enough space at the right for the context menu
-    // screenW - clickX gives the remaining space on the right
     const leftToCursor = clickX - containerRect.left;
-    const right = containerRect.width - leftToCursor > rootW;
+    const right = containerRect.width - (leftToCursor + scrollBarWidth) > menuWidth;
     const left = !right;
 
     const topToCursor = clickY - containerRect.top;
-    const top = containerRect.height - topToCursor > rootH;
+    const top = containerRect.height - topToCursor > menuHeight;
     const bottom = !top;
 
     if (right) {
-      // Location: 5px gap from cursor position i.e. right side
-      setLeft(`${clickX - containerRect.left + 10}px`);
+      setLeft(`${leftToCursor}px`);
     } else if (left) {
       // Location: -width of the context menu from cursor's position i.e. left side
-      setLeft(`${clickX - containerRect.left - rootW}px`);
+      setLeft(`${leftToCursor - menuWidth}px`);
     }
 
     if (top) {
-      setTop(`${clickY - containerRect.top + 10}px`);
+      setTop(`${topToCursor + container.scrollTop}px`);
     } else if (bottom) {
-      setTop(`${clickY - containerRect.top - rootH + 20}px`);
+      setTop(`${topToCursor + container.scrollTop - menuHeight}px`);
     }
   };
+
+  useEffect(() => {
+    if (visible && contextMenuRef.current) {
+      contextMenuPosition();
+    } else {
+      setTop(0);
+      setLeft(0);
+    }
+  }, [visible]);
 
   return (
     <div onContextMenu={handleContextMenu} onClick={(e) => setVisible(false)}>
@@ -58,7 +62,7 @@ const ContextMenu = ({ children, filesViewRef, contextMenuRef, content, visible,
       {visible && (
         <div
           ref={contextMenuRef}
-          className="fm-context-menu"
+          className={`fm-context-menu ${top ? "visible" : "hidden"}`}
           style={{
             top: top,
             left: left,

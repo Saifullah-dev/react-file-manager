@@ -92,6 +92,10 @@ function App() {
   };
   //
 
+  const handleLayoutChange = (layout) => {
+    console.log(layout);
+  };
+
   // Refresh Files
   const handleRefresh = () => {
     getFiles();
@@ -111,6 +115,7 @@ function App() {
           onRename={handleRename}
           onDelete={handleDelete}
           onPaste={handlePaste}
+          onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
           allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
         />
