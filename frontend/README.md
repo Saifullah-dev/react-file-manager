@@ -4,15 +4,10 @@ An open-source React.js package for easy integration of a file manager into appl
 
 ## ✨ Features
 
-- **View Files and Folders**: Display the directory structure with folders and files.
-- **Upload Files**: Upload new files to a selected directory.
-- **Delete Files and Folders**: Remove unwanted files or folders.
-- **Copy and Move Files**: Easily copy or move files and folders to a different directory.
-- **Inline Folder Creation and Renaming**: Create new folders and rename files or folders directly within the file list.
-- **Toolbar**: Access common file operations such as upload, delete, and refresh with a convenient toolbar.
-- **Breadcrumb Navigation**: Navigate through the directory structure with a breadcrumb trail.
-- **Navigation Pane**: Quickly switch between folders and directories using a sidebar navigation pane.
-- **Context Menu**: Right-click to open a context menu with options for cutting, copying, pasting, renaming, and deleting files or folders.
+- **File & Folder Management**: View, upload, delete, copy, move, create, and rename files or folders seamlessly.
+- **Grid & List View**: Switch between grid and list views to browse files in your preferred layout.
+- **Navigation**: Use the breadcrumb trail and sidebar navigation pane for quick directory traversal.
+- **Toolbar & Context Menu**: Access all common actions (upload, delete, copy, move, rename, etc.) via the toolbar or right-click for the same options in the context menu.
 
 ## 🚀 Installation
 
