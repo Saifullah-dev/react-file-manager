@@ -10,7 +10,7 @@ import Loader from "../components/Loader/Loader";
 import PropTypes from "prop-types";
 
 const FileManager = ({
-  files = [],
+  files,
   fileUploadConfig,
   isLoading,
   onCreateFolder,
@@ -159,7 +159,7 @@ const FileManager = ({
 };
 
 FileManager.propTypes = {
-  files: PropTypes.arrayOf(PropTypes.object),
+  files: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default FileManager;
