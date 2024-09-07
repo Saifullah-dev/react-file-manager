@@ -10,6 +10,7 @@ export default defineConfig({
       entry: "./src/index.js",
       name: "ReactFileManager",
       fileName: (format) => `react-file-manager.${format}.js`,
+      formats: ["es"],
     },
     rollupOptions: {
       external: ["react", "react-dom"],
