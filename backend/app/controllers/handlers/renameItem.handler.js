@@ -7,7 +7,7 @@ const updateChildernPathRecursive = async (item) => {
 
   for (const child of children) {
     child.path = `${item.path}/${child.name}`;
-    await child.save();
+    await child.save({ timestamps: false });
 
     if (child.isDirectory) updateChildernPathRecursive(child);
   }
