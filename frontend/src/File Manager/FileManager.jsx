@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import "./FileManager.scss";
 import Toolbar from "./Toolbar/Toolbar";
 import NavigationPane from "./Navigation Pane/NavigationPane";
 import BreadCrumb from "./Bread Crumb/BreadCrumb";
@@ -8,6 +7,7 @@ import { useTriggerAction } from "../hooks/useTriggerAction";
 import Actions from "./Actions/Actions";
 import Loader from "../components/Loader/Loader";
 import PropTypes from "prop-types";
+import "./FileManager.scss";
 
 const FileManager = ({
   files,

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FileItem from "./FileItem";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
+import "./Files.scss";
 
 const Files = ({
   activeLayout,

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import FileManager from "./File Manager/FileManager";
-import { createFolderAPI } from "./Mock APIs/createFolderAPI";
-import { renameAPI } from "./Mock APIs/renameAPI";
-import { deleteAPI } from "./Mock APIs/deleteAPI";
-import { copyItemAPI, moveItemAPI } from "./Mock APIs/fileTransferAPI";
-import { getAllFilesAPI } from "./Mock APIs/getAllFilesAPI";
+import { createFolderAPI } from "./api/createFolderAPI";
+import { renameAPI } from "./api/renameAPI";
+import { deleteAPI } from "./api/deleteAPI";
+import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
+import { getAllFilesAPI } from "./api/getAllFilesAPI";
 import "./App.scss";
 
 function App() {

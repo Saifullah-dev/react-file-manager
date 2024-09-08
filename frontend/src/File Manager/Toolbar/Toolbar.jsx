@@ -6,6 +6,7 @@ import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
 import { createFolderTree } from "../../utils/createFolderTree";
 import ToggleView from "./ToggleView";
+import "./Toolbar.scss";
 
 const Toolbar = ({
   allowCreateFolder = true,

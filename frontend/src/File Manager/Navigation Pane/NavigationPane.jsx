@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBarSubDirectories from "./SideBarSubDirectories";
 import { getParentPath } from "../../utils/getParentPath";
+import "./NavigationPane.scss";
 
 const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
   const [foldersTree, setFoldersTree] = useState([]);

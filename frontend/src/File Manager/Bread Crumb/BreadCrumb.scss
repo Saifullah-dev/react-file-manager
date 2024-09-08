@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.breadcrumb {
+  height: calc(5.8% - 21px);
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid #dddddd;
+  padding: 10px 15px;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $primary-color !important;
+  }
+}

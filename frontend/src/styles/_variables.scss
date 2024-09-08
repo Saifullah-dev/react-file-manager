@@ -1,0 +1,28 @@
+// App Colors
+$secondary-color: #6155b4;
+$primary-color: #6155b4;
+$secondary-color-lighter: #5549a3;
+//
+
+// Resuable Styles
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin overflow-y-scroll {
+  overflow-y: auto !important;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    padding-top: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $primary-color !important;
+    border-radius: 8px;
+  }
+}
+//
