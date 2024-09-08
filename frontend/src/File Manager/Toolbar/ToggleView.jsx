@@ -21,8 +21,8 @@ const ToggleView = ({ activeLayout, setActiveLayout, setShowToggleViewMenu, onLa
 
   const handleSelection = (key) => {
     setActiveLayout(key);
-    setShowToggleViewMenu(false);
     onLayoutChange(key);
+    setShowToggleViewMenu(false);
   };
 
   return (

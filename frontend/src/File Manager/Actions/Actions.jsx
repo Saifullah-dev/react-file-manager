@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import CreateFolderAction from "./CreateFolder.action";
 import RenameAction from "./Rename.action";
-import DeleteAction from "./Delete.action";
+import DeleteAction from "./Delete/Delete.action";
 import UploadFileAction from "./Upload File/UploadFile.action";
 
 const Actions = ({

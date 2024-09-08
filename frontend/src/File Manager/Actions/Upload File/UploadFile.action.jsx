@@ -3,6 +3,7 @@ import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
 import ReactLoading from "react-loading";
+import "./UploadFile.action.scss";
 
 const UploadFileAction = ({
   fileUploadConfig,

@@ -35,9 +35,11 @@ svg {
 
 .file-explorer {
   font-family: "Nunito Sans", sans-serif;
+
   button {
     font-family: "Nunito Sans", sans-serif;
   }
+
   border: 1px solid #dddddd;
   border-radius: 8px;
   height: 100%;
@@ -159,42 +161,6 @@ svg {
   }
 }
 
-.folder-error {
-  color: #dc3545;
-  font-size: 0.8em;
-  margin-top: 4px;
-}
-
-.file-upload-container {
-  .rs-uploader-file-items {
-    max-height: 165px;
-    @include overflow-y-scroll;
-    overflow-x: hidden !important;
-  }
-
-  .rs-uploader-file-items::before {
-    content: "Selected files";
-    color: $primary-color;
-    font-weight: 600;
-    display: none;
-    margin-left: 1px;
-  }
-
-  .rs-uploader-file-item {
-    border-radius: 5px;
-    margin: 13px 5px 3px;
-    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.22);
-    -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.22);
-  }
-}
-
-.file-upload-container.show-uploaded-files {
-  .rs-uploader-file-items::before {
-    display: block;
-  }
-}
-
 .file-previewer {
   height: 75vh;
 
@@ -210,70 +176,6 @@ svg {
     opacity: 0;
     height: 0%;
     width: 0%;
-  }
-}
-
-.file-context-menu-list {
-  font-size: 1.1em;
-
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-
-    li {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      padding: 6px 22px 6px 14px;
-
-      &:hover {
-        cursor: pointer;
-        background-color: rgb(0, 0, 0, 0.04);
-      }
-    }
-
-    li.disable-paste {
-      opacity: 0.5;
-
-      &:hover {
-        cursor: default;
-        background-color: transparent;
-      }
-    }
-  }
-}
-
-.file-delete-confirm {
-  .file-delete-confirm-text {
-    border-bottom: 1px solid #dddddd;
-    padding: 10px 15px;
-    margin-bottom: 1rem;
-    word-wrap: break-word;
-  }
-
-  .file-delete-confirm-actions {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-    margin-right: 1rem;
-  }
-}
-
-.fm-create-folder-container {
-  padding: 8px 0;
-
-  .fm-create-folder-input {
-    border-bottom: 1px solid #c6c6c6;
-    padding: 8px 12px 12px;
-  }
-
-  .fm-create-folder-action {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    padding: 8px 8px 0 0;
   }
 }
 
@@ -296,140 +198,6 @@ svg {
     gap: 8px;
     justify-content: flex-end;
     padding: 8px 8px 0 0;
-  }
-}
-
-.fm-upload-file {
-  padding: 18px 15px;
-  display: flex;
-  gap: 18px;
-
-  .select-files {
-    width: 100%;
-    .draggable-file-input {
-      color: #696969;
-      background-color: #f7f7f7;
-      margin-bottom: 18px;
-      height: 220px;
-      border: 2px dashed #ccc;
-      border-radius: 5px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .input-text {
-        pointer-events: none; // This ensures that the drag and drop event isn't binded with it's children
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      &:hover {
-        border-color: $primary-color;
-      }
-    }
-
-    .draggable-file-input.dragging {
-      border-color: $primary-color;
-    }
-
-    .btn-choose-file {
-      display: flex;
-      justify-content: center;
-
-      label {
-        display: inline-block;
-        padding: 0.4rem 0.8rem;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .choose-file-input {
-        display: none;
-      }
-    }
-  }
-
-  .files-progress {
-    width: 60%;
-
-    .heading {
-      display: flex;
-      gap: 4px;
-    }
-
-    h2 {
-      font-size: 0.9em;
-      margin: 0;
-    }
-
-    ul {
-      padding-left: 0px;
-      padding-right: 5px;
-      padding-bottom: 10px;
-      margin-top: 0.7rem;
-      height: 220px;
-      @include overflow-y-scroll;
-      font-weight: 500;
-
-      li {
-        list-style: none;
-        border-bottom: 1px solid #c6c6c6;
-        display: flex;
-        gap: 5px;
-        margin-bottom: 18px;
-        padding-bottom: 12px;
-
-        .file-icon {
-          width: 10%;
-        }
-
-        .file {
-          width: 90%;
-
-          .file-details {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 5px;
-
-            .file-info {
-              width: 90%;
-              display: flex;
-              align-items: baseline;
-
-              .file-name {
-                display: inline-block;
-                max-width: 72%;
-                margin-right: 8px;
-              }
-            }
-
-            .file-size {
-              font-size: 0.7em;
-            }
-
-            .retry-upload {
-              padding: 3px;
-              border-radius: 50%;
-              &:hover {
-                cursor: pointer;
-                background-color: rgba(0, 0, 0, 0.07);
-                color: $primary-color;
-              }
-            }
-
-            .rm-file {
-              &:hover {
-                cursor: pointer;
-                color: red;
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 

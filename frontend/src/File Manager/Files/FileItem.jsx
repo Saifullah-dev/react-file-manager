@@ -213,7 +213,7 @@ const FileItem = ({
             )}
 
             {file.isEditing ? (
-              <>
+              <div className={`rename-file-container ${activeLayout}`}>
                 {triggerAction.actionType === "createFolder" ? (
                   <CreateFolderAction
                     activeLayout={activeLayout}
@@ -236,7 +236,7 @@ const FileItem = ({
                     triggerAction={triggerAction}
                   />
                 )}
-              </>
+              </div>
             ) : (
               <span className="text-truncate file-name">{file.name}</span>
             )}

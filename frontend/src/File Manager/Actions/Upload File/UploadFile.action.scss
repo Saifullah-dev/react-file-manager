@@ -1,0 +1,138 @@
+@import "../../../styles/variables";
+
+.fm-upload-file {
+    padding: 18px 15px;
+    display: flex;
+    gap: 18px;
+
+    .select-files {
+        width: 100%;
+
+        .draggable-file-input {
+            color: #696969;
+            background-color: #f7f7f7;
+            margin-bottom: 18px;
+            height: 220px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .input-text {
+                pointer-events: none; // This ensures that the drag and drop event isn't binded with it's children
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            &:hover {
+                border-color: $primary-color;
+            }
+        }
+
+        .draggable-file-input.dragging {
+            border-color: $primary-color;
+        }
+
+        .btn-choose-file {
+            display: flex;
+            justify-content: center;
+
+            label {
+                display: inline-block;
+                padding: 0.4rem 0.8rem;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .choose-file-input {
+                display: none;
+            }
+        }
+    }
+
+    .files-progress {
+        width: 60%;
+
+        .heading {
+            display: flex;
+            gap: 4px;
+        }
+
+        h2 {
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        ul {
+            padding-left: 0px;
+            padding-right: 5px;
+            padding-bottom: 10px;
+            margin-top: 0.7rem;
+            height: 220px;
+            @include overflow-y-scroll;
+            font-weight: 500;
+
+            li {
+                list-style: none;
+                border-bottom: 1px solid #c6c6c6;
+                display: flex;
+                gap: 5px;
+                margin-bottom: 18px;
+                padding-bottom: 12px;
+
+                .file-icon {
+                    width: 10%;
+                }
+
+                .file {
+                    width: 90%;
+
+                    .file-details {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+
+                        .file-info {
+                            width: 90%;
+                            display: flex;
+                            align-items: baseline;
+
+                            .file-name {
+                                display: inline-block;
+                                max-width: 72%;
+                                margin-right: 8px;
+                            }
+                        }
+
+                        .file-size {
+                            font-size: 0.7em;
+                        }
+
+                        .retry-upload {
+                            padding: 3px;
+                            border-radius: 50%;
+
+                            &:hover {
+                                cursor: pointer;
+                                background-color: rgba(0, 0, 0, 0.07);
+                                color: $primary-color;
+                            }
+                        }
+
+                        .rm-file {
+                            &:hover {
+                                cursor: pointer;
+                                color: red;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

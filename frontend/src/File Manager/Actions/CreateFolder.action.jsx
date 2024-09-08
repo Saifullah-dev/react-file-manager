@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
+import NameInput from "../../components/Name Input/NameInput";
+import ErrorTooltip from "../../components/Error Tooltip/ErrorTooltip";
 
 const maxNameLength = 220;
 
@@ -128,10 +130,9 @@ const CreateFolderAction = ({
   }, [outsideClick.isClicked]);
 
   return (
-    <div className={`rename-file-container ${activeLayout}`}>
-      <textarea
-        ref={outsideClick.ref}
-        className="rename-file"
+    <>
+      <NameInput
+        nameInputRef={outsideClick.ref}
         maxLength={maxNameLength}
         value={folderName}
         onChange={handleFolderNameChange}
@@ -140,11 +141,13 @@ const CreateFolderAction = ({
         {...(activeLayout === "list" && { rows: 1 })}
       />
       {folderNameError && (
-        <p className={`folder-name-error ${errorXPlacement} ${errorYPlacement}`}>
-          {folderErrorMessage}
-        </p>
+        <ErrorTooltip
+          message={folderErrorMessage}
+          xPlacement={errorXPlacement}
+          yPlacement={errorYPlacement}
+        />
       )}
-    </div>
+    </>
   );
 };
 
