@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { MdHome, MdOutlineNavigateNext } from "react-icons/md";
 import "./BreadCrumb.scss";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
 
-const BreadCrumb = ({ currentPath, setCurrentPath }) => {
+const BreadCrumb = () => {
   const [folders, setFolders] = useState([]);
+  const { currentPath, setCurrentPath } = useFileNavigation();
 
   useEffect(() => {
     setFolders(currentPath?.split("/"));

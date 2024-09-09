@@ -6,24 +6,20 @@ import Modal from "../../components/Modal/Modal";
 import { getFileExtension } from "../../utils/getFileExtension";
 import NameInput from "../../components/Name Input/NameInput";
 import ErrorTooltip from "../../components/Error Tooltip/ErrorTooltip";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useLayout } from "../../contexts/LayoutContext";
 
 const maxNameLength = 220;
 
-const RenameAction = ({
-  activeLayout,
-  filesViewRef,
-  file,
-  currentPathFiles,
-  setCurrentPathFiles,
-  handleRename,
-  triggerAction,
-}) => {
+const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
   const [renameFile, setRenameFile] = useState(file?.name);
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
   const [errorXPlacement, setErrorXPlacement] = useState("right");
   const [errorYPlacement, setErrorYPlacement] = useState("bottom");
+  const { currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { activeLayout } = useLayout();
 
   const warningModalRef = useRef(null);
   const outsideClick = useDetectOutsideClick((e) => {
@@ -92,7 +88,7 @@ const RenameAction = ({
       }
     }
     setFileRenameError(false);
-    handleRename(file, renameFile);
+    onRename(file, renameFile);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
     triggerAction.close();
   }

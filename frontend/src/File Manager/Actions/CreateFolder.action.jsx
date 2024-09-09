@@ -3,19 +3,12 @@ import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import NameInput from "../../components/Name Input/NameInput";
 import ErrorTooltip from "../../components/Error Tooltip/ErrorTooltip";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useLayout } from "../../contexts/LayoutContext";
 
 const maxNameLength = 220;
 
-const CreateFolderAction = ({
-  activeLayout,
-  filesViewRef,
-  file,
-  currentPathFiles,
-  setCurrentPathFiles,
-  handleCreateFolder,
-  currentFolder,
-  triggerAction,
-}) => {
+const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction }) => {
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
@@ -25,6 +18,8 @@ const CreateFolderAction = ({
     e.preventDefault();
     e.stopPropagation();
   });
+  const { currentFolder, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { activeLayout } = useLayout();
 
   // Folder name change handler function
   const handleFolderNameChange = (e) => {
@@ -33,7 +28,7 @@ const CreateFolderAction = ({
   };
   //
 
-  // Validate folder name and call "handleCreateFolder" function
+  // Validate folder name and call "onCreateFolder" function
   const handleValidateFolderName = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -89,7 +84,7 @@ const CreateFolderAction = ({
       newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
     }
 
-    handleCreateFolder(newFolderName, currentFolder);
+    onCreateFolder(newFolderName, currentFolder);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     triggerAction.close();
   }

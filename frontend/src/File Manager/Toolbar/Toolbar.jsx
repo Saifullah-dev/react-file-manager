@@ -1,34 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
-import { createFolderTree } from "../../utils/createFolderTree";
 import ToggleView from "./ToggleView";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useSelection } from "../../contexts/SelectionContext";
+import { useClipBoard } from "../../contexts/ClipboardContext";
 import "./Toolbar.scss";
+import { useLayout } from "../../contexts/LayoutContext";
 
 const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
-  handleRefresh,
-  isItemSelection,
-  setIsItemSelection,
-  currentPath,
-  selectedFile,
-  setSelectedFile,
-  files,
-  clipBoard,
-  setClipBoard,
-  handlePaste,
-  triggerAction,
+  onPaste,
   onLayoutChange,
-  activeLayout,
-  setActiveLayout,
+  onRefresh,
+  triggerAction,
 }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
+  const { currentFolder } = useFileNavigation();
+  const { isItemSelection, selectedFile, setSelectedFile } = useSelection();
+  const { clipBoard, setClipBoard } = useClipBoard();
+  const { activeLayout } = useLayout();
+
   // Toolbar Items
-  const [toolbarLeftItems, setToolbarLeftItems] = useState([
+  const toolbarLeftItems = [
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
       text: "New Folder",
@@ -44,10 +42,10 @@ const Toolbar = ({
     {
       icon: <FaRegPaste size={18} />,
       text: "Paste",
-      permission: false,
-      onClick: () => {},
+      permission: !!clipBoard,
+      onClick: handlePasting,
     },
-  ]);
+  ];
 
   const toolbarRightItems = [
     {
@@ -59,61 +57,36 @@ const Toolbar = ({
       icon: <FiRefreshCw size={16} />,
       title: "Refresh",
       onClick: () => {
-        handleRefresh();
+        onRefresh();
         setClipBoard(null);
       },
     },
   ];
 
-  // Handle Pasting
-  const handlePasting = (files, pastePath, clipBoard) => {
-    const selectedCopiedFile = clipBoard.files[0];
-    const copiedFiles = files.filter((f) => {
-      const folderToCopy = f.path === selectedCopiedFile.path && f.name === selectedCopiedFile.name;
-      const folderChildren = f.path.startsWith(
-        selectedCopiedFile.path + "/" + selectedCopiedFile.name
-      );
-      return folderToCopy || folderChildren;
-    });
-
-    const destinationFolder = files.find((file) => file.path === pastePath);
-    const operationType = clipBoard.isMoving ? "move" : "copy";
-
-    handlePaste(selectedCopiedFile, destinationFolder, operationType);
-    clipBoard.isMoving && setClipBoard(null);
-    setIsItemSelection(false);
-    setSelectedFile(null);
-  };
-
-  useEffect(() => {
-    setToolbarLeftItems((prev) => {
-      return prev.map((item) => {
-        if (item.text === "Paste") {
-          return {
-            ...item,
-            permission: !!clipBoard,
-            onClick: () => handlePasting(files, currentPath, clipBoard),
-          };
-        } else {
-          return item;
-        }
-      });
-    });
-  }, [clipBoard, currentPath, files]);
-
   // Handle Cut / Copy
   const handleCutCopy = (isMoving) => {
     setClipBoard({
-      files: [{ ...createFolderTree(selectedFile, files) }],
+      files: [selectedFile],
       isMoving: isMoving,
     });
   };
   //
 
+  // Handle Pasting
+  // Todo: Show error if destination folder already has file(s) with the same name
+  function handlePasting() {
+    const selectedCopiedFile = clipBoard.files[0];
+    const destinationFolder = isItemSelection ? selectedFile : currentFolder;
+    const operationType = clipBoard.isMoving ? "move" : "copy";
+
+    onPaste(selectedCopiedFile, destinationFolder, operationType);
+
+    clipBoard.isMoving && setClipBoard(null);
+    setSelectedFile(null);
+  }
+
   // Selected File/Folder Actions
   if (isItemSelection) {
-    const pastePath = selectedFile.path;
-
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
@@ -126,10 +99,10 @@ const Toolbar = ({
               <BsCopy strokeWidth={0.1} size={17} />
               <span>Copy</span>
             </button>
-            {selectedFile.isDirectory ? (
+            {selectedFile?.isDirectory ? (
               <button
                 className="item-action file-action"
-                onClick={() => handlePasting(files, pastePath, clipBoard)}
+                onClick={handlePasting}
                 disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
@@ -153,7 +126,7 @@ const Toolbar = ({
               <span>Delete</span>
             </button>
           </div>
-          <button className="item-action file-action" onClick={() => setIsItemSelection(false)}>
+          <button className="item-action file-action" onClick={() => setSelectedFile(null)}>
             <MdClear size={18} />
             <span>Clear Selection</span>
           </button>
@@ -188,8 +161,6 @@ const Toolbar = ({
 
           {showToggleViewMenu && (
             <ToggleView
-              activeLayout={activeLayout}
-              setActiveLayout={setActiveLayout}
               setShowToggleViewMenu={setShowToggleViewMenu}
               onLayoutChange={onLayoutChange}
             />

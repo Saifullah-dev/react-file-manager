@@ -4,17 +4,18 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
 import ReactLoading from "react-loading";
 import "./UploadFile.action.scss";
+import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 
 const UploadFileAction = ({
   fileUploadConfig,
   allowedFileExtensions,
-  handleFileUploading,
-  handleFileUploaded,
-  currentFolder,
+  onFileUploading,
+  onFileUploaded,
 }) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState({});
+  const { currentFolder } = useFileNavigation();
 
   // Todo: Also validate allowed file extensions on drop
   const handleDrop = (e) => {
@@ -23,7 +24,7 @@ const UploadFileAction = ({
     const droppedFiles = Array.from(e.dataTransfer.files);
     if (droppedFiles.length > 0) {
       const choosenFiles = droppedFiles.map((file) => {
-        const appendData = handleFileUploading(file, currentFolder);
+        const appendData = onFileUploading(file, currentFolder);
         return {
           file: file,
           appendData: appendData,
@@ -37,7 +38,7 @@ const UploadFileAction = ({
     const selectedFiles = Array.from(e.target.files);
     if (selectedFiles.length > 0) {
       const choosenFiles = selectedFiles.map((file) => {
-        const appendData = handleFileUploading(file, currentFolder);
+        const appendData = onFileUploading(file, currentFolder);
         return {
           file: file,
           appendData: appendData,
@@ -96,7 +97,7 @@ const UploadFileAction = ({
                 fileData={fileData}
                 fileUploadConfig={fileUploadConfig}
                 setIsUploading={setIsUploading}
-                handleFileUploaded={handleFileUploaded}
+                onFileUploaded={onFileUploaded}
               />
             ))}
           </ul>

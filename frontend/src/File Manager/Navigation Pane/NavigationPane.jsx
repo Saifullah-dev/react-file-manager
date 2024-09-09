@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SideBarSubDirectories from "./SideBarSubDirectories";
 import { getParentPath } from "../../utils/getParentPath";
+import { useFiles } from "../../contexts/FilesContext";
 import "./NavigationPane.scss";
 
-const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
+const NavigationPane = () => {
   const [foldersTree, setFoldersTree] = useState([]);
+  const { files } = useFiles();
 
   const createChildRecursive = (path, foldersStruct) => {
     if (!foldersStruct[path]) return []; // No children for this path (folder)
@@ -34,14 +36,7 @@ const NavigationPane = ({ files, currentPath, setCurrentPath }) => {
       {foldersTree?.length > 0 ? (
         <>
           {foldersTree?.map((folder, index) => {
-            return (
-              <SideBarSubDirectories
-                key={index}
-                folder={folder}
-                setCurrentPath={setCurrentPath}
-                currentPath={currentPath}
-              />
-            );
+            return <SideBarSubDirectories key={index} folder={folder} />;
           })}
         </>
       ) : (

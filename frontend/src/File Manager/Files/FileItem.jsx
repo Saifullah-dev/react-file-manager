@@ -6,38 +6,33 @@ import ContextMenu from "../../components/Context Menu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { BiRename } from "react-icons/bi";
 import { BsCopy, BsScissors } from "react-icons/bs";
-import { createFolderTree } from "../../utils/createFolderTree";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder.action";
 import RenameAction from "../Actions/Rename.action";
 import { getDataSize } from "../../utils/getDataSize";
 import { formatDate } from "../../utils/formatDate";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useSelection } from "../../contexts/SelectionContext";
+import { useClipBoard } from "../../contexts/ClipboardContext";
+import { useLayout } from "../../contexts/LayoutContext";
 
 const FileItem = ({
-  activeLayout,
-  filesViewRef,
-  file,
   index,
+  file,
+  onCreateFolder,
+  onPaste,
+  onRename,
+  filesViewRef,
   selectedFileIndex,
   setSelectedFileIndex,
-  setCurrentPath,
-  isItemSelection,
-  setIsItemSelection,
-  setSelectedFile,
-  currentPath,
-  clipBoard,
-  setClipBoard,
-  handlePaste,
-  files,
   triggerAction,
-  currentFolder,
-  handleCreateFolder,
-  currentPathFiles,
-  setCurrentPathFiles,
-  handleRename,
 }) => {
+  const { activeLayout } = useLayout();
   const iconSize = activeLayout === "grid" ? 48 : 20;
   const fileIcons = useFileIcons(iconSize);
+  const { setCurrentPath, currentPathFiles } = useFileNavigation();
+  const { isItemSelection, setSelectedFile } = useSelection();
+  const { clipBoard, setClipBoard } = useClipBoard();
 
   const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
@@ -54,7 +49,7 @@ const FileItem = ({
   const handleCutCopy = (e, isMoving) => {
     e.stopPropagation();
     setClipBoard({
-      files: [{ ...createFolderTree(file, files) }],
+      files: [file],
       isMoving: isMoving,
     });
     setVisible(false);
@@ -63,23 +58,12 @@ const FileItem = ({
   const handleFilePasting = (e) => {
     e.stopPropagation();
     if (clipBoard) {
-      const pastePath = file.path;
       const selectedCopiedFile = clipBoard.files[0];
-      const copiedFiles = files.filter((f) => {
-        const folderToCopy =
-          f.path === selectedCopiedFile.path && f.name === selectedCopiedFile.name;
-        const folderChildren = f.path.startsWith(
-          selectedCopiedFile.path + "/" + selectedCopiedFile.name
-        );
-        return folderToCopy || folderChildren;
-      });
-
-      const destinationFolder = files.find((f) => f.path === pastePath);
       const operationType = clipBoard.isMoving ? "move" : "copy";
 
-      handlePaste(selectedCopiedFile, destinationFolder, operationType);
+      onPaste(selectedCopiedFile, file, operationType);
+
       clipBoard.isMoving && setClipBoard(null);
-      setIsItemSelection(false);
       setSelectedFile(null);
       setVisible(false);
     }
@@ -112,12 +96,11 @@ const FileItem = ({
     e.stopPropagation();
     if (file.isEditing) return;
 
-    setIsItemSelection(true);
     setSelectedFile(file);
     setSelectedFileIndex(index);
     const currentTime = new Date().getTime();
     if (currentTime - lastClickTime < 300) {
-      setIsItemSelection(false);
+      setSelectedFile(null);
       handleFileAccess();
     }
     setLastClickTime(currentTime);
@@ -195,7 +178,6 @@ const FileItem = ({
               e.stopPropagation();
               return;
             }
-            setIsItemSelection(true);
             setSelectedFile(file);
             setSelectedFileIndex(index);
           }}
@@ -216,23 +198,16 @@ const FileItem = ({
               <div className={`rename-file-container ${activeLayout}`}>
                 {triggerAction.actionType === "createFolder" ? (
                   <CreateFolderAction
-                    activeLayout={activeLayout}
                     filesViewRef={filesViewRef}
                     file={file}
-                    currentFolder={currentFolder}
-                    currentPathFiles={currentPathFiles}
-                    setCurrentPathFiles={setCurrentPathFiles}
-                    handleCreateFolder={handleCreateFolder}
+                    onCreateFolder={onCreateFolder}
                     triggerAction={triggerAction}
                   />
                 ) : (
                   <RenameAction
-                    activeLayout={activeLayout}
                     filesViewRef={filesViewRef}
                     file={file}
-                    currentPathFiles={currentPathFiles}
-                    setCurrentPathFiles={setCurrentPathFiles}
-                    handleRename={handleRename}
+                    onRename={onRename}
                     triggerAction={triggerAction}
                   />
                 )}

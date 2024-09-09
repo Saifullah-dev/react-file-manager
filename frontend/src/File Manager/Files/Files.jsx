@@ -2,31 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import FileItem from "./FileItem";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import "./Files.scss";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useSelection } from "../../contexts/SelectionContext";
+import { useLayout } from "../../contexts/LayoutContext";
 
-const Files = ({
-  activeLayout,
-  currentPathFiles,
-  setCurrentPathFiles,
-  setCurrentPath,
-  isItemSelection,
-  setIsItemSelection,
-  setSelectedFile,
-  currentPath,
-  clipBoard,
-  setClipBoard,
-  handlePaste,
-  files,
-  triggerAction,
-  currentFolder,
-  handleCreateFolder,
-  handleRename,
-}) => {
+const Files = ({ onCreateFolder, onPaste, onRename, triggerAction }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
+  const { currentPath, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
+  const { setSelectedFile } = useSelection();
+  const { activeLayout } = useLayout();
 
   useEffect(() => {
     setSelectedFileIndex(null);
-    setIsItemSelection(false);
     setSelectedFile(null);
   }, [currentPath]);
 
@@ -53,7 +41,6 @@ const Files = ({
       return prev;
     });
 
-    setIsItemSelection(false);
     setSelectedFileIndex(null);
     setSelectedFile(null);
   };
@@ -77,7 +64,6 @@ const Files = ({
       className={`files ${activeLayout}`}
       onClick={(e) => {
         setSelectedFileIndex(null);
-        setIsItemSelection(false);
         setSelectedFile(null);
       }}
     >
@@ -92,28 +78,16 @@ const Files = ({
         <>
           {currentPathFiles.map((file, index) => (
             <FileItem
-              activeLayout={activeLayout}
-              filesViewRef={filesViewRef}
               key={index}
-              file={file}
               index={index}
+              file={file}
+              onCreateFolder={onCreateFolder}
+              onPaste={onPaste}
+              onRename={onRename}
+              filesViewRef={filesViewRef}
               selectedFileIndex={selectedFileIndex}
               setSelectedFileIndex={setSelectedFileIndex}
-              setCurrentPath={setCurrentPath}
-              isItemSelection={isItemSelection}
-              setIsItemSelection={setIsItemSelection}
-              setSelectedFile={setSelectedFile}
-              currentPath={currentPath}
-              clipBoard={clipBoard}
-              setClipBoard={setClipBoard}
-              handlePaste={handlePaste}
-              files={files}
               triggerAction={triggerAction}
-              currentPathFiles={currentPathFiles}
-              setCurrentPathFiles={setCurrentPathFiles}
-              currentFolder={currentFolder}
-              handleCreateFolder={handleCreateFolder}
-              handleRename={handleRename}
             />
           ))}
         </>

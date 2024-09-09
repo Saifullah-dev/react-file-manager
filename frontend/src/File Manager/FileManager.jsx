@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import Toolbar from "./Toolbar/Toolbar";
 import NavigationPane from "./Navigation Pane/NavigationPane";
 import BreadCrumb from "./Bread Crumb/BreadCrumb";
@@ -7,6 +6,12 @@ import { useTriggerAction } from "../hooks/useTriggerAction";
 import Actions from "./Actions/Actions";
 import Loader from "../components/Loader/Loader";
 import PropTypes from "prop-types";
+import { FilesProvider } from "../contexts/FilesContext";
+import { FileNavigationProvider } from "../contexts/FileNavigationContext";
+import { useColumnResize } from "../hooks/useColumnResize";
+import { SelectionProvider } from "../contexts/SelectionContext";
+import { ClipBoardProvider } from "../contexts/ClipboardContext";
+import { LayoutProvider } from "../contexts/LayoutContext";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -24,136 +29,63 @@ const FileManager = ({
   allowedFileExtensions,
 }) => {
   const triggerAction = useTriggerAction();
-
-  // States
-  const [isItemSelection, setIsItemSelection] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null); // This will be selectedFiles as an array for multiple selection in future
-  const [currentPath, setCurrentPath] = useState("");
-  const [currentFolder, setCurrentFolder] = useState(null);
-  const [currentPathFiles, setCurrentPathFiles] = useState([]);
-  const [clipBoard, setClipBoard] = useState(null);
-  const [activeLayout, setActiveLayout] = useState("grid");
-  //
-
-  // Settings Current Path Files
-  useEffect(() => {
-    if (Array.isArray(files)) {
-      setCurrentPathFiles(() => {
-        return files.filter((file) => file.path === `${currentPath}/${file.name}`);
-      });
-
-      setCurrentFolder(() => {
-        return files?.find((file) => file.path === currentPath);
-      });
-    }
-  }, [files, currentPath]);
-  //
-
-  // Dragging Resizer
-  const [colSizes, setColSizes] = useState({ col1: "20", col2: "80" });
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
-
-  const handleMouseDown = () => {
-    setIsDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    // Prevent text selection during drag
-    e.preventDefault();
-
-    // Calculate new sizes based on mouse movement
-    const container = containerRef.current;
-    const containerRect = container.getBoundingClientRect();
-    const newCol1Size = ((e.clientX - containerRect.left) / containerRect.width) * 100;
-
-    // Limiting the resizing to 15% to 60% for better UX
-    if (newCol1Size >= 15 && newCol1Size <= 60) {
-      setColSizes({ col1: newCol1Size, col2: 100 - newCol1Size });
-    }
-  };
-  //
+  const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
+    useColumnResize(20, 80);
 
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()}>
       <Loader isLoading={isLoading} />
-      <Toolbar
-        allowCreateFolder
-        allowUploadFile
-        handleRefresh={onRefresh}
-        isItemSelection={isItemSelection}
-        setIsItemSelection={setIsItemSelection}
-        currentPath={currentPath}
-        selectedFile={selectedFile}
-        setSelectedFile={setSelectedFile}
-        files={files}
-        clipBoard={clipBoard}
-        setClipBoard={setClipBoard}
-        handlePaste={onPaste}
-        triggerAction={triggerAction}
-        activeLayout={activeLayout}
-        setActiveLayout={setActiveLayout}
-        onLayoutChange={onLayoutChange}
-      />
-      <section
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        className="files-container"
-      >
-        <div className="navigation-pane" style={{ width: colSizes.col1 + "%" }}>
-          <NavigationPane files={files} currentPath={currentPath} setCurrentPath={setCurrentPath} />
-          <div
-            className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""}`}
-            onMouseDown={handleMouseDown}
-          />
-        </div>
+      <FilesProvider filesData={files}>
+        <FileNavigationProvider>
+          <SelectionProvider>
+            <ClipBoardProvider>
+              <LayoutProvider>
+                <Toolbar
+                  allowCreateFolder
+                  allowUploadFile
+                  onPaste={onPaste}
+                  onLayoutChange={onLayoutChange}
+                  onRefresh={onRefresh}
+                  triggerAction={triggerAction}
+                />
+                <section
+                  ref={containerRef}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  className="files-container"
+                >
+                  <div className="navigation-pane" style={{ width: colSizes.col1 + "%" }}>
+                    <NavigationPane />
+                    <div
+                      className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""}`}
+                      onMouseDown={handleMouseDown}
+                    />
+                  </div>
 
-        <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
-          <BreadCrumb currentPath={currentPath} setCurrentPath={setCurrentPath} />
-          <Files
-            currentPathFiles={currentPathFiles}
-            setCurrentPathFiles={setCurrentPathFiles}
-            setCurrentPath={setCurrentPath}
-            isItemSelection={isItemSelection}
-            setIsItemSelection={setIsItemSelection}
-            setSelectedFile={setSelectedFile}
-            currentPath={currentPath}
-            clipBoard={clipBoard}
-            setClipBoard={setClipBoard}
-            handlePaste={onPaste}
-            files={files}
-            triggerAction={triggerAction}
-            currentFolder={currentFolder}
-            handleCreateFolder={onCreateFolder}
-            handleRename={onRename}
-            activeLayout={activeLayout}
-          />
-        </div>
-      </section>
+                  <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
+                    <BreadCrumb />
+                    <Files
+                      onCreateFolder={onCreateFolder}
+                      onPaste={onPaste}
+                      onRename={onRename}
+                      triggerAction={triggerAction}
+                    />
+                  </div>
+                </section>
 
-      <Actions
-        files={files}
-        fileUploadConfig={fileUploadConfig}
-        currentPath={currentPath}
-        currentPathFiles={currentPathFiles}
-        selectedFile={selectedFile}
-        triggerAction={triggerAction}
-        handleCreateFolder={onCreateFolder}
-        handleFileUploading={onFileUploading}
-        handleFileUploaded={onFileUploaded}
-        currentFolder={currentFolder}
-        handleRename={onRename}
-        handleDelete={onDelete}
-        setIsItemSelection={setIsItemSelection}
-        setSelectedFile={setSelectedFile}
-        allowedFileExtensions={allowedFileExtensions}
-      />
+                <Actions
+                  fileUploadConfig={fileUploadConfig}
+                  onFileUploading={onFileUploading}
+                  onFileUploaded={onFileUploaded}
+                  onDelete={onDelete}
+                  allowedFileExtensions={allowedFileExtensions}
+                  triggerAction={triggerAction}
+                />
+              </LayoutProvider>
+            </ClipBoardProvider>
+          </SelectionProvider>
+        </FileNavigationProvider>
+      </FilesProvider>
     </main>
   );
 };
