@@ -3,6 +3,9 @@ const connectDB = require("./app/config/db.config");
 const cors = require("cors");
 const fileSystemRoutes = require("./app/routes/fileSystem.routes");
 const errorHandler = require("./app/middlewares/errorHandler.middleware");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 
@@ -10,7 +13,10 @@ const app = express();
 connectDB();
 
 // CORS setup
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URI }));
+
+// Static files serving
+app.use(express.static("public/uploads"));
 
 // Middlewares to parse URL-encoded body & JSON
 app.use(express.urlencoded({ extended: true }));

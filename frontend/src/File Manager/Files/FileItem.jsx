@@ -15,6 +15,7 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
+import FilePreviewer from "./FilePreviewer";
 
 const FileItem = ({
   index,
@@ -226,12 +227,11 @@ const FileItem = ({
         </div>
       </ContextMenu>
 
-      {/* <FilePreviewer
+      <FilePreviewer
         file={file}
         showFilePreview={showFilePreview}
         setShowFilePreview={setShowFilePreview}
-        currentPath={currentPath}
-        /> */}
+      />
     </>
   );
 };
