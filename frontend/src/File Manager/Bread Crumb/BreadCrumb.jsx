@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { MdHome, MdOutlineNavigateNext } from "react-icons/md";
+import "./BreadCrumb.scss";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
 
-const BreadCrumb = ({ currentPath, setCurrentPath }) => {
+const BreadCrumb = () => {
   const [folders, setFolders] = useState([]);
+  const { currentPath, setCurrentPath } = useFileNavigation();
 
   useEffect(() => {
     setFolders(currentPath?.split("/"));
@@ -21,11 +24,7 @@ const BreadCrumb = ({ currentPath, setCurrentPath }) => {
   return (
     <div className="breadcrumb">
       {folders.map((folder, index) => (
-        <span
-          key={index}
-          className="folder-name"
-          onClick={() => switchPath(index)}
-        >
+        <span key={index} className="folder-name" onClick={() => switchPath(index)}>
           {index === 0 ? (
             <>
               <MdHome /> Home

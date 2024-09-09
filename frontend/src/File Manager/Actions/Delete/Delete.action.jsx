@@ -1,17 +1,13 @@
 import React from "react";
-import Button from "../../components/Button/Button";
+import Button from "../../../components/Button/Button";
+import "./Delete.action.scss";
+import { useSelection } from "../../../contexts/SelectionContext";
 
-const DeleteAction = ({
-  files,
-  selectedFile,
-  triggerAction,
-  handleDelete,
-  setIsItemSelection,
-  setSelectedFile,
-}) => {
+const DeleteAction = ({ triggerAction, onDelete }) => {
+  const { selectedFile, setSelectedFile } = useSelection();
+
   const handleDeleting = (file) => {
-    handleDelete(file);
-    setIsItemSelection(false);
+    onDelete(file);
     setSelectedFile(null);
     triggerAction.close();
   };

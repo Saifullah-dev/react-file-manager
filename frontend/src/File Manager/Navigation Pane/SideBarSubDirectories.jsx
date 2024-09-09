@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
 
-const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
+const SideBarSubDirectories = ({ folder }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const { currentPath, setCurrentPath } = useFileNavigation();
 
   const handleFolderSwitch = () => {
     setIsActive(true);
@@ -59,12 +61,7 @@ const SideBarSubDirectories = ({ folder, setCurrentPath, currentPath }) => {
         <Collapsible open={isOpen}>
           <div className="folder-collapsible">
             {folder.subDirectories.map((item, index) => (
-              <SideBarSubDirectories
-                key={index}
-                folder={item}
-                setCurrentPath={setCurrentPath}
-                currentPath={currentPath}
-              />
+              <SideBarSubDirectories key={index} folder={item} />
             ))}
           </div>
         </Collapsible>

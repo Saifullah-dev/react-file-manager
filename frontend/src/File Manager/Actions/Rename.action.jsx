@@ -4,24 +4,22 @@ import { IoWarningOutline } from "react-icons/io5";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import Modal from "../../components/Modal/Modal";
 import { getFileExtension } from "../../utils/getFileExtension";
+import NameInput from "../../components/Name Input/NameInput";
+import ErrorTooltip from "../../components/Error Tooltip/ErrorTooltip";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useLayout } from "../../contexts/LayoutContext";
 
 const maxNameLength = 220;
 
-const RenameAction = ({
-  activeLayout,
-  filesViewRef,
-  file,
-  currentPathFiles,
-  setCurrentPathFiles,
-  handleRename,
-  triggerAction,
-}) => {
+const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
   const [renameFile, setRenameFile] = useState(file?.name);
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
   const [errorXPlacement, setErrorXPlacement] = useState("right");
   const [errorYPlacement, setErrorYPlacement] = useState("bottom");
+  const { currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { activeLayout } = useLayout();
 
   const warningModalRef = useRef(null);
   const outsideClick = useDetectOutsideClick((e) => {
@@ -90,7 +88,7 @@ const RenameAction = ({
       }
     }
     setFileRenameError(false);
-    handleRename(file, renameFile);
+    onRename(file, renameFile);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
     triggerAction.close();
   }
@@ -142,26 +140,25 @@ const RenameAction = ({
 
   return (
     <>
-      <div className={`rename-file-container ${activeLayout}`}>
-        <textarea
-          ref={outsideClick.ref}
-          className="rename-file"
-          maxLength={maxNameLength}
-          value={renameFile}
-          onChange={(e) => {
-            setRenameFile(e.target.value);
-            setFileRenameError(false);
-          }}
-          onKeyDown={handleValidateFolderRename}
-          onClick={(e) => e.stopPropagation()}
-          {...(activeLayout === "list" && { rows: 1 })}
+      <NameInput
+        nameInputRef={outsideClick.ref}
+        maxLength={maxNameLength}
+        value={renameFile}
+        onChange={(e) => {
+          setRenameFile(e.target.value);
+          setFileRenameError(false);
+        }}
+        onKeyDown={handleValidateFolderRename}
+        onClick={(e) => e.stopPropagation()}
+        {...(activeLayout === "list" && { rows: 1 })}
+      />
+      {fileRenameError && (
+        <ErrorTooltip
+          message={renameErrorMessage}
+          xPlacement={errorXPlacement}
+          yPlacement={errorYPlacement}
         />
-        {fileRenameError && (
-          <p className={`folder-name-error ${errorXPlacement} ${errorYPlacement}`}>
-            {renameErrorMessage}
-          </p>
-        )}
-      </div>
+      )}
 
       <Modal
         heading={"Rename"}

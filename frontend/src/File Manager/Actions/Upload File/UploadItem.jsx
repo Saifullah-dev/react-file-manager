@@ -8,7 +8,7 @@ import { getDataSize } from "../../../utils/getDataSize";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 
-const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, handleFileUploaded }) => {
+const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, onFileUploaded }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
@@ -38,7 +38,7 @@ const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, handleF
         }));
         if (xhr.status === 200 || xhr.status === 201) {
           setIsUploaded(true);
-          handleFileUploaded(xhr.response);
+          onFileUploaded(xhr.response);
           resolve(xhr.response);
         } else {
           reject(xhr.statusText);
