@@ -1,4 +1,6 @@
 export const getDataSize = (size) => {
+  if (!size) return "";
+
   const KiloBytes = size / 1024;
   const MegaBytes = KiloBytes / 1024;
   const GigaBytes = MegaBytes / 1024;

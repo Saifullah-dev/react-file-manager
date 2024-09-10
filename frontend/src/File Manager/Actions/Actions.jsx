@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import DeleteAction from "./Delete/Delete.action";
 import UploadFileAction from "./Upload File/UploadFile.action";
+import PreviewFileAction from "./Preview File/PreviewFile.action";
+import { useSelection } from "../../contexts/SelectionContext";
 
 const Actions = ({
   fileUploadConfig,
   onFileUploading,
   onFileUploaded,
   onDelete,
+  filePreviewPath,
   allowedFileExtensions,
   triggerAction,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
+  const { selectedFile } = useSelection();
 
   const actionTypes = {
     uploadFile: {
@@ -31,14 +35,19 @@ const Actions = ({
       component: <DeleteAction triggerAction={triggerAction} onDelete={onDelete} />,
       width: "25%",
     },
-    preview: {
+    previewFile: {
       title: "Preview",
+      component: <PreviewFileAction filePreviewPath={filePreviewPath} />,
+      width: "50%",
     },
   };
 
   useEffect(() => {
     if (triggerAction.isActive) {
       const actionType = triggerAction.actionType;
+      if (actionType === "previewFile") {
+        actionTypes[actionType].title = selectedFile?.name ?? "Preview";
+      }
       setActiveAction(actionTypes[actionType]);
     } else {
       setActiveAction(null);
