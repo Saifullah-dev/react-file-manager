@@ -26,6 +26,7 @@ const FileManager = ({
   onPaste,
   onLayoutChange,
   onRefresh,
+  filePreviewPath,
   allowedFileExtensions,
 }) => {
   const triggerAction = useTriggerAction();
@@ -78,6 +79,7 @@ const FileManager = ({
                   onFileUploading={onFileUploading}
                   onFileUploaded={onFileUploaded}
                   onDelete={onDelete}
+                  filePreviewPath={filePreviewPath}
                   allowedFileExtensions={allowedFileExtensions}
                   triggerAction={triggerAction}
                 />

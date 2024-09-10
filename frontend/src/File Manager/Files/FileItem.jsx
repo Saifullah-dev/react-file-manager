@@ -15,7 +15,6 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
-import FilePreviewer from "./FilePreviewer";
 
 const FileItem = ({
   index,
@@ -38,7 +37,6 @@ const FileItem = ({
   const [visible, setVisible] = useState(false);
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
-  const [showFilePreview, setShowFilePreview] = useState(false);
   const isFileMoving =
     clipBoard?.isMoving &&
     clipBoard.files.find((f) => f.name === file.name && f.path === file.path);
@@ -87,9 +85,10 @@ const FileItem = ({
     if (file.isDirectory) {
       setCurrentPath((prev) => prev + "/" + file.name);
       setSelectedFileIndex(null);
+      setSelectedFile(null);
     } else {
       // Display File Image/PDF/Txt etc
-      setShowFilePreview(true);
+      triggerAction.show("previewFile");
     }
   };
 
@@ -101,15 +100,22 @@ const FileItem = ({
     setSelectedFileIndex(index);
     const currentTime = new Date().getTime();
     if (currentTime - lastClickTime < 300) {
-      setSelectedFile(null);
       handleFileAccess();
+      return;
     }
     setLastClickTime(currentTime);
+  };
+
+  const handleFileOpen = (e) => {
+    e.stopPropagation();
+    handleFileAccess();
   };
 
   const handleOnKeyDown = (e) => {
     e.stopPropagation();
     if (e.key === "Enter") {
+      setSelectedFile(file);
+      setSelectedFileIndex(index);
       handleFileAccess();
     }
   };
@@ -125,7 +131,7 @@ const FileItem = ({
   const menuItems = (
     <div className="file-context-menu-list">
       <ul>
-        <li onClick={handleFileAccess}>
+        <li onClick={handleFileOpen}>
           {file.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />}
           <span>Open</span>
         </li>
@@ -226,12 +232,6 @@ const FileItem = ({
           )}
         </div>
       </ContextMenu>
-
-      <FilePreviewer
-        file={file}
-        showFilePreview={showFilePreview}
-        setShowFilePreview={setShowFilePreview}
-      />
     </>
   );
 };

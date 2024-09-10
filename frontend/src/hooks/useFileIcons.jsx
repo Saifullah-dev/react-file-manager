@@ -1,4 +1,3 @@
-import { FaRegFileArchive } from "react-icons/fa";
 import {
   FaRegFileAudio,
   FaRegFileImage,
@@ -10,6 +9,7 @@ import {
   FaRegFileExcel,
   FaRegFileCode,
   FaLaptopFile,
+  FaRegFileZipper,
 } from "react-icons/fa6";
 
 export const useFileIcons = (size) => {
@@ -25,7 +25,7 @@ export const useFileIcons = (size) => {
     webm: <FaRegFileVideo size={size} />,
     mp3: <FaRegFileAudio size={size} />,
     m4a: <FaRegFileAudio size={size} />,
-    zip: <FaRegFileArchive size={size} />,
+    zip: <FaRegFileZipper size={size} />,
     ppt: <FaRegFilePowerpoint size={size} />,
     pptx: <FaRegFilePowerpoint size={size} />,
     xls: <FaRegFileExcel size={size} />,

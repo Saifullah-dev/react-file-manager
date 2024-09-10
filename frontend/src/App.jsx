@@ -117,6 +117,7 @@ function App() {
           onPaste={handlePaste}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
+          filePreviewPath={import.meta.env.VITE_API_FILES_BASE_URL}
           allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
         />
       </div>

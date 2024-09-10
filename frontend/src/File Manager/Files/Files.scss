@@ -20,35 +20,6 @@
     background-color: rgb(0, 0, 0, 0.04);
   }
 
-  .file-previewer {
-    padding: .8em;
-    height: 40dvh;
-    display: flex;
-    justify-content: center;
-
-    .photo-popup-image {
-      object-fit: contain;
-      width: -webkit-fill-available;
-    }
-
-    .audio-preview {
-      align-self: center;
-      width: 60%;
-    }
-
-    .photo-popup-iframe {
-      width: -webkit-fill-available;
-    }
-  }
-
-  .file-previewer.pdf-previewer {
-    height: 85dvh;
-  }
-
-  .video-preview {
-    width: -webkit-fill-available;
-  }
-
   .file-item {
     position: relative;
     height: 81px;

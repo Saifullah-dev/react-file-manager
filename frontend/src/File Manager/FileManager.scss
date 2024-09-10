@@ -161,24 +161,6 @@ svg {
   }
 }
 
-.file-previewer {
-  height: 75vh;
-
-  .photo-popup-image {
-    opacity: 1;
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
-    transition: opacity 0.5s ease-in-out;
-  }
-
-  .img-loading {
-    opacity: 0;
-    height: 0%;
-    width: 0%;
-  }
-}
-
 .fm-rename-folder-container {
   padding: 8px 0;
 

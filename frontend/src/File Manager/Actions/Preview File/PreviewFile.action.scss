@@ -1,0 +1,84 @@
+.file-previewer {
+    padding: .8em;
+    height: 40dvh;
+    display: flex;
+    justify-content: center;
+
+    .photo-popup-image {
+        object-fit: contain;
+        width: -webkit-fill-available;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .img-loading {
+        opacity: 0;
+        height: 0%;
+        width: 0%;
+    }
+
+    .img-loading {
+        height: 0;
+    }
+
+    .audio-preview {
+        align-self: center;
+        width: 60%;
+    }
+
+    .photo-popup-iframe {
+        width: -webkit-fill-available;
+    }
+
+    .preview-error {
+        max-width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+
+        .error-icon {
+            color: rgb(73, 73, 73);
+        }
+
+        .error-msg {
+            font-weight: 500;
+            font-size: 1.1em;
+            margin-bottom: 4px;
+        }
+
+        .file-info {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin: 1px 0 5px 0;
+
+            .file-name {
+                padding: 4px 15px;
+                background-color: rgb(233, 233, 233);
+                border: 1px solid rgb(163, 173, 173);
+                border-radius: 3px;
+            }
+
+            .file-size {
+                font-size: .8em;
+            }
+        }
+
+        .download-btn {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+        }
+
+    }
+}
+
+.file-previewer.pdf-previewer {
+    height: 85dvh;
+}
+
+.video-preview {
+    width: -webkit-fill-available;
+}
