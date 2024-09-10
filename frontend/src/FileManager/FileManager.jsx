@@ -1,17 +1,17 @@
-import Toolbar from "./Toolbar/Toolbar";
-import NavigationPane from "./Navigation Pane/NavigationPane";
-import BreadCrumb from "./Bread Crumb/BreadCrumb";
-import Files from "./Files/Files";
-import { useTriggerAction } from "../hooks/useTriggerAction";
-import Actions from "./Actions/Actions";
 import Loader from "../components/Loader/Loader";
-import PropTypes from "prop-types";
+import Toolbar from "./Toolbar/Toolbar";
+import NavigationPane from "./NavigationPane/NavigationPane";
+import BreadCrumb from "./BreadCrumb/BreadCrumb";
+import FileList from "./FileList/FileList";
+import Actions from "./Actions/Actions";
 import { FilesProvider } from "../contexts/FilesContext";
 import { FileNavigationProvider } from "../contexts/FileNavigationContext";
-import { useColumnResize } from "../hooks/useColumnResize";
 import { SelectionProvider } from "../contexts/SelectionContext";
 import { ClipBoardProvider } from "../contexts/ClipboardContext";
 import { LayoutProvider } from "../contexts/LayoutContext";
+import { useTriggerAction } from "../hooks/useTriggerAction";
+import { useColumnResize } from "../hooks/useColumnResize";
+import PropTypes from "prop-types";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -65,7 +65,7 @@ const FileManager = ({
 
                   <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
                     <BreadCrumb />
-                    <Files
+                    <FileList
                       onCreateFolder={onCreateFolder}
                       onPaste={onPaste}
                       onRename={onRename}

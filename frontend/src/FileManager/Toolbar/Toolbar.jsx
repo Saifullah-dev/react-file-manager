@@ -4,7 +4,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
-import ToggleView from "./ToggleView";
+import LayoutToggler from "./LayoutToggler";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
@@ -160,7 +160,7 @@ const Toolbar = ({
           ))}
 
           {showToggleViewMenu && (
-            <ToggleView
+            <LayoutToggler
               setShowToggleViewMenu={setShowToggleViewMenu}
               onLayoutChange={onLayoutChange}
             />

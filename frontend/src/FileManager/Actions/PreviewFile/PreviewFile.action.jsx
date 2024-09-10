@@ -2,12 +2,12 @@ import { useState } from "react";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import Loader from "../../../components/Loader/Loader";
 import { useSelection } from "../../../contexts/SelectionContext";
-import "./PreviewFile.action.scss";
 import Button from "../../../components/Button/Button";
 import { getDataSize } from "../../../utils/getDataSize";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { useFileIcons } from "../../../hooks/useFileIcons";
 import { FaRegFileAlt } from "react-icons/fa";
+import "./PreviewFile.action.scss";
 
 const imageExtensions = ["jpg", "jpeg", "png"];
 const videoExtensions = ["mp4", "mov", "avi"];
@@ -39,28 +39,28 @@ const PreviewFileAction = ({ filePreviewPath }) => {
   return (
     <section className={`file-previewer ${extension === "pdf" ? "pdf-previewer" : ""}`}>
       {hasError ||
-        (!imageExtensions.includes(extension) &&
-          !videoExtensions.includes(extension) &&
-          !audioExtensions.includes(extension) &&
-          !iFrameExtensions.includes(extension) && (
-            <div className="preview-error">
-              <span className="error-icon">
-                {fileIcons[extension] ?? <FaRegFileAlt size={73} />}
-              </span>
-              <span className="error-msg">Sorry! Preview is not available for this file.</span>
-              <div className="file-info">
-                <span className="file-name">{selectedFile.name}</span>
-                {selectedFile.size && <span>-</span>}
-                <span className="file-size">{getDataSize(selectedFile.size)}</span>
-              </div>
-              <Button onClick={handleDownload} padding="0.45rem .9rem">
-                <div className="download-btn">
-                  <MdOutlineFileDownload size={18} />
-                  <span>Download</span>
-                </div>
-              </Button>
+        (![
+          ...imageExtensions,
+          ...videoExtensions,
+          ...audioExtensions,
+          ...iFrameExtensions,
+        ].includes(extension) && (
+          <div className="preview-error">
+            <span className="error-icon">{fileIcons[extension] ?? <FaRegFileAlt size={73} />}</span>
+            <span className="error-msg">Sorry! Preview is not available for this file.</span>
+            <div className="file-info">
+              <span className="file-name">{selectedFile.name}</span>
+              {selectedFile.size && <span>-</span>}
+              <span className="file-size">{getDataSize(selectedFile.size)}</span>
             </div>
-          ))}
+            <Button onClick={handleDownload} padding="0.45rem .9rem">
+              <div className="download-btn">
+                <MdOutlineFileDownload size={18} />
+                <span>Download</span>
+              </div>
+            </Button>
+          </div>
+        ))}
       {imageExtensions.includes(extension) && (
         <>
           <Loader isLoading={isLoading} />
