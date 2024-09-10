@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import FileManager from "./File Manager/FileManager";
+import FileManager from "./FileManager/FileManager";
 import { createFolderAPI } from "./api/createFolderAPI";
 import { renameAPI } from "./api/renameAPI";
 import { deleteAPI } from "./api/deleteAPI";

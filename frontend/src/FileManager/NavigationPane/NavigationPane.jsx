@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SideBarSubDirectories from "./SideBarSubDirectories";
+import FolderTree from "./FolderTree";
 import { getParentPath } from "../../utils/getParentPath";
 import { useFiles } from "../../contexts/FilesContext";
 import "./NavigationPane.scss";
@@ -36,7 +36,7 @@ const NavigationPane = () => {
       {foldersTree?.length > 0 ? (
         <>
           {foldersTree?.map((folder, index) => {
-            return <SideBarSubDirectories key={index} folder={folder} />;
+            return <FolderTree key={index} folder={folder} />;
           })}
         </>
       ) : (

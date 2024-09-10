@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import Button from "../../components/Button/Button";
+import Button from "../../../components/Button/Button";
 import { IoWarningOutline } from "react-icons/io5";
-import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
-import Modal from "../../components/Modal/Modal";
-import { getFileExtension } from "../../utils/getFileExtension";
-import NameInput from "../../components/Name Input/NameInput";
-import ErrorTooltip from "../../components/Error Tooltip/ErrorTooltip";
-import { useFileNavigation } from "../../contexts/FileNavigationContext";
-import { useLayout } from "../../contexts/LayoutContext";
+import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
+import Modal from "../../../components/Modal/Modal";
+import { getFileExtension } from "../../../utils/getFileExtension";
+import NameInput from "../../../components/NameInput/NameInput";
+import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
+import { useFileNavigation } from "../../../contexts/FileNavigationContext";
+import { useLayout } from "../../../contexts/LayoutContext";
 
 const maxNameLength = 220;
 
