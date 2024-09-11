@@ -12,6 +12,7 @@ import { LayoutProvider } from "../contexts/LayoutContext";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
+import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -93,7 +94,30 @@ const FileManager = ({
 };
 
 FileManager.propTypes = {
-  files: PropTypes.arrayOf(PropTypes.object).isRequired,
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      isDirectory: PropTypes.bool.isRequired,
+      path: PropTypes.string.isRequired,
+      updatedAt: dateStringValidator,
+      size: PropTypes.number,
+    })
+  ).isRequired,
+  fileUploadConfig: PropTypes.shape({
+    url: urlValidator,
+    headers: PropTypes.objectOf(PropTypes.string),
+  }),
+  isLoading: PropTypes.bool,
+  onCreateFolder: PropTypes.func,
+  onFileUploading: PropTypes.func,
+  onFileUploaded: PropTypes.func,
+  onRename: PropTypes.func,
+  onDelete: PropTypes.func,
+  onPaste: PropTypes.func,
+  onLayoutChange: PropTypes.func,
+  onRefresh: PropTypes.func,
+  filePreviewPath: urlValidator,
+  allowedFileExtensions: PropTypes.string,
 };
 
 export default FileManager;
