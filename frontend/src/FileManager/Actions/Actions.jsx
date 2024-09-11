@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import DeleteAction from "./Delete/Delete.action";
-import UploadFileAction from "./Upload File/UploadFile.action";
-import PreviewFileAction from "./Preview File/PreviewFile.action";
+import UploadFileAction from "./UploadFile/UploadFile.action";
+import PreviewFileAction from "./PreviewFile/PreviewFile.action";
 import { useSelection } from "../../contexts/SelectionContext";
 
 const Actions = ({

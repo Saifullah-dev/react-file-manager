@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import FileItem from "./FileItem";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
-import "./Files.scss";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useLayout } from "../../contexts/LayoutContext";
+import "./FileList.scss";
 
-const Files = ({ onCreateFolder, onPaste, onRename, triggerAction }) => {
+const FileList = ({ onCreateFolder, onPaste, onRename, triggerAction }) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
   const { currentPath, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
@@ -98,4 +98,4 @@ const Files = ({ onCreateFolder, onPaste, onRename, triggerAction }) => {
   );
 };
 
-export default Files;
+export default FileList;

@@ -1,5 +1,6 @@
 export const formatDate = (date) => {
-  if (!date) return "";
+  if (!date || isNaN(Date.parse(date))) return "";
+
   date = new Date(date);
   let hours = date.getHours();
   const minutes = date.getMinutes();

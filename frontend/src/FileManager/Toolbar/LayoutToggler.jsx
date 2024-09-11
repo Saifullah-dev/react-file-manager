@@ -3,7 +3,7 @@ import { FaCheck, FaListUl } from "react-icons/fa6";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { useLayout } from "../../contexts/LayoutContext";
 
-const ToggleView = ({ setShowToggleViewMenu, onLayoutChange }) => {
+const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
   const toggleViewRef = useDetectOutsideClick(() => {
     setShowToggleViewMenu(false);
   });
@@ -48,4 +48,4 @@ const ToggleView = ({ setShowToggleViewMenu, onLayoutChange }) => {
   );
 };
 
-export default ToggleView;
+export default LayoutToggler;

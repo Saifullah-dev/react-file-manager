@@ -1,5 +1,5 @@
 export const getDataSize = (size) => {
-  if (!size) return "";
+  if (isNaN(size)) return "";
 
   const KiloBytes = size / 1024;
   const MegaBytes = KiloBytes / 1024;
