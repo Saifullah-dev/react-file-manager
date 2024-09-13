@@ -83,7 +83,7 @@ const FileItem = ({
   const handleFileAccess = () => {
     setVisible(false);
     if (file.isDirectory) {
-      setCurrentPath((prev) => prev + "/" + file.name);
+      setCurrentPath(file.path);
       setSelectedFileIndex(null);
       setSelectedFile(null);
     } else {

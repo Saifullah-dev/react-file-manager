@@ -5,8 +5,8 @@
   display: flex;
   gap: 0.5rem;
   border-bottom: 1px solid #dddddd;
-  padding: 10px 15px;
-  overflow-x: scroll;
+  padding: 10px 0 10PX 15px;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     height: 3px;

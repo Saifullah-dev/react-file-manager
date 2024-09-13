@@ -93,6 +93,8 @@ const FileManager = ({
   );
 };
 
+FileManager.displayName = "FileManager";
+
 FileManager.propTypes = {
   files: PropTypes.arrayOf(
     PropTypes.shape({
