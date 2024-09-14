@@ -89,19 +89,6 @@ svg {
       padding-left: 0px;
       border-bottom-right-radius: 8px;
     }
-
-    .folder-name {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-weight: 500;
-      min-width: fit-content;
-
-      &:hover {
-        cursor: pointer;
-        color: $secondary-color;
-      }
-    }
   }
 }
 
