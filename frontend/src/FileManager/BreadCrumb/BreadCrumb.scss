@@ -1,18 +1,79 @@
 @import "../../styles/variables";
 
-.breadcrumb {
-  height: calc(5.8% - 21px);
-  display: flex;
-  gap: 0.5rem;
-  border-bottom: 1px solid #dddddd;
-  padding: 10px 15px;
-  overflow-x: scroll;
+.bread-crumb-container {
+  position: relative;
 
-  &::-webkit-scrollbar {
-    height: 3px;
+  .breadcrumb {
+    height: calc(5.8% - 21px);
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 0 10PX 15px;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $primary-color !important;
+    }
+
+    .folder-name {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 500;
+      min-width: fit-content;
+
+      &:hover {
+        cursor: pointer;
+        color: $secondary-color;
+      }
+    }
+
+    .hidden-folders {
+      padding: 0 4px;
+    }
+
+    .folder-name-btn {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        color: $primary-color;
+        background-color: #dddcdc;
+        border-radius: 5px;
+      }
+    }
+
   }
+}
 
-  &::-webkit-scrollbar-thumb {
-    background: $primary-color !important;
+.hidden-folders-container {
+  position: absolute;
+  margin: 0;
+  z-index: 2;
+  background-color: rgb(99, 99, 99);
+  color: white;
+  padding: 4px;
+  border-radius: 5px;
+  font-size: .9em;
+  left: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  li {
+    padding: 5px 10px;
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(117, 117, 117);
+    }
   }
 }

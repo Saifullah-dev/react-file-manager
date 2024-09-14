@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
 
-    > div {
+    >div {
       display: flex;
     }
 
@@ -39,7 +39,7 @@
     display: flex;
     justify-content: space-between;
 
-    > div {
+    >div {
       display: flex;
       position: relative;
     }
@@ -57,6 +57,7 @@
       margin: 0;
       border: 1px solid #c4c4c4;
       border-radius: 5px;
+
       ul {
         list-style: none;
         padding-left: 0;
@@ -113,10 +114,11 @@
   }
 
   .icon-only {
-    padding: 8px !important;
+    padding: 0 8px !important;
 
     &:focus {
       background-color: rgb(0 0 0 / 12%);
+      border-radius: 3px;
     }
   }
 
