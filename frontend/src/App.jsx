@@ -102,6 +102,18 @@ function App() {
   };
   //
 
+  const handleFileOpen = (file) => {
+    console.log(`Opening file: ${file.name}`);
+  };
+
+  const handleError = (error) => {
+    console.error(error.message);
+  };
+
+  const handleDownload = (file) => {
+    console.log(`Downloading file: ${file.name}`);
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -115,10 +127,16 @@ function App() {
           onRename={handleRename}
           onDelete={handleDelete}
           onPaste={handlePaste}
+          onDownload={handleDownload}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
+          onFileOpen={handleFileOpen}
+          onError={handleError}
+          layout="list"
+          maxFileSize={10000000}
+          enableFilePreview
           filePreviewPath={import.meta.env.VITE_API_FILES_BASE_URL}
-          allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
+          acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
         />
       </div>
     </div>

@@ -25,10 +25,16 @@ const FileManager = ({
   onRename,
   onDelete,
   onPaste,
+  onDownload,
   onLayoutChange,
   onRefresh,
+  onFileOpen,
+  onError,
+  layout = "grid",
+  maxFileSize,
+  enableFilePreview = true,
   filePreviewPath,
-  allowedFileExtensions,
+  acceptedFileTypes,
 }) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
@@ -41,7 +47,7 @@ const FileManager = ({
         <FileNavigationProvider>
           <SelectionProvider>
             <ClipBoardProvider>
-              <LayoutProvider>
+              <LayoutProvider layout={layout}>
                 <Toolbar
                   allowCreateFolder
                   allowUploadFile
@@ -70,6 +76,10 @@ const FileManager = ({
                       onCreateFolder={onCreateFolder}
                       onPaste={onPaste}
                       onRename={onRename}
+                      onDownload={onDownload}
+                      onFileOpen={onFileOpen}
+                      enableFilePreview={enableFilePreview}
+                      filePreviewPath={filePreviewPath}
                       triggerAction={triggerAction}
                     />
                   </div>
@@ -81,7 +91,7 @@ const FileManager = ({
                   onFileUploaded={onFileUploaded}
                   onDelete={onDelete}
                   filePreviewPath={filePreviewPath}
-                  allowedFileExtensions={allowedFileExtensions}
+                  acceptedFileTypes={acceptedFileTypes}
                   triggerAction={triggerAction}
                 />
               </LayoutProvider>
@@ -116,10 +126,16 @@ FileManager.propTypes = {
   onRename: PropTypes.func,
   onDelete: PropTypes.func,
   onPaste: PropTypes.func,
+  onDownload: PropTypes.func,
   onLayoutChange: PropTypes.func,
   onRefresh: PropTypes.func,
+  onFileOpen: PropTypes.func,
+  onError: PropTypes.func,
+  layout: PropTypes.oneOf(["grid", "list"]),
+  maxFileSize: PropTypes.number,
+  enableFilePreview: PropTypes.bool,
   filePreviewPath: urlValidator,
-  allowedFileExtensions: PropTypes.string,
+  acceptedFileTypes: PropTypes.string,
 };
 
 export default FileManager;

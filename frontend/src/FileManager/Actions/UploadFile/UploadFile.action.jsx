@@ -8,7 +8,7 @@ import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 
 const UploadFileAction = ({
   fileUploadConfig,
-  allowedFileExtensions,
+  acceptedFileTypes,
   onFileUploading,
   onFileUploaded,
 }) => {
@@ -72,7 +72,7 @@ const UploadFileAction = ({
               className="choose-file-input"
               onChange={handleChooseFile}
               multiple
-              accept={allowedFileExtensions}
+              accept={acceptedFileTypes}
             />
           </Button>
         </div>
