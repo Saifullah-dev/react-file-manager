@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
-import { MdClear, MdOutlineDelete, MdOutlineFileUpload } from "react-icons/md";
+import {
+  MdClear,
+  MdOutlineDelete,
+  MdOutlineFileDownload,
+  MdOutlineFileUpload,
+} from "react-icons/md";
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
 import LayoutToggler from "./LayoutToggler";
@@ -15,6 +20,7 @@ const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
   onPaste,
+  onDownload,
   onLayoutChange,
   onRefresh,
   triggerAction,
@@ -85,6 +91,11 @@ const Toolbar = ({
     setSelectedFile(null);
   }
 
+  const handleDownload = () => {
+    onDownload(selectedFile);
+    setSelectedFile(null);
+  };
+
   // Selected File/Folder Actions
   if (isItemSelection) {
     return (
@@ -99,7 +110,7 @@ const Toolbar = ({
               <BsCopy strokeWidth={0.1} size={17} />
               <span>Copy</span>
             </button>
-            {selectedFile?.isDirectory ? (
+            {selectedFile?.isDirectory && (
               <button
                 className="item-action file-action"
                 onClick={handlePasting}
@@ -108,8 +119,6 @@ const Toolbar = ({
                 <FaRegPaste size={18} />
                 <span>Paste</span>
               </button>
-            ) : (
-              <></>
             )}
             <button
               className="item-action file-action"
@@ -125,6 +134,12 @@ const Toolbar = ({
               <MdOutlineDelete size={19} />
               <span>Delete</span>
             </button>
+            {!selectedFile?.isDirectory && (
+              <button className="item-action file-action" onClick={handleDownload}>
+                <MdOutlineFileDownload size={19} />
+                <span>Download</span>
+              </button>
+            )}
           </div>
           <button className="item-action file-action" onClick={() => setSelectedFile(null)}>
             <MdClear size={18} />

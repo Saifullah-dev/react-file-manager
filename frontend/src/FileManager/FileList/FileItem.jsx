@@ -81,7 +81,6 @@ const FileItem = ({
   const handleDownload = (e) => {
     e.stopPropagation();
     onDownload(file);
-    window.location.href = `${filePreviewPath}${file.path}`;
     setVisible(false);
   };
 

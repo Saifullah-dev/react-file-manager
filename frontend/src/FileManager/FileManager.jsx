@@ -52,6 +52,7 @@ const FileManager = ({
                   allowCreateFolder
                   allowUploadFile
                   onPaste={onPaste}
+                  onDownload={onDownload}
                   onLayoutChange={onLayoutChange}
                   onRefresh={onRefresh}
                   triggerAction={triggerAction}

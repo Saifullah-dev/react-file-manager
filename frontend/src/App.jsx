@@ -6,6 +6,7 @@ import { deleteAPI } from "./api/deleteAPI";
 import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
 import { getAllFilesAPI } from "./api/getAllFilesAPI";
 import "./App.scss";
+import { downloadFile } from "./api/downloadFileAPI";
 
 function App() {
   const fileUploadConfig = {
@@ -110,8 +111,8 @@ function App() {
     console.error(error.message);
   };
 
-  const handleDownload = (file) => {
-    console.log(`Downloading file: ${file.name}`);
+  const handleDownload = async (file) => {
+    await downloadFile(file._id);
   };
 
   return (
@@ -132,9 +133,9 @@ function App() {
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
           onError={handleError}
-          layout="list"
-          maxFileSize={10000000}
+          layout="grid"
           enableFilePreview
+          maxFileSize={10000000}
           filePreviewPath={import.meta.env.VITE_API_FILES_BASE_URL}
           acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
         />
