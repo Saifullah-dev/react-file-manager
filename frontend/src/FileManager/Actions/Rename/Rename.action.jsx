@@ -165,6 +165,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
         show={renameFileWarning}
         setShow={setRenameFileWarning}
         dialogWidth={"25vw"}
+        closeButton={false}
       >
         <div className="fm-rename-folder-container" ref={warningModalRef}>
           <div className="fm-rename-folder-input">
@@ -180,8 +181,16 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
             <Button
               type="secondary"
               onClick={() => {
+                setCurrentPathFiles((prev) =>
+                  prev.map((f) => {
+                    if (f.key === file.key) {
+                      f.isEditing = false;
+                    }
+                    return f;
+                  })
+                );
                 setRenameFileWarning(false);
-                outsideClick.setIsClicked(false);
+                triggerAction.close();
               }}
             >
               No

@@ -97,7 +97,7 @@ const Toolbar = ({
   };
 
   // Selected File/Folder Actions
-  if (isItemSelection) {
+  if (selectedFile) {
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
@@ -110,7 +110,7 @@ const Toolbar = ({
               <BsCopy strokeWidth={0.1} size={17} />
               <span>Copy</span>
             </button>
-            {selectedFile?.isDirectory && (
+            {selectedFile.isDirectory && (
               <button
                 className="item-action file-action"
                 onClick={handlePasting}
@@ -134,7 +134,7 @@ const Toolbar = ({
               <MdOutlineDelete size={19} />
               <span>Delete</span>
             </button>
-            {!selectedFile?.isDirectory && (
+            {!selectedFile.isDirectory && (
               <button className="item-action file-action" onClick={handleDownload}>
                 <MdOutlineFileDownload size={19} />
                 <span>Download</span>

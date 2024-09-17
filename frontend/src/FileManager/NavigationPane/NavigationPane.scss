@@ -19,7 +19,7 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgb(0, 0, 0, 0.04);
+      background-color: $item-hover-color;
     }
 
     .non-expanable {

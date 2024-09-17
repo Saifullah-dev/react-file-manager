@@ -16,10 +16,6 @@
     border-radius: 5px;
   }
 
-  .file-selected {
-    background-color: rgb(0, 0, 0, 0.04);
-  }
-
   .file-item {
     position: relative;
     height: 81px;
@@ -36,7 +32,7 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgb(0, 0, 0, 0.04);
+      background-color: $item-hover-color;
     }
 
     .rename-file-container {
