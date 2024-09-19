@@ -7,10 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { getDataSize } from "../../../utils/getDataSize";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
+import { useFiles } from "../../../contexts/FilesContext";
 
 const UploadItem = ({
   index,
   fileData,
+  setFiles,
   setIsUploading,
   fileUploadConfig,
   onFileUploaded,
@@ -19,8 +21,39 @@ const UploadItem = ({
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
+  const [uploadFailed, setUploadFailed] = useState(false);
   const fileIcons = useFileIcons(33);
   const xhrRef = useRef();
+  const { onError } = useFiles();
+
+  const handleUploadError = (xhr) => {
+    setUploadProgress(0);
+    const error = {
+      type: "upload",
+      message: "Upload failed.",
+      response: {
+        status: xhr.status,
+        statusText: xhr.statusText,
+        data: xhr.response,
+      },
+    };
+
+    setFiles((prev) =>
+      prev.map((file, i) => {
+        if (index === i) {
+          return {
+            ...file,
+            error: error.message,
+          };
+        }
+        return file;
+      })
+    );
+
+    setUploadFailed(true);
+
+    onError(error, fileData.file);
+  };
 
   const fileUpload = (fileData) => {
     if (!!fileData.error) return;
@@ -51,10 +84,14 @@ const UploadItem = ({
           resolve(xhr.response);
         } else {
           reject(xhr.statusText);
+          handleUploadError(xhr);
         }
       };
 
-      xhr.onerror = () => reject(xhr.statusText);
+      xhr.onerror = () => {
+        reject(xhr.statusText);
+        handleUploadError(xhr);
+      };
 
       xhr.open("POST", fileUploadConfig?.url, true);
       const headers = fileUploadConfig?.headers;
@@ -94,10 +131,28 @@ const UploadItem = ({
 
   const handleRetry = () => {
     if (fileData?.file) {
-      fileUpload(fileData);
+      setFiles((prev) =>
+        prev.map((file, i) => {
+          if (index === i) {
+            return {
+              ...file,
+              error: false,
+            };
+          }
+          return file;
+        })
+      );
+      fileUpload({ ...fileData, error: false });
       setIsCanceled(false);
+      setUploadFailed(false);
     }
   };
+
+  // File was removed by the user beacuse it was unsupported or exceeds file size limit.
+  if (!!fileData.removed) {
+    return null;
+  }
+  //
 
   return (
     <li>
@@ -114,7 +169,7 @@ const UploadItem = ({
           </div>
           {isUploaded ? (
             <FaRegCheckCircle color="#5c5bb1" title="Uploaded" />
-          ) : isCanceled ? (
+          ) : isCanceled || uploadFailed ? (
             <IoMdRefresh className="retry-upload" title="Retry" onClick={handleRetry} />
           ) : (
             <div

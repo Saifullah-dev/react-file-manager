@@ -6,6 +6,7 @@ import ReactLoading from "react-loading";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import { getDataSize } from "../../../utils/getDataSize";
+import { useFiles } from "../../../contexts/FilesContext";
 import "./UploadFile.action.scss";
 
 const UploadFileAction = ({
@@ -19,13 +20,14 @@ const UploadFileAction = ({
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState({});
   const { currentFolder, currentPathFiles } = useFileNavigation();
+  const { onError } = useFiles();
 
   const checkFileError = (file) => {
     const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
     if (extError) return "File type is not allowed.";
 
     const fileExists = currentPathFiles.some(
-      (item) => item.name === file.name && !item.isDirectory
+      (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
     );
     if (fileExists) return "File already exists.";
 
@@ -35,13 +37,15 @@ const UploadFileAction = ({
 
   const setSelectedFiles = (selectedFiles) => {
     selectedFiles = selectedFiles.filter(
-      (item) => !files.some((fileData) => fileData.file.name === item.name)
+      (item) =>
+        !files.some((fileData) => fileData.file.name.toLowerCase() === item.name.toLowerCase())
     );
 
     if (selectedFiles.length > 0) {
       const newFiles = selectedFiles.map((file) => {
         const appendData = onFileUploading(file, currentFolder);
         const error = checkFileError(file);
+        error && onError({ type: "upload", message: error }, file);
         return {
           file: file,
           appendData: appendData,
@@ -65,12 +69,18 @@ const UploadFileAction = ({
     setSelectedFiles(choosenFiles);
   };
 
-  // Issue: If a file is removed from the array and there are more files after it,
-  // e.g. files = [file1, file2, file3] & file2 was removed because it was unsupported,
-  // and file3 was successfully uploaded.
-  // Removing file2 resests the states incl. upload progress as it is now shifted to index 1.
   const handleFileRemove = (index) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+    setFiles((prev) =>
+      prev.map((file, i) => {
+        if (index === i) {
+          return {
+            ...file,
+            removed: true,
+          };
+        }
+        return file;
+      })
+    );
   };
 
   return (
@@ -120,6 +130,7 @@ const UploadFileAction = ({
                 index={index}
                 key={index}
                 fileData={fileData}
+                setFiles={setFiles}
                 fileUploadConfig={fileUploadConfig}
                 setIsUploading={setIsUploading}
                 onFileUploaded={onFileUploaded}

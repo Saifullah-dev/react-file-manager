@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const FilesContext = createContext();
 
-export const FilesProvider = ({ children, filesData }) => {
+export const FilesProvider = ({ children, filesData, onError }) => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const FilesProvider = ({ children, filesData }) => {
   };
 
   return (
-    <FilesContext.Provider value={{ files, setFiles, getChildren }}>
+    <FilesContext.Provider value={{ files, setFiles, getChildren, onError }}>
       {children}
     </FilesContext.Provider>
   );

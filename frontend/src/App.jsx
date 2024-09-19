@@ -5,8 +5,8 @@ import { renameAPI } from "./api/renameAPI";
 import { deleteAPI } from "./api/deleteAPI";
 import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
 import { getAllFilesAPI } from "./api/getAllFilesAPI";
-import "./App.scss";
 import { downloadFile } from "./api/downloadFileAPI";
+import "./App.scss";
 
 function App() {
   const fileUploadConfig = {
@@ -107,8 +107,8 @@ function App() {
     console.log(`Opening file: ${file.name}`);
   };
 
-  const handleError = (error) => {
-    console.error(error.message);
+  const handleError = (error, file) => {
+    console.error(error);
   };
 
   const handleDownload = async (file) => {

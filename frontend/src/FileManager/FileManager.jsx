@@ -43,7 +43,7 @@ const FileManager = ({
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()}>
       <Loader isLoading={isLoading} />
-      <FilesProvider filesData={files}>
+      <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider>
           <SelectionProvider>
             <ClipBoardProvider>
