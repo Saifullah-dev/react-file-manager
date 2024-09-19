@@ -3,11 +3,14 @@ import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
 import ReactLoading from "react-loading";
-import "./UploadFile.action.scss";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
+import { getFileExtension } from "../../../utils/getFileExtension";
+import { getDataSize } from "../../../utils/getDataSize";
+import "./UploadFile.action.scss";
 
 const UploadFileAction = ({
   fileUploadConfig,
+  maxFileSize,
   acceptedFileTypes,
   onFileUploading,
   onFileUploaded,
@@ -15,37 +18,59 @@ const UploadFileAction = ({
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState({});
-  const { currentFolder } = useFileNavigation();
+  const { currentFolder, currentPathFiles } = useFileNavigation();
+
+  const checkFileError = (file) => {
+    const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
+    if (extError) return "File type is not allowed.";
+
+    const fileExists = currentPathFiles.some(
+      (item) => item.name === file.name && !item.isDirectory
+    );
+    if (fileExists) return "File already exists.";
+
+    const sizeError = file.size > maxFileSize;
+    if (sizeError) return `Maximum upload size is ${getDataSize(maxFileSize, 0)}.`;
+  };
+
+  const setSelectedFiles = (selectedFiles) => {
+    selectedFiles = selectedFiles.filter(
+      (item) => !files.some((fileData) => fileData.file.name === item.name)
+    );
+
+    if (selectedFiles.length > 0) {
+      const newFiles = selectedFiles.map((file) => {
+        const appendData = onFileUploading(file, currentFolder);
+        const error = checkFileError(file);
+        return {
+          file: file,
+          appendData: appendData,
+          ...(error && { error: error }),
+        };
+      });
+      setFiles((prev) => [...prev, ...newFiles]);
+    }
+  };
 
   // Todo: Also validate allowed file extensions on drop
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
-    if (droppedFiles.length > 0) {
-      const choosenFiles = droppedFiles.map((file) => {
-        const appendData = onFileUploading(file, currentFolder);
-        return {
-          file: file,
-          appendData: appendData,
-        };
-      });
-      setFiles((prev) => [...prev, ...choosenFiles]);
-    }
+    setSelectedFiles(droppedFiles);
   };
 
   const handleChooseFile = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length > 0) {
-      const choosenFiles = selectedFiles.map((file) => {
-        const appendData = onFileUploading(file, currentFolder);
-        return {
-          file: file,
-          appendData: appendData,
-        };
-      });
-      setFiles((prev) => [...prev, ...choosenFiles]);
-    }
+    const choosenFiles = Array.from(e.target.files);
+    setSelectedFiles(choosenFiles);
+  };
+
+  // Issue: If a file is removed from the array and there are more files after it,
+  // e.g. files = [file1, file2, file3] & file2 was removed because it was unsupported,
+  // and file3 was successfully uploaded.
+  // Removing file2 resests the states incl. upload progress as it is now shifted to index 1.
+  const handleFileRemove = (index) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -98,6 +123,7 @@ const UploadFileAction = ({
                 fileUploadConfig={fileUploadConfig}
                 setIsUploading={setIsUploading}
                 onFileUploaded={onFileUploaded}
+                handleFileRemove={handleFileRemove}
               />
             ))}
           </ul>

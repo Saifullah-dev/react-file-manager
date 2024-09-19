@@ -22,17 +22,17 @@ const FileManager = ({
   onCreateFolder,
   onFileUploading,
   onFileUploaded,
-  onRename,
-  onDelete,
   onPaste,
+  onRename,
   onDownload,
+  onDelete = () => null,
   onLayoutChange,
   onRefresh,
   onFileOpen,
   onError,
   layout = "grid",
-  maxFileSize,
   enableFilePreview = true,
+  maxFileSize,
   filePreviewPath,
   acceptedFileTypes,
 }) => {
@@ -91,6 +91,7 @@ const FileManager = ({
                   onFileUploading={onFileUploading}
                   onFileUploaded={onFileUploaded}
                   onDelete={onDelete}
+                  maxFileSize={maxFileSize}
                   filePreviewPath={filePreviewPath}
                   acceptedFileTypes={acceptedFileTypes}
                   triggerAction={triggerAction}

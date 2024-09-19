@@ -8,7 +8,14 @@ import { getDataSize } from "../../../utils/getDataSize";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 
-const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, onFileUploaded }) => {
+const UploadItem = ({
+  index,
+  fileData,
+  setIsUploading,
+  fileUploadConfig,
+  onFileUploaded,
+  handleFileRemove,
+}) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
@@ -16,6 +23,8 @@ const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, onFileU
   const xhrRef = useRef();
 
   const fileUpload = (fileData) => {
+    if (!!fileData.error) return;
+
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhrRef.current = xhr;
@@ -108,12 +117,21 @@ const UploadItem = ({ index, fileData, setIsUploading, fileUploadConfig, onFileU
           ) : isCanceled ? (
             <IoMdRefresh className="retry-upload" title="Retry" onClick={handleRetry} />
           ) : (
-            <div className="rm-file" title="Abort" onClick={handleAbortUpload}>
+            <div
+              className="rm-file"
+              title={`${!!fileData.error ? "Remove" : "Abort Upload"}`}
+              onClick={!!fileData.error ? () => handleFileRemove(index) : handleAbortUpload}
+            >
               <AiOutlineClose />
             </div>
           )}
         </div>
-        <Progress percent={uploadProgress} isCanceled={isCanceled} isCompleted={isUploaded} />
+        <Progress
+          percent={uploadProgress}
+          isCanceled={isCanceled}
+          isCompleted={isUploaded}
+          error={fileData.error}
+        />
       </div>
     </li>
   );

@@ -125,19 +125,19 @@ function App() {
           onCreateFolder={handleCreateFolder}
           onFileUploading={handleFileUploading}
           onFileUploaded={handleFileUploaded}
-          onRename={handleRename}
-          onDelete={handleDelete}
           onPaste={handlePaste}
+          onRename={handleRename}
           onDownload={handleDownload}
+          onDelete={handleDelete}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
           onError={handleError}
           layout="grid"
           enableFilePreview
-          maxFileSize={10000000}
+          maxFileSize={10485760}
           filePreviewPath={import.meta.env.VITE_API_FILES_BASE_URL}
-          acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
+          acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx, .exe"
         />
       </div>
     </div>

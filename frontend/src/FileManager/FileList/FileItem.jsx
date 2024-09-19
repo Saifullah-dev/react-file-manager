@@ -22,7 +22,7 @@ const FileItem = ({
   onCreateFolder,
   onPaste,
   onRename,
-  onDownload,
+  onDownload = () => null,
   enableFilePreview,
   filePreviewPath,
   onFileOpen,
@@ -164,16 +164,16 @@ const FileItem = ({
           <BiRename size={19} />
           <span>Rename</span>
         </li>
-        <li onClick={handleDelete}>
-          <MdOutlineDelete size={19} />
-          <span>Delete</span>
-        </li>
         {!file.isDirectory && (
           <li onClick={handleDownload}>
             <MdOutlineFileDownload size={18} />
             <span>Download</span>
           </li>
         )}
+        <li onClick={handleDelete}>
+          <MdOutlineDelete size={19} />
+          <span>Delete</span>
+        </li>
       </ul>
     </div>
   );

@@ -127,6 +127,12 @@ const Toolbar = ({
               <BiRename size={19} />
               <span>Rename</span>
             </button>
+            {!selectedFile.isDirectory && (
+              <button className="item-action file-action" onClick={handleDownload}>
+                <MdOutlineFileDownload size={19} />
+                <span>Download</span>
+              </button>
+            )}
             <button
               className="item-action file-action"
               onClick={() => triggerAction.show("delete")}
@@ -134,12 +140,6 @@ const Toolbar = ({
               <MdOutlineDelete size={19} />
               <span>Delete</span>
             </button>
-            {!selectedFile.isDirectory && (
-              <button className="item-action file-action" onClick={handleDownload}>
-                <MdOutlineFileDownload size={19} />
-                <span>Download</span>
-              </button>
-            )}
           </div>
           <button className="item-action file-action" onClick={() => setSelectedFile(null)}>
             <MdClear size={18} />
