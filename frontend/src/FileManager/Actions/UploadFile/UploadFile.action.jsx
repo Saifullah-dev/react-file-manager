@@ -70,8 +70,8 @@ const UploadFileAction = ({
   };
 
   const handleFileRemove = (index) => {
-    setFiles((prev) =>
-      prev.map((file, i) => {
+    setFiles((prev) => {
+      const newFiles = prev.map((file, i) => {
         if (index === i) {
           return {
             ...file,
@@ -79,8 +79,13 @@ const UploadFileAction = ({
           };
         }
         return file;
-      })
-    );
+      });
+
+      // If every file is removed, empty files array
+      if (newFiles.every((file) => !!file.removed)) return [];
+
+      return newFiles;
+    });
   };
 
   return (

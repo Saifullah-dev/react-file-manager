@@ -38,7 +38,7 @@
     "semantic-release": "^24.1.0",
     "vite": "^5.3.1"
   },
-  "description": "The File Manager Component is an open-source React.js package designed to help developers easily integrate a file manager into their applications. This component provides a user-friendly interface along with essential functionalities for managing files and folders, such as viewing, uploading and deleting within a specified directory structure. Ideal for anyone looking to build or enhance a file management system, this package offers both UI and backend integration capabilities.",
+  "description": "React File Manager is an open-source, user-friendly component designed to easily manage files and folders within applications. With smooth drag-and-drop functionality, responsive design, and efficient navigation, it simplifies file handling in any React project.",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -47,7 +47,8 @@
   "keywords": [
     "react",
     "file-manager",
-    "component"
+    "component",
+    "react-file explorer"
   ],
   "author": "Saifullah Zubair",
   "license": "MIT",
