@@ -5,6 +5,7 @@ const copyItem = require("./handlers/copyItem.handler");
 const moveItem = require("./handlers/moveItem.handler");
 const renameItem = require("./handlers/renameItem.handler");
 const deleteItem = require("./handlers/deleteItem.handler");
+const downloadFile = require("./handlers/downloadFile.handler");
 
 module.exports = {
   createFolder,
@@ -14,4 +15,5 @@ module.exports = {
   moveItem,
   renameItem,
   deleteItem,
+  downloadFile,
 };

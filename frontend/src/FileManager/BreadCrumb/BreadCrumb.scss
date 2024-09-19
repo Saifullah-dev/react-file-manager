@@ -7,8 +7,8 @@
     height: calc(5.8% - 21px);
     display: flex;
     gap: 0.5rem;
-    border-bottom: 1px solid #dddddd;
-    padding: 10px 0 10PX 15px;
+    border-bottom: 1px solid $border-color;
+    padding: 6px 0 6PX 15px;
     overflow-x: hidden;
 
     &::-webkit-scrollbar {

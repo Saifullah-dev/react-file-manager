@@ -10,5 +10,6 @@ router.post("/copy", fileSystemController.copyItem);
 router.put("/move", fileSystemController.moveItem);
 router.patch("/rename", fileSystemController.renameItem);
 router.delete("/:id", fileSystemController.deleteItem);
+router.get("/download/:id", fileSystemController.downloadFile);
 
 module.exports = router;

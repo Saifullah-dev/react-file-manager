@@ -1,16 +1,18 @@
 .file-delete-confirm {
     .file-delete-confirm-text {
         border-bottom: 1px solid #dddddd;
-        padding: 10px 15px;
-        margin-bottom: 1rem;
+        padding: 15px;
+        margin-top: 0;
+        margin-bottom: .7rem;
         word-wrap: break-word;
+        font-weight: 500;
     }
 
     .file-delete-confirm-actions {
         display: flex;
         gap: 0.5rem;
         justify-content: flex-end;
-        margin-bottom: 1rem;
+        margin-bottom: .7rem;
         margin-right: 1rem;
     }
 }

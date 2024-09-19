@@ -1,9 +1,11 @@
+@import "../../styles/variables";
+
 .fm-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e9ecef;
-  padding: 0.5rem 1rem;
+  border-bottom: 1px solid $border-color;
+  padding: 0.3rem 1rem;
 
   .fm-modal-heading {
     margin: 0;
@@ -24,6 +26,7 @@
   from {
     transform: scale(0.4);
   }
+
   to {
     transform: scale(1);
   }

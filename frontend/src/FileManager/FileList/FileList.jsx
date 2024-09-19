@@ -6,7 +6,16 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import "./FileList.scss";
 
-const FileList = ({ onCreateFolder, onPaste, onRename, triggerAction }) => {
+const FileList = ({
+  onCreateFolder,
+  onPaste,
+  onRename,
+  onDownload,
+  onFileOpen,
+  enableFilePreview,
+  filePreviewPath,
+  triggerAction,
+}) => {
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
   const { currentPath, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
@@ -84,6 +93,10 @@ const FileList = ({ onCreateFolder, onPaste, onRename, triggerAction }) => {
               onCreateFolder={onCreateFolder}
               onPaste={onPaste}
               onRename={onRename}
+              onDownload={onDownload}
+              onFileOpen={onFileOpen}
+              enableFilePreview={enableFilePreview}
+              filePreviewPath={filePreviewPath}
               filesViewRef={filesViewRef}
               selectedFileIndex={selectedFileIndex}
               setSelectedFileIndex={setSelectedFileIndex}

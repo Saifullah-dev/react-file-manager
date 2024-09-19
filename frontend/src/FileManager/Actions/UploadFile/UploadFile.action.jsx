@@ -3,49 +3,89 @@ import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
 import ReactLoading from "react-loading";
-import "./UploadFile.action.scss";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
+import { getFileExtension } from "../../../utils/getFileExtension";
+import { getDataSize } from "../../../utils/getDataSize";
+import { useFiles } from "../../../contexts/FilesContext";
+import "./UploadFile.action.scss";
 
 const UploadFileAction = ({
   fileUploadConfig,
-  allowedFileExtensions,
+  maxFileSize,
+  acceptedFileTypes,
   onFileUploading,
   onFileUploaded,
 }) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState({});
-  const { currentFolder } = useFileNavigation();
+  const { currentFolder, currentPathFiles } = useFileNavigation();
+  const { onError } = useFiles();
+
+  const checkFileError = (file) => {
+    const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
+    if (extError) return "File type is not allowed.";
+
+    const fileExists = currentPathFiles.some(
+      (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
+    );
+    if (fileExists) return "File already exists.";
+
+    const sizeError = file.size > maxFileSize;
+    if (sizeError) return `Maximum upload size is ${getDataSize(maxFileSize, 0)}.`;
+  };
+
+  const setSelectedFiles = (selectedFiles) => {
+    selectedFiles = selectedFiles.filter(
+      (item) =>
+        !files.some((fileData) => fileData.file.name.toLowerCase() === item.name.toLowerCase())
+    );
+
+    if (selectedFiles.length > 0) {
+      const newFiles = selectedFiles.map((file) => {
+        const appendData = onFileUploading(file, currentFolder);
+        const error = checkFileError(file);
+        error && onError({ type: "upload", message: error }, file);
+        return {
+          file: file,
+          appendData: appendData,
+          ...(error && { error: error }),
+        };
+      });
+      setFiles((prev) => [...prev, ...newFiles]);
+    }
+  };
 
   // Todo: Also validate allowed file extensions on drop
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
-    if (droppedFiles.length > 0) {
-      const choosenFiles = droppedFiles.map((file) => {
-        const appendData = onFileUploading(file, currentFolder);
-        return {
-          file: file,
-          appendData: appendData,
-        };
-      });
-      setFiles((prev) => [...prev, ...choosenFiles]);
-    }
+    setSelectedFiles(droppedFiles);
   };
 
   const handleChooseFile = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length > 0) {
-      const choosenFiles = selectedFiles.map((file) => {
-        const appendData = onFileUploading(file, currentFolder);
-        return {
-          file: file,
-          appendData: appendData,
-        };
+    const choosenFiles = Array.from(e.target.files);
+    setSelectedFiles(choosenFiles);
+  };
+
+  const handleFileRemove = (index) => {
+    setFiles((prev) => {
+      const newFiles = prev.map((file, i) => {
+        if (index === i) {
+          return {
+            ...file,
+            removed: true,
+          };
+        }
+        return file;
       });
-      setFiles((prev) => [...prev, ...choosenFiles]);
-    }
+
+      // If every file is removed, empty files array
+      if (newFiles.every((file) => !!file.removed)) return [];
+
+      return newFiles;
+    });
   };
 
   return (
@@ -72,7 +112,7 @@ const UploadFileAction = ({
               className="choose-file-input"
               onChange={handleChooseFile}
               multiple
-              accept={allowedFileExtensions}
+              accept={acceptedFileTypes}
             />
           </Button>
         </div>
@@ -95,9 +135,11 @@ const UploadFileAction = ({
                 index={index}
                 key={index}
                 fileData={fileData}
+                setFiles={setFiles}
                 fileUploadConfig={fileUploadConfig}
                 setIsUploading={setIsUploading}
                 onFileUploaded={onFileUploaded}
+                handleFileRemove={handleFileRemove}
               />
             ))}
           </ul>

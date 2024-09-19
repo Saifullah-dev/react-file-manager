@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaRegFile, FaRegFolderOpen, FaRegPaste } from "react-icons/fa6";
 import { PiFolderOpen } from "react-icons/pi";
-import { MdOutlineDelete } from "react-icons/md";
+import { MdOutlineDelete, MdOutlineFileDownload } from "react-icons/md";
 import ContextMenu from "../../components/ContextMenu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { BiRename } from "react-icons/bi";
@@ -22,6 +22,10 @@ const FileItem = ({
   onCreateFolder,
   onPaste,
   onRename,
+  onDownload = () => null,
+  enableFilePreview,
+  filePreviewPath,
+  onFileOpen,
   filesViewRef,
   selectedFileIndex,
   setSelectedFileIndex,
@@ -74,6 +78,12 @@ const FileItem = ({
     triggerAction.show("rename");
   };
 
+  const handleDownload = (e) => {
+    e.stopPropagation();
+    onDownload(file);
+    setVisible(false);
+  };
+
   const handleDelete = (e) => {
     e.stopPropagation();
     setVisible(false);
@@ -81,6 +91,7 @@ const FileItem = ({
   };
 
   const handleFileAccess = () => {
+    onFileOpen(file);
     setVisible(false);
     if (file.isDirectory) {
       setCurrentPath(file.path);
@@ -88,7 +99,7 @@ const FileItem = ({
       setSelectedFile(null);
     } else {
       // Display File Image/PDF/Txt etc
-      triggerAction.show("previewFile");
+      enableFilePreview && triggerAction.show("previewFile");
     }
   };
 
@@ -143,18 +154,22 @@ const FileItem = ({
           <BsCopy strokeWidth={0.1} size={17} />
           <span>Copy</span>
         </li>
-        {file.isDirectory ? (
+        {file.isDirectory && (
           <li onClick={handleFilePasting} className={`${clipBoard ? "" : "disable-paste"}`}>
             <FaRegPaste size={18} />
             <span>Paste</span>
           </li>
-        ) : (
-          <></>
         )}
         <li onClick={handleRenaming}>
           <BiRename size={19} />
           <span>Rename</span>
         </li>
+        {!file.isDirectory && (
+          <li onClick={handleDownload}>
+            <MdOutlineFileDownload size={18} />
+            <span>Download</span>
+          </li>
+        )}
         <li onClick={handleDelete}>
           <MdOutlineDelete size={19} />
           <span>Delete</span>

@@ -70,7 +70,7 @@ svg {
         width: 5px;
         cursor: col-resize;
         z-index: 10;
-        border-right: 1px solid #dee2e6;
+        border-right: 1px solid $border-color;
 
         &:hover {
           border-right: 1px solid #1e3a8a;

@@ -22,13 +22,19 @@ const FileManager = ({
   onCreateFolder,
   onFileUploading,
   onFileUploaded,
-  onRename,
-  onDelete,
   onPaste,
+  onRename,
+  onDownload,
+  onDelete = () => null,
   onLayoutChange,
   onRefresh,
+  onFileOpen,
+  onError,
+  layout = "grid",
+  enableFilePreview = true,
+  maxFileSize,
   filePreviewPath,
-  allowedFileExtensions,
+  acceptedFileTypes,
 }) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
@@ -37,15 +43,16 @@ const FileManager = ({
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()}>
       <Loader isLoading={isLoading} />
-      <FilesProvider filesData={files}>
+      <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider>
           <SelectionProvider>
             <ClipBoardProvider>
-              <LayoutProvider>
+              <LayoutProvider layout={layout}>
                 <Toolbar
                   allowCreateFolder
                   allowUploadFile
                   onPaste={onPaste}
+                  onDownload={onDownload}
                   onLayoutChange={onLayoutChange}
                   onRefresh={onRefresh}
                   triggerAction={triggerAction}
@@ -70,6 +77,10 @@ const FileManager = ({
                       onCreateFolder={onCreateFolder}
                       onPaste={onPaste}
                       onRename={onRename}
+                      onDownload={onDownload}
+                      onFileOpen={onFileOpen}
+                      enableFilePreview={enableFilePreview}
+                      filePreviewPath={filePreviewPath}
                       triggerAction={triggerAction}
                     />
                   </div>
@@ -80,8 +91,9 @@ const FileManager = ({
                   onFileUploading={onFileUploading}
                   onFileUploaded={onFileUploaded}
                   onDelete={onDelete}
+                  maxFileSize={maxFileSize}
                   filePreviewPath={filePreviewPath}
-                  allowedFileExtensions={allowedFileExtensions}
+                  acceptedFileTypes={acceptedFileTypes}
                   triggerAction={triggerAction}
                 />
               </LayoutProvider>
@@ -116,10 +128,16 @@ FileManager.propTypes = {
   onRename: PropTypes.func,
   onDelete: PropTypes.func,
   onPaste: PropTypes.func,
+  onDownload: PropTypes.func,
   onLayoutChange: PropTypes.func,
   onRefresh: PropTypes.func,
+  onFileOpen: PropTypes.func,
+  onError: PropTypes.func,
+  layout: PropTypes.oneOf(["grid", "list"]),
+  maxFileSize: PropTypes.number,
+  enableFilePreview: PropTypes.bool,
   filePreviewPath: urlValidator,
-  allowedFileExtensions: PropTypes.string,
+  acceptedFileTypes: PropTypes.string,
 };
 
 export default FileManager;

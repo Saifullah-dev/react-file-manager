@@ -10,8 +10,9 @@ const Actions = ({
   onFileUploading,
   onFileUploaded,
   onDelete,
+  maxFileSize,
   filePreviewPath,
-  allowedFileExtensions,
+  acceptedFileTypes,
   triggerAction,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
@@ -23,7 +24,8 @@ const Actions = ({
       component: (
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
-          allowedFileExtensions={allowedFileExtensions}
+          maxFileSize={maxFileSize}
+          acceptedFileTypes={acceptedFileTypes}
           onFileUploading={onFileUploading}
           onFileUploaded={onFileUploaded}
         />

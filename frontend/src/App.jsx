@@ -5,6 +5,7 @@ import { renameAPI } from "./api/renameAPI";
 import { deleteAPI } from "./api/deleteAPI";
 import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
 import { getAllFilesAPI } from "./api/getAllFilesAPI";
+import { downloadFile } from "./api/downloadFileAPI";
 import "./App.scss";
 
 function App() {
@@ -102,6 +103,18 @@ function App() {
   };
   //
 
+  const handleFileOpen = (file) => {
+    console.log(`Opening file: ${file.name}`);
+  };
+
+  const handleError = (error, file) => {
+    console.error(error);
+  };
+
+  const handleDownload = async (file) => {
+    await downloadFile(file._id);
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -112,13 +125,19 @@ function App() {
           onCreateFolder={handleCreateFolder}
           onFileUploading={handleFileUploading}
           onFileUploaded={handleFileUploaded}
-          onRename={handleRename}
-          onDelete={handleDelete}
           onPaste={handlePaste}
+          onRename={handleRename}
+          onDownload={handleDownload}
+          onDelete={handleDelete}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
+          onFileOpen={handleFileOpen}
+          onError={handleError}
+          layout="grid"
+          enableFilePreview
+          maxFileSize={10485760}
           filePreviewPath={import.meta.env.VITE_API_FILES_BASE_URL}
-          allowedFileExtensions=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx"
+          acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx, .exe"
         />
       </div>
     </div>

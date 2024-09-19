@@ -3,7 +3,7 @@
 .toolbar {
   height: calc(7.6% - 13px);
   min-height: 35px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid $border-color;
   padding: 6px 10px;
 
   .file-action-container {
@@ -124,8 +124,12 @@
 
   .item-separator {
     height: 36px;
-    background: #dee1e3;
+    background: $border-color;
     width: 1px;
     margin: 0 5px;
   }
+}
+
+.file-selected {
+  background-color: $item-hover-color;
 }
