@@ -35,13 +35,19 @@ const FileManager = ({
   maxFileSize,
   filePreviewPath,
   acceptedFileTypes,
+  height = "600px",
+  width = "100%",
 }) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
 
   return (
-    <main className="file-explorer" onContextMenu={(e) => e.preventDefault()}>
+    <main
+      className="file-explorer"
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ height, width }}
+    >
       <Loader isLoading={isLoading} />
       <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider>
@@ -138,6 +144,8 @@ FileManager.propTypes = {
   enableFilePreview: PropTypes.bool,
   filePreviewPath: urlValidator,
   acceptedFileTypes: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default FileManager;

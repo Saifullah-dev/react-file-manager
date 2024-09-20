@@ -1,10 +1,11 @@
 @import "../../styles/variables";
 
 .toolbar {
-  height: calc(7.6% - 13px);
+  height: 35px;
   min-height: 35px;
+  max-height: 35px;
   border-bottom: 1px solid $border-color;
-  padding: 6px 10px;
+  padding: 5px 10px;
 
   .file-action-container {
     display: flex;
