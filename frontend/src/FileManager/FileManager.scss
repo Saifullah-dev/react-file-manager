@@ -34,6 +34,9 @@ svg {
 }
 
 .file-explorer {
+  min-height: 400px;
+  height: 100%;
+  width: 100%;
   font-family: "Nunito Sans", sans-serif;
 
   button {
@@ -42,8 +45,6 @@ svg {
 
   border: 1px solid #dddddd;
   border-radius: 8px;
-  height: 100%;
-  width: 100%;
   position: relative;
   background-color: white;
   cursor: default;
@@ -54,7 +55,7 @@ svg {
 
   .files-container {
     display: flex;
-    height: 92.4%;
+    height: calc(100% - 46px); // Toolbar total height = baseHeight: 35px, padding top + bottom: 10px, border: 1px.
 
     .navigation-pane {
       z-index: 1;
@@ -88,34 +89,6 @@ svg {
       padding-right: 0px;
       padding-left: 0px;
       border-bottom-right-radius: 8px;
-    }
-  }
-}
-
-@media screen and (min-height: 600px) and (max-height: 900px) {
-  .file-explorer {
-    height: 63dvh;
-
-    .files-container {
-      height: calc(63dvh - 51px);
-
-      .files {
-        height: 46dvh;
-      }
-    }
-  }
-}
-
-@media screen and (min-height: 550px) and (max-height: 600px) {
-  .file-explorer {
-    height: 58dvh;
-
-    .files-container {
-      height: calc(58dvh - 51px);
-
-      .files {
-        height: 46dvh;
-      }
     }
   }
 }

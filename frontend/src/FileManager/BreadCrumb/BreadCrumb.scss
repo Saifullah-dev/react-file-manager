@@ -4,7 +4,9 @@
   position: relative;
 
   .breadcrumb {
-    height: calc(5.8% - 21px);
+    height: 22px;
+    min-height: 22px;
+    max-height: 22px;
     display: flex;
     gap: 0.5rem;
     border-bottom: 1px solid $border-color;

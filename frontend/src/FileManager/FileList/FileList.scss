@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   column-gap: 0.5em;
   row-gap: 5px;
-  height: calc(94.2% - 16px);
+  height: calc(100% - (35px + 16px));
   @include overflow-y-scroll;
   padding: 8px;
   padding-right: 4px;
