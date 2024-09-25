@@ -28,6 +28,10 @@ const UploadItem = ({
 
   const handleUploadError = (xhr) => {
     setUploadProgress(0);
+    setIsUploading((prev) => ({
+      ...prev,
+      [index]: false,
+    }));
     const error = {
       type: "upload",
       message: "Upload failed.",

@@ -1,4 +1,4 @@
-const FileSystem = require("../../models/FileSystem.model");
+const FileSystem = require("../models/FileSystem.model");
 const fs = require("fs");
 const path = require("path");
 
@@ -13,6 +13,11 @@ const deleteRecursive = async (item) => {
 };
 
 const deleteItem = async (req, res) => {
+  // #swagger.summary = 'Deletes a file/folder.'
+  /*  #swagger.responses[200] = {
+        schema: {message: "File or Folder deleted successfully"}
+      }  
+  */
   try {
     const { id } = req.params;
 
@@ -21,7 +26,7 @@ const deleteItem = async (req, res) => {
       return res.status(404).json({ error: "File or Folder not found!" });
     }
 
-    const itemPath = path.join(__dirname, "../../../public/uploads", item.path);
+    const itemPath = path.join(__dirname, "../../public/uploads", item.path);
     await fs.promises.rm(itemPath, { recursive: true });
 
     await deleteRecursive(item);

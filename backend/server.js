@@ -4,6 +4,8 @@ const cors = require("cors");
 const fileSystemRoutes = require("./app/routes/fileSystem.routes");
 const errorHandler = require("./app/middlewares/errorHandler.middleware");
 const dotenv = require("dotenv");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger-output.json");
 
 dotenv.config();
 
@@ -24,6 +26,9 @@ app.use(express.json());
 
 // Routes
 app.use("/api/file-system", fileSystemRoutes);
+
+// Swagger documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Error handling middleware
 app.use(errorHandler);

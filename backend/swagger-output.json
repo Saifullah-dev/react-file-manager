@@ -1,0 +1,563 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "File System API",
+    "description": "API for managing files and folders. \n \n**Note: Use parentId: null | '' for root folder.**"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/file-system",
+  "tags": [
+    {
+      "name": "File Operations",
+      "description": "Endpoints"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/folder": {
+      "post": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Creates a new folder.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateFolder"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Folder"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Uploads a new file.",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": true
+          },
+          {
+            "name": "parentId",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/File"
+            },
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/copy": {
+      "post": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Copies file/folder to the destination folder.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyItems"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Get all items (files & folders)",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileSystem"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/download/{id}": {
+      "get": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Downloads a file.",
+        "description": "",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A file is successfully downloaded.",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/move": {
+      "put": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Moves file/folder to the destination folder.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyItems"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Item(s) moved successfully!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/rename": {
+      "patch": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Renames a file/folder.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RenameItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "File or Folder renamed successfully!"
+                },
+                "item": {
+                  "$ref": "#/definitions/FileSystem"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "delete": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Deletes a file/folder.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "File or Folder deleted successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Folder": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "60d0fe4f5311236168a109ca"
+        },
+        "name": {
+          "type": "string",
+          "example": "Documents"
+        },
+        "isDirectory": {
+          "type": "boolean",
+          "example": true
+        },
+        "path": {
+          "type": "string",
+          "example": "/Files/Documents"
+        },
+        "parentId": {
+          "type": "string",
+          "example": "60d0fe4f5311236168a109cb"
+        },
+        "size": {},
+        "mimeType": {},
+        "createdAt": {
+          "type": "string",
+          "example": "2024-09-25T12:34:29.490Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2024-09-25T12:34:29.490Z"
+        }
+      }
+    },
+    "File": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "50e6ge6d5347836199z314xc"
+        },
+        "name": {
+          "type": "string",
+          "example": "Requirements.pdf"
+        },
+        "isDirectory": {
+          "type": "boolean",
+          "example": true
+        },
+        "path": {
+          "type": "string",
+          "example": "/Files/Documents/Requirements.pdf"
+        },
+        "parentId": {
+          "type": "string",
+          "example": "60d0fe4f5311236168a109ca"
+        },
+        "size": {
+          "type": "number",
+          "example": 1791868
+        },
+        "mimeType": {
+          "type": "string",
+          "example": "application/pdf"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2024-09-04T11:28:13.882Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2024-09-04T11:28:13.882Z"
+        }
+      }
+    },
+    "CreateFolder": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Pictures"
+        },
+        "parentId": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "CopyItems": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "example": "50e6ge6d5347836199z314xc"
+        },
+        "destinationId": {
+          "type": "string",
+          "example": "60d0fe4f5311236168a109cb"
+        }
+      },
+      "required": [
+        "sourceId"
+      ]
+    },
+    "RenameItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "50e6ge6d4568712390z314xc"
+        },
+        "newName": {
+          "type": "string",
+          "example": "React File Manager.png"
+        }
+      },
+      "required": [
+        "id",
+        "newName"
+      ]
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Error message"
+        }
+      }
+    },
+    "FileSystem": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "description": "The unique identifier of the item (ObjectId)",
+          "example": "60d0fe4f5311236168a109ca"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the file or folder",
+          "example": "Videos"
+        },
+        "isDirectory": {
+          "type": "boolean",
+          "description": "Indicates if the item is a folder",
+          "example": true
+        },
+        "path": {
+          "type": "string",
+          "description": "Path of the file or folder",
+          "example": "Files/Videos"
+        },
+        "parentId": {
+          "type": "string",
+          "description": "The parent item ID (ObjectId)",
+          "example": "60d0fe4f5311236168a109cb",
+          "nullable": true
+        },
+        "size": {
+          "type": "number",
+          "description": "Size of the file in bytes",
+          "example": null,
+          "nullable": true
+        },
+        "mimeType": {
+          "type": "string",
+          "description": "MIME type of the file",
+          "example": null,
+          "nullable": true
+        }
+      }
+    }
+  }
+}
