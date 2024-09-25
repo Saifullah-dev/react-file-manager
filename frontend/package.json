@@ -1,12 +1,13 @@
 {
   "name": "@cubone/react-file-manager",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.7.1",
   "type": "module",
   "module": "dist/react-file-manager.es.js",
   "files": [
     "dist/",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "publishConfig": {
     "access": "public"
