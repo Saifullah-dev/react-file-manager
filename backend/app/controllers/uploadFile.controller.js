@@ -1,6 +1,25 @@
-const FileSystem = require("../../models/FileSystem.model");
+const FileSystem = require("../models/FileSystem.model");
 
 const uploadFile = async (req, res) => {
+  // #swagger.summary = 'Uploads a new file.'
+  /*
+      #swagger.auto = false
+      #swagger.consumes = ['multipart/form-data']  
+      #swagger.parameters['file'] = {
+          in: 'formData',
+          type: 'file',
+          required: 'true',
+      }
+      #swagger.parameters['parentId'] = {
+          in: 'formData',
+          type: 'string',
+      }
+      #swagger.responses[201] = {
+      schema: { $ref: '#/definitions/File' }
+      }
+      #swagger.responses[400]
+      #swagger.responses[500]
+  */
   try {
     const { parentId } = req.body;
     const file = req.file;

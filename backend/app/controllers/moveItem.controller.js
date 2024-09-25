@@ -1,4 +1,4 @@
-const FileSystem = require("../../models/FileSystem.model");
+const FileSystem = require("../models/FileSystem.model");
 const fs = require("fs");
 const path = require("path");
 
@@ -22,6 +22,16 @@ const recursiveMove = async (sourceItem, destinationFolder) => {
 };
 
 const moveItem = async (req, res) => {
+  // #swagger.summary = 'Moves file/folder to the destination folder.'
+  /*  #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: { $ref: "#/definitions/CopyItems" }
+      } */
+  /*  #swagger.responses[200] = {
+        schema: {message: "Item(s) moved successfully!"}
+      }  
+  */
   try {
     const { sourceId, destinationId } = req.body;
     const isRootDestination = !destinationId;
@@ -35,10 +45,10 @@ const moveItem = async (req, res) => {
       return res.status(404), json({ error: "Source File/Folder not found!" });
     }
 
-    const srcFullPath = path.join(__dirname, "../../../public/uploads", sourceItem.path);
+    const srcFullPath = path.join(__dirname, "../../public/uploads", sourceItem.path);
 
     if (isRootDestination) {
-      const destFullPath = path.join(__dirname, "../../../public/uploads", sourceItem.name);
+      const destFullPath = path.join(__dirname, "../../public/uploads", sourceItem.name);
       await fs.promises.cp(srcFullPath, destFullPath, { recursive: true });
       await fs.promises.rm(srcFullPath, { recursive: true });
 
@@ -51,7 +61,7 @@ const moveItem = async (req, res) => {
 
       const destFullPath = path.join(
         __dirname,
-        "../../../public/uploads",
+        "../../public/uploads",
         destinationFolder.path,
         sourceItem.name
       );
