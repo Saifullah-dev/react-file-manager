@@ -42,7 +42,7 @@ Make sure you have the following installed:
 
    This will start the backend server on `http://localhost:3000`.
 
-### 📑 API Documentation
+### ![swagger-icon](https://github.com/user-attachments/assets/9cb14fef-febc-4b52-873c-52dfc80e601e) API Documentation
 
 The API documentation is generated through **Swagger** and can be accessed after starting the server.
 
@@ -54,6 +54,10 @@ The API documentation is generated through **Swagger** and can be accessed after
 
 2. Access the Swagger documentation:
    Open [http://localhost:3000/api-docs/](http://localhost:3000/api-docs/) in your browser to see all available API endpoints and their details.
+
+### ![postman-icon](https://github.com/user-attachments/assets/b0bd6b21-056e-4934-a4d6-b8dc6f7fd6d5) Postman Collection
+
+You can download and use the Postman collection from [here](https://github.com/user-attachments/files/17149486/File.Management.API.postman_collection.json).
 
 ## 🔧 API Endpoints
 
