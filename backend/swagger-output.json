@@ -244,35 +244,24 @@
         }
       }
     },
-    "/download/{id}": {
+    "/download": {
       "get": {
         "tags": [
           "File Operations"
         ],
         "summary": "Downloads a file.",
         "description": "",
-        "produces": [
-          "application/octet-stream"
-        ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "name": "filePath",
+            "in": "query",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "A file is successfully downloaded.",
-            "content": {
-              "application/octet-stream": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
+            "description": "File Downloaded Successfully"
           },
           "404": {
             "description": "Not Found",

@@ -113,8 +113,8 @@ function App() {
     console.error(error);
   };
 
-  const handleDownload = async (file) => {
-    await downloadFile(file._id);
+  const handleDownload = async (files) => {
+    await downloadFile(files);
   };
 
   return (

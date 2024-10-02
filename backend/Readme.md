@@ -44,9 +44,9 @@ Make sure you have the following installed:
 
 ### ![swagger-icon](https://github.com/user-attachments/assets/9cb14fef-febc-4b52-873c-52dfc80e601e) API Documentation
 
-The API documentation is generated through **Swagger** and can be accessed after starting the server.
+The API documentation is generated through **Swagger** and can be viewed [here](https://app.swaggerhub.com/apis-docs/SaifullahZubair/file-system_api/1.0.0).
 
-1. Generate the Swagger docs:
+1. To Generate the Swagger docs:
 
    ```bash
    npm run genDocs
