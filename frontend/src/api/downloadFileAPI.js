@@ -1,32 +1,23 @@
-import { api } from "./api";
+export const downloadFile = async (files) => {
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const downloadFile = async (id) => {
   try {
-    const response = await api.get(`/download/${id}`, {
-      responseType: "blob",
-    });
+    for (const file of files) {
+      const url = import.meta.env.VITE_API_BASE_URL + "/download?filePath=" + file.path;
 
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
+      // Create a download link for the current file
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = file.name;
 
-    const contentDisposition = response.headers["content-disposition"];
-    let fileName = "downloaded_file";
-    if (contentDisposition) {
-      const fileNameRegex = /filename="?(.+)?"/;
-      const fileNameMatch = contentDisposition.match(fileNameRegex);
-      if (fileNameMatch && fileNameMatch.length > 1) {
-        fileName = fileNameMatch[1];
-      }
+      // Append the link to the DOM, click it, and remove the link
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Delay between downloads to give the browser time to handle each download
+      await delay(500); // 500ms delay (adjustable)
     }
-
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-
-    return response;
   } catch (error) {
     return error;
   }

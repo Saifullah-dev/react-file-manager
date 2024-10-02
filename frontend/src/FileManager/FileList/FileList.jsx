@@ -136,7 +136,8 @@ const FileList = ({
   }
 
   function handleDownload() {
-    onDownload(lastSelectedFile);
+    const filesOnly = selectedFiles.filter((file) => !file.isDirectory);
+    onDownload(filesOnly);
     setVisible(false);
   }
 

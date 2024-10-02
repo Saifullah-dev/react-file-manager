@@ -1,33 +1,27 @@
 const FileSystem = require("../models/FileSystem.model");
 const path = require("path");
+const fs = require("fs");
 
 const downloadFile = async (req, res) => {
   // #swagger.summary = 'Downloads a file.'
-  // #swagger.produces = ["application/octet-stream"]
-  /*
-    #swagger.responses[200] = {
-      description: 'A file is successfully downloaded.',
-      content: {
-        'application/octet-stream': {
-          schema: {
-            type: 'string',
-            format: 'binary'
-          }
-        }
+  /*  #swagger.parameters['filePath'] = {
+          in: 'query',
+          type: 'string',
+          required: 'true',
       }
-    }
+      #swagger.responses[200] = {description:'File Downloaded Successfully'}
   */
   try {
-    const { id } = req.params;
+    const { filePath } = req.query;
+    const fileName = filePath.split("/").pop();
+    const fullFilePath = path.join(__dirname, "../../public/uploads", filePath);
 
-    const file = await FileSystem.findById(id);
-    if (!file || file.isDirectory) {
-      res.status(404).json({ error: "File not found!" });
+    if (fs.existsSync(fullFilePath)) {
+      res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+      res.sendFile(fullFilePath);
+    } else {
+      res.status(404).send("File not found");
     }
-
-    const filePath = path.join(__dirname, "../../public/uploads", file.path);
-    res.header("Access-Control-Expose-Headers", "Content-Disposition");
-    res.download(filePath, file.name);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

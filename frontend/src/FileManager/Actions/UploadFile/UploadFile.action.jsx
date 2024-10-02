@@ -31,7 +31,7 @@ const UploadFileAction = ({
     );
     if (fileExists) return "File already exists.";
 
-    const sizeError = file.size > maxFileSize;
+    const sizeError = maxFileSize && file.size > maxFileSize;
     if (sizeError) return `Maximum upload size is ${getDataSize(maxFileSize, 0)}.`;
   };
 
