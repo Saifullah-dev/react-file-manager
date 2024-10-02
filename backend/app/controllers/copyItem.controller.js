@@ -1,5 +1,6 @@
 const FileSystem = require("../models/FileSystem.model");
 const fs = require("fs");
+const mongoose = require("mongoose");
 const path = require("path");
 
 const recursiveCopy = async (sourceItem, destinationFolder) => {
@@ -22,44 +23,64 @@ const recursiveCopy = async (sourceItem, destinationFolder) => {
 };
 
 const copyItem = async (req, res) => {
-  // #swagger.summary = 'Copies file/folder to the destination folder.'
+  // #swagger.summary = 'Copies file/folder(s) to the destination folder.'
   /*  #swagger.parameters['body'] = {
         in: 'body',
         required: true,
-        schema: { $ref: "#/definitions/CopyItems" }
-      } */
-  try {
-    const { sourceId, destinationId } = req.body;
-    const isRootDestination = !destinationId;
-
-    if (!sourceId) {
-      return res.status(400).json({ error: "sourceId is required!" });
-    }
-
-    const sourceItem = await FileSystem.findById(sourceId);
-    if (!sourceItem) {
-      return res.status(404).json({ error: "Source File/Folder not found!" });
-    }
-
-    const srcFullPath = path.join(__dirname, "../../public/uploads", sourceItem.path);
-
-    if (isRootDestination) {
-      const destFullPath = path.join(__dirname, "../../public/uploads", sourceItem.name);
-      await fs.promises.cp(srcFullPath, destFullPath, { recursive: true });
-      await recursiveCopy(sourceItem, null); // Destination Folder -> Root Folder
-    } else {
-      const destinationFolder = await FileSystem.findById(destinationId);
-      if (!destinationFolder || !destinationFolder.isDirectory) {
-        return res.status(400).json({ error: "Invalid destinationId!" });
+        schema: { $ref: "#/definitions/CopyItems" },
+        description: 'An array of item IDs to copy and the destination folder ID.'
       }
-      const destFullPath = path.join(
-        __dirname,
-        "../../public/uploads",
-        destinationFolder.path,
-        sourceItem.name
-      );
-      await fs.promises.cp(srcFullPath, destFullPath, { recursive: true });
-      await recursiveCopy(sourceItem, destinationFolder);
+  */
+  /*  #swagger.responses[200] = {
+        schema: {message: "Item(s) copied successfully!"}
+      }  
+  */
+
+  const { sourceIds, destinationId } = req.body;
+  const isRootDestination = !destinationId;
+
+  if (!sourceIds || !Array.isArray(sourceIds) || sourceIds.length === 0) {
+    return res.status(400).json({ error: "Invalid request body, expected an array of sourceIds." });
+  }
+
+  try {
+    const validIds = sourceIds.filter((id) => mongoose.Types.ObjectId.isValid(id));
+    if (validIds.length !== sourceIds.length) {
+      return res.status(400).json({ error: "One or more of the provided sourceIds are invalid." });
+    }
+
+    const sourceItems = await FileSystem.find({ _id: { $in: validIds } });
+    if (sourceItems.length !== validIds.length) {
+      return res.status(404).json({ error: "One or more of the provided sourceIds do not exist." });
+    }
+
+    const copyPromises = sourceItems.map(async (sourceItem) => {
+      const srcFullPath = path.join(__dirname, "../../public/uploads", sourceItem.path);
+
+      if (isRootDestination) {
+        const destFullPath = path.join(__dirname, "../../public/uploads", sourceItem.name);
+        await fs.promises.cp(srcFullPath, destFullPath, { recursive: true });
+        await recursiveCopy(sourceItem, null); // Destination Folder -> Root Folder
+      } else {
+        const destinationFolder = await FileSystem.findById(destinationId);
+        if (!destinationFolder || !destinationFolder.isDirectory) {
+          throw new Error("Invalid destinationId!");
+        }
+        const destFullPath = path.join(
+          __dirname,
+          "../../public/uploads",
+          destinationFolder.path,
+          sourceItem.name
+        );
+        await fs.promises.cp(srcFullPath, destFullPath, { recursive: true });
+        await recursiveCopy(sourceItem, destinationFolder);
+      }
+    });
+
+    try {
+      await Promise.all(copyPromises);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
     }
 
     res.status(200).json({ message: "Item(s) copied successfully!" });

@@ -13,8 +13,8 @@ import LayoutToggler from "./LayoutToggler";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
-import "./Toolbar.scss";
 import { useLayout } from "../../contexts/LayoutContext";
+import "./Toolbar.scss";
 
 const Toolbar = ({
   allowCreateFolder = true,
@@ -27,7 +27,7 @@ const Toolbar = ({
 }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
-  const { isItemSelection, selectedFile, setSelectedFile } = useSelection();
+  const { selectedFiles, setSelectedFiles } = useSelection();
   const { clipBoard, setClipBoard } = useClipBoard();
   const { activeLayout } = useLayout();
 
@@ -41,7 +41,7 @@ const Toolbar = ({
     },
     {
       icon: <MdOutlineFileUpload size={18} />,
-      text: "Upload Files",
+      text: "Upload",
       permission: allowUploadFile,
       onClick: () => triggerAction.show("uploadFile"),
     },
@@ -72,7 +72,7 @@ const Toolbar = ({
   // Handle Cut / Copy
   const handleCutCopy = (isMoving) => {
     setClipBoard({
-      files: [selectedFile],
+      files: selectedFiles,
       isMoving: isMoving,
     });
   };
@@ -81,23 +81,22 @@ const Toolbar = ({
   // Handle Pasting
   // Todo: Show error if destination folder already has file(s) with the same name
   function handlePasting() {
-    const selectedCopiedFile = clipBoard.files[0];
-    const destinationFolder = isItemSelection ? selectedFile : currentFolder;
+    const copiedFiles = clipBoard.files;
     const operationType = clipBoard.isMoving ? "move" : "copy";
 
-    onPaste(selectedCopiedFile, destinationFolder, operationType);
+    onPaste(copiedFiles, currentFolder, operationType);
 
     clipBoard.isMoving && setClipBoard(null);
-    setSelectedFile(null);
+    setSelectedFiles([]);
   }
 
   const handleDownload = () => {
-    onDownload(selectedFile);
-    setSelectedFile(null);
+    onDownload(selectedFiles);
+    setSelectedFiles([]);
   };
 
   // Selected File/Folder Actions
-  if (selectedFile) {
+  if (selectedFiles.length > 0) {
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
@@ -110,24 +109,26 @@ const Toolbar = ({
               <BsCopy strokeWidth={0.1} size={17} />
               <span>Copy</span>
             </button>
-            {selectedFile.isDirectory && (
+            {clipBoard?.files?.length > 0 && (
               <button
                 className="item-action file-action"
                 onClick={handlePasting}
-                disabled={!clipBoard}
+                // disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
                 <span>Paste</span>
               </button>
             )}
-            <button
-              className="item-action file-action"
-              onClick={() => triggerAction.show("rename")}
-            >
-              <BiRename size={19} />
-              <span>Rename</span>
-            </button>
-            {!selectedFile.isDirectory && (
+            {selectedFiles.length === 1 && (
+              <button
+                className="item-action file-action"
+                onClick={() => triggerAction.show("rename")}
+              >
+                <BiRename size={19} />
+                <span>Rename</span>
+              </button>
+            )}
+            {!selectedFiles.isDirectory && (
               <button className="item-action file-action" onClick={handleDownload}>
                 <MdOutlineFileDownload size={19} />
                 <span>Download</span>
@@ -141,9 +142,15 @@ const Toolbar = ({
               <span>Delete</span>
             </button>
           </div>
-          <button className="item-action file-action" onClick={() => setSelectedFile(null)}>
+          <button
+            className="item-action file-action"
+            title="Clear selection"
+            onClick={() => setSelectedFiles([])}
+          >
+            <span>
+              {selectedFiles.length} item{selectedFiles.length > 1 && "s"} selected
+            </span>
             <MdClear size={18} />
-            <span>Clear Selection</span>
           </button>
         </div>
       </div>

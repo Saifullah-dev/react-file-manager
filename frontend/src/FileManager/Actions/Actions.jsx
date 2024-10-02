@@ -16,11 +16,11 @@ const Actions = ({
   triggerAction,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
-  const { selectedFile } = useSelection();
+  const { selectedFiles } = useSelection();
 
   const actionTypes = {
     uploadFile: {
-      title: "Upload Files",
+      title: "Upload",
       component: (
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
@@ -48,7 +48,7 @@ const Actions = ({
     if (triggerAction.isActive) {
       const actionType = triggerAction.actionType;
       if (actionType === "previewFile") {
-        actionTypes[actionType].title = selectedFile?.name ?? "Preview";
+        actionTypes[actionType].title = selectedFiles?.name ?? "Preview";
       }
       setActiveAction(actionTypes[actionType]);
     } else {

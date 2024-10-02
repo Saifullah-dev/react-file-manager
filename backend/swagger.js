@@ -96,12 +96,15 @@ const doc = {
       parentId: "",
     },
     CopyItems: {
-      $sourceId: "50e6ge6d5347836199z314xc",
+      $sourceIds: ["50e6ge6d5347836199z314xc"],
       destinationId: "60d0fe4f5311236168a109cb",
     },
     RenameItem: {
       $id: "50e6ge6d4568712390z314xc",
       $newName: "React File Manager.png",
+    },
+    DeleteItems: {
+      $ids: ["50e6ge6d4568712390z314xc"],
     },
     Error: {
       error: "Error message",
