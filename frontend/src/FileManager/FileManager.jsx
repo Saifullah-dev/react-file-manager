@@ -86,7 +86,6 @@ const FileManager = ({
                       onDownload={onDownload}
                       onFileOpen={onFileOpen}
                       enableFilePreview={enableFilePreview}
-                      filePreviewPath={filePreviewPath}
                       triggerAction={triggerAction}
                     />
                   </div>

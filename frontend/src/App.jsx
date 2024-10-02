@@ -69,9 +69,10 @@ function App() {
   //
 
   // Delete File/Folder
-  const handleDelete = async (file) => {
+  const handleDelete = async (files) => {
     setIsLoading(true);
-    const response = await deleteAPI(file._id);
+    const idsToDelete = files.map((file) => file._id);
+    const response = await deleteAPI(idsToDelete);
     if (response.status === 200) {
       getFiles();
     } else {
@@ -82,13 +83,13 @@ function App() {
   //
 
   // Paste File/Folder
-  const handlePaste = async (sourceItem, destinationFolder, operationType) => {
+  const handlePaste = async (copiedItems, destinationFolder, operationType) => {
     setIsLoading(true);
-    if (operationType === "copy") {
-      const response = await copyItemAPI(sourceItem._id, destinationFolder?._id);
-    } else {
-      const response = await moveItemAPI(sourceItem._id, destinationFolder?._id);
-    }
+    // if (operationType === "copy") {
+    //   const response = await copyItemAPI(sourceItem._id, destinationFolder?._id);
+    // } else {
+    //   const response = await moveItemAPI(sourceItem._id, destinationFolder?._id);
+    // }
     await getFiles();
   };
   //

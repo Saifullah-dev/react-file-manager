@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import "./ContextMenu.scss";
 
-const ContextMenu = ({ children, filesViewRef, contextMenuRef, content, visible, setVisible }) => {
-  const [clickPosition, setClickPosition] = useState({ clickX: 0, clickY: 0 });
+const ContextMenu = ({
+  filesViewRef,
+  contextMenuRef,
+  menuItems,
+  visible,
+  setVisible,
+  clickPosition,
+}) => {
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
-
-  const handleContextMenu = (e) => {
-    e.preventDefault();
-    setClickPosition({ clickX: e.clientX, clickY: e.clientY });
-    setVisible(true);
-  };
 
   const contextMenuPosition = () => {
     const { clickX, clickY } = clickPosition;
@@ -47,6 +47,11 @@ const ContextMenu = ({ children, filesViewRef, contextMenuRef, content, visible,
     }
   };
 
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   useEffect(() => {
     if (visible && contextMenuRef.current) {
       contextMenuPosition();
@@ -56,23 +61,33 @@ const ContextMenu = ({ children, filesViewRef, contextMenuRef, content, visible,
     }
   }, [visible]);
 
-  return (
-    <div onContextMenu={handleContextMenu} onClick={(e) => setVisible(false)}>
-      {children}
-      {visible && (
-        <div
-          ref={contextMenuRef}
-          className={`fm-context-menu ${top ? "visible" : "hidden"}`}
-          style={{
-            top: top,
-            left: left,
-          }}
-        >
-          {content}
+  if (visible) {
+    return (
+      <div
+        ref={contextMenuRef}
+        onContextMenu={handleContextMenu}
+        onClick={(e) => e.stopPropagation()}
+        className={`fm-context-menu ${top ? "visible" : "hidden"}`}
+        style={{
+          top: top,
+          left: left,
+        }}
+      >
+        <div className="file-context-menu-list">
+          <ul>
+            {menuItems
+              .filter((item) => !item.hidden)
+              .map((item) => (
+                <li key={item.title} onClick={item.onClick} className={item.className ?? ""}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </li>
+              ))}
+          </ul>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
 export default ContextMenu;

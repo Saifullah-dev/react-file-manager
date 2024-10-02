@@ -17,10 +17,10 @@ const iFrameExtensions = ["txt", "pdf"];
 const PreviewFileAction = ({ filePreviewPath }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const { selectedFile } = useSelection();
+  const { selectedFiles } = useSelection();
   const fileIcons = useFileIcons(73);
-  const extension = getFileExtension(selectedFile.name)?.toLowerCase();
-  const filePath = `${filePreviewPath}${selectedFile.path}`;
+  const extension = getFileExtension(selectedFiles[0].name)?.toLowerCase();
+  const filePath = `${filePreviewPath}${selectedFiles[0].path}`;
 
   const handleImageLoad = () => {
     setIsLoading(false); // Loading is complete
@@ -49,9 +49,9 @@ const PreviewFileAction = ({ filePreviewPath }) => {
             <span className="error-icon">{fileIcons[extension] ?? <FaRegFileAlt size={73} />}</span>
             <span className="error-msg">Sorry! Preview is not available for this file.</span>
             <div className="file-info">
-              <span className="file-name">{selectedFile.name}</span>
-              {selectedFile.size && <span>-</span>}
-              <span className="file-size">{getDataSize(selectedFile.size)}</span>
+              <span className="file-name">{selectedFiles[0].name}</span>
+              {selectedFiles[0].size && <span>-</span>}
+              <span className="file-size">{getDataSize(selectedFiles[0].size)}</span>
             </div>
             <Button onClick={handleDownload} padding="0.45rem .9rem">
               <div className="download-btn">

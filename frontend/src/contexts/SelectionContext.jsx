@@ -1,19 +1,14 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const SelectionContext = createContext();
 
 export const SelectionProvider = ({ children }) => {
-  const [isItemSelection, setIsItemSelection] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null); // This will be selectedFiles as an array for multiple selection in future
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
-  useEffect(() => {
-    setIsItemSelection(!!selectedFile);
-  }, [selectedFile]);
+  console.log(selectedFiles, "selectedFiles");
 
   return (
-    <SelectionContext.Provider
-      value={{ isItemSelection, setIsItemSelection, selectedFile, setSelectedFile }}
-    >
+    <SelectionContext.Provider value={{ selectedFiles, setSelectedFiles }}>
       {children}
     </SelectionContext.Provider>
   );

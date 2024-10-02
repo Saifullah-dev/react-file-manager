@@ -14,6 +14,7 @@
 
   .file-item-container {
     border-radius: 5px;
+    margin: 5px 0;
   }
 
   .file-item {
@@ -27,12 +28,24 @@
     justify-content: space-between;
     padding-top: 13px;
     padding-bottom: 1px;
-    margin: 5px 0;
     border-radius: 5px;
 
     &:hover {
-      cursor: pointer;
       background-color: $item-hover-color;
+    }
+
+    .selection-checkbox {
+      position: absolute;
+      left: 5px;
+      top: 8px;
+    }
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    .visible {
+      visibility: visible;
     }
 
     .rename-file-container {
@@ -74,7 +87,6 @@
     color: white;
 
     &:hover {
-      cursor: pointer;
       background-color: $primary-color;
     }
   }
@@ -153,9 +165,9 @@
   .file-item-container {
     display: flex;
     width: 100%;
+    margin: 0;
 
     &:hover {
-      cursor: pointer;
       background-color: rgb(0, 0, 0, 0.04);
     }
   }
@@ -171,12 +183,16 @@
     height: 13px;
     justify-content: unset;
     padding: 15px;
-    padding-left: 20px;
+    padding-left: 33px;
     margin: 0;
     width: calc(70% - 30px);
 
     &:hover {
       background-color: unset;
+    }
+
+    .selection-checkbox {
+      top: 12px;
     }
 
     .file-name {
