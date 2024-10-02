@@ -85,11 +85,12 @@ function App() {
   // Paste File/Folder
   const handlePaste = async (copiedItems, destinationFolder, operationType) => {
     setIsLoading(true);
-    // if (operationType === "copy") {
-    //   const response = await copyItemAPI(sourceItem._id, destinationFolder?._id);
-    // } else {
-    //   const response = await moveItemAPI(sourceItem._id, destinationFolder?._id);
-    // }
+    const copiedItemIds = copiedItems.map((item) => item._id);
+    if (operationType === "copy") {
+      const response = await copyItemAPI(copiedItemIds, destinationFolder?._id);
+    } else {
+      const response = await moveItemAPI(copiedItemIds, destinationFolder?._id);
+    }
     await getFiles();
   };
   //

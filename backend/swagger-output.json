@@ -112,7 +112,7 @@
         "tags": [
           "File Operations"
         ],
-        "summary": "Copies file/folder to the destination folder.",
+        "summary": "Copies file/folder(s) to the destination folder.",
         "description": "",
         "parameters": [
           {
@@ -121,12 +121,25 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/CopyItems"
-            }
+            },
+            "description": "An array of item IDs to copy and the destination folder ID."
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Item(s) copied successfully!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
             "description": "Bad Request",
@@ -167,6 +180,59 @@
               "xml": {
                 "name": "main"
               }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "File Operations"
+        ],
+        "summary": "Deletes a file/folder(s).",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteItems"
+            },
+            "description": "An array of item IDs to delete."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "File(s) or Folder(s) deleted successfully."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           },
           "500": {
@@ -228,7 +294,7 @@
         "tags": [
           "File Operations"
         ],
-        "summary": "Moves file/folder to the destination folder.",
+        "summary": "Moves file/folder(s) to the destination folder.",
         "description": "",
         "parameters": [
           {
@@ -237,7 +303,8 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/CopyItems"
-            }
+            },
+            "description": "An array of item IDs to move and the destination folder ID."
           }
         ],
         "responses": {
@@ -317,52 +384,6 @@
             "description": "Bad Request",
             "schema": {
               "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/{id}": {
-      "delete": {
-        "tags": [
-          "File Operations"
-        ],
-        "summary": "Deletes a file/folder.",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "File or Folder deleted successfully"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
             }
           },
           "404": {
@@ -477,9 +498,14 @@
     "CopyItems": {
       "type": "object",
       "properties": {
-        "sourceId": {
-          "type": "string",
-          "example": "50e6ge6d5347836199z314xc"
+        "sourceIds": {
+          "type": "array",
+          "example": [
+            "50e6ge6d5347836199z314xc"
+          ],
+          "items": {
+            "type": "string"
+          }
         },
         "destinationId": {
           "type": "string",
@@ -487,7 +513,7 @@
         }
       },
       "required": [
-        "sourceId"
+        "sourceIds"
       ]
     },
     "RenameItem": {
@@ -505,6 +531,23 @@
       "required": [
         "id",
         "newName"
+      ]
+    },
+    "DeleteItems": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "example": [
+            "50e6ge6d4568712390z314xc"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ids"
       ]
     },
     "Error": {

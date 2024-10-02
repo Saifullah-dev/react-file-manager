@@ -16,6 +16,6 @@ router.get("/", getItemsController);
 router.get("/download/:id", downloadFileController);
 router.put("/move", moveItemController);
 router.patch("/rename", renameItemController);
-router.delete("/:id", deleteItemController);
+router.delete("/", deleteItemController);
 
 module.exports = router;
