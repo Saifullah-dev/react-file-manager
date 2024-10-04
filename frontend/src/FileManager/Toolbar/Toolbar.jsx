@@ -91,8 +91,7 @@ const Toolbar = ({
   }
 
   const handleDownload = () => {
-    const filesOnly = selectedFiles.filter((file) => !file.isDirectory);
-    onDownload(filesOnly);
+    onDownload(selectedFiles);
     setSelectedFiles([]);
   };
 

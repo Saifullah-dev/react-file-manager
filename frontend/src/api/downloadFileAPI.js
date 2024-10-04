@@ -1,23 +1,16 @@
 export const downloadFile = async (files) => {
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  if (files.length === 0) return;
 
   try {
-    for (const file of files) {
-      const url = import.meta.env.VITE_API_BASE_URL + "/download?filePath=" + file.path;
+    const fileQuery = files.map((file) => `files=${encodeURIComponent(file._id)}`).join("&");
+    const url = `${import.meta.env.VITE_API_BASE_URL}/download?${fileQuery}`;
 
-      // Create a download link for the current file
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = file.name;
+    const link = document.createElement("a");
+    link.href = url;
 
-      // Append the link to the DOM, click it, and remove the link
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Delay between downloads to give the browser time to handle each download
-      await delay(500); // 500ms delay (adjustable)
-    }
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   } catch (error) {
     return error;
   }
