@@ -136,7 +136,7 @@ const FileList = ({
   }
 
   function handleDownload() {
-    onDownload(lastSelectedFile);
+    onDownload(selectedFiles);
     setVisible(false);
   }
 
