@@ -5,8 +5,6 @@ const SelectionContext = createContext();
 export const SelectionProvider = ({ children }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  console.log(selectedFiles, "selectedFiles");
-
   return (
     <SelectionContext.Provider value={{ selectedFiles, setSelectedFiles }}>
       {children}
