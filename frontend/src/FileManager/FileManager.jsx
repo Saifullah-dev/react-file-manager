@@ -14,6 +14,8 @@ import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import "./FileManager.scss";
+import { useKeyPress } from "../hooks/useKeyPress";
+import { shortcuts } from "../utils/shortcuts";
 
 const FileManager = ({
   files,
@@ -41,6 +43,10 @@ const FileManager = ({
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
+
+  useKeyPress(shortcuts.uploadFiles, (e) => {
+    console.log("File Upload!");
+  });
 
   return (
     <main
@@ -148,3 +154,11 @@ FileManager.propTypes = {
 };
 
 export default FileManager;
+
+// Only add event linstener to the FileManager and not the whole document.
+// Create a file in utils that contains all the shortcuts arrays of File Operations.
+// Create a Hook that accepts an array of keys: string as an argument and returns a callback function that triggers on there combination press.
+// The keys should be in English like ['Control', 'Shift, 'A'] for Ctrl + Shift + A etc.
+// How the provided callback will be used ?
+// For all the file managers actions like: create folder, upload file, cut, copy, paste, delete, rename, downlaod
+// there should be a generic way of triggering those actions just like the old days.
