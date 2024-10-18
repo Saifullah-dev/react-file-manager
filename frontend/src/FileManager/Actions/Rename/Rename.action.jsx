@@ -30,9 +30,9 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
   });
 
   const handleValidateFolderRename = (e) => {
+    e.stopPropagation();
     if (e.key === "Enter") {
       e.preventDefault();
-      e.stopPropagation();
       outsideClick.setIsClicked(true);
       return;
     }

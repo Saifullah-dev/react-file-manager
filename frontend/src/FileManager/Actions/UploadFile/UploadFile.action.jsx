@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
@@ -21,6 +21,14 @@ const UploadFileAction = ({
   const [isUploading, setIsUploading] = useState({});
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { onError } = useFiles();
+  const fileInputRef = useRef(null);
+
+  // To open choose file if the "Choose File" button is focused and Enter key is pressed
+  const handleChooseFileKeyDown = (e) => {
+    if (e.key === "Enter") {
+      fileInputRef.current.click();
+    }
+  };
 
   const checkFileError = (file) => {
     const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
@@ -104,9 +112,10 @@ const UploadFileAction = ({
           </div>
         </div>
         <div className="btn-choose-file">
-          <Button padding="0">
+          <Button padding="0" onKeyDown={handleChooseFileKeyDown}>
             <label htmlFor="chooseFile">Choose File</label>
             <input
+              ref={fileInputRef}
               type="file"
               id="chooseFile"
               className="choose-file-input"
