@@ -19,16 +19,14 @@ import "./Toolbar.scss";
 const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
-  onPaste,
-  onDownload,
   onLayoutChange,
   onRefresh,
   triggerAction,
 }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
-  const { selectedFiles, setSelectedFiles } = useSelection();
-  const { clipBoard, setClipBoard } = useClipBoard();
+  const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
+  const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
 
   // Toolbar Items
@@ -49,7 +47,7 @@ const Toolbar = ({
       icon: <FaRegPaste size={18} />,
       text: "Paste",
       permission: !!clipBoard,
-      onClick: handlePasting,
+      onClick: handleFilePasting,
     },
   ];
 
@@ -69,29 +67,12 @@ const Toolbar = ({
     },
   ];
 
-  // Handle Cut / Copy
-  const handleCutCopy = (isMoving) => {
-    setClipBoard({
-      files: selectedFiles,
-      isMoving: isMoving,
-    });
-  };
-  //
-
-  // Handle Pasting
-  // Todo: Show error if destination folder already has file(s) with the same name
-  function handlePasting() {
-    const copiedFiles = clipBoard.files;
-    const operationType = clipBoard.isMoving ? "move" : "copy";
-
-    onPaste(copiedFiles, currentFolder, operationType);
-
-    clipBoard.isMoving && setClipBoard(null);
-    setSelectedFiles([]);
+  function handleFilePasting() {
+    handlePasting(currentFolder);
   }
 
-  const handleDownload = () => {
-    onDownload(selectedFiles);
+  const handleDownloadItems = () => {
+    handleDownload();
     setSelectedFiles([]);
   };
 
@@ -112,7 +93,7 @@ const Toolbar = ({
             {clipBoard?.files?.length > 0 && (
               <button
                 className="item-action file-action"
-                onClick={handlePasting}
+                onClick={handleFilePasting}
                 // disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
@@ -129,7 +110,7 @@ const Toolbar = ({
               </button>
             )}
             {!selectedFiles.isDirectory && (
-              <button className="item-action file-action" onClick={handleDownload}>
+              <button className="item-action file-action" onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
                 <span>Download</span>
               </button>

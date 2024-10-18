@@ -30,9 +30,9 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
 
   // Validate folder name and call "onCreateFolder" function
   const handleValidateFolderName = (e) => {
+    e.stopPropagation();
     if (e.key === "Enter") {
       e.preventDefault();
-      e.stopPropagation();
       handleFolderCreating();
       return;
     }

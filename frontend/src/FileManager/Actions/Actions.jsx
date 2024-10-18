@@ -4,12 +4,14 @@ import DeleteAction from "./Delete/Delete.action";
 import UploadFileAction from "./UploadFile/UploadFile.action";
 import PreviewFileAction from "./PreviewFile/PreviewFile.action";
 import { useSelection } from "../../contexts/SelectionContext";
+import { useShortcutHandler } from "../../hooks/useShortcutHandler";
 
 const Actions = ({
   fileUploadConfig,
   onFileUploading,
   onFileUploaded,
   onDelete,
+  onRefresh,
   maxFileSize,
   filePreviewPath,
   acceptedFileTypes,
@@ -17,6 +19,9 @@ const Actions = ({
 }) => {
   const [activeAction, setActiveAction] = useState(null);
   const { selectedFiles } = useSelection();
+
+  // Triggers all the keyboard shortcuts based actions
+  useShortcutHandler(triggerAction, onRefresh);
 
   const actionTypes = {
     uploadFile: {

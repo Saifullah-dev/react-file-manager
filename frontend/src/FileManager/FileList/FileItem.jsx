@@ -20,7 +20,6 @@ const FileItem = ({
   onFileOpen,
   filesViewRef,
   selectedFileIndexes,
-  setSelectedFileIndexes,
   triggerAction,
   handleContextMenu,
   setLastSelectedFile,
@@ -44,7 +43,6 @@ const FileItem = ({
     onFileOpen(file);
     if (file.isDirectory) {
       setCurrentPath(file.path);
-      setSelectedFileIndexes([]);
       setSelectedFiles([]);
     } else {
       enableFilePreview && triggerAction.show("previewFile");
@@ -56,7 +54,6 @@ const FileItem = ({
     if (file.isEditing) return;
 
     setSelectedFiles([file]);
-    setSelectedFileIndexes([index]);
     const currentTime = new Date().getTime();
     if (currentTime - lastClickTime < 300) {
       handleFileAccess();
@@ -66,10 +63,9 @@ const FileItem = ({
   };
 
   const handleOnKeyDown = (e) => {
-    e.stopPropagation();
     if (e.key === "Enter") {
+      e.stopPropagation();
       setSelectedFiles([file]);
-      setSelectedFileIndexes([index]);
       handleFileAccess();
     }
   };
@@ -82,7 +78,6 @@ const FileItem = ({
 
     if (!fileSelected) {
       setSelectedFiles([file]);
-      setSelectedFileIndexes([index]);
     }
 
     setLastSelectedFile(file);
@@ -101,10 +96,8 @@ const FileItem = ({
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       setSelectedFiles((prev) => [...prev, file]);
-      setSelectedFileIndexes((prev) => [...prev, index]);
     } else {
       setSelectedFiles((prev) => prev.filter((f) => f.name !== file.name && f.path !== file.path));
-      setSelectedFileIndexes((prev) => prev.filter((i) => i !== index));
     }
 
     setFileSelected(e.target.checked);

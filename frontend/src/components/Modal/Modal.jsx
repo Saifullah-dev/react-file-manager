@@ -13,6 +13,12 @@ const Modal = ({
 }) => {
   const modalRef = useRef(null);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      setShow(false);
+    }
+  };
+
   useEffect(() => {
     if (show) {
       modalRef.current.showModal();
@@ -22,7 +28,12 @@ const Modal = ({
   }, [show]);
 
   return (
-    <dialog ref={modalRef} className={`fm-modal dialog`} style={{ width: dialogWidth }}>
+    <dialog
+      ref={modalRef}
+      className={`fm-modal dialog`}
+      style={{ width: dialogWidth }}
+      onKeyDown={handleKeyDown}
+    >
       <div className="fm-modal-header">
         <span className="fm-modal-heading">{heading}</span>
         {closeButton && (

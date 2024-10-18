@@ -14,8 +14,6 @@ import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import "./FileManager.scss";
-import { useKeyPress } from "../hooks/useKeyPress";
-import { shortcuts } from "../utils/shortcuts";
 
 const FileManager = ({
   files,
@@ -44,10 +42,6 @@ const FileManager = ({
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
 
-  useKeyPress(shortcuts.uploadFiles, (e) => {
-    console.log("File Upload!");
-  });
-
   return (
     <main
       className="file-explorer"
@@ -57,14 +51,12 @@ const FileManager = ({
       <Loader isLoading={isLoading} />
       <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider>
-          <SelectionProvider>
-            <ClipBoardProvider>
+          <SelectionProvider onDownload={onDownload}>
+            <ClipBoardProvider onPaste={onPaste}>
               <LayoutProvider layout={layout}>
                 <Toolbar
                   allowCreateFolder
                   allowUploadFile
-                  onPaste={onPaste}
-                  onDownload={onDownload}
                   onLayoutChange={onLayoutChange}
                   onRefresh={onRefresh}
                   triggerAction={triggerAction}
@@ -87,9 +79,7 @@ const FileManager = ({
                     <BreadCrumb />
                     <FileList
                       onCreateFolder={onCreateFolder}
-                      onPaste={onPaste}
                       onRename={onRename}
-                      onDownload={onDownload}
                       onFileOpen={onFileOpen}
                       enableFilePreview={enableFilePreview}
                       triggerAction={triggerAction}
@@ -102,6 +92,7 @@ const FileManager = ({
                   onFileUploading={onFileUploading}
                   onFileUploaded={onFileUploaded}
                   onDelete={onDelete}
+                  onRefresh={onRefresh}
                   maxFileSize={maxFileSize}
                   filePreviewPath={filePreviewPath}
                   acceptedFileTypes={acceptedFileTypes}
@@ -154,11 +145,3 @@ FileManager.propTypes = {
 };
 
 export default FileManager;
-
-// Only add event linstener to the FileManager and not the whole document.
-// Create a file in utils that contains all the shortcuts arrays of File Operations.
-// Create a Hook that accepts an array of keys: string as an argument and returns a callback function that triggers on there combination press.
-// The keys should be in English like ['Control', 'Shift, 'A'] for Ctrl + Shift + A etc.
-// How the provided callback will be used ?
-// For all the file managers actions like: create folder, upload file, cut, copy, paste, delete, rename, downlaod
-// there should be a generic way of triggering those actions just like the old days.
