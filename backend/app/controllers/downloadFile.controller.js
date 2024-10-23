@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const archiver = require("archiver");
 
 const downloadFile = async (req, res) => {
-  // #swagger.summary = 'Downloads a file.'
+  // Todo: Update download request query swagger docs.
+  // #swagger.summary = 'Downloads file/folder(s).'
   /*  #swagger.parameters['filePath'] = {
           in: 'query',
           type: 'string',

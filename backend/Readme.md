@@ -65,12 +65,12 @@ The backend supports the following file system operations:
 
 - **📁 Create a Folder**: `/folder`
 - **⬆️ Upload a File**: `/upload`
-- **📋 Copy a File/Folder**: `/copy`
+- **📋 Copy File(s) or Folder(s)**: `/copy`
 - **📂 Get All Files/Folders**: `/`
-- **⬇️ Download a File**: `/download/:id`
-- **📤 Move a File/Folder**: `/move`
-- **✏️ Rename a File/Folder**: `/rename`
-- **🗑️ Delete a File/Folder**: `/:id`
+- **⬇️ Download File(s) or Folder(s)**: `/download`
+- **📤 Move File(s) or Folder(s)**: `/move`
+- **✏️ Rename a File or Folder**: `/rename`
+- **🗑️ Delete File(s) or Folder(s)**: `/`
 
 Refer to the [Swagger Documentation](http://localhost:3000/api-docs/) for detailed request/response formats.
 
