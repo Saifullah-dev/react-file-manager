@@ -14,7 +14,7 @@ const deleteRecursive = async (item) => {
 };
 
 const deleteItem = async (req, res) => {
-  // #swagger.summary = 'Deletes a file/folder(s).'
+  // #swagger.summary = 'Deletes file/folder(s).'
   /*  #swagger.parameters['body'] = {
         in: 'body',
         required: true,

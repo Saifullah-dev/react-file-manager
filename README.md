@@ -17,6 +17,7 @@ An open-source React.js package for easy integration of a file manager into appl
 - **Navigation**: Use the breadcrumb trail and sidebar navigation pane for quick directory traversal.
 - **Toolbar & Context Menu**: Access all common actions (upload, download, delete, copy, move, rename, etc.) via the toolbar or right-click for the same options in the context menu.
 - **Multi-Selection**: Select multiple files and folders at once to perform bulk actions like delete, copy, move, or download.
+- **Keyboard Shortcuts**: Quickly perform file operations like copy, paste, delete, and more using intuitive keyboard shortcuts.
 
 ![React File Manager](https://github.com/user-attachments/assets/e68f750b-86bf-450d-b27e-fd3dedebf1bd)
 
@@ -109,6 +110,26 @@ type File = {
 | `onRefresh`         | () => void                                                                                                                     | A callback function triggered when the file manager is refreshed. Use this to refresh the `files` state to reflect any changes or updates.                                                                                                                                                                                                                                              |
 | `onRename`          | (file: [File](#-file-structure), newName: string) => void                                                                      | A callback function triggered when a file or folder is renamed.                                                                                                                                                                                                                                                                                                                         |
 | `width`             | string \| number                                                                                                               | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                        |
+
+## ⌨️ Keyboard Shortcuts
+
+| **Action**                     | **Shortcut**       |
+| ------------------------------ | ------------------ |
+| New Folder                     | `Alt + Shift + N`  |
+| Upload Files                   | `CTRL + U`         |
+| Cut                            | `CTRL + X`         |
+| Copy                           | `CTRL + C`         |
+| Paste                          | `CTRL + V`         |
+| Rename                         | `F2`               |
+| Download                       | `CTRL + D`         |
+| Delete                         | `DEL`              |
+| Select All Files               | `CTRL + A`         |
+| Jump to First File in the List | `Home`             |
+| Jump to Last File in the List  | `End`              |
+| Switch to List Layout          | `CTRL + Shift + 1` |
+| Switch to Grid Layout          | `CTRL + Shift + 2` |
+| Refresh File List              | `F5`               |
+| Clear Selection                | `Esc`              |
 
 ## 🤝 Contributing
 

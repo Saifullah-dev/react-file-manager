@@ -51,14 +51,12 @@ const FileManager = ({
       <Loader isLoading={isLoading} />
       <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider>
-          <SelectionProvider>
-            <ClipBoardProvider>
+          <SelectionProvider onDownload={onDownload}>
+            <ClipBoardProvider onPaste={onPaste}>
               <LayoutProvider layout={layout}>
                 <Toolbar
                   allowCreateFolder
                   allowUploadFile
-                  onPaste={onPaste}
-                  onDownload={onDownload}
                   onLayoutChange={onLayoutChange}
                   onRefresh={onRefresh}
                   triggerAction={triggerAction}
@@ -81,9 +79,7 @@ const FileManager = ({
                     <BreadCrumb />
                     <FileList
                       onCreateFolder={onCreateFolder}
-                      onPaste={onPaste}
                       onRename={onRename}
-                      onDownload={onDownload}
                       onFileOpen={onFileOpen}
                       enableFilePreview={enableFilePreview}
                       triggerAction={triggerAction}
@@ -96,6 +92,7 @@ const FileManager = ({
                   onFileUploading={onFileUploading}
                   onFileUploaded={onFileUploaded}
                   onDelete={onDelete}
+                  onRefresh={onRefresh}
                   maxFileSize={maxFileSize}
                   filePreviewPath={filePreviewPath}
                   acceptedFileTypes={acceptedFileTypes}

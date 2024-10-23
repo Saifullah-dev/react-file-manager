@@ -15,15 +15,7 @@ import { FaRegFile, FaRegPaste } from "react-icons/fa6";
 import { BiRename } from "react-icons/bi";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 
-const FileList = ({
-  onCreateFolder,
-  onPaste,
-  onRename,
-  onDownload,
-  onFileOpen,
-  enableFilePreview,
-  triggerAction,
-}) => {
+const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, triggerAction }) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
@@ -33,8 +25,8 @@ const FileList = ({
   const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
     useFileNavigation();
   const filesViewRef = useRef(null);
-  const { selectedFiles, setSelectedFiles } = useSelection();
-  const { clipBoard, setClipBoard } = useClipBoard();
+  const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
+  const { clipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
   const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
 
@@ -65,12 +57,12 @@ const FileList = ({
     {
       title: "Cut",
       icon: <BsScissors size={19} />,
-      onClick: () => handleCutCopy(true),
+      onClick: () => handleMoveOrCopyItems(true),
     },
     {
       title: "Copy",
       icon: <BsCopy strokeWidth={0.1} size={17} />,
-      onClick: () => handleCutCopy(false),
+      onClick: () => handleMoveOrCopyItems(false),
     },
     {
       title: "Paste",
@@ -88,7 +80,7 @@ const FileList = ({
     {
       title: "Download",
       icon: <MdOutlineFileDownload size={18} />,
-      onClick: handleDownload,
+      onClick: handleDownloadItems,
       hidden: lastSelectedFile?.isDirectory,
     },
     {
@@ -109,24 +101,13 @@ const FileList = ({
     setVisible(false);
   }
 
-  function handleCutCopy(isMoving) {
-    setClipBoard({
-      files: selectedFiles,
-      isMoving: isMoving,
-    });
+  function handleMoveOrCopyItems(isMoving) {
+    handleCutCopy(isMoving);
     setVisible(false);
   }
 
   function handleFilePasting() {
-    if (clipBoard) {
-      const copiedFiles = clipBoard.files;
-      const operationType = clipBoard.isMoving ? "move" : "copy";
-
-      onPaste(copiedFiles, lastSelectedFile, operationType);
-
-      clipBoard.isMoving && setClipBoard(null);
-      setSelectedFiles([]);
-    }
+    handlePasting(lastSelectedFile);
     setVisible(false);
   }
 
@@ -135,8 +116,8 @@ const FileList = ({
     triggerAction.show("rename");
   }
 
-  function handleDownload() {
-    onDownload(selectedFiles);
+  function handleDownloadItems() {
+    handleDownload();
     setVisible(false);
   }
 
@@ -162,8 +143,8 @@ const FileList = ({
 
   const handleItemRenaming = () => {
     setCurrentPathFiles((prev) => {
-      if (prev[selectedFileIndexes[0]]) {
-        prev[selectedFileIndexes[0]].isEditing = true;
+      if (prev[selectedFileIndexes.at(-1)]) {
+        prev[selectedFileIndexes.at(-1)].isEditing = true;
       }
       return prev;
     });
@@ -198,10 +179,16 @@ const FileList = ({
   }, [currentPath]);
 
   useEffect(() => {
-    if (selectedFiles.length === 0) {
+    if (selectedFiles.length > 0) {
+      setSelectedFileIndexes(() => {
+        return selectedFiles.map((selectedFile) => {
+          return currentPathFiles.findIndex((f) => f.path === selectedFile.path);
+        });
+      });
+    } else {
       setSelectedFileIndexes([]);
     }
-  }, [selectedFiles]);
+  }, [selectedFiles, currentPathFiles]);
 
   return (
     <div
@@ -210,7 +197,7 @@ const FileList = ({
       onContextMenu={(e) => handleContextMenu(e, false)}
       onClick={() => {
         setSelectedFileIndexes([]);
-        setSelectedFiles([]);
+        setSelectedFiles((prev) => (prev.length > 0 ? [] : prev));
       }}
     >
       {activeLayout === "list" && (
@@ -228,14 +215,11 @@ const FileList = ({
               index={index}
               file={file}
               onCreateFolder={onCreateFolder}
-              onPaste={onPaste}
               onRename={onRename}
-              onDownload={onDownload}
               onFileOpen={onFileOpen}
               enableFilePreview={enableFilePreview}
               filesViewRef={filesViewRef}
               selectedFileIndexes={selectedFileIndexes}
-              setSelectedFileIndexes={setSelectedFileIndexes}
               triggerAction={triggerAction}
               handleContextMenu={handleContextMenu}
               setVisible={setVisible}
