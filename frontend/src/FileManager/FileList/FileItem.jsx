@@ -49,11 +49,42 @@ const FileItem = ({
     }
   };
 
+  const handleFileRangeSelection = (shiftKey, ctrlKey) => {
+    if (selectedFileIndexes.length > 0 && shiftKey) {
+      let reverseSelection = false;
+      let startRange = selectedFileIndexes[0];
+      let endRange = index;
+
+      // Reverse Selection
+      if (startRange >= endRange) {
+        const temp = startRange;
+        startRange = endRange;
+        endRange = temp;
+        reverseSelection = true;
+      }
+
+      const filesRange = currentPathFiles.slice(startRange, endRange + 1);
+      setSelectedFiles(reverseSelection ? filesRange.reverse() : filesRange);
+    } else if (selectedFileIndexes.length > 0 && ctrlKey) {
+      // Remove file from selected files if it already exists on CTRL + Click, other push it in selectedFiles
+      setSelectedFiles((prev) => {
+        const filteredFiles = prev.filter((f) => f.path !== file.path);
+        if (prev.length === filteredFiles.length) {
+          return [...prev, file];
+        }
+        return filteredFiles;
+      });
+    } else {
+      setSelectedFiles([file]);
+    }
+  };
+
   const handleFileSelection = (e) => {
     e.stopPropagation();
     if (file.isEditing) return;
 
-    setSelectedFiles([file]);
+    handleFileRangeSelection(e.shiftKey, e.ctrlKey);
+
     const currentTime = new Date().getTime();
     if (currentTime - lastClickTime < 300) {
       handleFileAccess();
@@ -175,3 +206,15 @@ const FileItem = ({
 };
 
 export default FileItem;
+
+// CTRL Shortcut
+// On clicking a file, we'll check if CTRL key was pressed at the time of clicking.
+// Once confirmed, we'll check if the clicked file is already present in the selection context -> We'll remove it from there.
+// If it's not present in the selection context, we'll push it into the selection context.
+//
+
+// Shift Shortcut Algo
+// On clicking a file, if shift key is pressed -> we'll select in range of (lastSelectedFile -- currentClickedFile)
+//
+
+// Note: If shift key or ctrl key is pressed, clicking outside should not deselect files
