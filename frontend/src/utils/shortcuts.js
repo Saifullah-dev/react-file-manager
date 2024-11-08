@@ -8,8 +8,6 @@ export const shortcuts = {
   download: ["Control", "D"],
   delete: ["Delete"],
   selectAll: ["Control", "A"],
-  selectIndividuals: ["Control", "Click"], // (pending)
-  selectRange: ["Shift", "Click"], // (pending)
   selectArrows: ["Shift", "Arrows"], // (pending)
   navigation: ["Arrows"], // (pending)
   jumpToFirst: ["Home"],
