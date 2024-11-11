@@ -31,8 +31,10 @@ const UploadFileAction = ({
   };
 
   const checkFileError = (file) => {
-    const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
-    if (extError) return "File type is not allowed.";
+    if (acceptedFileTypes) {
+        const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
+        if (extError) return "File type is not allowed.";
+    }
 
     const fileExists = currentPathFiles.some(
       (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
