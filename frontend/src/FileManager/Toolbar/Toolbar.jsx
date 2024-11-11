@@ -14,6 +14,7 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
+import { validateApiCallback } from "../../utils/validateApiCallback";
 import "./Toolbar.scss";
 
 const Toolbar = ({
@@ -61,7 +62,7 @@ const Toolbar = ({
       icon: <FiRefreshCw size={16} />,
       title: "Refresh",
       onClick: () => {
-        onRefresh();
+        validateApiCallback(onRefresh, "onRefresh");
         setClipBoard(null);
       },
     },
