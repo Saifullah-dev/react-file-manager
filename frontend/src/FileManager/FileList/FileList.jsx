@@ -21,6 +21,7 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
   const [clickPosition, setClickPosition] = useState({ clickX: 0, clickY: 0 });
   const [lastSelectedFile, setLastSelectedFile] = useState(null);
+  const [targetDropZoneFolder, setTargetDropZoneFolder] = useState(null);
 
   const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
     useFileNavigation();
@@ -224,6 +225,8 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
               handleContextMenu={handleContextMenu}
               setVisible={setVisible}
               setLastSelectedFile={setLastSelectedFile}
+              targetDropZoneFolder={targetDropZoneFolder}
+              setTargetDropZoneFolder={setTargetDropZoneFolder}
             />
           ))}
         </>
