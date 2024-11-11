@@ -5,6 +5,7 @@ import NameInput from "../../../components/NameInput/NameInput";
 import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
+import { validateApiCallback } from "../../../utils/validateApiCallback";
 
 const maxNameLength = 220;
 
@@ -84,7 +85,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
       newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
     }
 
-    onCreateFolder(newFolderName, currentFolder);
+    validateApiCallback(onCreateFolder, "onCreateFolder", newFolderName, currentFolder);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     triggerAction.close();
   }

@@ -8,6 +8,7 @@ import NameInput from "../../../components/NameInput/NameInput";
 import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
+import { validateApiCallback } from "../../../utils/validateApiCallback";
 
 const maxNameLength = 220;
 
@@ -88,7 +89,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       }
     }
     setFileRenameError(false);
-    onRename(file, renameFile);
+    validateApiCallback(onRename, "onRename", file, renameFile);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
     triggerAction.close();
   }

@@ -4,6 +4,7 @@ import { useClipBoard } from "../contexts/ClipboardContext";
 import { useFileNavigation } from "../contexts/FileNavigationContext";
 import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
+import { validateApiCallback } from "../utils/validateApiCallback";
 
 export const useShortcutHandler = (triggerAction, onRefresh) => {
   const { setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
@@ -64,7 +65,7 @@ export const useShortcutHandler = (triggerAction, onRefresh) => {
   };
 
   const triggerRefresh = () => {
-    onRefresh();
+    validateApiCallback(onRefresh, "onRefresh");
     setClipBoard(null);
   };
 
