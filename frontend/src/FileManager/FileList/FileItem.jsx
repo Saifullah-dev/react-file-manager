@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
@@ -10,7 +10,6 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
-import { PiFilesFill } from "react-icons/pi";
 
 const FileItem = ({
   index,
@@ -24,8 +23,6 @@ const FileItem = ({
   triggerAction,
   handleContextMenu,
   setLastSelectedFile,
-  targetDropZoneFolder,
-  setTargetDropZoneFolder,
 }) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
@@ -37,8 +34,7 @@ const FileItem = ({
   const fileIcons = useFileIcons(iconSize);
   const { setCurrentPath, currentPathFiles } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
-  const { clipBoard } = useClipBoard();
-  const dragIconRef = useRef(null);
+  const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
 
   const isFileMoving =
     clipBoard?.isMoving &&
@@ -140,32 +136,56 @@ const FileItem = ({
   };
   //
 
-  const handleDragStart = (e) => {
-    // Set drag image here...
-    e.dataTransfer.setDragImage(dragIconRef.current, 10, 10);
+  const createDragElement = () => {
+    const dragImage = document.createElement("div");
+    dragImage.style.position = "absolute";
+    dragImage.style.top = "-9999px";
+    dragImage.style.left = "-9999px";
+    dragImage.style.pointerEvents = "none";
+    dragImage.style.backgroundColor = "#ddd";
+    dragImage.style.padding = "8px 16px";
+    dragImage.style.borderRadius = "4px";
+    dragImage.style.fontSize = "14px";
+    dragImage.style.color = "#333";
+    dragImage.style.boxShadow = "0px 4px 12px rgba(0, 0, 0, 0.1)";
+    dragImage.innerHTML = `Moving File`;
+
+    document.body.appendChild(dragImage);
+    return dragImage;
   };
 
-  const handleDragEnd = () => {};
+  const handleDragStart = (e) => {
+    const dragImage = createDragElement();
+    e.dataTransfer.setDragImage(dragImage, 60, 25);
+    e.dataTransfer.effectAllowed = "move";
+    handleCutCopy(true);
+  };
 
-  const handleDragEnter = (e) => {
+  const handleDragEnd = () => setClipBoard(null);
+
+  const handleDragEnterOver = (e) => {
     e.preventDefault();
     if (fileSelected || !file.isDirectory) {
+      e.dataTransfer.dropEffect = "none";
     } else {
-      setTargetDropZoneFolder(file);
+      e.dataTransfer.dropEffect = "move";
       setDropZoneClass("file-drop-zone");
     }
   };
 
   const handleDragLeave = (e) => {
-    // To stay in dragging state for the child elements of the file container
+    // To stay in dragging state for the child elements of the target drop-zone
     if (!e.currentTarget.contains(e.relatedTarget)) {
-      setTargetDropZoneFolder((prev) => (prev ? null : prev));
       setDropZoneClass((prev) => (prev ? "" : prev));
     }
   };
 
-  const handleDragOver = (e) => {
+  const handleDrop = (e) => {
     e.preventDefault();
+    if (fileSelected || !file.isDirectory) return;
+
+    handlePasting(file);
+    setDropZoneClass((prev) => (prev ? "" : prev));
   };
 
   useEffect(() => {
@@ -174,80 +194,74 @@ const FileItem = ({
   }, [selectedFileIndexes]);
 
   return (
-    <>
-      <div
-        className={`file-item-container ${dropZoneClass} ${
-          fileSelected || !!file.isEditing ? "file-selected" : ""
-        } ${isFileMoving ? "file-moving" : ""}`}
-        title={file.name}
-        onClick={handleFileSelection}
-        onKeyDown={handleOnKeyDown}
-        onContextMenu={handleItemContextMenu}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
-        tabIndex={0}
-        draggable={fileSelected}
-        onDragStart={handleDragStart}
-        onDragEnter={handleDragEnter}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-      >
-        <div className="file-item">
-          {!file.isEditing && (
-            <Checkbox
-              name={file.name}
-              id={file.name}
-              checked={fileSelected}
-              className={`selection-checkbox ${checkboxClassName}`}
-              onChange={handleCheckboxChange}
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
-          {file.isDirectory ? (
-            <FaRegFolderOpen size={iconSize} />
-          ) : (
-            <>
-              {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
-                <FaRegFile size={iconSize} />
-              )}
-            </>
-          )}
-
-          {file.isEditing ? (
-            <div className={`rename-file-container ${activeLayout}`}>
-              {triggerAction.actionType === "createFolder" ? (
-                <CreateFolderAction
-                  filesViewRef={filesViewRef}
-                  file={file}
-                  onCreateFolder={onCreateFolder}
-                  triggerAction={triggerAction}
-                />
-              ) : (
-                <RenameAction
-                  filesViewRef={filesViewRef}
-                  file={file}
-                  onRename={onRename}
-                  triggerAction={triggerAction}
-                />
-              )}
-            </div>
-          ) : (
-            <span className="text-truncate file-name">{file.name}</span>
-          )}
-        </div>
-
-        {activeLayout === "list" && (
+    <div
+      className={`file-item-container ${dropZoneClass} ${
+        fileSelected || !!file.isEditing ? "file-selected" : ""
+      } ${isFileMoving ? "file-moving" : ""}`}
+      tabIndex={0}
+      title={file.name}
+      onClick={handleFileSelection}
+      onKeyDown={handleOnKeyDown}
+      onContextMenu={handleItemContextMenu}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      draggable={fileSelected}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragEnter={handleDragEnterOver}
+      onDragOver={handleDragEnterOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      <div className="file-item">
+        {!file.isEditing && (
+          <Checkbox
+            name={file.name}
+            id={file.name}
+            checked={fileSelected}
+            className={`selection-checkbox ${checkboxClassName}`}
+            onChange={handleCheckboxChange}
+            onClick={(e) => e.stopPropagation()}
+          />
+        )}
+        {file.isDirectory ? (
+          <FaRegFolderOpen size={iconSize} />
+        ) : (
           <>
-            <div className="modified-date">{formatDate(file.updatedAt)}</div>
-            <div className="size">{file?.size > 0 ? getDataSize(file?.size) : ""}</div>
+            {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={iconSize} />}
           </>
+        )}
+
+        {file.isEditing ? (
+          <div className={`rename-file-container ${activeLayout}`}>
+            {triggerAction.actionType === "createFolder" ? (
+              <CreateFolderAction
+                filesViewRef={filesViewRef}
+                file={file}
+                onCreateFolder={onCreateFolder}
+                triggerAction={triggerAction}
+              />
+            ) : (
+              <RenameAction
+                filesViewRef={filesViewRef}
+                file={file}
+                onRename={onRename}
+                triggerAction={triggerAction}
+              />
+            )}
+          </div>
+        ) : (
+          <span className="text-truncate file-name">{file.name}</span>
         )}
       </div>
 
-      <div ref={dragIconRef} style={{ display: "none" }}>
-        <PiFilesFill />
-      </div>
-    </>
+      {activeLayout === "list" && (
+        <>
+          <div className="modified-date">{formatDate(file.updatedAt)}</div>
+          <div className="size">{file?.size > 0 ? getDataSize(file?.size) : ""}</div>
+        </>
+      )}
+    </div>
   );
 };
 
