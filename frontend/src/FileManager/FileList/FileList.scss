@@ -12,13 +12,42 @@
   padding: 8px;
   padding-right: 4px;
 
+  .drag-move-tooltip {
+    background-color: white;
+    font-size: .78em;
+    position: fixed;
+    text-wrap: nowrap;
+    border: 1px dashed black;
+    padding: 1px 5px 2px 24px;
+    border-radius: 3px;
+    font-weight: bold;
+    color: $primary-color-dark;
+    z-index: 2;
+
+    .drop-zone-file-name {
+      color: rgb(48, 48, 48);
+    }
+  }
+
   .file-item-container {
     border-radius: 5px;
     margin: 5px 0;
+
+    .drag-icon {
+      position: absolute !important;
+      top: -1000px;
+      left: -1000px;
+      z-Index: -1;
+      border-radius: 4px;
+      position: relative;
+      color: white;
+      background-color: $primary-color;
+      padding: 3px 8px;
+    }
   }
 
   .file-item-container.file-drop-zone {
-    background-color: rgb(0, 0, 0, 0.04) !important;
+    background-color: rgb(0, 0, 0, 0.08) !important;
   }
 
   .file-item {

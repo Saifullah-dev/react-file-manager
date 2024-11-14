@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
@@ -10,6 +10,8 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
+
+const dragIconSize = 50;
 
 const FileItem = ({
   index,
@@ -28,6 +30,7 @@ const FileItem = ({
   const [lastClickTime, setLastClickTime] = useState(0);
   const [checkboxClassName, setCheckboxClassName] = useState("hidden");
   const [dropZoneClass, setDropZoneClass] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState(null);
 
   const { activeLayout } = useLayout();
   const iconSize = activeLayout === "grid" ? 48 : 20;
@@ -35,6 +38,8 @@ const FileItem = ({
   const { setCurrentPath, currentPathFiles } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
   const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
+  const dragIconRef = useRef(null);
+  const dragIcons = useFileIcons(dragIconSize);
 
   const isFileMoving =
     clipBoard?.isMoving &&
@@ -136,28 +141,9 @@ const FileItem = ({
   };
   //
 
-  const createDragElement = () => {
-    const dragImage = document.createElement("div");
-    dragImage.style.position = "absolute";
-    dragImage.style.top = "-9999px";
-    dragImage.style.left = "-9999px";
-    dragImage.style.pointerEvents = "none";
-    dragImage.style.backgroundColor = "#ddd";
-    dragImage.style.padding = "8px 16px";
-    dragImage.style.borderRadius = "4px";
-    dragImage.style.fontSize = "14px";
-    dragImage.style.color = "#333";
-    dragImage.style.boxShadow = "0px 4px 12px rgba(0, 0, 0, 0.1)";
-    dragImage.innerHTML = `Moving File`;
-
-    document.body.appendChild(dragImage);
-    return dragImage;
-  };
-
   const handleDragStart = (e) => {
-    const dragImage = createDragElement();
-    e.dataTransfer.setDragImage(dragImage, 60, 25);
-    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setDragImage(dragIconRef.current, 30, 50);
+    e.dataTransfer.effectAllowed = "copy";
     handleCutCopy(true);
   };
 
@@ -168,7 +154,8 @@ const FileItem = ({
     if (fileSelected || !file.isDirectory) {
       e.dataTransfer.dropEffect = "none";
     } else {
-      e.dataTransfer.dropEffect = "move";
+      setTooltipPosition({ x: e.clientX, y: e.clientY + 12 });
+      e.dataTransfer.dropEffect = "copy";
       setDropZoneClass("file-drop-zone");
     }
   };
@@ -177,6 +164,7 @@ const FileItem = ({
     // To stay in dragging state for the child elements of the target drop-zone
     if (!e.currentTarget.contains(e.relatedTarget)) {
       setDropZoneClass((prev) => (prev ? "" : prev));
+      setTooltipPosition(null);
     }
   };
 
@@ -186,6 +174,7 @@ const FileItem = ({
 
     handlePasting(file);
     setDropZoneClass((prev) => (prev ? "" : prev));
+    setTooltipPosition(null);
   };
 
   useEffect(() => {
@@ -261,27 +250,34 @@ const FileItem = ({
           <div className="size">{file?.size > 0 ? getDataSize(file?.size) : ""}</div>
         </>
       )}
+
+      {/* Drag Icon & Tooltip Setup */}
+      {tooltipPosition && (
+        <div
+          style={{
+            top: `${tooltipPosition.y}px`,
+            left: `${tooltipPosition.x}px`,
+          }}
+          className="drag-move-tooltip"
+        >
+          Move to <span className="drop-zone-file-name">{file.name}</span>
+        </div>
+      )}
+
+      <div ref={dragIconRef} className="drag-icon">
+        {file.isDirectory ? (
+          <FaRegFolderOpen size={dragIconSize} />
+        ) : (
+          <>
+            {dragIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
+              <FaRegFile size={dragIconSize} />
+            )}
+          </>
+        )}
+      </div>
+      {/* Drag Icon & Tooltip Setup */}
     </div>
   );
 };
 
 export default FileItem;
-
-// Drag & Drop Files to move
-// There can be 2 types of d&d situations
-// 1. Single file/folder move
-// 2. Multiple files/folders move
-// We're gonna need to show 2 types of images based on the situation
-// For Single, we'll show exactly that file/folder image without the name.
-// For Multiple, we'll show a stacked image for multiple files and add a counter on top of it.
-// And when dragged over a folder, we'll show toolip "Move to FolderName".
-// For dragging over a file case, we'll not show hover (Dragenter) for it.
-// That is it for the UI.
-
-// On drag start from any of the selected files
-// We'll set Drag Image based on the no. of selected files
-// For the target i.e. Folders only, when drag enter event fires
-// We'll set it's hover class to be true and add it to the target drop state
-// On dragend we'll see if the source was dropped over a target by checking target state
-// If yes, then we'll trigger onPaste callback with selectedFiles and destination folder
-// If no, then we'll simply do nothing

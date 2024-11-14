@@ -18,6 +18,7 @@ An open-source React.js package for easy integration of a file manager into appl
 - **Toolbar & Context Menu**: Access all common actions (upload, download, delete, copy, move, rename, etc.) via the toolbar or right-click for the same options in the context menu.
 - **Multi-Selection**: Select multiple files and folders at once to perform bulk actions like delete, copy, move, or download.
 - **Keyboard Shortcuts**: Quickly perform file operations like copy, paste, delete, and more using intuitive keyboard shortcuts.
+- **Drag-and-Drop**: Move selected files and folders by dragging them to the desired directory, making file organization effortless.
 
 ![React File Manager](https://github.com/user-attachments/assets/e68f750b-86bf-450d-b27e-fd3dedebf1bd)
 
