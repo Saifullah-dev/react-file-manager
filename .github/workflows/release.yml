@@ -10,7 +10,6 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
-  id-token: write
 
 jobs:
   release:
@@ -28,5 +27,3 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
         run: cd frontend && npx semantic-release
-      - name: Publish to JSR (Deno)
-        run: cd frontend && npx jsr publish --allow-slow-types
