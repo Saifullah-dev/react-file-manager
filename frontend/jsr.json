@@ -6,7 +6,7 @@
   },
   "publish": {
     "include": ["dist/**", "README.md", "LICENSE"],
-    "exclude": ["tests/**", "src/**/*.jsx", "!dist/**"]
+    "exclude": ["!dist/**"]
   },
   "description": "React File Manager is an open-source, user-friendly component designed to easily manage files and folders within applications. With smooth drag-and-drop functionality, responsive design, and efficient navigation, it simplifies file handling in any React project."
 }
