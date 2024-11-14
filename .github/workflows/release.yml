@@ -26,8 +26,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-        id: semantic-release
         run: cd frontend && npx semantic-release
       - name: Publish to JSR (Deno)
-        if: steps.semantic-release.outputs.released == 'true'
         run: cd frontend && npx jsr publish
