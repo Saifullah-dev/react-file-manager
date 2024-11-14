@@ -1,0 +1,6 @@
+{
+  "name": "@cubone/react-file-manager",
+  "version": "1.10.4",
+  ".": "./dist/react-file-manager.es.js",
+  "description": "React File Manager is an open-source, user-friendly component designed to easily manage files and folders within applications. With smooth drag-and-drop functionality, responsive design, and efficient navigation, it simplifies file handling in any React project."
+}
