@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
@@ -10,6 +10,8 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
+
+const dragIconSize = 50;
 
 const FileItem = ({
   index,
@@ -27,13 +29,17 @@ const FileItem = ({
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [checkboxClassName, setCheckboxClassName] = useState("hidden");
+  const [dropZoneClass, setDropZoneClass] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState(null);
 
   const { activeLayout } = useLayout();
   const iconSize = activeLayout === "grid" ? 48 : 20;
   const fileIcons = useFileIcons(iconSize);
   const { setCurrentPath, currentPathFiles } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
-  const { clipBoard } = useClipBoard();
+  const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
+  const dragIconRef = useRef(null);
+  const dragIcons = useFileIcons(dragIconSize);
 
   const isFileMoving =
     clipBoard?.isMoving &&
@@ -135,6 +141,42 @@ const FileItem = ({
   };
   //
 
+  const handleDragStart = (e) => {
+    e.dataTransfer.setDragImage(dragIconRef.current, 30, 50);
+    e.dataTransfer.effectAllowed = "copy";
+    handleCutCopy(true);
+  };
+
+  const handleDragEnd = () => setClipBoard(null);
+
+  const handleDragEnterOver = (e) => {
+    e.preventDefault();
+    if (fileSelected || !file.isDirectory) {
+      e.dataTransfer.dropEffect = "none";
+    } else {
+      setTooltipPosition({ x: e.clientX, y: e.clientY + 12 });
+      e.dataTransfer.dropEffect = "copy";
+      setDropZoneClass("file-drop-zone");
+    }
+  };
+
+  const handleDragLeave = (e) => {
+    // To stay in dragging state for the child elements of the target drop-zone
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setDropZoneClass((prev) => (prev ? "" : prev));
+      setTooltipPosition(null);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    if (fileSelected || !file.isDirectory) return;
+
+    handlePasting(file);
+    setDropZoneClass((prev) => (prev ? "" : prev));
+    setTooltipPosition(null);
+  };
+
   useEffect(() => {
     setFileSelected(selectedFileIndexes.includes(index));
     setCheckboxClassName(selectedFileIndexes.includes(index) ? "visible" : "hidden");
@@ -142,16 +184,23 @@ const FileItem = ({
 
   return (
     <div
-      className={`file-item-container ${fileSelected || !!file.isEditing ? "file-selected" : ""} ${
-        isFileMoving ? "file-moving" : ""
-      }`}
+      className={`file-item-container ${dropZoneClass} ${
+        fileSelected || !!file.isEditing ? "file-selected" : ""
+      } ${isFileMoving ? "file-moving" : ""}`}
+      tabIndex={0}
       title={file.name}
       onClick={handleFileSelection}
       onKeyDown={handleOnKeyDown}
       onContextMenu={handleItemContextMenu}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
-      tabIndex={0}
+      draggable={fileSelected}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragEnter={handleDragEnterOver}
+      onDragOver={handleDragEnterOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
     >
       <div className="file-item">
         {!file.isEditing && (
@@ -201,20 +250,34 @@ const FileItem = ({
           <div className="size">{file?.size > 0 ? getDataSize(file?.size) : ""}</div>
         </>
       )}
+
+      {/* Drag Icon & Tooltip Setup */}
+      {tooltipPosition && (
+        <div
+          style={{
+            top: `${tooltipPosition.y}px`,
+            left: `${tooltipPosition.x}px`,
+          }}
+          className="drag-move-tooltip"
+        >
+          Move to <span className="drop-zone-file-name">{file.name}</span>
+        </div>
+      )}
+
+      <div ref={dragIconRef} className="drag-icon">
+        {file.isDirectory ? (
+          <FaRegFolderOpen size={dragIconSize} />
+        ) : (
+          <>
+            {dragIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
+              <FaRegFile size={dragIconSize} />
+            )}
+          </>
+        )}
+      </div>
+      {/* Drag Icon & Tooltip Setup */}
     </div>
   );
 };
 
 export default FileItem;
-
-// CTRL Shortcut
-// On clicking a file, we'll check if CTRL key was pressed at the time of clicking.
-// Once confirmed, we'll check if the clicked file is already present in the selection context -> We'll remove it from there.
-// If it's not present in the selection context, we'll push it into the selection context.
-//
-
-// Shift Shortcut Algo
-// On clicking a file, if shift key is pressed -> we'll select in range of (lastSelectedFile -- currentClickedFile)
-//
-
-// Note: If shift key or ctrl key is pressed, clicking outside should not deselect files
