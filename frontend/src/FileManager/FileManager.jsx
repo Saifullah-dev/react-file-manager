@@ -81,6 +81,7 @@ const FileManager = ({
                       onCreateFolder={onCreateFolder}
                       onRename={onRename}
                       onFileOpen={onFileOpen}
+                      onRefresh={onRefresh}
                       enableFilePreview={enableFilePreview}
                       triggerAction={triggerAction}
                     />

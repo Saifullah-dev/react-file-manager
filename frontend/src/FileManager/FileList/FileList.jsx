@@ -6,45 +6,66 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import ContextMenu from "../../components/ContextMenu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
-import { BsCopy, BsFolderPlus, BsScissors } from "react-icons/bs";
+import { BsCopy, BsFolderPlus, BsGrid, BsScissors } from "react-icons/bs";
 import { MdOutlineDelete, MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
 import { FiRefreshCw } from "react-icons/fi";
 import "./FileList.scss";
 import { PiFolderOpen } from "react-icons/pi";
 import { FaRegFile, FaRegPaste } from "react-icons/fa6";
-import { BiRename } from "react-icons/bi";
+import { BiRename, BiSelectMultiple } from "react-icons/bi";
 import { useClipBoard } from "../../contexts/ClipboardContext";
+import { validateApiCallback } from "../../utils/validateApiCallback";
+import Checkbox from "../../components/Checkbox/Checkbox";
 
-const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, triggerAction }) => {
+const FileList = ({
+  onCreateFolder,
+  onRename,
+  onFileOpen,
+  onRefresh,
+  enableFilePreview,
+  triggerAction,
+}) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
   const [clickPosition, setClickPosition] = useState({ clickX: 0, clickY: 0 });
   const [lastSelectedFile, setLastSelectedFile] = useState(null);
+  const [showSelectAll, setShowSelectAll] = useState(false);
+  const [allFilesSelected, setAllFilesSelected] = useState(false);
 
   const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
     useFileNavigation();
   const filesViewRef = useRef(null);
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
-  const { clipBoard, handleCutCopy, handlePasting } = useClipBoard();
+  const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
   const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
 
   const emptySelecCtxItems = [
     {
-      title: "Refresh",
-      icon: <FiRefreshCw size={18} />,
+      title: "View",
+      icon: <BsGrid size={18} />,
       onClick: () => {},
     },
     {
-      title: "New Folder",
+      title: "Refresh",
+      icon: <FiRefreshCw size={18} />,
+      onClick: handleRefresh,
+    },
+    {
+      title: "New folder",
       icon: <BsFolderPlus size={18} />,
-      onClick: () => {},
+      onClick: handleCreateNewFolder,
     },
     {
       title: "Upload",
       icon: <MdOutlineFileUpload size={18} />,
-      onClick: () => {},
+      onClick: handleUpload,
+    },
+    {
+      title: "Select all",
+      icon: <BiSelectMultiple size={18} />,
+      onClick: handleselectAllFiles,
     },
   ];
 
@@ -126,6 +147,27 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
     triggerAction.show("delete");
   }
 
+  function handleRefresh() {
+    setVisible(false);
+    validateApiCallback(onRefresh, "onRefresh");
+    setClipBoard(null);
+  }
+
+  function handleCreateNewFolder() {
+    triggerAction.show("createFolder");
+    setVisible(false);
+  }
+
+  function handleUpload() {
+    setVisible(false);
+    triggerAction.show("uploadFile");
+  }
+
+  function handleselectAllFiles() {
+    setSelectedFiles(currentPathFiles);
+    setVisible(false);
+  }
+
   const handleFolderCreating = () => {
     setCurrentPathFiles((prev) => {
       return [
@@ -153,10 +195,16 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
     setSelectedFiles([]);
   };
 
+  const unselectFiles = () => {
+    setSelectedFileIndexes([]);
+    setSelectedFiles((prev) => (prev.length > 0 ? [] : prev));
+  };
+
   const handleContextMenu = (e, isSelection) => {
     e.preventDefault();
     setClickPosition({ clickX: e.clientX, clickY: e.clientY });
     setIsSelectionCtx(isSelection);
+    !isSelection && unselectFiles();
     setVisible(true);
   };
 
@@ -190,18 +238,37 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
     }
   }, [selectedFiles, currentPathFiles]);
 
+  useEffect(() => {
+    if (allFilesSelected) {
+      setSelectedFiles(currentPathFiles);
+    } else {
+      unselectFiles();
+    }
+  }, [allFilesSelected]);
+
   return (
     <div
       ref={filesViewRef}
       className={`files ${activeLayout}`}
       onContextMenu={(e) => handleContextMenu(e, false)}
-      onClick={() => {
-        setSelectedFileIndexes([]);
-        setSelectedFiles((prev) => (prev.length > 0 ? [] : prev));
-      }}
+      onClick={unselectFiles}
     >
       {activeLayout === "list" && (
-        <div className="files-header">
+        <div
+          className="files-header"
+          {...(!allFilesSelected && {
+            onMouseOver: () => setShowSelectAll(true),
+            onMouseLeave: () => setShowSelectAll(false),
+          })}
+        >
+          <div className="file-select-all">
+            {(showSelectAll || allFilesSelected) && (
+              <Checkbox
+                checked={allFilesSelected}
+                onChange={(e) => setAllFilesSelected(e.target.checked)}
+              />
+            )}
+          </div>
           <div className="file-name">Name</div>
           <div className="file-date">Modified</div>
           <div className="file-size">Size</div>

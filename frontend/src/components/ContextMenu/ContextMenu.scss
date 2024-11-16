@@ -6,6 +6,37 @@
   padding: 5px 0;
   z-index: 1;
   transition: opacity 0.1s linear;
+
+  .file-context-menu-list {
+    font-size: 1.1em;
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 22px 6px 14px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(0, 0, 0, 0.06);
+        }
+      }
+
+      li.disable-paste {
+        opacity: 0.5;
+
+        &:hover {
+          cursor: default;
+          background-color: transparent;
+        }
+      }
+    }
+  }
 }
 
 .fm-context-menu.hidden {
