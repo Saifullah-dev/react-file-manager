@@ -1,6 +1,6 @@
 import "./Checkbox.scss";
 
-const Checkbox = ({ name, id, checked, onClick, onChange, className = "" }) => {
+const Checkbox = ({ name, id, checked, onClick, onChange, className = "", title }) => {
   return (
     <input
       className={`fm-checkbox ${className}`}
@@ -10,6 +10,7 @@ const Checkbox = ({ name, id, checked, onClick, onChange, className = "" }) => {
       checked={checked}
       onClick={onClick}
       onChange={onChange}
+      title={title}
     />
   );
 };

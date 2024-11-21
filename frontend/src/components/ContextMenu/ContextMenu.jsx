@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
+import { FaChevronRight } from "react-icons/fa6";
+import SubMenu from "./SubMenu";
 import "./ContextMenu.scss";
 
-const ContextMenu = ({
-  filesViewRef,
-  contextMenuRef,
-  menuItems,
-  visible,
-  setVisible,
-  clickPosition,
-}) => {
+const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPosition }) => {
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
+  const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(null);
 
   const contextMenuPosition = () => {
     const { clickX, clickY } = clickPosition;
@@ -52,12 +48,17 @@ const ContextMenu = ({
     e.stopPropagation();
   };
 
+  const handleMouseOver = (index) => {
+    setActiveSubMenuIndex(index);
+  };
+
   useEffect(() => {
     if (visible && contextMenuRef.current) {
       contextMenuPosition();
     } else {
       setTop(0);
       setLeft(0);
+      setActiveSubMenuIndex(null);
     }
   }, [visible]);
 
@@ -77,12 +78,29 @@ const ContextMenu = ({
           <ul>
             {menuItems
               .filter((item) => !item.hidden)
-              .map((item) => (
-                <li key={item.title} onClick={item.onClick} className={item.className ?? ""}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </li>
-              ))}
+              .map((item, index) => {
+                const hasChildren = item.hasOwnProperty("children");
+                const activeSubMenu = activeSubMenuIndex === index;
+                return (
+                  <div key={item.title}>
+                    <li
+                      onClick={item.onClick}
+                      className={`${item.className ?? ""} ${activeSubMenu ? "active" : ""}`}
+                      onMouseOver={() => handleMouseOver(index)}
+                    >
+                      {item.icon}
+                      <span>{item.title}</span>
+                      {hasChildren && (
+                        <>
+                          <FaChevronRight size={14} className="list-expand-icon" />
+                          {activeSubMenu && <SubMenu list={item.children} />}
+                        </>
+                      )}
+                    </li>
+                    {item.divider && <div className="divider"></div>}
+                  </div>
+                );
+              })}
           </ul>
         </div>
       </div>

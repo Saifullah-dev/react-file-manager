@@ -1,9 +1,11 @@
+@import "../../styles/variables";
+
 .fm-context-menu {
   position: absolute;
   background-color: white;
   border: 1px solid #c6c6c6;
-  border-radius: 5px;
-  padding: 5px 0;
+  border-radius: 6px;
+  padding: 4px;
   z-index: 1;
   transition: opacity 0.1s linear;
 
@@ -14,17 +16,26 @@
       list-style-type: none;
       padding-left: 0;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
 
       li {
         display: flex;
-        gap: 8px;
+        gap: 9px;
         align-items: center;
-        padding: 6px 22px 6px 14px;
+        padding: 3px 13px;
+        position: relative;
+        border-radius: 4px;
 
         &:hover {
           cursor: pointer;
-          background-color: rgb(0, 0, 0, 0.06);
+          background-color: rgb(0, 0, 0, 0.07);
         }
+      }
+
+      li.active {
+        background-color: rgb(0, 0, 0, 0.07);
       }
 
       li.disable-paste {
@@ -33,6 +44,39 @@
         &:hover {
           cursor: default;
           background-color: transparent;
+        }
+      }
+    }
+
+    .divider {
+      border-bottom: 1px solid #c6c6c6;
+      margin: 5px 0 3px 0;
+    }
+
+    .list-expand-icon {
+      margin-left: auto;
+      color: #444444;
+    }
+
+    .sub-menu {
+      position: absolute;
+      left: calc(100% - 2px);
+      top: 0;
+      background-color: white;
+      border: 1px solid #c6c6c6;
+      border-radius: 6px;
+      padding: 4px;
+      z-index: 1;
+
+      .item-selected {
+        width: 13px;
+        color: #444444;
+      }
+
+      li {
+
+        &:hover {
+          background-color: rgb(0, 0, 0, 0.07) !important;
         }
       }
     }
