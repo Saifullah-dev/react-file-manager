@@ -34,7 +34,7 @@ const Toolbar = ({
   const toolbarLeftItems = [
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
-      text: "New Folder",
+      text: "New folder",
       permission: allowCreateFolder,
       onClick: () => triggerAction.show("createFolder"),
     },
