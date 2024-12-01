@@ -53,6 +53,7 @@ const FileList = ({
               file={file}
               onCreateFolder={onCreateFolder}
               onRename={onRename}
+              onRefresh={onRefresh}
               onFileOpen={onFileOpen}
               enableFilePreview={enableFilePreview}
               triggerAction={triggerAction}

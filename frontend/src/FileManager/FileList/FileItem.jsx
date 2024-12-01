@@ -16,6 +16,7 @@ const dragIconSize = 50;
 const FileItem = ({
   index,
   file,
+  onRefresh,
   onCreateFolder,
   onRename,
   enableFilePreview,
@@ -227,6 +228,7 @@ const FileItem = ({
               <CreateFolderAction
                 filesViewRef={filesViewRef}
                 file={file}
+                onRefresh={onRefresh}
                 onCreateFolder={onCreateFolder}
                 triggerAction={triggerAction}
               />
