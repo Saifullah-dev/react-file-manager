@@ -9,7 +9,7 @@ import { validateApiCallback } from "../../../utils/validateApiCallback";
 
 const maxNameLength = 220;
 
-const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction, onRefresh }) => {
+const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction }) => {
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
@@ -41,7 +41,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction,
     if (e.key === 'Escape') {
       e.preventDefault();
       triggerAction.close();
-      onRefresh();
+      setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     }
 
     const invalidCharsRegex = /[\\/:*?"<>|]/;
