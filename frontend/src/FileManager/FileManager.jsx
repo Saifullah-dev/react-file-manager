@@ -51,7 +51,7 @@ const FileManager = ({
     >
       <Loader isLoading={isLoading} />
       <FilesProvider filesData={files} onError={onError}>
-        <FileNavigationProvider>
+        <FileNavigationProvider initialPath={initialPath}>
           <SelectionProvider onDownload={onDownload}>
             <ClipBoardProvider onPaste={onPaste}>
               <LayoutProvider layout={layout}>
@@ -83,7 +83,6 @@ const FileManager = ({
                       onRename={onRename}
                       onFileOpen={onFileOpen}
                       onRefresh={onRefresh}
-                      initialPath={initialPath}
                       enableFilePreview={enableFilePreview}
                       triggerAction={triggerAction}
                     />

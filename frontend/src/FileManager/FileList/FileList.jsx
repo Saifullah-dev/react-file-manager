@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import FileItem from "./FileItem";
-import { useFiles } from "../../contexts/FilesContext";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import ContextMenu from "../../components/ContextMenu/ContextMenu";
@@ -16,17 +15,10 @@ const FileList = ({
   onRefresh,
   enableFilePreview,
   triggerAction,
-  initialPath,
 }) => {
-  const { currentPathFiles, setCurrentPath } = useFileNavigation();
-  const { files } = useFiles();
+  const { currentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
   const { activeLayout } = useLayout();
-
-  useEffect(() => {
-    const isInitialPathExist = files.findIndex((file) => file.path === initialPath) !== -1;
-    if (isInitialPathExist) setCurrentPath(initialPath);
-  }, [files, initialPath, setCurrentPath]);
 
   const {
     emptySelecCtxItems,
