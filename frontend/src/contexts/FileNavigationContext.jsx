@@ -1,13 +1,14 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useFiles } from "./FilesContext";
 
 const FileNavigationContext = createContext();
 
-export const FileNavigationProvider = ({ children }) => {
+export const FileNavigationProvider = ({ children, initialPath }) => {
+  const { files } = useFiles();
+  const isMountRef = useRef(false);
   const [currentPath, setCurrentPath] = useState("");
   const [currentFolder, setCurrentFolder] = useState(null);
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
-  const { files } = useFiles();
 
   useEffect(() => {
     if (Array.isArray(files) && files.length > 0) {
@@ -20,6 +21,13 @@ export const FileNavigationProvider = ({ children }) => {
       });
     }
   }, [files, currentPath]);
+
+  useEffect(() => {
+    if (!isMountRef.current) {
+      setCurrentPath(files.some((file) => file.path === initialPath) ? initialPath : '');
+      isMountRef.current = true;
+    }
+  }, [initialPath, files]);
 
   return (
     <FileNavigationContext.Provider
