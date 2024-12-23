@@ -33,6 +33,8 @@
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "sass": "^1.77.6",
     "semantic-release": "^24.1.0",
     "vite": "^5.4.6"
