@@ -14,7 +14,6 @@ backend/public/uploads/*
 .env
 node_modules
 dist
-!frontend/dist
 dist-ssr
 *.local
 
