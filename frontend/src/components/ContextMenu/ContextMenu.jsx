@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
 import SubMenu from "./SubMenu";
 import "./ContextMenu.scss";
@@ -7,6 +7,9 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
   const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(null);
+  const [subMenuPosition, setSubMenuPosition] = useState("right");
+
+  const subMenuRef = useRef(null);
 
   const contextMenuPosition = () => {
     const { clickX, clickY } = clickPosition;
@@ -31,9 +34,11 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
 
     if (right) {
       setLeft(`${leftToCursor}px`);
+      setSubMenuPosition("right");
     } else if (left) {
       // Location: -width of the context menu from cursor's position i.e. left side
       setLeft(`${leftToCursor - menuWidth}px`);
+      setSubMenuPosition("left");
     }
 
     if (top) {
@@ -80,7 +85,7 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
               .filter((item) => !item.hidden)
               .map((item, index) => {
                 const hasChildren = item.hasOwnProperty("children");
-                const activeSubMenu = activeSubMenuIndex === index;
+                const activeSubMenu = activeSubMenuIndex === index && hasChildren;
                 return (
                   <div key={item.title}>
                     <li
@@ -93,7 +98,13 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
                       {hasChildren && (
                         <>
                           <FaChevronRight size={14} className="list-expand-icon" />
-                          {activeSubMenu && <SubMenu list={item.children} />}
+                          {activeSubMenu && (
+                            <SubMenu
+                              subMenuRef={subMenuRef}
+                              list={item.children}
+                              position={subMenuPosition}
+                            />
+                          )}
                         </>
                       )}
                     </li>

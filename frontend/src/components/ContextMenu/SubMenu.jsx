@@ -1,8 +1,8 @@
 import { FaCheck } from "react-icons/fa6";
 
-const SubMenu = ({ list }) => {
+const SubMenu = ({ subMenuRef, list, position = "right" }) => {
   return (
-    <ul className="sub-menu">
+    <ul ref={subMenuRef} className={`sub-menu ${position}`}>
       {list?.map((item) => (
         <li key={item.title} onClick={item.onClick}>
           <span className="item-selected">{item.selected && <FaCheck size={13} />}</span>
