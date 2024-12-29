@@ -60,7 +60,6 @@
 
     .sub-menu {
       position: absolute;
-      left: calc(100% - 2px);
       top: 0;
       background-color: white;
       border: 1px solid #c6c6c6;
@@ -79,6 +78,14 @@
           background-color: rgb(0, 0, 0, 0.07) !important;
         }
       }
+    }
+
+    .sub-menu.right {
+      left: calc(100% - 2px);
+    }
+
+    .sub-menu.left {
+      left: calc(-83%);
     }
   }
 }
