@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import Loader from "../../../components/Loader/Loader";
 import { useSelection } from "../../../contexts/SelectionContext";
@@ -14,13 +14,19 @@ const videoExtensions = ["mp4", "mov", "avi"];
 const audioExtensions = ["mp3", "wav", "m4a"];
 const iFrameExtensions = ["txt", "pdf"];
 
-const PreviewFileAction = ({ filePreviewPath }) => {
+const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const { selectedFiles } = useSelection();
   const fileIcons = useFileIcons(73);
   const extension = getFileExtension(selectedFiles[0].name)?.toLowerCase();
   const filePath = `${filePreviewPath}${selectedFiles[0].path}`;
+
+  // Custom file preview component
+  const customPreview = useMemo(
+    () => filePreviewComponent?.(selectedFiles[0]),
+    [filePreviewComponent]
+  );
 
   const handleImageLoad = () => {
     setIsLoading(false); // Loading is complete
@@ -35,6 +41,10 @@ const PreviewFileAction = ({ filePreviewPath }) => {
   const handleDownload = () => {
     window.location.href = filePath;
   };
+
+  if (React.isValidElement(customPreview)) {
+    return customPreview;
+  }
 
   return (
     <section className={`file-previewer ${extension === "pdf" ? "pdf-previewer" : ""}`}>
