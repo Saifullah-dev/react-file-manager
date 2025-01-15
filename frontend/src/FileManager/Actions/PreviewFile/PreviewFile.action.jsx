@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import Loader from "../../../components/Loader/Loader";
 import { useSelection } from "../../../contexts/SelectionContext";
@@ -22,6 +22,12 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
   const extension = getFileExtension(selectedFiles[0].name)?.toLowerCase();
   const filePath = `${filePreviewPath}${selectedFiles[0].path}`;
 
+  // Custom file preview component
+  const customPreview = useMemo(
+    () => filePreviewComponent?.(selectedFiles[0]),
+    [filePreviewComponent]
+  );
+
   const handleImageLoad = () => {
     setIsLoading(false); // Loading is complete
     setHasError(false); // No error
@@ -36,8 +42,8 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
     window.location.href = filePath;
   };
 
-  if (filePreviewComponent) {
-    return filePreviewComponent(selectedFiles[0]);
+  if (React.isValidElement(customPreview)) {
+    return customPreview;
   }
 
   return (
