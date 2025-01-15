@@ -14,7 +14,7 @@ const videoExtensions = ["mp4", "mov", "avi"];
 const audioExtensions = ["mp3", "wav", "m4a"];
 const iFrameExtensions = ["txt", "pdf"];
 
-const PreviewFileAction = ({ filePreviewPath }) => {
+const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const { selectedFiles } = useSelection();
@@ -35,6 +35,10 @@ const PreviewFileAction = ({ filePreviewPath }) => {
   const handleDownload = () => {
     window.location.href = filePath;
   };
+
+  if (filePreviewComponent) {
+    return filePreviewComponent(selectedFiles[0]);
+  }
 
   return (
     <section className={`file-previewer ${extension === "pdf" ? "pdf-previewer" : ""}`}>

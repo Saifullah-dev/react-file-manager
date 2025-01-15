@@ -14,6 +14,7 @@ const Actions = ({
   onRefresh,
   maxFileSize,
   filePreviewPath,
+  filePreviewComponent,
   acceptedFileTypes,
   triggerAction,
 }) => {
@@ -44,7 +45,12 @@ const Actions = ({
     },
     previewFile: {
       title: "Preview",
-      component: <PreviewFileAction filePreviewPath={filePreviewPath} />,
+      component: (
+        <PreviewFileAction
+          filePreviewPath={filePreviewPath}
+          filePreviewComponent={filePreviewComponent}
+        />
+      ),
       width: "50%",
     },
   };
