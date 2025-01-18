@@ -11,7 +11,7 @@
 
     .fm-progress-bar-fill {
       height: 100%;
-      background-color: #6155b4;
+      background-color: var(--file-manager-primary-color);
       border-radius: 5px;
       max-width: 100%;
     }

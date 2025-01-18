@@ -27,12 +27,12 @@
             }
 
             &:hover {
-                border-color: $primary-color;
+                border-color: var(--file-manager-primary-color);
             }
         }
 
         .draggable-file-input.dragging {
-            border-color: $primary-color;
+            border-color: var(--file-manager-primary-color);
         }
 
         .btn-choose-file {
@@ -120,7 +120,7 @@
                             &:hover {
                                 cursor: pointer;
                                 background-color: rgba(0, 0, 0, 0.07);
-                                color: $primary-color;
+                                color: var(--file-manager-primary-color);
                             }
                         }
 
@@ -129,6 +129,10 @@
                                 cursor: pointer;
                                 color: red;
                             }
+                        }
+
+                        .upload-success {
+                            color: var(--file-manager-primary-color);
                         }
                     }
                 }

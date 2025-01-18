@@ -73,12 +73,12 @@
   }
 
   .active-list-item {
-    background-color: $primary-color;
+    background-color: var(--file-manager-primary-color);
     color: white;
 
     &:hover {
       cursor: pointer;
-      background-color: $primary-color;
+      background-color: var(--file-manager-primary-color);
     }
   }
 

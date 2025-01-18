@@ -1,8 +1,4 @@
 // App Colors
-$secondary-color: #6155b4;
-$primary-color: #6155b4;
-$primary-color-dark: #40377a;
-$secondary-color-lighter: #5549a3;
 $border-color: #cfcfcf;
 $item-hover-color: rgb(0, 0, 0, 0.05);
 //
@@ -24,7 +20,7 @@ $item-hover-color: rgb(0, 0, 0, 0.05);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $primary-color !important;
+    background: var(--file-manager-primary-color) !important;
     border-radius: 8px;
   }
 }

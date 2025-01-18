@@ -39,17 +39,21 @@ const FileManager = ({
   width = "100%",
   initialPath = "",
   filePreviewComponent,
+  primaryColor = "#6155b4",
+  fontFamily = "Nunito Sans, sans-serif",
 }) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
+  const customStyles = {
+    "--file-manager-font-family": fontFamily,
+    "--file-manager-primary-color": primaryColor,
+    height,
+    width,
+  };
 
   return (
-    <main
-      className="file-explorer"
-      onContextMenu={(e) => e.preventDefault()}
-      style={{ height, width }}
-    >
+    <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
       <Loader isLoading={isLoading} />
       <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider initialPath={initialPath}>
@@ -148,6 +152,8 @@ FileManager.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   initialPath: PropTypes.string,
   filePreviewComponent: PropTypes.func,
+  primaryColor: PropTypes.string,
+  fontFamily: PropTypes.string,
 };
 
 export default FileManager;

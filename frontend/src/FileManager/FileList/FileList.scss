@@ -21,7 +21,7 @@
     padding: 1px 5px 2px 24px;
     border-radius: 3px;
     font-weight: bold;
-    color: $primary-color-dark;
+    color: var(--file-manager-primary-color);
     z-index: 2;
 
     .drop-zone-file-name {
@@ -41,7 +41,7 @@
       border-radius: 4px;
       position: relative;
       color: white;
-      background-color: $primary-color;
+      background-color: var(--file-manager-primary-color);
       padding: 3px 8px;
     }
   }
@@ -116,11 +116,11 @@
   }
 
   .file-selected {
-    background-color: $primary-color;
+    background-color: var(--file-manager-primary-color);
     color: white;
 
     &:hover {
-      background-color: $primary-color;
+      background-color: var(--file-manager-primary-color);
     }
   }
 
@@ -182,7 +182,7 @@
 
   .file-item-container.file-selected {
     &:hover {
-      background-color: $primary-color !important;
+      background-color: var(--file-manager-primary-color) !important;
     }
   }
 
