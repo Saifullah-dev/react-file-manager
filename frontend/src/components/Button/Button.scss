@@ -9,11 +9,12 @@
 }
 
 .fm-button-primary {
-  background-color: #6155b4;
+  background-color: var(--file-manager-primary-color);
   color: white;
 
   &:hover {
-    background-color: #4b3f9f;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2));
   }
 }
 
@@ -22,7 +23,8 @@
   color: black;
 
   &:hover {
-    background-color: #e0e0e0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1));
   }
 }
 
@@ -31,6 +33,7 @@
   color: white;
 
   &:hover {
-    background-color: #d32f2f;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2));
   }
 }

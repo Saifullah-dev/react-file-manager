@@ -172,7 +172,7 @@ const UploadItem = ({
             <span className="file-size">{getDataSize(fileData.file?.size)}</span>
           </div>
           {isUploaded ? (
-            <FaRegCheckCircle color="#5c5bb1" title="Uploaded" />
+            <FaRegCheckCircle title="Uploaded" className="upload-success" />
           ) : isCanceled || uploadFailed ? (
             <IoMdRefresh className="retry-upload" title="Retry" onClick={handleRetry} />
           ) : (

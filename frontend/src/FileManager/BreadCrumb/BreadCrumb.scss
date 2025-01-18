@@ -18,7 +18,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $primary-color !important;
+      background: var(--file-manager-primary-color) !important;
     }
 
     .folder-name {
@@ -30,7 +30,7 @@
 
       &:hover {
         cursor: pointer;
-        color: $secondary-color;
+        color: var(--file-manager-primary-color);
       }
     }
 
@@ -46,7 +46,7 @@
       &:hover,
       &:focus {
         cursor: pointer;
-        color: $primary-color;
+        color: var(--file-manager-primary-color);
         background-color: #dddcdc;
         border-radius: 5px;
       }
