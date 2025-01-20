@@ -175,4 +175,6 @@ const Toolbar = ({
   );
 };
 
+Toolbar.displayName = "Toolbar";
+
 export default Toolbar;

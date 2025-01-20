@@ -46,4 +46,6 @@ const NavigationPane = () => {
   );
 };
 
+NavigationPane.displayName = "NavigationPane";
+
 export default NavigationPane;
