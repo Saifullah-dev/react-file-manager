@@ -14,14 +14,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: [
-        ...Object.keys(packageJson.dependencies).map(
-          (mod) => new RegExp(`^${mod}`)
-        ),
-        ...Object.keys(packageJson.peerDependencies).map(
-          (mod) => new RegExp(`^${mod}`)
-        ),
-      ],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
