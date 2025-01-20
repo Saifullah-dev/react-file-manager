@@ -80,4 +80,6 @@ const FileList = ({
   );
 };
 
+FileList.displayName = "FileList";
+
 export default FileList;

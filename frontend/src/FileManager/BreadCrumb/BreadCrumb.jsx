@@ -120,4 +120,6 @@ const BreadCrumb = () => {
   );
 };
 
+BreadCrumb.displayName = "BreadCrumb";
+
 export default BreadCrumb;
