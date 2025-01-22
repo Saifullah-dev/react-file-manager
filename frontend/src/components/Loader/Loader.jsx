@@ -1,14 +1,14 @@
+import { ImSpinner2 } from "react-icons/im";
 import "./Loader.scss";
-import ReactLoading from "react-loading";
 
-const Loader = ({ isLoading }) => {
-  if (isLoading) {
-    return (
-      <div className="fm-loader">
-        <ReactLoading color="black" type="spokes" height={50} width={50} />
-      </div>
-    );
-  }
+const Loader = ({ loading = false, className }) => {
+  if (!loading) return null;
+
+  return (
+    <div className={`loader-container ${className}`}>
+      <ImSpinner2 className="spinner" />
+    </div>
+  );
 };
 
 export default Loader;

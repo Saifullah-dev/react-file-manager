@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Collapsible from "react-collapsible";
+import Collapse from "../../components/Collapse/Collapse";
 import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
@@ -44,7 +44,7 @@ const FolderTree = ({ folder }) => {
           <span onClick={handleCollapseChange}>
             <MdKeyboardArrowRight
               size={20}
-              className={`${isOpen ? "folder-rotate-down" : "folder-rotate-right"}`}
+              className={`folder-icon-default ${isOpen ? "folder-rotate-down" : ""}`}
             />
           </span>
           <div className="sb-folder-details">
@@ -58,13 +58,13 @@ const FolderTree = ({ folder }) => {
             </span>
           </div>
         </div>
-        <Collapsible open={isOpen}>
+        <Collapse open={isOpen}>
           <div className="folder-collapsible">
             {folder.subDirectories.map((item, index) => (
               <FolderTree key={index} folder={item} />
             ))}
           </div>
-        </Collapsible>
+        </Collapse>
       </>
     );
   } else {
