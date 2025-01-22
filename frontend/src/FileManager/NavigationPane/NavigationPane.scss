@@ -43,31 +43,12 @@
       }
     }
 
-    .folder-rotate-down {
-      animation: rotateFolderDown 0.5s linear forwards;
-    }
+    .folder-icon-default {
+      transform: rotate(0deg);
+      transition: transform 0.5s ease-in-out;
 
-    @keyframes rotateFolderDown {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
+      &.folder-rotate-down {
         transform: rotate(90deg);
-      }
-    }
-
-    .folder-rotate-right {
-      animation: rotateRight 0.5s linear forwards;
-    }
-
-    @keyframes rotateRight {
-      from {
-        transform: rotate(90deg);
-      }
-
-      to {
-        transform: rotate(0deg);
       }
     }
   }

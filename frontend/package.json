@@ -20,9 +20,8 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "react-collapsible": "^2.10.0",
-    "react-icons": "^5.2.1",
-    "react-loading": "^2.0.3"
+    "react-collapsed": "^4.2.0",
+    "react-icons": "^5.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -33,18 +32,16 @@
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "sass": "^1.77.6",
     "semantic-release": "^24.1.0",
     "vite": "^5.4.14"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18",
-    "react-collapsible": "^2.10.0",
-    "react-icons": "^5.2.1",
-    "react-loading": "^2.0.3"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-collapsed": "^4.2.0"
   },
   "peerDependenciesMeta": {
     "react": {

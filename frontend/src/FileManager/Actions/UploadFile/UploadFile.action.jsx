@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
-import ReactLoading from "react-loading";
+import Loader from "../../../components/Loader/Loader";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import { getDataSize } from "../../../utils/getDataSize";
@@ -32,8 +32,8 @@ const UploadFileAction = ({
 
   const checkFileError = (file) => {
     if (acceptedFileTypes) {
-        const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
-        if (extError) return "File type is not allowed.";
+      const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
+      if (extError) return "File type is not allowed.";
     }
 
     const fileExists = currentPathFiles.some(
@@ -134,7 +134,7 @@ const UploadFileAction = ({
             {Object.values(isUploading).some((fileUploading) => fileUploading) ? (
               <>
                 <h2>Uploading</h2>
-                <ReactLoading type="cylon" color="black" height={18} width={20} />
+                <Loader loading={true} className="upload-loading" />
               </>
             ) : (
               <h2>Completed</h2>
