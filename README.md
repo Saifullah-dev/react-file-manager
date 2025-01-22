@@ -125,7 +125,7 @@ type File = {
 | `onRename`             | (file: [File](#-file-structure), newName: string) => void                                                                      | A callback function triggered when a file or folder is renamed.                                                                                                                                                                                                                                                                                                                         |
 | `primaryColor`         | string                                                                                                                         | The primary color for the component's theme. Accepts any valid CSS color format (e.g., `'blue'`, `'#E97451'`, `'rgb(52, 152, 219)'`). This color will be applied to buttons, highlights, and other key elements. `default: #6155b4`.                                                                                                                                                    |
 | `width`                | string \| number                                                                                                               | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                        |
-
+ 
 ## ⌨️ Keyboard Shortcuts
 
 | **Action**                     | **Shortcut**       |
