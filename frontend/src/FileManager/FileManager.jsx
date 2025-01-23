@@ -13,40 +13,35 @@ import { useTriggerAction } from "../hooks/useTriggerAction";
 import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
-import checkPropTypes from "prop-types/checkPropTypes";
 import "./FileManager.scss";
 
-const FileManager = (props) => {
-  checkPropTypes(FileManager.propTypes, props, "prop", FileManager.name);
-
-  const {
-    files,
-    fileUploadConfig,
-    isLoading,
-    onCreateFolder,
-    onFileUploading = () => {},
-    onFileUploaded = () => {},
-    onPaste,
-    onRename,
-    onDownload,
-    onDelete = () => null,
-    onLayoutChange = () => {},
-    onRefresh,
-    onFileOpen = () => {},
-    onError = () => {},
-    layout = "grid",
-    enableFilePreview = true,
-    maxFileSize,
-    filePreviewPath,
-    acceptedFileTypes,
-    height = "600px",
-    width = "100%",
-    initialPath = "",
-    filePreviewComponent,
-    primaryColor = "#6155b4",
-    fontFamily = "Nunito Sans, sans-serif",
-  } = props;
-
+const FileManager = ({
+  files,
+  fileUploadConfig,
+  isLoading,
+  onCreateFolder,
+  onFileUploading = () => {},
+  onFileUploaded = () => {},
+  onPaste,
+  onRename,
+  onDownload,
+  onDelete = () => null,
+  onLayoutChange = () => {},
+  onRefresh,
+  onFileOpen = () => {},
+  onError = () => {},
+  layout = "grid",
+  enableFilePreview = true,
+  maxFileSize,
+  filePreviewPath,
+  acceptedFileTypes,
+  height = "600px",
+  width = "100%",
+  initialPath = "",
+  filePreviewComponent,
+  primaryColor = "#6155b4",
+  fontFamily = "Nunito Sans, sans-serif",
+}) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
