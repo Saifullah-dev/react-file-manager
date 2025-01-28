@@ -117,6 +117,14 @@ function App() {
     await downloadFile(files);
   };
 
+  const handleCut = (files) => {
+    console.log("Moving Files", files);
+  };
+
+  const handleCopy = (files) => {
+    console.log("Copied Files", files);
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -127,6 +135,8 @@ function App() {
           onCreateFolder={handleCreateFolder}
           onFileUploading={handleFileUploading}
           onFileUploaded={handleFileUploaded}
+          onCut={handleCut}
+          onCopy={handleCopy}
           onPaste={handlePaste}
           onRename={handleRename}
           onDownload={handleDownload}

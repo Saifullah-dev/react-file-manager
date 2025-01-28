@@ -112,6 +112,9 @@ type File = {
 | `isLoading`            | boolean                                                                                                                        | A boolean state indicating whether the application is currently performing an operation, such as creating, renaming, or deleting a file/folder. Displays a loading state if set `true`.                                                                                                                                                                                                 |
 | `layout`               | "list" \| "grid"                                                                                                               | Specifies the default layout style for the file manager. Can be either "list" or "grid". Default value is "grid".                                                                                                                                                                                                                                                                       |
 | `maxFileSize`          | number                                                                                                                         | For limiting the maximum upload file size in bytes.                                                                                                                                                                                                                                                                                                                                     |
+| `onCopy`               | (files: Array<[File](#-file-structure)>) => void                                                                               | (Optional) A callback function triggered when one or more files or folders are copied providing copied files as an argument. Use this function to perform custom actions on copy event.                                                                                                                                                                                                 |
+|                        |
+| `onCut`                | (files: Array<[File](#-file-structure)>) => void                                                                               | (Optional) A callback function triggered when one or more files or folders are cut, providing the cut files as an argument. Use this function to perform custom actions on the cut event.                                                                                                                                                                                               |
 | `onCreateFolder`       | (name: string, parentFolder: [File](#-file-structure)) => void                                                                 | A callback function triggered when a new folder is created. Use this function to update the files state to include the new folder under the specified parent folder using create folder API call to your server.                                                                                                                                                                        |
 | `onDelete`             | (files: Array<[File](#-file-structure)>) => void                                                                               | A callback function is triggered when one or more files or folders are deleted.                                                                                                                                                                                                                                                                                                         |
 | `onDownload`           | (files: Array<[File](#-file-structure)>) => void                                                                               | A callback function triggered when one or more files or folders are downloaded.                                                                                                                                                                                                                                                                                                         |
@@ -125,7 +128,7 @@ type File = {
 | `onRename`             | (file: [File](#-file-structure), newName: string) => void                                                                      | A callback function triggered when a file or folder is renamed.                                                                                                                                                                                                                                                                                                                         |
 | `primaryColor`         | string                                                                                                                         | The primary color for the component's theme. Accepts any valid CSS color format (e.g., `'blue'`, `'#E97451'`, `'rgb(52, 152, 219)'`). This color will be applied to buttons, highlights, and other key elements. `default: #6155b4`.                                                                                                                                                    |
 | `width`                | string \| number                                                                                                               | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                        |
- 
+
 ## ⌨️ Keyboard Shortcuts
 
 | **Action**                     | **Shortcut**       |
@@ -205,15 +208,16 @@ npm run devStart
 
 The server should now be running on `http://localhost:3000`, have fun!
 
-**Database**
-<br>
-The application uses MongoDB to store file system changes (folders and images).
+**Database** <br> The application uses MongoDB to store file system changes (folders and images).
 
 1. Install MongoDB if not already installed.
 2. Ensure MongoDB service is running (default port: 27017).
 3. Create a database named `fileManagerDB` (or as specified in `backend/.env`).
 
-> Note: Check `backend/.env` for database configuration details.
+Check `backend/.env.example` for database configuration details.
+
+> Note: `backend` here is just an example implementation of react-file-manager into your
+> application. You may use any database and server combination of your choice.
 
 ## ©️ License
 
