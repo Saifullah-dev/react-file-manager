@@ -205,6 +205,16 @@ npm run devStart
 
 The server should now be running on `http://localhost:3000`, have fun!
 
+**Database**
+<br>
+The application uses MongoDB to store file system changes (folders and images).
+
+1. Install MongoDB if not already installed.
+2. Ensure MongoDB service is running (default port: 27017).
+3. Create a database named `fileManagerDB` (or as specified in `backend/.env`).
+
+> Note: Check `backend/.env` for database configuration details.
+
 ## ©️ License
 
 React File Manager is [MIT Licensed](LICENSE).
