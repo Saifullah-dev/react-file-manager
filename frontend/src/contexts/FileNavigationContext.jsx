@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useFiles } from "./FilesContext";
+import sortFiles from "../utils/sortFiles";
 
 const FileNavigationContext = createContext();
 
@@ -13,7 +14,8 @@ export const FileNavigationProvider = ({ children, initialPath }) => {
   useEffect(() => {
     if (Array.isArray(files) && files.length > 0) {
       setCurrentPathFiles(() => {
-        return files.filter((file) => file.path === `${currentPath}/${file.name}`);
+        const currPathFiles = files.filter((file) => file.path === `${currentPath}/${file.name}`);
+        return sortFiles(currPathFiles);
       });
 
       setCurrentFolder(() => {
@@ -24,7 +26,7 @@ export const FileNavigationProvider = ({ children, initialPath }) => {
 
   useEffect(() => {
     if (!isMountRef.current && Array.isArray(files) && files.length > 0) {
-      setCurrentPath(files.some((file) => file.path === initialPath) ? initialPath : '');
+      setCurrentPath(files.some((file) => file.path === initialPath) ? initialPath : "");
       isMountRef.current = true;
     }
   }, [initialPath, files]);
