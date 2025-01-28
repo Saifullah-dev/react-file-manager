@@ -4,7 +4,7 @@ import { validateApiCallback } from "../utils/validateApiCallback";
 
 const ClipBoardContext = createContext();
 
-export const ClipBoardProvider = ({ children, onPaste }) => {
+export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy }) => {
   const [clipBoard, setClipBoard] = useState(null);
   const { selectedFiles, setSelectedFiles } = useSelection();
 
@@ -13,6 +13,12 @@ export const ClipBoardProvider = ({ children, onPaste }) => {
       files: selectedFiles,
       isMoving: isMoving,
     });
+
+    if (isMoving) {
+      !!onCut && onCut(selectedFiles);
+    } else {
+      !!onCopy && onCopy(selectedFiles);
+    }
   };
 
   // Todo: Show error if destination folder already has file(s) with the same name

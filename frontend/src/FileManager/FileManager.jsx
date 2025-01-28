@@ -22,6 +22,8 @@ const FileManager = ({
   onCreateFolder,
   onFileUploading = () => {},
   onFileUploaded = () => {},
+  onCut,
+  onCopy,
   onPaste,
   onRename,
   onDownload,
@@ -58,7 +60,7 @@ const FileManager = ({
       <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider initialPath={initialPath}>
           <SelectionProvider onDownload={onDownload}>
-            <ClipBoardProvider onPaste={onPaste}>
+            <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
               <LayoutProvider layout={layout}>
                 <Toolbar
                   allowCreateFolder
@@ -137,6 +139,8 @@ FileManager.propTypes = {
   onFileUploaded: PropTypes.func,
   onRename: PropTypes.func,
   onDelete: PropTypes.func,
+  onCut: PropTypes.func,
+  onCopy: PropTypes.func,
   onPaste: PropTypes.func,
   onDownload: PropTypes.func,
   onLayoutChange: PropTypes.func,

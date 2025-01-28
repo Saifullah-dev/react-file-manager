@@ -112,6 +112,9 @@ type File = {
 | `isLoading`            | boolean                                                                                                                        | A boolean state indicating whether the application is currently performing an operation, such as creating, renaming, or deleting a file/folder. Displays a loading state if set `true`.                                                                                                                                                                                                 |
 | `layout`               | "list" \| "grid"                                                                                                               | Specifies the default layout style for the file manager. Can be either "list" or "grid". Default value is "grid".                                                                                                                                                                                                                                                                       |
 | `maxFileSize`          | number                                                                                                                         | For limiting the maximum upload file size in bytes.                                                                                                                                                                                                                                                                                                                                     |
+| `onCopy`               | (files: Array<[File](#-file-structure)>) => void                                                                               | (Optional) A callback function triggered when one or more files or folders are copied providing copied files as an argument. Use this function to perform custom actions on copy event.                                                                                                                                                                                                 |
+|                        |
+| `onCut`                | (files: Array<[File](#-file-structure)>) => void                                                                               | (Optional) A callback function triggered when one or more files or folders are cut, providing the cut files as an argument. Use this function to perform custom actions on the cut event.                                                                                                                                                                                               |
 | `onCreateFolder`       | (name: string, parentFolder: [File](#-file-structure)) => void                                                                 | A callback function triggered when a new folder is created. Use this function to update the files state to include the new folder under the specified parent folder using create folder API call to your server.                                                                                                                                                                        |
 | `onDelete`             | (files: Array<[File](#-file-structure)>) => void                                                                               | A callback function is triggered when one or more files or folders are deleted.                                                                                                                                                                                                                                                                                                         |
 | `onDownload`           | (files: Array<[File](#-file-structure)>) => void                                                                               | A callback function triggered when one or more files or folders are downloaded.                                                                                                                                                                                                                                                                                                         |
@@ -166,44 +169,6 @@ const CustomImagePreviewer = ({ file }) => {
   filePreviewComponent={(file) => <CustomImagePreviewer file={file} />}
 />;
 ```
-
-## 🤝 Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/branch-name`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature/branch-name`).
-6. Open a Pull Request.
-
-Get started by running following commands:
-
-```bash
-git clone https://github.com/Saifullah-dev/react-file-manager.git
-cd react-file-manager
-```
-
-**Frontend**
-
-```bash
-cd frontend
-npm i
-npm run dev
-```
-
-The application should now be running on `http://localhost:5173`.
-
-**Backend**
-
-```bash
-cd backend
-npm i
-npm run devStart
-```
-
-The server should now be running on `http://localhost:3000`, have fun!
 
 ## ©️ License
 
