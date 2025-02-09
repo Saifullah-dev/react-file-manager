@@ -1,10 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { validateApiCallback } from "../utils/validateApiCallback";
 
 const SelectionContext = createContext();
 
-export const SelectionProvider = ({ children, onDownload }) => {
+export const SelectionProvider = ({ children, onDownload, onSelect }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+
+  useEffect(() => {
+    if (selectedFiles.length && onSelect) {
+      onSelect(selectedFiles);
+    }
+  }, [selectedFiles]);
 
   const handleDownload = () => {
     validateApiCallback(onDownload, "onDownload", selectedFiles);

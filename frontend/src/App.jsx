@@ -125,6 +125,10 @@ function App() {
     console.log("Copied Files", files);
   };
 
+  const handleSelect = (files) => {
+    console.log("Selected Files", files);
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -144,6 +148,7 @@ function App() {
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
+          onSelect={handleSelect}
           onError={handleError}
           layout="grid"
           enableFilePreview
