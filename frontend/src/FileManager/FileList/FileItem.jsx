@@ -72,7 +72,7 @@ const FileItem = ({
       const filesRange = currentPathFiles.slice(startRange, endRange + 1);
       setSelectedFiles(reverseSelection ? filesRange.reverse() : filesRange);
     } else if (selectedFileIndexes.length > 0 && ctrlKey) {
-      // Remove file from selected files if it already exists on CTRL + Click, other push it in selectedFiles
+      // Remove file from selected files if it already exists on CTRL + Click, otherwise push it in selectedFiles
       setSelectedFiles((prev) => {
         const filteredFiles = prev.filter((f) => f.path !== file.path);
         if (prev.length === filteredFiles.length) {
