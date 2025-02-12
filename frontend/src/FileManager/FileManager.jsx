@@ -133,6 +133,7 @@ FileManager.propTypes = {
   fileUploadConfig: PropTypes.shape({
     url: urlValidator,
     headers: PropTypes.objectOf(PropTypes.string),
+    method: PropTypes.oneOf(["POST", "PUT"]),
   }),
   isLoading: PropTypes.bool,
   onCreateFolder: PropTypes.func,

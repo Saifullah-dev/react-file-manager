@@ -97,7 +97,8 @@ const UploadItem = ({
         handleUploadError(xhr);
       };
 
-      xhr.open("POST", fileUploadConfig?.url, true);
+      const method = fileUploadConfig?.method || "POST";
+      xhr.open(method, fileUploadConfig?.url, true);
       const headers = fileUploadConfig?.headers;
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
