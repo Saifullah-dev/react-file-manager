@@ -77,7 +77,7 @@ const FileManager = ({
                   className="files-container"
                 >
                   <div className="navigation-pane" style={{ width: colSizes.col1 + "%" }}>
-                    <NavigationPane />
+                    <NavigationPane onFileOpen={onFileOpen} />
                     <div
                       className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""}`}
                       onMouseDown={handleMouseDown}

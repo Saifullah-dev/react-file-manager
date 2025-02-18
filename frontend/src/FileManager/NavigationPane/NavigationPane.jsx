@@ -4,7 +4,7 @@ import { getParentPath } from "../../utils/getParentPath";
 import { useFiles } from "../../contexts/FilesContext";
 import "./NavigationPane.scss";
 
-const NavigationPane = () => {
+const NavigationPane = ({ onFileOpen }) => {
   const [foldersTree, setFoldersTree] = useState([]);
   const { files } = useFiles();
 
@@ -36,7 +36,7 @@ const NavigationPane = () => {
       {foldersTree?.length > 0 ? (
         <>
           {foldersTree?.map((folder, index) => {
-            return <FolderTree key={index} folder={folder} />;
+            return <FolderTree key={index} folder={folder} onFileOpen={onFileOpen} />;
           })}
         </>
       ) : (
