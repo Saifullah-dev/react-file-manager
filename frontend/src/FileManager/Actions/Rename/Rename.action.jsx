@@ -38,6 +38,20 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       return;
     }
 
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setCurrentPathFiles((prev) =>
+        prev.map((f) => {
+          if (f.key === file.key) {
+            f.isEditing = false;
+          }
+          return f;
+        })
+      );
+      triggerAction.close();
+      return;
+    }
+
     const invalidCharsRegex = /[\\/:*?"<>|]/;
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();

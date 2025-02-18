@@ -38,10 +38,11 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
       return;
     }
 
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       e.preventDefault();
       triggerAction.close();
       setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
+      return;
     }
 
     const invalidCharsRegex = /[\\/:*?"<>|]/;
