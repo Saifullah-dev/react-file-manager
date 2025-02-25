@@ -158,6 +158,7 @@ function App() {
           height="100%"
           width="100%"
           initialPath=""
+          locale='en-US' // tr-TR, en-US
         />
       </div>
     </div>

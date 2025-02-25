@@ -11,8 +11,9 @@ import { useLayout } from "../../contexts/LayoutContext";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import { validateApiCallback } from "../../utils/validateApiCallback";
+import {injectIntl} from "react-intl";
 
-const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
+const useFileList = (onRefresh, enableFilePreview, triggerAction, intl) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
@@ -85,12 +86,12 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
 
   const emptySelecCtxItems = [
     {
-      title: "View",
+      title: intl.formatMessage({id: `view`}),
       icon: activeLayout === "grid" ? <BsGrid size={18} /> : <FaListUl size={18} />,
       onClick: () => {},
       children: [
         {
-          title: "Grid",
+          title: intl.formatMessage({id: `grid`}),
           icon: <BsGrid size={18} />,
           selected: activeLayout === "grid",
           onClick: () => {
@@ -99,7 +100,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
           },
         },
         {
-          title: "List",
+          title: intl.formatMessage({id: `list`}),
           icon: <FaListUl size={18} />,
           selected: activeLayout === "list",
           onClick: () => {
@@ -110,24 +111,24 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
       ],
     },
     {
-      title: "Refresh",
+      title: intl.formatMessage({id: `refresh`}),
       icon: <FiRefreshCw size={18} />,
       onClick: handleRefresh,
       divider: true,
     },
     {
-      title: "New folder",
+      title: intl.formatMessage({id: `newFolder`}),
       icon: <BsFolderPlus size={18} />,
       onClick: handleCreateNewFolder,
     },
     {
-      title: "Upload",
+      title: intl.formatMessage({id: `upload`}),
       icon: <MdOutlineFileUpload size={18} />,
       onClick: handleUpload,
       divider: true,
     },
     {
-      title: "Select all",
+      title: intl.formatMessage({id: `selectAll`}),
       icon: <BiSelectMultiple size={18} />,
       onClick: handleselectAllFiles,
     },
@@ -135,24 +136,24 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
 
   const selecCtxItems = [
     {
-      title: "Open",
+      title: intl.formatMessage({id: `open`}),
       icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
       onClick: handleFileOpen,
       divider: true,
     },
     {
-      title: "Cut",
+      title: intl.formatMessage({id: `cut`}),
       icon: <BsScissors size={19} />,
       onClick: () => handleMoveOrCopyItems(true),
     },
     {
-      title: "Copy",
+      title: intl.formatMessage({id: `copy`}),
       icon: <BsCopy strokeWidth={0.1} size={17} />,
       onClick: () => handleMoveOrCopyItems(false),
       divider: !lastSelectedFile?.isDirectory,
     },
     {
-      title: "Paste",
+      title: intl.formatMessage({id: `paste`}),
       icon: <FaRegPaste size={18} />,
       onClick: handleFilePasting,
       className: `${clipBoard ? "" : "disable-paste"}`,
@@ -160,19 +161,19 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
       divider: true,
     },
     {
-      title: "Rename",
+      title: intl.formatMessage({id: `rename`}),
       icon: <BiRename size={19} />,
       onClick: handleRenaming,
       hidden: selectedFiles.length > 1,
     },
     {
-      title: "Download",
+      title: intl.formatMessage({id: `download`}),
       icon: <MdOutlineFileDownload size={18} />,
       onClick: handleDownloadItems,
       hidden: lastSelectedFile?.isDirectory,
     },
     {
-      title: "Delete",
+      title: intl.formatMessage({id: `delete`}),
       icon: <MdOutlineDelete size={19} />,
       onClick: handleDelete,
     },
@@ -184,7 +185,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
       return [
         ...prev,
         {
-          name: duplicateNameHandler("New Folder", true, prev),
+          name: duplicateNameHandler(intl.formatMessage({id: `newFolder`}), true, prev),
           isDirectory: true,
           path: currentPath,
           isEditing: true,
@@ -263,4 +264,4 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
   };
 };
 
-export default useFileList;
+export default injectIntl(useFileList);

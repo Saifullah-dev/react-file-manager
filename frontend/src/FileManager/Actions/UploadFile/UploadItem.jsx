@@ -8,6 +8,7 @@ import { getDataSize } from "../../../utils/getDataSize";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { useFiles } from "../../../contexts/FilesContext";
+import {injectIntl} from "react-intl";
 
 const UploadItem = ({
   index,
@@ -17,6 +18,7 @@ const UploadItem = ({
   fileUploadConfig,
   onFileUploaded,
   handleFileRemove,
+  intl
 }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
@@ -34,7 +36,7 @@ const UploadItem = ({
     }));
     const error = {
       type: "upload",
-      message: "Upload failed.",
+      message: intl.formatMessage({id: `uploadFail`}),
       response: {
         status: xhr.status,
         statusText: xhr.statusText,
@@ -173,13 +175,13 @@ const UploadItem = ({
             <span className="file-size">{getDataSize(fileData.file?.size)}</span>
           </div>
           {isUploaded ? (
-            <FaRegCheckCircle title="Uploaded" className="upload-success" />
+            <FaRegCheckCircle title={intl.formatMessage({id: `uploaded`})} className="upload-success" />
           ) : isCanceled || uploadFailed ? (
             <IoMdRefresh className="retry-upload" title="Retry" onClick={handleRetry} />
           ) : (
             <div
               className="rm-file"
-              title={`${!!fileData.error ? "Remove" : "Abort Upload"}`}
+              title={`${!!fileData.error ? intl.formatMessage({id: `remove`}) : intl.formatMessage({id: `abortUpload`})}`}
               onClick={!!fileData.error ? () => handleFileRemove(index) : handleAbortUpload}
             >
               <AiOutlineClose />
@@ -197,4 +199,4 @@ const UploadItem = ({
   );
 };
 
-export default UploadItem;
+export default injectIntl(UploadItem);

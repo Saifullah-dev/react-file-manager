@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import { useSelection } from "../../../contexts/SelectionContext";
 import "./Delete.action.scss";
+import {injectIntl} from "react-intl";
 
-const DeleteAction = ({ triggerAction, onDelete }) => {
+const DeleteAction = ({ triggerAction, onDelete, intl }) => {
   const [deleteMsg, setDeleteMsg] = useState("");
   const { selectedFiles, setSelectedFiles } = useSelection();
 
@@ -28,14 +29,14 @@ const DeleteAction = ({ triggerAction, onDelete }) => {
       <p className="file-delete-confirm-text">{deleteMsg}</p>
       <div className="file-delete-confirm-actions">
         <Button type="secondary" onClick={() => triggerAction.close()}>
-          Cancel
+          {intl.formatMessage({id: `cancel`})}
         </Button>
         <Button type="danger" onClick={handleDeleting}>
-          Delete
+          {intl.formatMessage({id: `delete`})}
         </Button>
       </div>
     </div>
   );
 };
 
-export default DeleteAction;
+export default injectIntl(DeleteAction);

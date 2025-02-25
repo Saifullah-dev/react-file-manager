@@ -9,10 +9,11 @@ import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
 import { validateApiCallback } from "../../../utils/validateApiCallback";
+import {injectIntl} from "react-intl";
 
 const maxNameLength = 220;
 
-const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
+const RenameAction = ({ filesViewRef, file, onRename, triggerAction, intl }) => {
   const [renameFile, setRenameFile] = useState(file?.name);
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
@@ -56,7 +57,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();
       setRenameErrorMessage(
-        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
+        intl.formatMessage({id: `folderErrorMessage`})+"\\ / : * ? \" < > |"
       );
       setFileRenameError(true);
     } else {
@@ -91,7 +92,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       return;
     } else if (currentPathFiles.some((file) => file.name === renameFile)) {
       setFileRenameError(true);
-      setRenameErrorMessage(`This destination already contains a folder named '${renameFile}'.`);
+      setRenameErrorMessage(intl.formatMessage({id: `folderNameAlreadyContains`})+'${renameFile}');
       outsideClick.setIsClicked(false);
       return;
     } else if (!file.isDirectory && !isConfirmed) {
@@ -187,8 +188,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
             <div className="fm-rename-warning">
               <IoWarningOutline size={70} color="orange" />
               <div>
-                If you change a file name extension, the file might become unusable. Are you sure
-                you want to change it?
+                {intl.formatMessage({id: `fileNameChangeWarning`})}
               </div>
             </div>
           </div>
@@ -208,7 +208,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
                 triggerAction.close();
               }}
             >
-              No
+              {intl.formatMessage({id: `no`})}
             </Button>
             <Button
               type="danger"
@@ -217,7 +217,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
                 handleFileRenaming(true);
               }}
             >
-              Yes
+              {intl.formatMessage({id: `yes`})}
             </Button>
           </div>
         </div>
@@ -226,4 +226,4 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
   );
 };
 
-export default RenameAction;
+export default injectIntl(RenameAction);

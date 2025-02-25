@@ -2,8 +2,9 @@ import { BsGridFill } from "react-icons/bs";
 import { FaCheck, FaListUl } from "react-icons/fa6";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { useLayout } from "../../contexts/LayoutContext";
+import {injectIntl} from "react-intl";
 
-const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
+const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange, intl }) => {
   const toggleViewRef = useDetectOutsideClick(() => {
     setShowToggleViewMenu(false);
   });
@@ -12,12 +13,12 @@ const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
   const layoutOptions = [
     {
       key: "grid",
-      name: "Grid",
+      name: intl.formatMessage({id: `grid`}),
       icon: <BsGridFill size={18} />,
     },
     {
       key: "list",
-      name: "List",
+      name: intl.formatMessage({id: `list`}),
       icon: <FaListUl size={18} />,
     },
   ];
@@ -48,4 +49,4 @@ const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
   );
 };
 
-export default LayoutToggler;
+export default injectIntl(LayoutToggler);

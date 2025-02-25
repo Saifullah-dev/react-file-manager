@@ -6,10 +6,11 @@ import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
 import { validateApiCallback } from "../../../utils/validateApiCallback";
+import {injectIntl} from "react-intl";
 
 const maxNameLength = 220;
 
-const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction }) => {
+const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction, intl }) => {
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
@@ -49,7 +50,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();
       setFolderErrorMessage(
-        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
+        intl.formatMessage({id: `folderErrorMessage`})+" \\ / : * ? \" < > |"
       );
       setFolderNameError(true);
     } else {
@@ -80,7 +81,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     });
 
     if (alreadyExists) {
-      setFolderErrorMessage(`This destination already contains a folder named '${newFolderName}'.`);
+      setFolderErrorMessage(intl.formatMessage({id: `folderNameAlreadyContains`})+'${newFolderName}');
       setFolderNameError(true);
       outsideClick.ref.current?.focus();
       outsideClick.ref.current?.select();
@@ -89,7 +90,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     }
 
     if (newFolderName === "") {
-      newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
+      newFolderName = duplicateNameHandler(intl.formatMessage({id: `newFolder`}), true, syncedCurrPathFiles);
     }
 
     validateApiCallback(onCreateFolder, "onCreateFolder", newFolderName, currentFolder);
@@ -154,4 +155,4 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
   );
 };
 
-export default CreateFolderAction;
+export default injectIntl(CreateFolderAction);

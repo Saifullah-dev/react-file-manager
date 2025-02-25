@@ -3,8 +3,9 @@ import { MdHome, MdMoreHoriz, MdOutlineNavigateNext } from "react-icons/md";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import "./BreadCrumb.scss";
+import {injectIntl} from "react-intl";
 
-const BreadCrumb = () => {
+const BreadCrumb = ({intl}) => {
   const [folders, setFolders] = useState([]);
   const [hiddenFolders, setHiddenFolders] = useState([]);
   const [hiddenFoldersWidth, setHiddenFoldersWidth] = useState([]);
@@ -23,7 +24,7 @@ const BreadCrumb = () => {
       let path = "";
       return currentPath?.split("/").map((item) => {
         return {
-          name: item || "Home",
+          name: item || intl.formatMessage({id: `home`}),
           path: item === "" ? item : (path += `/${item}`),
         };
       });
@@ -92,7 +93,7 @@ const BreadCrumb = () => {
                 className="folder-name folder-name-btn"
                 onClick={() => setShowHiddenFolders(true)}
                 ref={moreBtnRef}
-                title="Show more folders"
+                title={intl.formatMessage({id: `showMoreFolder`})}
               >
                 <MdMoreHoriz size={22} className="hidden-folders" />
               </button>
@@ -122,4 +123,4 @@ const BreadCrumb = () => {
 
 BreadCrumb.displayName = "BreadCrumb";
 
-export default BreadCrumb;
+export default injectIntl(BreadCrumb);

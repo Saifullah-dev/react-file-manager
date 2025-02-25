@@ -14,6 +14,7 @@ import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import "./FileManager.scss";
+import Localization from "./localization.jsx";
 
 const FileManager = ({
   files,
@@ -44,6 +45,7 @@ const FileManager = ({
   filePreviewComponent,
   primaryColor = "#6155b4",
   fontFamily = "Nunito Sans, sans-serif",
+  locale= "en-US"
 }) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
@@ -58,7 +60,8 @@ const FileManager = ({
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
       <Loader loading={isLoading} />
-      <FilesProvider filesData={files} onError={onError}>
+      <Localization locale={locale}>
+        <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider initialPath={initialPath}>
           <SelectionProvider onDownload={onDownload} onSelect={onSelect}>
             <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
@@ -114,6 +117,7 @@ const FileManager = ({
           </SelectionProvider>
         </FileNavigationProvider>
       </FilesProvider>
+      </Localization>
     </main>
   );
 };
@@ -161,6 +165,7 @@ FileManager.propTypes = {
   filePreviewComponent: PropTypes.func,
   primaryColor: PropTypes.string,
   fontFamily: PropTypes.string,
+  locale: PropTypes.string,
 };
 
 export default FileManager;

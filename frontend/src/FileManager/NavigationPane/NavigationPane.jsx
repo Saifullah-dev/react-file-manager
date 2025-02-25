@@ -3,8 +3,9 @@ import FolderTree from "./FolderTree";
 import { getParentPath } from "../../utils/getParentPath";
 import { useFiles } from "../../contexts/FilesContext";
 import "./NavigationPane.scss";
+import {injectIntl} from "react-intl";
 
-const NavigationPane = ({ onFileOpen }) => {
+const NavigationPane = ({intl, onFileOpen}) => {
   const [foldersTree, setFoldersTree] = useState([]);
   const { files } = useFiles();
 
@@ -40,7 +41,7 @@ const NavigationPane = ({ onFileOpen }) => {
           })}
         </>
       ) : (
-        <div className="empty-nav-pane">Nothing here yet</div>
+        <div className="empty-nav-pane">{intl.formatMessage({id: `nothingHereYet`})}</div>
       )}
     </div>
   );
@@ -48,4 +49,4 @@ const NavigationPane = ({ onFileOpen }) => {
 
 NavigationPane.displayName = "NavigationPane";
 
-export default NavigationPane;
+export default injectIntl(NavigationPane);
