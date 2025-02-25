@@ -16,6 +16,7 @@ import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { validateApiCallback } from "../../utils/validateApiCallback";
 import "./Toolbar.scss";
+import {injectIntl} from "react-intl";
 
 const Toolbar = ({
   allowCreateFolder = true,
@@ -23,6 +24,7 @@ const Toolbar = ({
   onLayoutChange,
   onRefresh,
   triggerAction,
+  intl
 }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
@@ -34,19 +36,19 @@ const Toolbar = ({
   const toolbarLeftItems = [
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
-      text: "New folder",
+      text: intl.formatMessage({id: `newFolder`}),
       permission: allowCreateFolder,
       onClick: () => triggerAction.show("createFolder"),
     },
     {
       icon: <MdOutlineFileUpload size={18} />,
-      text: "Upload",
+      text: intl.formatMessage({id: `upload`}),
       permission: allowUploadFile,
       onClick: () => triggerAction.show("uploadFile"),
     },
     {
       icon: <FaRegPaste size={18} />,
-      text: "Paste",
+      text: intl.formatMessage({id: `paste`}),
       permission: !!clipBoard,
       onClick: handleFilePasting,
     },
@@ -55,12 +57,12 @@ const Toolbar = ({
   const toolbarRightItems = [
     {
       icon: activeLayout === "grid" ? <BsGridFill size={16} /> : <FaListUl size={16} />,
-      title: "Change View",
+      title: intl.formatMessage({id: `changeView`}),
       onClick: () => setShowToggleViewMenu((prev) => !prev),
     },
     {
       icon: <FiRefreshCw size={16} />,
-      title: "Refresh",
+      title: intl.formatMessage({id: `refresh`}),
       onClick: () => {
         validateApiCallback(onRefresh, "onRefresh");
         setClipBoard(null);
@@ -85,11 +87,11 @@ const Toolbar = ({
           <div>
             <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
               <BsScissors size={18} />
-              <span>Cut</span>
+              <span>{intl.formatMessage({id: `cut`})}</span>
             </button>
             <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
               <BsCopy strokeWidth={0.1} size={17} />
-              <span>Copy</span>
+              <span>{intl.formatMessage({id: `copy`})}</span>
             </button>
             {clipBoard?.files?.length > 0 && (
               <button
@@ -98,7 +100,7 @@ const Toolbar = ({
                 // disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
-                <span>Paste</span>
+                <span>{intl.formatMessage({id: `paste`})}</span>
               </button>
             )}
             {selectedFiles.length === 1 && (
@@ -107,13 +109,13 @@ const Toolbar = ({
                 onClick={() => triggerAction.show("rename")}
               >
                 <BiRename size={19} />
-                <span>Rename</span>
+                <span>{intl.formatMessage({id: `rename`})}</span>
               </button>
             )}
             {!selectedFiles.isDirectory && (
               <button className="item-action file-action" onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
-                <span>Download</span>
+                <span>{intl.formatMessage({id: `download`})}</span>
               </button>
             )}
             <button
@@ -121,12 +123,12 @@ const Toolbar = ({
               onClick={() => triggerAction.show("delete")}
             >
               <MdOutlineDelete size={19} />
-              <span>Delete</span>
+              <span>{intl.formatMessage({id: `delete`})}</span>
             </button>
           </div>
           <button
             className="item-action file-action"
-            title="Clear selection"
+            title={intl.formatMessage({id: `clearSelection`})}
             onClick={() => setSelectedFiles([])}
           >
             <span>
@@ -177,4 +179,4 @@ const Toolbar = ({
 
 Toolbar.displayName = "Toolbar";
 
-export default Toolbar;
+export default injectIntl(Toolbar);

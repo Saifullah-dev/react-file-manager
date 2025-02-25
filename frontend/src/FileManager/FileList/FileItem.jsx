@@ -10,6 +10,7 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import {injectIntl} from "react-intl";
 
 const dragIconSize = 50;
 
@@ -25,6 +26,7 @@ const FileItem = ({
   triggerAction,
   handleContextMenu,
   setLastSelectedFile,
+  intl
 }) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
@@ -260,7 +262,7 @@ const FileItem = ({
           }}
           className="drag-move-tooltip"
         >
-          Move to <span className="drop-zone-file-name">{file.name}</span>
+          {intl.formatMessage({id: `moveTo`})} <span className="drop-zone-file-name">{file.name}</span>
         </div>
       )}
 
@@ -280,4 +282,4 @@ const FileItem = ({
   );
 };
 
-export default FileItem;
+export default injectIntl(FileItem);

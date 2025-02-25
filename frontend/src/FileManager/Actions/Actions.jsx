@@ -5,6 +5,7 @@ import UploadFileAction from "./UploadFile/UploadFile.action";
 import PreviewFileAction from "./PreviewFile/PreviewFile.action";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useShortcutHandler } from "../../hooks/useShortcutHandler";
+import {injectIntl} from "react-intl";
 
 const Actions = ({
   fileUploadConfig,
@@ -17,6 +18,7 @@ const Actions = ({
   filePreviewComponent,
   acceptedFileTypes,
   triggerAction,
+  intl
 }) => {
   const [activeAction, setActiveAction] = useState(null);
   const { selectedFiles } = useSelection();
@@ -26,7 +28,7 @@ const Actions = ({
 
   const actionTypes = {
     uploadFile: {
-      title: "Upload",
+      title: intl.formatMessage({id: `upload`}),
       component: (
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
@@ -39,7 +41,7 @@ const Actions = ({
       width: "35%",
     },
     delete: {
-      title: "Delete",
+      title: intl.formatMessage({id: `delete`}),
       component: <DeleteAction triggerAction={triggerAction} onDelete={onDelete} />,
       width: "25%",
     },
@@ -59,7 +61,7 @@ const Actions = ({
     if (triggerAction.isActive) {
       const actionType = triggerAction.actionType;
       if (actionType === "previewFile") {
-        actionTypes[actionType].title = selectedFiles?.name ?? "Preview";
+        actionTypes[actionType].title = selectedFiles?.name ?? intl.formatMessage({id: `preview`});
       }
       setActiveAction(actionTypes[actionType]);
     } else {
@@ -81,4 +83,4 @@ const Actions = ({
   }
 };
 
-export default Actions;
+export default injectIntl(Actions);

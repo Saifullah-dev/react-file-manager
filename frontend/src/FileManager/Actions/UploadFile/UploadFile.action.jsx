@@ -8,6 +8,7 @@ import { getFileExtension } from "../../../utils/getFileExtension";
 import { getDataSize } from "../../../utils/getDataSize";
 import { useFiles } from "../../../contexts/FilesContext";
 import "./UploadFile.action.scss";
+import {injectIntl} from "react-intl";
 
 const UploadFileAction = ({
   fileUploadConfig,
@@ -15,6 +16,7 @@ const UploadFileAction = ({
   acceptedFileTypes,
   onFileUploading,
   onFileUploaded,
+  intl
 }) => {
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -33,16 +35,16 @@ const UploadFileAction = ({
   const checkFileError = (file) => {
     if (acceptedFileTypes) {
       const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
-      if (extError) return "File type is not allowed.";
+      if (extError) return intl.formatMessage({id: `fileTypeNotAllowed`});
     }
 
     const fileExists = currentPathFiles.some(
       (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
     );
-    if (fileExists) return "File already exists.";
+    if (fileExists) return intl.formatMessage({id: `fileAlreadyExist`});
 
     const sizeError = maxFileSize && file.size > maxFileSize;
-    if (sizeError) return `Maximum upload size is ${getDataSize(maxFileSize, 0)}.`;
+    if (sizeError) return intl.formatMessage({id: `maxUploadSize`})+" "+getDataSize(maxFileSize, 0);
   };
 
   const setSelectedFiles = (selectedFiles) => {
@@ -110,12 +112,12 @@ const UploadFileAction = ({
         >
           <div className="input-text">
             <AiOutlineCloudUpload size={30} />
-            <span>Drag files to upload</span>
+            <span>{intl.formatMessage({id: `dragFileToUpload`})}</span>
           </div>
         </div>
         <div className="btn-choose-file">
           <Button padding="0" onKeyDown={handleChooseFileKeyDown}>
-            <label htmlFor="chooseFile">Choose File</label>
+            <label htmlFor="chooseFile">{intl.formatMessage({id: `chooseFile`})}</label>
             <input
               ref={fileInputRef}
               type="file"
@@ -137,7 +139,7 @@ const UploadFileAction = ({
                 <Loader loading={true} className="upload-loading" />
               </>
             ) : (
-              <h2>Completed</h2>
+              <h2>{intl.formatMessage({id: `completed`})}</h2>
             )}
           </div>
           <ul>
@@ -160,4 +162,4 @@ const UploadFileAction = ({
   );
 };
 
-export default UploadFileAction;
+export default injectIntl(UploadFileAction);

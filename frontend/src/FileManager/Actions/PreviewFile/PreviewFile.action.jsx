@@ -8,6 +8,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { useFileIcons } from "../../../hooks/useFileIcons";
 import { FaRegFileAlt } from "react-icons/fa";
 import "./PreviewFile.action.scss";
+import {injectIntl} from "react-intl";
 
 const imageExtensions = ["jpg", "jpeg", "png"];
 const videoExtensions = ["mp4", "mov", "avi"];
@@ -66,7 +67,7 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
             <Button onClick={handleDownload} padding="0.45rem .9rem">
               <div className="download-btn">
                 <MdOutlineFileDownload size={18} />
-                <span>Download</span>
+                <span>{intl.formatMessage({id: `download`})}</span>
               </div>
             </Button>
           </div>
@@ -105,4 +106,4 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
   );
 };
 
-export default PreviewFileAction;
+export default injectIntl(PreviewFileAction);

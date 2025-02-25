@@ -7,6 +7,7 @@ import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import useFileList from "./useFileList";
 import FilesHeader from "./FilesHeader";
 import "./FileList.scss";
+import {injectIntl} from "react-intl";
 
 const FileList = ({
   onCreateFolder,
@@ -15,6 +16,7 @@ const FileList = ({
   onRefresh,
   enableFilePreview,
   triggerAction,
+  intl
 }) => {
   const { currentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
@@ -65,7 +67,7 @@ const FileList = ({
           ))}
         </>
       ) : (
-        <div className="empty-folder">This folder is empty.</div>
+        <div className="empty-folder">{intl.formatMessage({id: `folderEmpty`})}</div>
       )}
 
       <ContextMenu
@@ -82,4 +84,4 @@ const FileList = ({
 
 FileList.displayName = "FileList";
 
-export default FileList;
+export default injectIntl(FileList);
