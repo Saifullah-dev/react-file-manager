@@ -20,6 +20,7 @@ const defaultActions = [
   {
     title: "Open",
     key: "open",
+    onClick: () => {},
     showToolbar: false,
     showMenu: true,
     icon: null,
@@ -27,6 +28,7 @@ const defaultActions = [
   {
     title: "Copy",
     key: "copy",
+    onClick: () => {},
     showToolbar: true,
     showMenu: true,
     icon: null,
@@ -34,6 +36,7 @@ const defaultActions = [
   {
     title: "Cut",
     key: "cut",
+    onClick: () => {},
     showToolbar: true,
     showMenu: false,
     icon: null,
@@ -41,6 +44,7 @@ const defaultActions = [
   {
     title: "Paste",
     key: "paste",
+    onClick: () => {},
     showToolbar: true,
     showMenu: true,
     icon: null,
@@ -48,6 +52,7 @@ const defaultActions = [
   {
     title: "Rename",
     key: "rename",
+    onClick: () => {},
     showToolbar: true,
     showMenu: true,
     icon: null,
@@ -55,6 +60,7 @@ const defaultActions = [
   {
     title: "Delete",
     key: "delete",
+    onClick: () => {},
     showToolbar: true,
     showMenu: true,
     icon: null,
@@ -62,6 +68,7 @@ const defaultActions = [
   {
     title: "Download",
     key: "download",
+    onClick: () => {},
     showToolbar: true,
     showMenu: true,
     icon: null,
@@ -106,11 +113,11 @@ const FileManager = ({
 
   const getActions = () => {
     const resultActions = new Map(defaultActions.map(item => [item.key, item]));
-
-    config.actions.forEach(item => 
-      resultActions.set(item.key, { ...resultActions.get(item.key), ...item })
-    );
-
+    if (config?.actions) {
+      config.actions.forEach(item => 
+        resultActions.set(item.key, { ...resultActions.get(item.key), ...item })
+      );
+    }
     return [...resultActions.values()];
   }
 
