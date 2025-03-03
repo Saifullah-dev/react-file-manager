@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react";
 import { useSelection } from "./SelectionContext";
 import { validateApiCallback } from "../utils/validateApiCallback";
+import { getActionByKey } from "../utils/getActionByKey";
 
 const ClipBoardContext = createContext();
 
-export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy }) => {
+export const ClipBoardProvider = ({ children, actions }) => {
   const [clipBoard, setClipBoard] = useState(null);
   const { selectedFiles, setSelectedFiles } = useSelection();
 
@@ -15,8 +16,10 @@ export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy }) => {
     });
 
     if (isMoving) {
+      const onCut = getActionByKey(actions, "cut").onClick;
       !!onCut && onCut(selectedFiles);
     } else {
+      const onCopy = getActionByKey(actions, "copy").onClick;
       !!onCopy && onCopy(selectedFiles);
     }
   };
@@ -27,6 +30,7 @@ export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy }) => {
 
     const copiedFiles = clipBoard.files;
     const operationType = clipBoard.isMoving ? "move" : "copy";
+    const onPaste = getActionByKey(actions, "paste").onClick;
 
     validateApiCallback(onPaste, "onPaste", copiedFiles, destinationFolder, operationType);
 

@@ -12,22 +12,71 @@ import { LayoutProvider } from "../contexts/LayoutContext";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
+import { getActionByKey } from "../utils/getActionByKey";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import "./FileManager.scss";
 
+const defaultActions = [
+  {
+    title: "Open",
+    key: "open",
+    showToolbar: false,
+    showMenu: true,
+    icon: null,
+  },
+  {
+    title: "Copy",
+    key: "copy",
+    showToolbar: true,
+    showMenu: true,
+    icon: null,
+  },
+  {
+    title: "Cut",
+    key: "cut",
+    showToolbar: true,
+    showMenu: false,
+    icon: null,
+  },
+  {
+    title: "Paste",
+    key: "paste",
+    showToolbar: true,
+    showMenu: true,
+    icon: null,
+  },
+  {
+    title: "Rename",
+    key: "rename",
+    showToolbar: true,
+    showMenu: true,
+    icon: null,
+  },
+  {
+    title: "Delete",
+    key: "delete",
+    showToolbar: true,
+    showMenu: true,
+    icon: null,
+  },
+  {
+    title: "Download",
+    key: "download",
+    showToolbar: true,
+    showMenu: true,
+    icon: null,
+  },
+];
+
 const FileManager = ({
   files,
+  config,
   fileUploadConfig,
   isLoading,
   onCreateFolder,
   onFileUploading = () => {},
   onFileUploaded = () => {},
-  onCut,
-  onCopy,
-  onPaste,
-  onRename,
   onDownload,
-  onDelete = () => null,
   onLayoutChange = () => {},
   onRefresh,
   onFileOpen = () => {},
@@ -55,18 +104,29 @@ const FileManager = ({
     width,
   };
 
+  const getActions = () => {
+    const resultActions = new Map(defaultActions.map(item => [item.key, item]));
+
+    config.actions.forEach(item => 
+      resultActions.set(item.key, { ...resultActions.get(item.key), ...item })
+    );
+
+    return [...resultActions.values()];
+  }
+
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
       <Loader loading={isLoading} />
       <FilesProvider filesData={files} onError={onError}>
         <FileNavigationProvider initialPath={initialPath}>
           <SelectionProvider onDownload={onDownload} onSelect={onSelect}>
-            <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
+            <ClipBoardProvider actions={getActions()}>
               <LayoutProvider layout={layout}>
                 <Toolbar
                   allowCreateFolder
                   allowUploadFile
                   onLayoutChange={onLayoutChange}
+                  actions={getActions()}
                   onRefresh={onRefresh}
                   triggerAction={triggerAction}
                 />
@@ -87,9 +147,8 @@ const FileManager = ({
                   <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
                     <BreadCrumb />
                     <FileList
+                      actions={getActions()}
                       onCreateFolder={onCreateFolder}
-                      onRename={onRename}
-                      onFileOpen={onFileOpen}
                       onRefresh={onRefresh}
                       enableFilePreview={enableFilePreview}
                       triggerAction={triggerAction}
@@ -101,7 +160,7 @@ const FileManager = ({
                   fileUploadConfig={fileUploadConfig}
                   onFileUploading={onFileUploading}
                   onFileUploaded={onFileUploaded}
-                  onDelete={onDelete}
+                  onDelete={getActionByKey(getActions(), "delete").onClick}
                   onRefresh={onRefresh}
                   maxFileSize={maxFileSize}
                   filePreviewPath={filePreviewPath}
@@ -139,11 +198,6 @@ FileManager.propTypes = {
   onCreateFolder: PropTypes.func,
   onFileUploading: PropTypes.func,
   onFileUploaded: PropTypes.func,
-  onRename: PropTypes.func,
-  onDelete: PropTypes.func,
-  onCut: PropTypes.func,
-  onCopy: PropTypes.func,
-  onPaste: PropTypes.func,
   onDownload: PropTypes.func,
   onLayoutChange: PropTypes.func,
   onRefresh: PropTypes.func,

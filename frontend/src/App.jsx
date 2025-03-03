@@ -7,6 +7,7 @@ import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
 import { getAllFilesAPI } from "./api/getAllFilesAPI";
 import { downloadFile } from "./api/downloadFileAPI";
 import "./App.scss";
+import { FaRegPaste, FaRegUser } from "react-icons/fa6";
 
 function App() {
   const fileUploadConfig = {
@@ -109,6 +110,10 @@ function App() {
     console.log(`Opening file: ${file.name}`);
   };
 
+  const handleCustomAction = (file) => {
+    console.log(`Custom Action:`, file);
+  };
+
   const handleError = (error, file) => {
     console.error(error);
   };
@@ -133,18 +138,72 @@ function App() {
     <div className="app">
       <div className="file-manager-container">
         <FileManager
+          config={{
+            actions: [
+              {
+                key: "open",
+                onClick: handleFileOpen,
+              },
+              {
+                key: "copy",
+                onClick: handleCopy,
+              },
+              {
+                title: "Move",
+                key: "cut",
+                onClick: handleCut,
+              },
+              {
+                title: "Paste",
+                key: "paste",
+                onClick: handlePaste,
+              },
+              {
+                title: "Rename",
+                key: "rename",
+                onClick: handleRename,
+              },
+              {
+                title: "Delete",
+                key: "delete",
+                onClick: handleDelete,
+              },
+              {
+                title: "Download",
+                key: "download",
+                onClick: handleDownload,
+              },
+              {
+                title: "Custom Menu Action",
+                key: "custom-action",
+                onClick: handleCustomAction,
+                showToolbar: false,
+                showMenu: true,
+                multiple: false,
+                applyTo: [''], // TODO: types of file on which action will be visible (undefined | folder | pdf | mp4 | ect...)
+                icon: <FaRegPaste size={18} />,
+                hidden: false
+              },
+              {
+                title: "Toolbar Action",
+                key: "custom-tb-action",
+                onClick: handleCustomAction,
+                showToolbar: true,
+                showMenu: false,
+                multiple: false,
+                applyTo: [''],
+                icon: <FaRegUser size={18} />,
+                hidden: false
+              },
+            ],
+          }}
           files={files}
           fileUploadConfig={fileUploadConfig}
           isLoading={isLoading}
           onCreateFolder={handleCreateFolder}
           onFileUploading={handleFileUploading}
           onFileUploaded={handleFileUploaded}
-          onCut={handleCut}
-          onCopy={handleCopy}
-          onPaste={handlePaste}
-          onRename={handleRename}
           onDownload={handleDownload}
-          onDelete={handleDelete}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}

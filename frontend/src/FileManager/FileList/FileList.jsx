@@ -10,11 +10,10 @@ import "./FileList.scss";
 
 const FileList = ({
   onCreateFolder,
-  onRename,
-  onFileOpen,
   onRefresh,
   enableFilePreview,
   triggerAction,
+  actions
 }) => {
   const { currentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
@@ -31,7 +30,7 @@ const FileList = ({
     selectedFileIndexes,
     clickPosition,
     isSelectionCtx,
-  } = useFileList(onRefresh, enableFilePreview, triggerAction);
+  } = useFileList(onRefresh, enableFilePreview, triggerAction, actions);
 
   const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
 
@@ -51,9 +50,8 @@ const FileList = ({
               key={index}
               index={index}
               file={file}
+              actions={actions}
               onCreateFolder={onCreateFolder}
-              onRename={onRename}
-              onFileOpen={onFileOpen}
               enableFilePreview={enableFilePreview}
               triggerAction={triggerAction}
               filesViewRef={filesViewRef}
@@ -71,7 +69,7 @@ const FileList = ({
       <ContextMenu
         filesViewRef={filesViewRef}
         contextMenuRef={contextMenuRef.ref}
-        menuItems={isSelectionCtx ? selecCtxItems : emptySelecCtxItems}
+        menuItems={isSelectionCtx ? selecCtxItems() : emptySelecCtxItems}
         visible={visible}
         setVisible={setVisible}
         clickPosition={clickPosition}

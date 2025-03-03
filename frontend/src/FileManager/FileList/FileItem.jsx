@@ -5,6 +5,7 @@ import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
 import RenameAction from "../Actions/Rename/Rename.action";
 import { getDataSize } from "../../utils/getDataSize";
 import { formatDate } from "../../utils/formatDate";
+import { getActionByKey } from "../../utils/getActionByKey";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
@@ -16,10 +17,9 @@ const dragIconSize = 50;
 const FileItem = ({
   index,
   file,
+  actions,
   onCreateFolder,
-  onRename,
   enableFilePreview,
-  onFileOpen,
   filesViewRef,
   selectedFileIndexes,
   triggerAction,
@@ -46,7 +46,8 @@ const FileItem = ({
     clipBoard.files.find((f) => f.name === file.name && f.path === file.path);
 
   const handleFileAccess = () => {
-    onFileOpen(file);
+    const openAction = getActionByKey(actions, "open");
+    openAction.onClick(file);
     if (file.isDirectory) {
       setCurrentPath(file.path);
       setSelectedFiles([]);
@@ -234,7 +235,7 @@ const FileItem = ({
               <RenameAction
                 filesViewRef={filesViewRef}
                 file={file}
-                onRename={onRename}
+                onRename={getActionByKey(actions, "rename").onClick}
                 triggerAction={triggerAction}
               />
             )}
