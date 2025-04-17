@@ -129,6 +129,69 @@ type File = {
 | `primaryColor`         | string                                                                                                                         | The primary color for the component's theme. Accepts any valid CSS color format (e.g., `'blue'`, `'#E97451'`, `'rgb(52, 152, 219)'`). This color will be applied to buttons, highlights, and other key elements. `default: #6155b4`.                                                                                                                                                                                                                                                                                            |
 | `width`                | string \| number                                                                                                               | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                                                                                                                                                                |
 
+
+
+## Action properties
+
+| Property       | Type        | Description                                                                                                             |
+|---------------|------------|-------------------------------------------------------------------------------------------------------------------------|
+| **title**     | `string`    | Display name of the action (e.g., "Rename", "Delete", "Download").                                                    |
+| **key**       | `string`    | Unique identifier for the action (e.g., "rename", "delete", "download").                                              |
+| **onClick**   | `Function`  | Function executed when the action is triggered, receiving selected item/items as an argument.                                |
+| **showToolbar** | `boolean`  | Determines if the action appears in the toolbar (`true` = visible, `false` = hidden).                                  |
+| **showMenu**  | `boolean`   | Determines if the action appears in the context menu (`true` = visible, `false` = hidden).                             |
+| **multiple**  | `boolean`   | Defines if the action supports multiple selections (`true` = supports multiple items, `false` = single selection only). |
+| **applyTo** (TBD)   | `string[]` \| `undefined` | Specifies applicable file types (e.g., folder, pdf, mp4). If undefined, the action applies to all types. |
+| **icon**      | `ReactNode`    | Defines the icon associated with the action (e.g., "mdi-delete").                                                       |
+| **hidden**    | `boolean`   | Controls whether the action is hidden from the UI (`true` = hidden, `false` = visible).                                 |
+
+
+## Example Usage
+
+```JSX
+<FileManager
+    config={{
+        actions: [
+          {
+            title: "Open",
+            key: "open",
+            onClick: handleFileOpen,
+            showToolbar: false,
+            showMenu: true,
+          },
+          {
+            title: "Copy",
+            key: "copy",
+            onClick: handleCopy,
+            showToolbar: true,
+            showMenu: true,
+          },
+          {
+            title: "Custom Action",
+            key: "custom-action",
+            onClick: handleCustomAction,
+            showToolbar: true,
+            showMenu: false,
+            multiple: false,
+            applyTo: [''],
+            icon: <FaRegUser size={18} />,
+            hidden: false
+          },
+        ],
+    }}
+    {...}
+  />
+```
+
+## Notes
+
+- `title` property might be handy to maintain internationalization(i18n).
+- `applyTo` helps limit actions to **specific file types**, ensuring they are only displayed where applicable.
+- `hidden: true` can be useful for **conditionally displaying actions** based on user roles, permissions, or UI state.
+
+---
+
+
 ## ⌨️ Keyboard Shortcuts
 
 | **Action**                     | **Shortcut**       |
@@ -222,3 +285,4 @@ Check `backend/.env.example` for database configuration details.
 ## ©️ License
 
 React File Manager is [MIT Licensed](LICENSE).
+

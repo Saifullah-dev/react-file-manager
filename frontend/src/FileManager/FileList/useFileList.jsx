@@ -12,7 +12,7 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import { validateApiCallback } from "../../utils/validateApiCallback";
 
-const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
+const useFileList = (onRefresh, enableFilePreview, triggerAction, actions) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
@@ -25,8 +25,8 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
     useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
 
-  // Context Menu
   const handleFileOpen = () => {
+  // Context Menu
     if (lastSelectedFile.isDirectory) {
       setCurrentPath(lastSelectedFile.path);
       setSelectedFileIndexes([]);
@@ -133,51 +133,103 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
     },
   ];
 
-  const selecCtxItems = [
-    {
-      title: "Open",
-      icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
-      onClick: handleFileOpen,
-      divider: true,
-    },
-    {
-      title: "Cut",
-      icon: <BsScissors size={19} />,
-      onClick: () => handleMoveOrCopyItems(true),
-    },
-    {
-      title: "Copy",
-      icon: <BsCopy strokeWidth={0.1} size={17} />,
-      onClick: () => handleMoveOrCopyItems(false),
-      divider: !lastSelectedFile?.isDirectory,
-    },
-    {
-      title: "Paste",
-      icon: <FaRegPaste size={18} />,
-      onClick: handleFilePasting,
-      className: `${clipBoard ? "" : "disable-paste"}`,
-      hidden: !lastSelectedFile?.isDirectory,
-      divider: true,
-    },
-    {
-      title: "Rename",
-      icon: <BiRename size={19} />,
-      onClick: handleRenaming,
-      hidden: selectedFiles.length > 1,
-    },
-    {
-      title: "Download",
-      icon: <MdOutlineFileDownload size={18} />,
-      onClick: handleDownloadItems,
-      hidden: lastSelectedFile?.isDirectory,
-    },
-    {
-      title: "Delete",
-      icon: <MdOutlineDelete size={19} />,
-      onClick: handleDelete,
-    },
-  ];
-  //
+  const selecCtxItems = () => {
+    return actions
+      .filter((item) => item.showMenu)
+      .map((item) => {
+        switch (item.key) {
+          case "open": {
+            return {
+              ...item,
+              onClick: (args) => {
+                handleFileOpen(args);
+                item.onClick(args);
+              },
+              icon: item.icon || lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
+              divider: true,
+            }
+          }
+          case "cut": {
+            return {
+              ...item,
+              onClick: () => {
+                item.onClick();
+                handleMoveOrCopyItems(true);
+              },
+              icon: item.icon || <BsScissors size={19} />,
+              hidden: selectedFiles.length > 1,
+            }
+          }
+          case "copy": {
+            return {
+              ...item, 
+              onClick: (args) => {
+                item.onClick(args);
+                handleMoveOrCopyItems(false);
+              },
+              icon: item.icon || <BsCopy strokeWidth={0.1} size={17} />,
+              divider: !lastSelectedFile?.isDirectory,
+            }
+          }
+          case "paste": {
+            return {
+              ...item, 
+              onClick: (args) => {
+                item.onClick(args);
+                handleFilePasting(args);
+              },
+              icon: item.icon || <FaRegPaste size={18} />,
+              className: `${clipBoard ? "" : "disable-paste"}`,
+              hidden: !lastSelectedFile?.isDirectory,
+              divider: !lastSelectedFile?.isDirectory,
+            }
+          }
+          case "rename": {
+            return {
+              ...item,
+              icon: item.icon || <BiRename size={19} />,
+              onClick: (args) => {
+                item.onClick(args);
+                handleRenaming(args);
+              },
+              hidden: selectedFiles.length > 1,
+            }
+          }
+          case "download": {
+            return {
+              ...item, 
+              icon: item.icon || <MdOutlineFileDownload size={18} />,
+              onClick: (args) => {
+                item.onClick(args);
+                handleDownloadItems(args);
+              },
+              hidden: lastSelectedFile?.isDirectory,
+            }
+          }
+          case "delete": {
+            return {
+              ...item,
+              icon: item.icon || <MdOutlineDelete size={19} />,
+              onClick: () => {
+                item.onClick();
+                handleDelete();
+              },
+              hidden: lastSelectedFile?.isDirectory,
+            }
+          }
+          default: {
+            return {
+              ...item,
+              onClick: () => {
+                item.onClick(item.multiple ? selectedFiles : selectedFiles?.[0]);
+                setVisible(false);
+              },
+              hidden: item.hidden || (!item.multiple && selectedFiles.length > 1),
+            }
+          } 
+        }
+      });
+}
 
   const handleFolderCreating = () => {
     setCurrentPathFiles((prev) => {

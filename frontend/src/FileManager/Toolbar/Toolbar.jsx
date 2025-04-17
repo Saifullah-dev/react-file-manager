@@ -21,6 +21,7 @@ const Toolbar = ({
   allowCreateFolder = true,
   allowUploadFile = true,
   onLayoutChange,
+  actions,
   onRefresh,
   triggerAction,
 }) => {
@@ -34,23 +35,107 @@ const Toolbar = ({
   const toolbarLeftItems = [
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
-      text: "New folder",
+      title: "New folder",
       permission: allowCreateFolder,
       onClick: () => triggerAction.show("createFolder"),
     },
     {
       icon: <MdOutlineFileUpload size={18} />,
-      text: "Upload",
+      title: "Upload",
       permission: allowUploadFile,
       onClick: () => triggerAction.show("uploadFile"),
     },
     {
       icon: <FaRegPaste size={18} />,
-      text: "Paste",
+      title: "Paste",
       permission: !!clipBoard,
       onClick: handleFilePasting,
     },
   ];
+  const selectedToolbarActions = () => {
+    return actions
+    .filter((item) => item.showToolbar)
+    .map((item) => {
+      switch (item.key) {
+        case "cut": {
+          return {
+            ...item,
+            onClick: () => {
+              item.onClick();
+              handleCutCopy(true);
+            },
+            icon: item.icon || <BsScissors size={18} />,
+            hidden: selectedFiles.length > 1,
+          }
+        }
+        case "copy": {
+          return {
+            ...item, 
+            onClick: (args) => {
+              item.onClick(args);
+              handleCutCopy(false);
+            },
+            icon: item.icon || <BsCopy strokeWidth={0.1} size={17} />,
+          }
+        }
+        case "paste": {
+          return {
+            ...item, 
+            onClick: (args) => {
+              item.onClick(args);
+              handleFilePasting(args);
+            },
+            icon: item.icon || <FaRegPaste size={18} />,
+            className: `${clipBoard ? "" : "disable-paste"}`,
+            hidden: clipBoard?.files?.length === 0,
+          }
+        }
+        case "rename": {
+          return {
+            ...item,
+            icon: item.icon || <BiRename size={19} />,
+            onClick: (args) => {
+              console.log(args);
+              item.onClick(args);
+              triggerAction.show("rename")
+            },
+            hidden: selectedFiles.length > 1,
+          }
+        }
+        case "download": {
+          return {
+            ...item, 
+            icon: item.icon || <MdOutlineFileDownload size={18} />,
+            onClick: (args) => {
+              item.onClick(args);
+              handleDownloadItems(args);
+            },
+            hidden: selectedFiles.isDirectory,
+          }
+        }
+        case "delete": {
+          return {
+            ...item,
+            icon: item.icon || <MdOutlineDelete size={19} />,
+            onClick: () => {
+              item.onClick();
+              triggerAction.show("delete")
+            },
+            hidden: selectedFiles.isDirectory,
+          }
+        }
+        default: {
+          return {
+            ...item,
+            onClick: () => {
+              item.onClick(item.multiple ? selectedFiles : selectedFiles?.[0]);
+            },
+            hidden: item.hidden || (!item.multiple && selectedFiles.length > 1),
+          }
+        } 
+      }
+    });
+  }
 
   const toolbarRightItems = [
     {
@@ -83,10 +168,14 @@ const Toolbar = ({
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
-            <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
-              <BsScissors size={18} />
-              <span>Cut</span>
-            </button>
+            {selectedToolbarActions().map((item) => (
+              <button className="item-action file-action"
+                onClick={item.onClick}>
+                  {item.icon}
+                  <span>{item.title}</span>
+              </button>
+            ))}
+          {/* 
             <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
               <BsCopy strokeWidth={0.1} size={17} />
               <span>Copy</span>
@@ -115,14 +204,14 @@ const Toolbar = ({
                 <MdOutlineFileDownload size={19} />
                 <span>Download</span>
               </button>
-            )}
-            <button
+            )} */}
+            {/* <button
               className="item-action file-action"
               onClick={() => triggerAction.show("delete")}
             >
               <MdOutlineDelete size={19} />
               <span>Delete</span>
-            </button>
+            </button> */}
           </div>
           <button
             className="item-action file-action"
@@ -149,7 +238,7 @@ const Toolbar = ({
             .map((item, index) => (
               <button className="item-action" key={index} onClick={item.onClick}>
                 {item.icon}
-                <span>{item.text}</span>
+                <span>{item.title}</span>
               </button>
             ))}
         </div>
