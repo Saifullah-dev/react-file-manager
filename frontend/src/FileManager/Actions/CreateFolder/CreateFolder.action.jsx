@@ -6,6 +6,7 @@ import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
 import { validateApiCallback } from "../../../utils/validateApiCallback";
+import { useTranslation } from "../../../contexts/TranslationProvider";
 
 const maxNameLength = 220;
 
@@ -21,6 +22,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
   });
   const { currentFolder, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
   const { activeLayout } = useLayout();
+  const t = useTranslation();
 
   // Folder name change handler function
   const handleFolderNameChange = (e) => {
@@ -48,9 +50,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     const invalidCharsRegex = /[\\/:*?"<>|]/;
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();
-      setFolderErrorMessage(
-        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
-      );
+      setFolderErrorMessage(t("invalidFileName"));
       setFolderNameError(true);
     } else {
       setFolderNameError(false);
@@ -80,7 +80,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     });
 
     if (alreadyExists) {
-      setFolderErrorMessage(`This destination already contains a folder named '${newFolderName}'.`);
+      setFolderErrorMessage(t("folderExists", { renameFile: newFolderName }));
       setFolderNameError(true);
       outsideClick.ref.current?.focus();
       outsideClick.ref.current?.select();

@@ -7,6 +7,7 @@ import { getDataSize } from "../../../utils/getDataSize";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { useFileIcons } from "../../../hooks/useFileIcons";
 import { FaRegFileAlt } from "react-icons/fa";
+import { useTranslation } from "../../../contexts/TranslationProvider";
 import "./PreviewFile.action.scss";
 
 const imageExtensions = ["jpg", "jpeg", "png"];
@@ -21,6 +22,7 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
   const fileIcons = useFileIcons(73);
   const extension = getFileExtension(selectedFiles[0].name)?.toLowerCase();
   const filePath = `${filePreviewPath}${selectedFiles[0].path}`;
+  const t = useTranslation();
 
   // Custom file preview component
   const customPreview = useMemo(
@@ -57,7 +59,7 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
         ].includes(extension) && (
           <div className="preview-error">
             <span className="error-icon">{fileIcons[extension] ?? <FaRegFileAlt size={73} />}</span>
-            <span className="error-msg">Sorry! Preview is not available for this file.</span>
+            <span className="error-msg">{t("previewUnavailable")}</span>
             <div className="file-info">
               <span className="file-name">{selectedFiles[0].name}</span>
               {selectedFiles[0].size && <span>-</span>}
@@ -66,7 +68,7 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
             <Button onClick={handleDownload} padding="0.45rem .9rem">
               <div className="download-btn">
                 <MdOutlineFileDownload size={18} />
-                <span>Download</span>
+                <span>{t("download")}</span>
               </div>
             </Button>
           </div>

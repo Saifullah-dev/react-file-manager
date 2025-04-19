@@ -6,6 +6,7 @@ import ContextMenu from "../../components/ContextMenu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import useFileList from "./useFileList";
 import FilesHeader from "./FilesHeader";
+import { useTranslation } from "../../contexts/TranslationProvider";
 import "./FileList.scss";
 
 const FileList = ({
@@ -19,6 +20,7 @@ const FileList = ({
   const { currentPathFiles } = useFileNavigation();
   const filesViewRef = useRef(null);
   const { activeLayout } = useLayout();
+  const t = useTranslation();
 
   const {
     emptySelecCtxItems,
@@ -65,7 +67,7 @@ const FileList = ({
           ))}
         </>
       ) : (
-        <div className="empty-folder">This folder is empty.</div>
+        <div className="empty-folder">{t("folderEmpty")}</div>
       )}
 
       <ContextMenu
