@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdHome, MdMoreHoriz, MdOutlineNavigateNext } from "react-icons/md";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import { useTranslation } from "../../contexts/TranslationProvider";
 import "./BreadCrumb.scss";
 
 const BreadCrumb = () => {
@@ -17,20 +18,21 @@ const BreadCrumb = () => {
   const popoverRef = useDetectOutsideClick(() => {
     setShowHiddenFolders(false);
   });
+  const t = useTranslation();
 
   useEffect(() => {
     setFolders(() => {
       let path = "";
       return currentPath?.split("/").map((item) => {
         return {
-          name: item || "Home",
+          name: item || t("home"),
           path: item === "" ? item : (path += `/${item}`),
         };
       });
     });
     setHiddenFolders([]);
     setHiddenFoldersWidth([]);
-  }, [currentPath]);
+  }, [currentPath, t]);
 
   const switchPath = (path) => {
     setCurrentPath(path);
@@ -92,7 +94,7 @@ const BreadCrumb = () => {
                 className="folder-name folder-name-btn"
                 onClick={() => setShowHiddenFolders(true)}
                 ref={moreBtnRef}
-                title="Show more folders"
+                title={t("showMoreFolder")}
               >
                 <MdMoreHoriz size={22} className="hidden-folders" />
               </button>

@@ -1,5 +1,6 @@
 import { MdClose } from "react-icons/md";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Modal.scss";
 
 const Modal = ({
@@ -12,6 +13,7 @@ const Modal = ({
   closeButton = true,
 }) => {
   const modalRef = useRef(null);
+  const t = useTranslation();
 
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
@@ -37,7 +39,12 @@ const Modal = ({
       <div className="fm-modal-header">
         <span className="fm-modal-heading">{heading}</span>
         {closeButton && (
-          <MdClose size={18} onClick={() => setShow(false)} className="close-icon" title="Close" />
+          <MdClose
+            size={18}
+            onClick={() => setShow(false)}
+            className="close-icon"
+            title={t("close")}
+          />
         )}
       </div>
       {children}

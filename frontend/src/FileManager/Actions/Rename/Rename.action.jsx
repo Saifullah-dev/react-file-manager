@@ -9,6 +9,7 @@ import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
 import { validateApiCallback } from "../../../utils/validateApiCallback";
+import { useTranslation } from "../../../contexts/TranslationProvider";
 
 const maxNameLength = 220;
 
@@ -21,6 +22,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
   const [errorYPlacement, setErrorYPlacement] = useState("bottom");
   const { currentPathFiles, setCurrentPathFiles } = useFileNavigation();
   const { activeLayout } = useLayout();
+  const t = useTranslation();
 
   const warningModalRef = useRef(null);
   const outsideClick = useDetectOutsideClick((e) => {
@@ -55,9 +57,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
     const invalidCharsRegex = /[\\/:*?"<>|]/;
     if (invalidCharsRegex.test(e.key)) {
       e.preventDefault();
-      setRenameErrorMessage(
-        "A file name can't contain any of the following characters: \\ / : * ? \" < > |"
-      );
+      setRenameErrorMessage(t("invalidFileName"));
       setFileRenameError(true);
     } else {
       setFileRenameError(false);
@@ -91,7 +91,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       return;
     } else if (currentPathFiles.some((file) => file.name === renameFile)) {
       setFileRenameError(true);
-      setRenameErrorMessage(`This destination already contains a folder named '${renameFile}'.`);
+      setRenameErrorMessage(t("folderExists", { renameFile }));
       outsideClick.setIsClicked(false);
       return;
     } else if (!file.isDirectory && !isConfirmed) {
@@ -176,7 +176,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       )}
 
       <Modal
-        heading={"Rename"}
+        heading={t("rename")}
         show={renameFileWarning}
         setShow={setRenameFileWarning}
         dialogWidth={"25vw"}
@@ -186,10 +186,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
           <div className="fm-rename-folder-input">
             <div className="fm-rename-warning">
               <IoWarningOutline size={70} color="orange" />
-              <div>
-                If you change a file name extension, the file might become unusable. Are you sure
-                you want to change it?
-              </div>
+              <div>{t("fileNameChangeWarning")}</div>
             </div>
           </div>
           <div className="fm-rename-folder-action">
@@ -208,7 +205,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
                 triggerAction.close();
               }}
             >
-              No
+              {t("no")}
             </Button>
             <Button
               type="danger"
@@ -217,7 +214,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
                 handleFileRenaming(true);
               }}
             >
-              Yes
+              {t("yes")}
             </Button>
           </div>
         </div>

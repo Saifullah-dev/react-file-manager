@@ -7,6 +7,7 @@ import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import { getDataSize } from "../../../utils/getDataSize";
 import { useFiles } from "../../../contexts/FilesContext";
+import { useTranslation } from "../../../contexts/TranslationProvider";
 import "./UploadFile.action.scss";
 
 const UploadFileAction = ({
@@ -22,6 +23,7 @@ const UploadFileAction = ({
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { onError } = useFiles();
   const fileInputRef = useRef(null);
+  const t = useTranslation();
 
   // To open choose file if the "Choose File" button is focused and Enter key is pressed
   const handleChooseFileKeyDown = (e) => {
@@ -33,16 +35,16 @@ const UploadFileAction = ({
   const checkFileError = (file) => {
     if (acceptedFileTypes) {
       const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
-      if (extError) return "File type is not allowed.";
+      if (extError) return t("fileTypeNotAllowed");
     }
 
     const fileExists = currentPathFiles.some(
       (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
     );
-    if (fileExists) return "File already exists.";
+    if (fileExists) return t("fileAlreadyExist");
 
     const sizeError = maxFileSize && file.size > maxFileSize;
-    if (sizeError) return `Maximum upload size is ${getDataSize(maxFileSize, 0)}.`;
+    if (sizeError) return `${t("maxUploadSize")} ${getDataSize(maxFileSize, 0)}.`;
   };
 
   const setSelectedFiles = (selectedFiles) => {
@@ -110,12 +112,12 @@ const UploadFileAction = ({
         >
           <div className="input-text">
             <AiOutlineCloudUpload size={30} />
-            <span>Drag files to upload</span>
+            <span>{t("dragFileToUpload")}</span>
           </div>
         </div>
         <div className="btn-choose-file">
           <Button padding="0" onKeyDown={handleChooseFileKeyDown}>
-            <label htmlFor="chooseFile">Choose File</label>
+            <label htmlFor="chooseFile">{t("chooseFile")}</label>
             <input
               ref={fileInputRef}
               type="file"
@@ -133,11 +135,11 @@ const UploadFileAction = ({
           <div className="heading">
             {Object.values(isUploading).some((fileUploading) => fileUploading) ? (
               <>
-                <h2>Uploading</h2>
+                <h2>{t("uploading")}</h2>
                 <Loader loading={true} className="upload-loading" />
               </>
             ) : (
-              <h2>Completed</h2>
+              <h2>{t("completed")}</h2>
             )}
           </div>
           <ul>
