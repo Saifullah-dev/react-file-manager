@@ -208,6 +208,8 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) =
     setCurrentPathFiles((prev) => {
       if (prev[selectedFileIndexes.at(-1)]) {
         prev[selectedFileIndexes.at(-1)].isEditing = true;
+      } else {
+        triggerAction.close();
       }
       return prev;
     });
