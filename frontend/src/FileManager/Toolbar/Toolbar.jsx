@@ -18,13 +18,7 @@ import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Toolbar.scss";
 
-const Toolbar = ({
-  allowCreateFolder = true,
-  allowUploadFile = true,
-  onLayoutChange,
-  onRefresh,
-  triggerAction,
-}) => {
+const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -37,13 +31,13 @@ const Toolbar = ({
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
       text: t("newFolder"),
-      permission: allowCreateFolder,
+      permission: permissions.create,
       onClick: () => triggerAction.show("createFolder"),
     },
     {
       icon: <MdOutlineFileUpload size={18} />,
       text: t("upload"),
-      permission: allowUploadFile,
+      permission: permissions.upload,
       onClick: () => triggerAction.show("uploadFile"),
     },
     {
@@ -85,14 +79,18 @@ const Toolbar = ({
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
-            <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
-              <BsScissors size={18} />
-              <span>{t("cut")}</span>
-            </button>
-            <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
-              <BsCopy strokeWidth={0.1} size={17} />
-              <span>{t("copy")}</span>
-            </button>
+            {permissions.move && (
+              <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
+                <BsScissors size={18} />
+                <span>{t("cut")}</span>
+              </button>
+            )}
+            {permissions.copy && (
+              <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
+                <BsCopy strokeWidth={0.1} size={17} />
+                <span>{t("copy")}</span>
+              </button>
+            )}
             {clipBoard?.files?.length > 0 && (
               <button
                 className="item-action file-action"
@@ -103,7 +101,7 @@ const Toolbar = ({
                 <span>{t("paste")}</span>
               </button>
             )}
-            {selectedFiles.length === 1 && (
+            {selectedFiles.length === 1 && permissions.rename && (
               <button
                 className="item-action file-action"
                 onClick={() => triggerAction.show("rename")}
@@ -112,19 +110,21 @@ const Toolbar = ({
                 <span>{t("rename")}</span>
               </button>
             )}
-            {!selectedFiles.isDirectory && (
+            {permissions.download && (
               <button className="item-action file-action" onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
                 <span>{t("download")}</span>
               </button>
             )}
-            <button
-              className="item-action file-action"
-              onClick={() => triggerAction.show("delete")}
-            >
-              <MdOutlineDelete size={19} />
-              <span>{t("delete")}</span>
-            </button>
+            {permissions.delete && (
+              <button
+                className="item-action file-action"
+                onClick={() => triggerAction.show("delete")}
+              >
+                <MdOutlineDelete size={19} />
+                <span>{t("delete")}</span>
+              </button>
+            )}
           </div>
           <button
             className="item-action file-action"

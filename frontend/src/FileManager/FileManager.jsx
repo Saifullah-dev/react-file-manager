@@ -14,6 +14,8 @@ import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import { TranslationProvider } from "../contexts/TranslationProvider";
+import { useMemo } from "react";
+import { defaultPermissions } from "../constants";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -46,6 +48,7 @@ const FileManager = ({
   primaryColor = "#6155b4",
   fontFamily = "Nunito Sans, sans-serif",
   language = "en",
+  permissions: userPermissions = {},
 }) => {
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
@@ -57,6 +60,11 @@ const FileManager = ({
     width,
   };
 
+  const permissions = useMemo(
+    () => ({ ...defaultPermissions, ...userPermissions }),
+    [userPermissions]
+  );
+
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
       <Loader loading={isLoading} />
@@ -67,11 +75,10 @@ const FileManager = ({
               <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
                 <LayoutProvider layout={layout}>
                   <Toolbar
-                    allowCreateFolder
-                    allowUploadFile
                     onLayoutChange={onLayoutChange}
                     onRefresh={onRefresh}
                     triggerAction={triggerAction}
+                    permissions={permissions}
                   />
                   <section
                     ref={containerRef}
@@ -96,6 +103,7 @@ const FileManager = ({
                         onRefresh={onRefresh}
                         enableFilePreview={enableFilePreview}
                         triggerAction={triggerAction}
+                        permissions={permissions}
                       />
                     </div>
                   </section>
@@ -111,6 +119,7 @@ const FileManager = ({
                     filePreviewComponent={filePreviewComponent}
                     acceptedFileTypes={acceptedFileTypes}
                     triggerAction={triggerAction}
+                    permissions={permissions}
                   />
                 </LayoutProvider>
               </ClipBoardProvider>
@@ -166,6 +175,15 @@ FileManager.propTypes = {
   primaryColor: PropTypes.string,
   fontFamily: PropTypes.string,
   language: PropTypes.string,
+  permissions: PropTypes.shape({
+    create: PropTypes.bool,
+    upload: PropTypes.bool,
+    move: PropTypes.bool,
+    copy: PropTypes.bool,
+    rename: PropTypes.bool,
+    download: PropTypes.bool,
+    delete: PropTypes.bool,
+  }),
 };
 
 export default FileManager;
