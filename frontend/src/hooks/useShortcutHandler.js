@@ -6,26 +6,26 @@ import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
 import { validateApiCallback } from "../utils/validateApiCallback";
 
-export const useShortcutHandler = (triggerAction, onRefresh) => {
+export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   const { setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { setSelectedFiles, handleDownload } = useSelection();
   const { setActiveLayout } = useLayout();
 
   const triggerCreateFolder = () => {
-    triggerAction.show("createFolder");
+    permissions.create && triggerAction.show("createFolder");
   };
 
   const triggerUploadFiles = () => {
-    triggerAction.show("uploadFile");
+    permissions.upload && triggerAction.show("uploadFile");
   };
 
   const triggerCutItems = () => {
-    handleCutCopy(true);
+    permissions.move && handleCutCopy(true);
   };
 
   const triggerCopyItems = () => {
-    handleCutCopy(false);
+    permissions.copy && handleCutCopy(false);
   };
 
   const triggerPasteItems = () => {
@@ -33,15 +33,15 @@ export const useShortcutHandler = (triggerAction, onRefresh) => {
   };
 
   const triggerRename = () => {
-    triggerAction.show("rename");
+    permissions.rename && triggerAction.show("rename");
   };
 
   const triggerDownload = () => {
-    handleDownload();
+    permissions.download && handleDownload();
   };
 
   const triggerDelete = () => {
-    triggerAction.show("delete");
+    permissions.delete && triggerAction.show("delete");
   };
 
   const triggerSelectFirst = () => {

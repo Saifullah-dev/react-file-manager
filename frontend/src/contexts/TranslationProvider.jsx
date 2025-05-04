@@ -9,7 +9,7 @@ export const TranslationProvider = ({ children, language }) => {
   useEffect(() => {
     initI18n(language);
     setT(() => i18n.t.bind(i18n));
-  }, language);
+  }, [language]);
 
   return <I18nContext.Provider value={t}>{children}</I18nContext.Provider>;
 };

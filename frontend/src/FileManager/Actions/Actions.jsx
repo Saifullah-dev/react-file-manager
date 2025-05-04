@@ -18,13 +18,14 @@ const Actions = ({
   filePreviewComponent,
   acceptedFileTypes,
   triggerAction,
+  permissions,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
   const { selectedFiles } = useSelection();
   const t = useTranslation();
 
   // Triggers all the keyboard shortcuts based actions
-  useShortcutHandler(triggerAction, onRefresh);
+  useShortcutHandler(triggerAction, onRefresh, permissions);
 
   const actionTypes = {
     uploadFile: {
