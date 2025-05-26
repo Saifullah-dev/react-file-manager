@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { MdHome, MdMoreHoriz, MdOutlineNavigateNext } from "react-icons/md";
+import { TbLayoutSidebarLeftExpand, TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./BreadCrumb.scss";
 
-const BreadCrumb = () => {
+const BreadCrumb = ({
+  isNavigationPaneOpen,
+  setNavigationPaneOpen,
+}) => {
   const [folders, setFolders] = useState([]);
   const [hiddenFolders, setHiddenFolders] = useState([]);
   const [hiddenFoldersWidth, setHiddenFoldersWidth] = useState([]);
@@ -79,6 +84,15 @@ const BreadCrumb = () => {
   return (
     <div className="bread-crumb-container">
       <div className="breadcrumb" ref={breadCrumbRef}>
+        <div style={{ display: "contents" }}>
+          <span
+              className="folder-name folder-name-btn"
+              onClick={() => setNavigationPaneOpen((prev) => !prev)}
+            >
+              {isNavigationPaneOpen ? <TbLayoutSidebarLeftCollapseFilled /> : <TbLayoutSidebarLeftExpand />}
+            </span>
+        </div>
+        <div style={{ width: '1px', backgroundColor: "#cfcfcf" }}></div>
         {folders.map((folder, index) => (
           <div key={index} style={{ display: "contents" }}>
             <span
@@ -123,5 +137,10 @@ const BreadCrumb = () => {
 };
 
 BreadCrumb.displayName = "BreadCrumb";
+
+BreadCrumb.propTypes = {
+  isNavigationPaneOpen: PropTypes.bool.isRequired,
+  setNavigationPaneOpen: PropTypes.func.isRequired,
+}
 
 export default BreadCrumb;
