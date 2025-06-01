@@ -48,5 +48,7 @@
   "percentDone": "{{percent}}% 完了",
   "canceled": "キャンセルしました",
   "invalidFileName": "ファイル名には以下の文字を含めることはできません：\\ / : * ? \" < > |",
-  "folderExists": "この宛先には \"{{renameFile}}\" という名前のフォルダーがすでに存在します。"
+  "folderExists": "この宛先には \"{{renameFile}}\" という名前のフォルダーがすでに存在します。",
+  "collapseNavigationPane": "ナビゲーションペインを折りたたむ",
+  "expandNavigationPane": "ナビゲーションペインを展開"
 }

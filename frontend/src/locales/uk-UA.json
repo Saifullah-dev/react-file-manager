@@ -48,5 +48,7 @@
   "percentDone": "{{percent}}% завершено",
   "canceled": "Скасовано",
   "invalidFileName": "Ім'я файлу не може містити такі символи: \\ / : * ? \" < > |",
-  "folderExists": "У цьому місці вже існує папка з назвою \"{{renameFile}}\"."
+  "folderExists": "У цьому місці вже існує папка з назвою \"{{renameFile}}\".",
+  "collapseNavigationPane": "Згорнути панель навігації",
+  "expandNavigationPane": "Розгорнути панель навігації"
 }

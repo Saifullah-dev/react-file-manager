@@ -49,5 +49,7 @@
   "percentDone": "%{{percent}} tamamlandı",
   "canceled": "İptal edildi",
   "invalidFileName": "Bir dosya adı aşağıdaki karakterlerden hiçbirini içeremez: \\ / : * ? \" < > |",
-  "folderExists": "Bu konumda \"{{renameFile}}\" adında bir klasör zaten var."
+  "folderExists": "Bu konumda \"{{renameFile}}\" adında bir klasör zaten var.",
+  "collapseNavigationPane": "Gezinti Panelini Daralt",
+  "expandNavigationPane": "Gezinti Panelini Genişlet"
 }

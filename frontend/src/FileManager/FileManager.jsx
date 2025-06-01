@@ -14,7 +14,7 @@ import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import { TranslationProvider } from "../contexts/TranslationProvider";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
 import "./FileManager.scss";
 
@@ -49,7 +49,10 @@ const FileManager = ({
   fontFamily = "Nunito Sans, sans-serif",
   language = "en",
   permissions: userPermissions = {},
+  collapsibleNav = false,
+  defaultNavExpanded = true,
 }) => {
+  const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
@@ -86,7 +89,12 @@ const FileManager = ({
                     onMouseUp={handleMouseUp}
                     className="files-container"
                   >
-                    <div className="navigation-pane" style={{ width: colSizes.col1 + "%" }}>
+                    <div
+                      className={`navigation-pane ${isNavigationPaneOpen ? "open" : "closed"}`}
+                      style={{
+                        width: colSizes.col1 + "%",
+                      }}
+                    >
                       <NavigationPane onFileOpen={onFileOpen} />
                       <div
                         className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""}`}
@@ -94,8 +102,15 @@ const FileManager = ({
                       />
                     </div>
 
-                    <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
-                      <BreadCrumb />
+                    <div
+                      className="folders-preview"
+                      style={{ width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%" }}
+                    >
+                      <BreadCrumb
+                        collapsibleNav={collapsibleNav}
+                        isNavigationPaneOpen={isNavigationPaneOpen}
+                        setNavigationPaneOpen={setNavigationPaneOpen}
+                      />
                       <FileList
                         onCreateFolder={onCreateFolder}
                         onRename={onRename}
@@ -184,6 +199,8 @@ FileManager.propTypes = {
     download: PropTypes.bool,
     delete: PropTypes.bool,
   }),
+  collapsibleNav: PropTypes.bool,
+  defaultNavExpanded: PropTypes.bool,
 };
 
 export default FileManager;

@@ -78,12 +78,21 @@ svg {
       }
     }
 
+    .navigation-pane.open {
+      display: block;
+    }
+
+    .navigation-pane.closed {
+      display: none;
+    }
+
     .folders-preview {
       z-index: 2;
       background-color: white;
       padding-right: 0px;
       padding-left: 0px;
       border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
     }
   }
 }

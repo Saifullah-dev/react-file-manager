@@ -48,5 +48,7 @@
   "percentDone": "{{percent}}% 완료",
   "canceled": "취소됨",
   "invalidFileName": "파일 이름에는 다음 문자를 사용할 수 없습니다: \\ / : * ? \" < > |",
-  "folderExists": "해당 위치에 \"{{renameFile}}\" 폴더가 이미 있습니다."
+  "folderExists": "해당 위치에 \"{{renameFile}}\" 폴더가 이미 있습니다.",
+  "collapseNavigationPane": "탐색 창 축소",
+  "expandNavigationPane": "탐색 창 확장"
 }

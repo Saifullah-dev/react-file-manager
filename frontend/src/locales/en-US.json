@@ -48,5 +48,7 @@
   "percentDone": "{{percent}}% done",
   "canceled": "Canceled",
   "invalidFileName": "A file name can't contain any of the following characters: \\ / : * ? \" < > |",
-  "folderExists": "This destination already contains a folder named \"{{renameFile}}\"."
+  "folderExists": "This destination already contains a folder named \"{{renameFile}}\".",
+  "collapseNavigationPane": "Collapse Navigation Pane",
+  "expandNavigationPane": "Expand Navigation Pane"
 }
