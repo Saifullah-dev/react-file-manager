@@ -48,5 +48,7 @@
   "percentDone": "{{percent}}% erledigt",
   "canceled": "Abgebrochen",
   "invalidFileName": "Ein Dateiname darf keines der folgenden Zeichen enthalten: \\ / : * ? \" < > |",
-  "folderExists": "In diesem Zielordner gibt es bereits einen Ordner namens \"{{renameFile}}\"."
+  "folderExists": "In diesem Zielordner gibt es bereits einen Ordner namens \"{{renameFile}}\".",
+  "collapseNavigationPane": "Navigationsbereich einklappen",
+  "expandNavigationPane": "Navigationsbereich erweitern"
 }

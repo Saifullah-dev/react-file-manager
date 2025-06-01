@@ -49,9 +49,10 @@ const FileManager = ({
   fontFamily = "Nunito Sans, sans-serif",
   language = "en",
   permissions: userPermissions = {},
-  showNavigationPane = true,
+  collapsibleNav = false,
+  defaultNavExpanded = true,
 }) => {
-  const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(showNavigationPane);
+  const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
@@ -89,10 +90,9 @@ const FileManager = ({
                     className="files-container"
                   >
                     <div
-                      className="navigation-pane"
+                      className={`navigation-pane ${isNavigationPaneOpen ? "open" : "closed"}`}
                       style={{
                         width: colSizes.col1 + "%",
-                        display: isNavigationPaneOpen ? "block" : "none",
                       }}
                     >
                       <NavigationPane onFileOpen={onFileOpen} />
@@ -102,8 +102,12 @@ const FileManager = ({
                       />
                     </div>
 
-                    <div className="folders-preview" style={{ width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%" }}>
+                    <div
+                      className="folders-preview"
+                      style={{ width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%" }}
+                    >
                       <BreadCrumb
+                        collapsibleNav={collapsibleNav}
                         isNavigationPaneOpen={isNavigationPaneOpen}
                         setNavigationPaneOpen={setNavigationPaneOpen}
                       />
@@ -195,7 +199,8 @@ FileManager.propTypes = {
     download: PropTypes.bool,
     delete: PropTypes.bool,
   }),
-  showNavigationPane: PropTypes.bool,
+  collapsibleNav: PropTypes.bool,
+  defaultNavExpanded: PropTypes.bool,
 };
 
 export default FileManager;

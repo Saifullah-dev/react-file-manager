@@ -78,6 +78,14 @@ svg {
       }
     }
 
+    .navigation-pane.open {
+      display: block;
+    }
+
+    .navigation-pane.closed {
+      display: none;
+    }
+
     .folders-preview {
       z-index: 2;
       background-color: white;
