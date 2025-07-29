@@ -84,6 +84,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, onClose, onPick, triggerAction, pe
   };
 
   const handlePickItems = () => {
+    if (!onPick || !selectedFiles.every(item => item.isDirectory === false)) return;
     validateApiCallback(onPick, "onPick", selectedFiles);
     setSelectedFiles([]);
   };
@@ -94,7 +95,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, onClose, onPick, triggerAction, pe
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
-            {onPick && (
+            {onPick && selectedFiles.every(item => item.isDirectory === false) && (
               <button className="item-action file-action pick-action" onClick={handlePickItems}>
                 <FaCheck size={18} />
                 <span>{t("pick")}</span>
