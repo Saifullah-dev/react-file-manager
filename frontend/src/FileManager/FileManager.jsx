@@ -33,6 +33,7 @@ const FileManager = ({
   onDelete = () => null,
   onLayoutChange = () => {},
   onRefresh,
+  onClose,
   onFileOpen = () => {},
   onSelect,
   onError = () => {},
@@ -80,6 +81,7 @@ const FileManager = ({
                   <Toolbar
                     onLayoutChange={onLayoutChange}
                     onRefresh={onRefresh}
+                    onClose={onClose}
                     triggerAction={triggerAction}
                     permissions={permissions}
                   />

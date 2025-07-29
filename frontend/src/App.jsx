@@ -130,6 +130,10 @@ function App() {
     console.log("Selected Files", files);
   };
 
+  const handleClose = () => {
+    console.log("Closed");
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -148,6 +152,7 @@ function App() {
           onDelete={handleDelete}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
+          onClose={handleClose}
           onFileOpen={handleFileOpen}
           onSelect={handleSelect}
           onError={handleError}

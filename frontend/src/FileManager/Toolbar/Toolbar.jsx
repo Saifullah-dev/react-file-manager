@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
+import { AiOutlineClose } from "react-icons/ai";
 import {
   MdClear,
   MdOutlineDelete,
@@ -18,7 +19,7 @@ import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Toolbar.scss";
 
-const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
+const Toolbar = ({ onLayoutChange, onRefresh, onClose, triggerAction, permissions }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -63,6 +64,14 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
       },
     },
   ];
+  if (onClose) toolbarRightItems.push({
+    icon: <AiOutlineClose size={16} />,
+      title: t("close"),
+      onClick: () => {
+        validateApiCallback(onClose, "onClose");
+        setClipBoard(null);
+      },
+  })
 
   function handleFilePasting() {
     handlePasting(currentFolder);
