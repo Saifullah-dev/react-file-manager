@@ -134,6 +134,10 @@ function App() {
     console.log("Closed");
   };
 
+  const handlePick = (files) => {
+    console.log("Picked Files", files);
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -155,6 +159,7 @@ function App() {
           onClose={handleClose}
           onFileOpen={handleFileOpen}
           onSelect={handleSelect}
+          onPick={handlePick}
           onError={handleError}
           layout="grid"
           enableFilePreview

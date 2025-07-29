@@ -16,4 +16,5 @@ export const shortcuts = {
   gridLayout: ["Control", "Shift", "@"], // Act as Ctrl + Shift + 2 but could cause problems for QWERTZ or DVORAK etc. keyborad layouts.
   refresh: ["F5"],
   clearSelection: ["Escape"],
+  pick: ["Enter"]
 };

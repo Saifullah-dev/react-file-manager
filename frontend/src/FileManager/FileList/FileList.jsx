@@ -14,6 +14,7 @@ const FileList = ({
   onRename,
   onFileOpen,
   onRefresh,
+  onPick,
   enableFilePreview,
   triggerAction,
   permissions,
@@ -57,6 +58,7 @@ const FileList = ({
               onCreateFolder={onCreateFolder}
               onRename={onRename}
               onFileOpen={onFileOpen}
+              onPick={onPick}
               enableFilePreview={enableFilePreview}
               triggerAction={triggerAction}
               filesViewRef={filesViewRef}

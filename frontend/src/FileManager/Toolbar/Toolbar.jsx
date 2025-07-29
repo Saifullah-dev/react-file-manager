@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
+import { FaCheck } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
 import {
   MdClear,
@@ -19,7 +20,7 @@ import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Toolbar.scss";
 
-const Toolbar = ({ onLayoutChange, onRefresh, onClose, triggerAction, permissions }) => {
+const Toolbar = ({ onLayoutChange, onRefresh, onClose, onPick, triggerAction, permissions }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -82,27 +83,38 @@ const Toolbar = ({ onLayoutChange, onRefresh, onClose, triggerAction, permission
     setSelectedFiles([]);
   };
 
+  const handlePickItems = () => {
+    validateApiCallback(onPick, "onPick", selectedFiles);
+    setSelectedFiles([]);
+  };
+
   // Selected File/Folder Actions
   if (selectedFiles.length > 0) {
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
+            {onPick && (
+              <button className="item-action file-action pick-action" onClick={handlePickItems}>
+                <FaCheck size={18} />
+                <span>{t("pick")}</span>
+              </button>
+            )}
             {permissions.move && (
-              <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
+              <button className="item-action file-action move-action" onClick={() => handleCutCopy(true)}>
                 <BsScissors size={18} />
                 <span>{t("cut")}</span>
               </button>
             )}
             {permissions.copy && (
-              <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
+              <button className="item-action file-action copy-action" onClick={() => handleCutCopy(false)}>
                 <BsCopy strokeWidth={0.1} size={17} />
                 <span>{t("copy")}</span>
               </button>
             )}
             {clipBoard?.files?.length > 0 && (
               <button
-                className="item-action file-action"
+                className="item-action file-action paste-action"
                 onClick={handleFilePasting}
                 // disabled={!clipBoard}
               >
@@ -112,7 +124,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, onClose, triggerAction, permission
             )}
             {selectedFiles.length === 1 && permissions.rename && (
               <button
-                className="item-action file-action"
+                className="item-action file-action rename-action"
                 onClick={() => triggerAction.show("rename")}
               >
                 <BiRename size={19} />
@@ -120,14 +132,14 @@ const Toolbar = ({ onLayoutChange, onRefresh, onClose, triggerAction, permission
               </button>
             )}
             {permissions.download && (
-              <button className="item-action file-action" onClick={handleDownloadItems}>
+              <button className="item-action file-action download-action" onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
                 <span>{t("download")}</span>
               </button>
             )}
             {permissions.delete && (
               <button
-                className="item-action file-action"
+                className="item-action file-action delete-action"
                 onClick={() => triggerAction.show("delete")}
               >
                 <MdOutlineDelete size={19} />
@@ -136,7 +148,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, onClose, triggerAction, permission
             )}
           </div>
           <button
-            className="item-action file-action"
+            className="item-action file-action clear-action"
             title={t("clearSelection")}
             onClick={() => setSelectedFiles([])}
           >
