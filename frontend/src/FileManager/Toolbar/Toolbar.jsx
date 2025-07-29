@@ -58,7 +58,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
       icon: <FiRefreshCw size={16} />,
       title: t("refresh"),
       onClick: () => {
-        validateApiCallback(onRefresh, "onRefresh");
+        validateApiCallback(onRefresh, "onRefresh", currentFolder);
         setClipBoard(null);
       },
     },

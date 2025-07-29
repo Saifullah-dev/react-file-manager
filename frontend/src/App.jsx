@@ -100,7 +100,8 @@ function App() {
   };
 
   // Refresh Files
-  const handleRefresh = () => {
+  const handleRefresh = (file) => {
+    console.log(`Refresh folder: ${file?.name}`);
     getFiles();
   };
   //

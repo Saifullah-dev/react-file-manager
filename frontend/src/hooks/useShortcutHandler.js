@@ -65,7 +65,7 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   };
 
   const triggerRefresh = () => {
-    validateApiCallback(onRefresh, "onRefresh");
+    validateApiCallback(onRefresh, "onRefresh", currentFolder);
     setClipBoard(null);
   };
 
