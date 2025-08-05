@@ -108,7 +108,10 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
                         </>
                       )}
                     </li>
-                    {item.divider && <div className="divider"></div>}
+                    {item.divider &&
+                      index !== menuItems.filter((item) => !item.hidden).length - 1 && (
+                        <div className="divider"></div>
+                      )}
                   </div>
                 );
               })}

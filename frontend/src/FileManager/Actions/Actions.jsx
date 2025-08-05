@@ -5,6 +5,7 @@ import UploadFileAction from "./UploadFile/UploadFile.action";
 import PreviewFileAction from "./PreviewFile/PreviewFile.action";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useShortcutHandler } from "../../hooks/useShortcutHandler";
+import { useTranslation } from "../../contexts/TranslationProvider";
 
 const Actions = ({
   fileUploadConfig,
@@ -17,16 +18,18 @@ const Actions = ({
   filePreviewComponent,
   acceptedFileTypes,
   triggerAction,
+  permissions,
 }) => {
   const [activeAction, setActiveAction] = useState(null);
   const { selectedFiles } = useSelection();
+  const t = useTranslation();
 
   // Triggers all the keyboard shortcuts based actions
-  useShortcutHandler(triggerAction, onRefresh);
+  useShortcutHandler(triggerAction, onRefresh, permissions);
 
   const actionTypes = {
     uploadFile: {
-      title: "Upload",
+      title: t("upload"),
       component: (
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
@@ -39,12 +42,12 @@ const Actions = ({
       width: "35%",
     },
     delete: {
-      title: "Delete",
+      title: t("delete"),
       component: <DeleteAction triggerAction={triggerAction} onDelete={onDelete} />,
       width: "25%",
     },
     previewFile: {
-      title: "Preview",
+      title: t("preview"),
       component: (
         <PreviewFileAction
           filePreviewPath={filePreviewPath}
@@ -59,7 +62,7 @@ const Actions = ({
     if (triggerAction.isActive) {
       const actionType = triggerAction.actionType;
       if (actionType === "previewFile") {
-        actionTypes[actionType].title = selectedFiles?.name ?? "Preview";
+        actionTypes[actionType].title = selectedFiles?.name ?? t("preview");
       }
       setActiveAction(actionTypes[actionType]);
     } else {

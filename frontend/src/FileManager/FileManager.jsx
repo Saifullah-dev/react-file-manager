@@ -13,6 +13,9 @@ import { useTriggerAction } from "../hooks/useTriggerAction";
 import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
+import { TranslationProvider } from "../contexts/TranslationProvider";
+import { useMemo, useState } from "react";
+import { defaultPermissions } from "../constants";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -44,7 +47,12 @@ const FileManager = ({
   filePreviewComponent,
   primaryColor = "#6155b4",
   fontFamily = "Nunito Sans, sans-serif",
+  language = "en",
+  permissions: userPermissions = {},
+  collapsibleNav = false,
+  defaultNavExpanded = true,
 }) => {
+  const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
@@ -55,65 +63,85 @@ const FileManager = ({
     width,
   };
 
+  const permissions = useMemo(
+    () => ({ ...defaultPermissions, ...userPermissions }),
+    [userPermissions]
+  );
+
   return (
     <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
       <Loader loading={isLoading} />
-      <FilesProvider filesData={files} onError={onError}>
-        <FileNavigationProvider initialPath={initialPath}>
-          <SelectionProvider onDownload={onDownload} onSelect={onSelect}>
-            <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
-              <LayoutProvider layout={layout}>
-                <Toolbar
-                  allowCreateFolder
-                  allowUploadFile
-                  onLayoutChange={onLayoutChange}
-                  onRefresh={onRefresh}
-                  triggerAction={triggerAction}
-                />
-                <section
-                  ref={containerRef}
-                  onMouseMove={handleMouseMove}
-                  onMouseUp={handleMouseUp}
-                  className="files-container"
-                >
-                  <div className="navigation-pane" style={{ width: colSizes.col1 + "%" }}>
-                    <NavigationPane onFileOpen={onFileOpen} />
+      <TranslationProvider language={language}>
+        <FilesProvider filesData={files} onError={onError}>
+          <FileNavigationProvider initialPath={initialPath}>
+            <SelectionProvider onDownload={onDownload} onSelect={onSelect}>
+              <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
+                <LayoutProvider layout={layout}>
+                  <Toolbar
+                    onLayoutChange={onLayoutChange}
+                    onRefresh={onRefresh}
+                    triggerAction={triggerAction}
+                    permissions={permissions}
+                  />
+                  <section
+                    ref={containerRef}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    className="files-container"
+                  >
                     <div
-                      className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""}`}
-                      onMouseDown={handleMouseDown}
-                    />
-                  </div>
+                      className={`navigation-pane ${isNavigationPaneOpen ? "open" : "closed"}`}
+                      style={{
+                        width: colSizes.col1 + "%",
+                      }}
+                    >
+                      <NavigationPane onFileOpen={onFileOpen} />
+                      <div
+                        className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""}`}
+                        onMouseDown={handleMouseDown}
+                      />
+                    </div>
 
-                  <div className="folders-preview" style={{ width: colSizes.col2 + "%" }}>
-                    <BreadCrumb />
-                    <FileList
-                      onCreateFolder={onCreateFolder}
-                      onRename={onRename}
-                      onFileOpen={onFileOpen}
-                      onRefresh={onRefresh}
-                      enableFilePreview={enableFilePreview}
-                      triggerAction={triggerAction}
-                    />
-                  </div>
-                </section>
+                    <div
+                      className="folders-preview"
+                      style={{ width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%" }}
+                    >
+                      <BreadCrumb
+                        collapsibleNav={collapsibleNav}
+                        isNavigationPaneOpen={isNavigationPaneOpen}
+                        setNavigationPaneOpen={setNavigationPaneOpen}
+                      />
+                      <FileList
+                        onCreateFolder={onCreateFolder}
+                        onRename={onRename}
+                        onFileOpen={onFileOpen}
+                        onRefresh={onRefresh}
+                        enableFilePreview={enableFilePreview}
+                        triggerAction={triggerAction}
+                        permissions={permissions}
+                      />
+                    </div>
+                  </section>
 
-                <Actions
-                  fileUploadConfig={fileUploadConfig}
-                  onFileUploading={onFileUploading}
-                  onFileUploaded={onFileUploaded}
-                  onDelete={onDelete}
-                  onRefresh={onRefresh}
-                  maxFileSize={maxFileSize}
-                  filePreviewPath={filePreviewPath}
-                  filePreviewComponent={filePreviewComponent}
-                  acceptedFileTypes={acceptedFileTypes}
-                  triggerAction={triggerAction}
-                />
-              </LayoutProvider>
-            </ClipBoardProvider>
-          </SelectionProvider>
-        </FileNavigationProvider>
-      </FilesProvider>
+                  <Actions
+                    fileUploadConfig={fileUploadConfig}
+                    onFileUploading={onFileUploading}
+                    onFileUploaded={onFileUploaded}
+                    onDelete={onDelete}
+                    onRefresh={onRefresh}
+                    maxFileSize={maxFileSize}
+                    filePreviewPath={filePreviewPath}
+                    filePreviewComponent={filePreviewComponent}
+                    acceptedFileTypes={acceptedFileTypes}
+                    triggerAction={triggerAction}
+                    permissions={permissions}
+                  />
+                </LayoutProvider>
+              </ClipBoardProvider>
+            </SelectionProvider>
+          </FileNavigationProvider>
+        </FilesProvider>
+      </TranslationProvider>
     </main>
   );
 };
@@ -161,6 +189,18 @@ FileManager.propTypes = {
   filePreviewComponent: PropTypes.func,
   primaryColor: PropTypes.string,
   fontFamily: PropTypes.string,
+  language: PropTypes.string,
+  permissions: PropTypes.shape({
+    create: PropTypes.bool,
+    upload: PropTypes.bool,
+    move: PropTypes.bool,
+    copy: PropTypes.bool,
+    rename: PropTypes.bool,
+    download: PropTypes.bool,
+    delete: PropTypes.bool,
+  }),
+  collapsibleNav: PropTypes.bool,
+  defaultNavExpanded: PropTypes.bool,
 };
 
 export default FileManager;

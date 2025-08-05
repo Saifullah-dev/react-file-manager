@@ -11,8 +11,9 @@ import { useLayout } from "../../contexts/LayoutContext";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import { validateApiCallback } from "../../utils/validateApiCallback";
+import { useTranslation } from "../../contexts/TranslationProvider";
 
-const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
+const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
@@ -24,6 +25,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
   const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
     useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
+  const t = useTranslation();
 
   // Context Menu
   const handleFileOpen = () => {
@@ -85,12 +87,12 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
 
   const emptySelecCtxItems = [
     {
-      title: "View",
+      title: t("view"),
       icon: activeLayout === "grid" ? <BsGrid size={18} /> : <FaListUl size={18} />,
       onClick: () => {},
       children: [
         {
-          title: "Grid",
+          title: t("grid"),
           icon: <BsGrid size={18} />,
           selected: activeLayout === "grid",
           onClick: () => {
@@ -99,7 +101,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
           },
         },
         {
-          title: "List",
+          title: t("list"),
           icon: <FaListUl size={18} />,
           selected: activeLayout === "list",
           onClick: () => {
@@ -110,24 +112,27 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
       ],
     },
     {
-      title: "Refresh",
+      title: t("refresh"),
       icon: <FiRefreshCw size={18} />,
       onClick: handleRefresh,
       divider: true,
     },
     {
-      title: "New folder",
+      title: t("newFolder"),
       icon: <BsFolderPlus size={18} />,
       onClick: handleCreateNewFolder,
+      hidden: !permissions.create,
+      divider: !permissions.upload,
     },
     {
-      title: "Upload",
+      title: t("upload"),
       icon: <MdOutlineFileUpload size={18} />,
       onClick: handleUpload,
       divider: true,
+      hidden: !permissions.upload,
     },
     {
-      title: "Select all",
+      title: t("selectAll"),
       icon: <BiSelectMultiple size={18} />,
       onClick: handleselectAllFiles,
     },
@@ -135,46 +140,51 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
 
   const selecCtxItems = [
     {
-      title: "Open",
+      title: t("open"),
       icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
       onClick: handleFileOpen,
       divider: true,
     },
     {
-      title: "Cut",
+      title: t("cut"),
       icon: <BsScissors size={19} />,
       onClick: () => handleMoveOrCopyItems(true),
+      divider: !lastSelectedFile?.isDirectory && !permissions.copy,
+      hidden: !permissions.move,
     },
     {
-      title: "Copy",
+      title: t("copy"),
       icon: <BsCopy strokeWidth={0.1} size={17} />,
       onClick: () => handleMoveOrCopyItems(false),
       divider: !lastSelectedFile?.isDirectory,
+      hidden: !permissions.copy,
     },
     {
-      title: "Paste",
+      title: t("paste"),
       icon: <FaRegPaste size={18} />,
       onClick: handleFilePasting,
       className: `${clipBoard ? "" : "disable-paste"}`,
-      hidden: !lastSelectedFile?.isDirectory,
+      hidden: !lastSelectedFile?.isDirectory || (!permissions.move && !permissions.copy),
       divider: true,
     },
     {
-      title: "Rename",
+      title: t("rename"),
       icon: <BiRename size={19} />,
       onClick: handleRenaming,
       hidden: selectedFiles.length > 1,
+      hidden: !permissions.rename,
     },
     {
-      title: "Download",
+      title: t("download"),
       icon: <MdOutlineFileDownload size={18} />,
       onClick: handleDownloadItems,
-      hidden: lastSelectedFile?.isDirectory,
+      hidden: !permissions.download,
     },
     {
-      title: "Delete",
+      title: t("delete"),
       icon: <MdOutlineDelete size={19} />,
       onClick: handleDelete,
+      hidden: !permissions.delete,
     },
   ];
   //
@@ -198,6 +208,8 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction) => {
     setCurrentPathFiles((prev) => {
       if (prev[selectedFileIndexes.at(-1)]) {
         prev[selectedFileIndexes.at(-1)].isEditing = true;
+      } else {
+        triggerAction.close();
       }
       return prev;
     });

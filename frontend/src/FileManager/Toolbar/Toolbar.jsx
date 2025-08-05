@@ -15,38 +15,34 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { validateApiCallback } from "../../utils/validateApiCallback";
+import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Toolbar.scss";
 
-const Toolbar = ({
-  allowCreateFolder = true,
-  allowUploadFile = true,
-  onLayoutChange,
-  onRefresh,
-  triggerAction,
-}) => {
+const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
+  const t = useTranslation();
 
   // Toolbar Items
   const toolbarLeftItems = [
     {
       icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
-      text: "New folder",
-      permission: allowCreateFolder,
+      text: t("newFolder"),
+      permission: permissions.create,
       onClick: () => triggerAction.show("createFolder"),
     },
     {
       icon: <MdOutlineFileUpload size={18} />,
-      text: "Upload",
-      permission: allowUploadFile,
+      text: t("upload"),
+      permission: permissions.upload,
       onClick: () => triggerAction.show("uploadFile"),
     },
     {
       icon: <FaRegPaste size={18} />,
-      text: "Paste",
+      text: t("paste"),
       permission: !!clipBoard,
       onClick: handleFilePasting,
     },
@@ -55,12 +51,12 @@ const Toolbar = ({
   const toolbarRightItems = [
     {
       icon: activeLayout === "grid" ? <BsGridFill size={16} /> : <FaListUl size={16} />,
-      title: "Change View",
+      title: t("changeView"),
       onClick: () => setShowToggleViewMenu((prev) => !prev),
     },
     {
       icon: <FiRefreshCw size={16} />,
-      title: "Refresh",
+      title: t("refresh"),
       onClick: () => {
         validateApiCallback(onRefresh, "onRefresh");
         setClipBoard(null);
@@ -83,14 +79,18 @@ const Toolbar = ({
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
-            <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
-              <BsScissors size={18} />
-              <span>Cut</span>
-            </button>
-            <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
-              <BsCopy strokeWidth={0.1} size={17} />
-              <span>Copy</span>
-            </button>
+            {permissions.move && (
+              <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
+                <BsScissors size={18} />
+                <span>{t("cut")}</span>
+              </button>
+            )}
+            {permissions.copy && (
+              <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
+                <BsCopy strokeWidth={0.1} size={17} />
+                <span>{t("copy")}</span>
+              </button>
+            )}
             {clipBoard?.files?.length > 0 && (
               <button
                 className="item-action file-action"
@@ -98,39 +98,42 @@ const Toolbar = ({
                 // disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
-                <span>Paste</span>
+                <span>{t("paste")}</span>
               </button>
             )}
-            {selectedFiles.length === 1 && (
+            {selectedFiles.length === 1 && permissions.rename && (
               <button
                 className="item-action file-action"
                 onClick={() => triggerAction.show("rename")}
               >
                 <BiRename size={19} />
-                <span>Rename</span>
+                <span>{t("rename")}</span>
               </button>
             )}
-            {!selectedFiles.isDirectory && (
+            {permissions.download && (
               <button className="item-action file-action" onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
-                <span>Download</span>
+                <span>{t("download")}</span>
               </button>
             )}
-            <button
-              className="item-action file-action"
-              onClick={() => triggerAction.show("delete")}
-            >
-              <MdOutlineDelete size={19} />
-              <span>Delete</span>
-            </button>
+            {permissions.delete && (
+              <button
+                className="item-action file-action"
+                onClick={() => triggerAction.show("delete")}
+              >
+                <MdOutlineDelete size={19} />
+                <span>{t("delete")}</span>
+              </button>
+            )}
           </div>
           <button
             className="item-action file-action"
-            title="Clear selection"
+            title={t("clearSelection")}
             onClick={() => setSelectedFiles([])}
           >
             <span>
-              {selectedFiles.length} item{selectedFiles.length > 1 && "s"} selected
+              {selectedFiles.length}{" "}
+              {t(selectedFiles.length > 1 ? "itemsSelected" : "itemSelected")}
             </span>
             <MdClear size={18} />
           </button>

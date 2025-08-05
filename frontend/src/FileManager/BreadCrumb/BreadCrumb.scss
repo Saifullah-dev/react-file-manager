@@ -21,6 +21,16 @@
       background: var(--file-manager-primary-color) !important;
     }
 
+    .nav-toggler {
+      display: flex;
+      align-items: center;
+    }
+
+    .divider {
+      width: 1px;
+      background-color: $border-color;
+    }
+
     .folder-name {
       display: flex;
       align-items: center;
