@@ -27,6 +27,9 @@ An open-source React.js package for easy integration of a file manager into appl
   intuitive keyboard shortcuts.
 - **Drag-and-Drop**: Move selected files and folders by dragging them to the desired directory,
   making file organization effortless.
+- **Column Sorting**: Click on column headers in list view to sort files by name, modified date, or
+  size. Click again to toggle between ascending (▲) and descending (▼) order. Folders are always
+  displayed before files regardless of the sort criteria.
 
 ![React File Manager](https://github.com/user-attachments/assets/e68f750b-86bf-450d-b27e-fd3dedebf1bd)
 
@@ -43,29 +46,29 @@ npm i @cubone/react-file-manager
 Here’s a basic example of how to use the File Manager Component in your React application:
 
 ```jsx
-import { useState } from "react";
-import { FileManager } from "@cubone/react-file-manager";
-import "@cubone/react-file-manager/dist/style.css";
+import { useState } from 'react';
+import { FileManager } from '@cubone/react-file-manager';
+import '@cubone/react-file-manager/dist/style.css';
 
 function App() {
   const [files, setFiles] = useState([
     {
-      name: "Documents",
+      name: 'Documents',
       isDirectory: true, // Folder
-      path: "/Documents", // Located in Root directory
-      updatedAt: "2024-09-09T10:30:00Z", // Last updated time
+      path: '/Documents', // Located in Root directory
+      updatedAt: '2024-09-09T10:30:00Z', // Last updated time
     },
     {
-      name: "Pictures",
+      name: 'Pictures',
       isDirectory: true,
-      path: "/Pictures", // Located in Root directory as well
-      updatedAt: "2024-09-09T11:00:00Z",
+      path: '/Pictures', // Located in Root directory as well
+      updatedAt: '2024-09-09T11:00:00Z',
     },
     {
-      name: "Pic.png",
+      name: 'Pic.png',
       isDirectory: false, // File
-      path: "/Pictures/Pic.png", // Located inside the "Pictures" folder
-      updatedAt: "2024-09-08T16:45:00Z",
+      path: '/Pictures/Pic.png', // Located inside the "Pictures" folder
+      updatedAt: '2024-09-08T16:45:00Z',
       size: 2048, // File size in bytes (example: 2 KB)
     },
   ]);
@@ -129,6 +132,7 @@ type File = {
 | `onRefresh`            | () => void                                                                                                                      | A callback function triggered when the file manager is refreshed. Use this to refresh the `files` state to reflect any changes or updates.                                                                                                                                                                                                                                                                                                                                                                                      |
 | `onRename`             | (file: [File](#-file-structure), newName: string) => void                                                                       | A callback function triggered when a file or folder is renamed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onSelect`             | (files: Array<[File](#-file-structure)>) => void                                                                                | (Optional) A callback function triggered whenever a file or folder is selected. The function receives an array of selected files or folders, allowing you to handle selection-related actions, such as displaying file details, enabling toolbar actions, or updating the UI accordingly.                                                                                                                                                                                                                                       |
+| `onSortChange`         | (sortConfig: { key: "name" \| "modified" \| "size", direction: "asc" \| "desc" }) => void                                       | (Optional) A callback function triggered when the sorting order changes. Receives the new sort configuration with the column key and direction. Useful for persisting sort preferences or updating external state.                                                                                                                                                                                                                                                                                                              |
 | `permissions`          | { create?: boolean; upload?: boolean; move?: boolean; copy?: boolean; rename?: boolean; download?: boolean; delete?: boolean; } | An object that controls the availability of specific file management actions. Setting an action to `false` hides it from the toolbar, context menu, and any relevant UI. All actions default to `true` if not specified. This is useful for implementing role-based access control or restricting certain operations. Example: `{ create: false, delete: false }` disables folder creation and file deletion.                                                                                                                   |
 | `primaryColor`         | string                                                                                                                          | The primary color for the component's theme. Accepts any valid CSS color format (e.g., `'blue'`, `'#E97451'`, `'rgb(52, 152, 219)'`). This color will be applied to buttons, highlights, and other key elements. `default: #6155b4`.                                                                                                                                                                                                                                                                                            |
 | `width`                | string \| number                                                                                                                | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -185,7 +189,12 @@ as an argument and must return a valid React node, JSX element, or HTML.
 
 ```jsx
 const CustomImagePreviewer = ({ file }) => {
-  return <img src={`${file.path}`} alt={file.name} />;
+  return (
+    <img
+      src={`${file.path}`}
+      alt={file.name}
+    />
+  );
 };
 
 <FileManager

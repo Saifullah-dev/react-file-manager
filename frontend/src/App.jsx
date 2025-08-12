@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import FileManager from "./FileManager/FileManager";
 import { createFolderAPI } from "./api/createFolderAPI";
-import { renameAPI } from "./api/renameAPI";
 import { deleteAPI } from "./api/deleteAPI";
+import { downloadFile } from "./api/downloadFileAPI";
 import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
 import { getAllFilesAPI } from "./api/getAllFilesAPI";
-import { downloadFile } from "./api/downloadFileAPI";
+import { renameAPI } from "./api/renameAPI";
 import "./App.scss";
+import FileManager from "./FileManager/FileManager";
 
 function App() {
   const fileUploadConfig = {
@@ -20,7 +20,12 @@ function App() {
   const getFiles = async () => {
     setIsLoading(true);
     const response = await getAllFilesAPI();
-    setFiles(response.data);
+    if (response.status === 200 && response.data) {
+      setFiles(response.data);
+    } else {
+      console.error(response);
+      setFiles([]);
+    }
     setIsLoading(false);
   };
 
