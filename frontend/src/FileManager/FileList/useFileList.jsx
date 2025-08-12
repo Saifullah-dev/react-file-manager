@@ -22,7 +22,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) =
 
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
-  const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
+  const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles, currentFolder } =
     useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
   const t = useTranslation();
@@ -66,7 +66,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) =
 
   const handleRefresh = () => {
     setVisible(false);
-    validateApiCallback(onRefresh, "onRefresh");
+    validateApiCallback(onRefresh, "onRefresh", currentFolder);
     setClipBoard(null);
   };
 
@@ -171,8 +171,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) =
       title: t("rename"),
       icon: <BiRename size={19} />,
       onClick: handleRenaming,
-      hidden: selectedFiles.length > 1,
-      hidden: !permissions.rename,
+      hidden: selectedFiles.length > 1 || !permissions.rename,
     },
     {
       title: t("download"),

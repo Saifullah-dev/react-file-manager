@@ -50,5 +50,6 @@
   "invalidFileName": "Ім'я файлу не може містити такі символи: \\ / : * ? \" < > |",
   "folderExists": "У цьому місці вже існує папка з назвою \"{{renameFile}}\".",
   "collapseNavigationPane": "Згорнути панель навігації",
-  "expandNavigationPane": "Розгорнути панель навігації"
+  "expandNavigationPane": "Розгорнути панель навігації",
+  "pick": "Вибрати"
 }

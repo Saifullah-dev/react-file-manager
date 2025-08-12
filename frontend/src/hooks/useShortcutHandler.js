@@ -6,10 +6,10 @@ import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
 import { validateApiCallback } from "../utils/validateApiCallback";
 
-export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
+export const useShortcutHandler = (triggerAction, onRefresh, onPick, permissions) => {
   const { setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { currentFolder, currentPathFiles } = useFileNavigation();
-  const { setSelectedFiles, handleDownload } = useSelection();
+  const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { setActiveLayout } = useLayout();
 
   const triggerCreateFolder = () => {
@@ -65,7 +65,14 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   };
 
   const triggerRefresh = () => {
-    validateApiCallback(onRefresh, "onRefresh");
+    validateApiCallback(onRefresh, "onRefresh", currentFolder);
+    setClipBoard(null);
+  };
+
+  const triggerPick = () => {
+    if (!onPick || !selectedFiles.every(item => item.isDirectory === false)) return;
+    validateApiCallback(onPick, "onPick", selectedFiles);
+    setSelectedFiles([]);
     setClipBoard(null);
   };
 
@@ -92,4 +99,5 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   useKeyPress(shortcuts.refresh, triggerRefresh, triggerAction.isActive);
   useKeyPress(shortcuts.gridLayout, triggerGridLayout, triggerAction.isActive);
   useKeyPress(shortcuts.listLayout, triggerListLayout, triggerAction.isActive);
+  useKeyPress(shortcuts.pick, triggerPick, onPick && triggerAction.isActive);
 };

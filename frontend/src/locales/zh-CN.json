@@ -50,5 +50,6 @@
   "invalidFileName": "文件名不能包含以下字符：\\ / : * ? \" < > |",
   "folderExists": "目标文件夹中已存在名为 \"{{renameFile}}\" 的文件夹。",
   "collapseNavigationPane": "折叠导航窗格",
-  "expandNavigationPane": "展开导航窗格"
+  "expandNavigationPane": "展开导航窗格",
+  "pick": "选择"
 }

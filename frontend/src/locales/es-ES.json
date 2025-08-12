@@ -50,5 +50,6 @@
   "invalidFileName": "Un nombre de archivo no puede contener ninguno de los siguientes caracteres: \\ / : * ? \" < > |",
   "folderExists": "Ya existe una carpeta llamada \"{{renameFile}}\" en este destino.",
   "collapseNavigationPane": "Contraer panel de navegación",
-  "expandNavigationPane": "Expandir panel de navegación"
+  "expandNavigationPane": "Expandir panel de navegación",
+  "pick": "Seleccionar"
 }

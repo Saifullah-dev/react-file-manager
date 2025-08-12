@@ -50,5 +50,6 @@
   "invalidFileName": "Tên tệp không được chứa các ký tự sau: \\ / : * ? \" < > |",
   "folderExists": "Đã có thư mục tên \"{{renameFile}}\" tại vị trí này.",
   "collapseNavigationPane": "Thu gọn ngăn điều hướng",
-  "expandNavigationPane": "Mở rộng ngăn điều hướng"
+  "expandNavigationPane": "Mở rộng ngăn điều hướng",
+  "pick": "Chọn"
 }

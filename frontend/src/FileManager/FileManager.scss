@@ -35,6 +35,10 @@ svg {
   width: 100%;
   font-family: var(--file-manager-font-family);
 
+  * {
+    box-sizing: unset;
+  }
+
   button {
     font-family: var(--file-manager-font-family);
   }
