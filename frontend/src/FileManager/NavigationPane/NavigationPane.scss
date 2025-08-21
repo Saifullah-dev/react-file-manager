@@ -4,6 +4,7 @@
   list-style: none;
   margin: 0px 4px;
   height: 100%;
+  font-size: $fm-font-size;
   @include overflow-y-scroll;
 
   .folder-collapsible {

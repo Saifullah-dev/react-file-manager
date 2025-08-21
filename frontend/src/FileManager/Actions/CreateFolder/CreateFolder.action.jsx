@@ -135,6 +135,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
   return (
     <>
       <NameInput
+        id="newFolder"
         nameInputRef={outsideClick.ref}
         maxLength={maxNameLength}
         value={folderName}

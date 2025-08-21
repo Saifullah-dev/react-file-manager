@@ -1,8 +1,11 @@
+@import "../../../styles/variables";
+
 .file-previewer {
     padding: .8em;
     height: 40dvh;
     display: flex;
     justify-content: center;
+    font-size: $fm-font-size;
 
     .photo-popup-image {
         object-fit: contain;

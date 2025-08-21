@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .file-delete-confirm {
     .file-delete-confirm-text {
         border-bottom: 1px solid #dddddd;
@@ -6,6 +8,7 @@
         margin-bottom: .7rem;
         word-wrap: break-word;
         font-weight: 500;
+        font-size: $fm-font-size;
     }
 
     .file-delete-confirm-actions {
