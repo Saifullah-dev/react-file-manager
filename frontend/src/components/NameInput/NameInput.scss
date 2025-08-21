@@ -11,6 +11,7 @@
     resize: none;
     field-sizing: content;
     overflow-y: hidden;
+    z-index: 1;
 
     &:focus {
         outline: none;

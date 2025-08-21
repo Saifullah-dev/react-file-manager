@@ -156,6 +156,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
   return (
     <>
       <NameInput
+        id={file.name}
         nameInputRef={outsideClick.ref}
         maxLength={maxNameLength}
         value={renameFile}
