@@ -13,6 +13,7 @@ const Actions = ({
   onFileUploaded,
   onDelete,
   onRefresh,
+  onPick,
   maxFileSize,
   filePreviewPath,
   filePreviewComponent,
@@ -25,7 +26,7 @@ const Actions = ({
   const t = useTranslation();
 
   // Triggers all the keyboard shortcuts based actions
-  useShortcutHandler(triggerAction, onRefresh, permissions);
+  useShortcutHandler(triggerAction, onRefresh, onPick, permissions);
 
   const actionTypes = {
     uploadFile: {

@@ -10,6 +10,7 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import { validateApiCallback } from "../../utils/validateApiCallback";
 
 const dragIconSize = 50;
 
@@ -20,6 +21,7 @@ const FileItem = ({
   onRename,
   enableFilePreview,
   onFileOpen,
+  onPick,
   filesViewRef,
   selectedFileIndexes,
   triggerAction,
@@ -37,7 +39,7 @@ const FileItem = ({
   const iconSize = activeLayout === "grid" ? 48 : 20;
   const fileIcons = useFileIcons(iconSize);
   const { setCurrentPath, currentPathFiles } = useFileNavigation();
-  const { setSelectedFiles } = useSelection();
+  const { selectedFiles, setSelectedFiles } = useSelection();
   const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
   const dragIconRef = useRef(null);
   const dragIcons = useFileIcons(dragIconSize);
@@ -94,7 +96,12 @@ const FileItem = ({
 
     const currentTime = new Date().getTime();
     if (currentTime - lastClickTime < 300) {
-      handleFileAccess();
+      if (onPick && !file.isDirectory) {
+        validateApiCallback(onPick, "onPick", [file]);
+        setSelectedFiles([]);
+      } else {
+        handleFileAccess();
+      }
       return;
     }
     setLastClickTime(currentTime);
@@ -103,8 +110,13 @@ const FileItem = ({
   const handleOnKeyDown = (e) => {
     if (e.key === "Enter") {
       e.stopPropagation();
-      setSelectedFiles([file]);
-      handleFileAccess();
+      if (onPick && selectedFiles.every(item => item.isDirectory === false)) {
+        validateApiCallback(onPick, "onPick", selectedFiles);
+        setSelectedFiles([]);
+      } else {
+        setSelectedFiles([file]);
+        handleFileAccess();
+      }
     }
   };
 

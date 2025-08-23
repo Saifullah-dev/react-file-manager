@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
+import { FaCheck } from "react-icons/fa6";
+import { AiOutlineClose } from "react-icons/ai";
 import {
   MdClear,
   MdOutlineDelete,
@@ -18,7 +20,7 @@ import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Toolbar.scss";
 
-const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
+const Toolbar = ({ onLayoutChange, onRefresh, onClose, onPick, triggerAction, permissions }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -58,11 +60,19 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
       icon: <FiRefreshCw size={16} />,
       title: t("refresh"),
       onClick: () => {
-        validateApiCallback(onRefresh, "onRefresh");
+        validateApiCallback(onRefresh, "onRefresh", currentFolder);
         setClipBoard(null);
       },
     },
   ];
+  if (onClose) toolbarRightItems.push({
+    icon: <AiOutlineClose size={16} />,
+      title: t("close"),
+      onClick: () => {
+        validateApiCallback(onClose, "onClose");
+        setClipBoard(null);
+      },
+  })
 
   function handleFilePasting() {
     handlePasting(currentFolder);
@@ -73,27 +83,39 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
     setSelectedFiles([]);
   };
 
+  const handlePickItems = () => {
+    if (!onPick || !selectedFiles.every(item => item.isDirectory === false)) return;
+    validateApiCallback(onPick, "onPick", selectedFiles);
+    setSelectedFiles([]);
+  };
+
   // Selected File/Folder Actions
   if (selectedFiles.length > 0) {
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
           <div>
+            {onPick && selectedFiles.every(item => item.isDirectory === false) && (
+              <button className="item-action file-action pick-action" onClick={handlePickItems}>
+                <FaCheck size={18} />
+                <span>{t("pick")}</span>
+              </button>
+            )}
             {permissions.move && (
-              <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
+              <button className="item-action file-action move-action" onClick={() => handleCutCopy(true)}>
                 <BsScissors size={18} />
                 <span>{t("cut")}</span>
               </button>
             )}
             {permissions.copy && (
-              <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
+              <button className="item-action file-action copy-action" onClick={() => handleCutCopy(false)}>
                 <BsCopy strokeWidth={0.1} size={17} />
                 <span>{t("copy")}</span>
               </button>
             )}
             {clipBoard?.files?.length > 0 && (
               <button
-                className="item-action file-action"
+                className="item-action file-action paste-action"
                 onClick={handleFilePasting}
                 // disabled={!clipBoard}
               >
@@ -103,7 +125,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
             )}
             {selectedFiles.length === 1 && permissions.rename && (
               <button
-                className="item-action file-action"
+                className="item-action file-action rename-action"
                 onClick={() => triggerAction.show("rename")}
               >
                 <BiRename size={19} />
@@ -111,14 +133,14 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
               </button>
             )}
             {permissions.download && (
-              <button className="item-action file-action" onClick={handleDownloadItems}>
+              <button className="item-action file-action download-action" onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
                 <span>{t("download")}</span>
               </button>
             )}
             {permissions.delete && (
               <button
-                className="item-action file-action"
+                className="item-action file-action delete-action"
                 onClick={() => triggerAction.show("delete")}
               >
                 <MdOutlineDelete size={19} />
@@ -127,7 +149,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
             )}
           </div>
           <button
-            className="item-action file-action"
+            className="item-action file-action clear-action"
             title={t("clearSelection")}
             onClick={() => setSelectedFiles([])}
           >

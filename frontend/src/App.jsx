@@ -105,7 +105,8 @@ function App() {
   };
 
   // Refresh Files
-  const handleRefresh = () => {
+  const handleRefresh = (file) => {
+    console.log(`Refresh folder: ${file?.name}`);
     getFiles();
   };
   //
@@ -134,6 +135,14 @@ function App() {
     console.log("Selected Files", files);
   };
 
+  const handleClose = () => {
+    console.log("Closed");
+  };
+
+  const handlePick = (files) => {
+    console.log("Picked Files", files);
+  };
+
   return (
     <div className="app">
       <div className="file-manager-container">
@@ -152,8 +161,10 @@ function App() {
           onDelete={handleDelete}
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
+          onClose={handleClose}
           onFileOpen={handleFileOpen}
           onSelect={handleSelect}
+          onPick={handlePick}
           onError={handleError}
           layout="grid"
           enableFilePreview

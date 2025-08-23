@@ -33,8 +33,10 @@ const FileManager = ({
   onDelete = () => null,
   onLayoutChange = () => {},
   onRefresh,
+  onClose,
   onFileOpen = () => {},
   onSelect,
+  onPick,
   onError = () => {},
   layout = "grid",
   enableFilePreview = true,
@@ -80,6 +82,8 @@ const FileManager = ({
                   <Toolbar
                     onLayoutChange={onLayoutChange}
                     onRefresh={onRefresh}
+                    onClose={onClose}
+                    onPick={onPick}
                     triggerAction={triggerAction}
                     permissions={permissions}
                   />
@@ -116,6 +120,7 @@ const FileManager = ({
                         onRename={onRename}
                         onFileOpen={onFileOpen}
                         onRefresh={onRefresh}
+                        onPick={onPick}
                         enableFilePreview={enableFilePreview}
                         triggerAction={triggerAction}
                         permissions={permissions}
@@ -129,6 +134,7 @@ const FileManager = ({
                     onFileUploaded={onFileUploaded}
                     onDelete={onDelete}
                     onRefresh={onRefresh}
+                    onPick={onPick}
                     maxFileSize={maxFileSize}
                     filePreviewPath={filePreviewPath}
                     filePreviewComponent={filePreviewComponent}
@@ -175,8 +181,10 @@ FileManager.propTypes = {
   onDownload: PropTypes.func,
   onLayoutChange: PropTypes.func,
   onRefresh: PropTypes.func,
+  onClose: PropTypes.func,
   onFileOpen: PropTypes.func,
   onSelect: PropTypes.func,
+  onPick: PropTypes.func,
   onError: PropTypes.func,
   layout: PropTypes.oneOf(["grid", "list"]),
   maxFileSize: PropTypes.number,

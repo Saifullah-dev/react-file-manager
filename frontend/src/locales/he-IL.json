@@ -50,5 +50,6 @@
   "invalidFileName": "שם קובץ לא יכול להכיל את התווים הבאים: \\ / : * ? \" < > |",
   "folderExists": "כבר קיימת תיקייה בשם \"{{renameFile}}\" במיקום זה.",
   "collapseNavigationPane": "כווץ את לוח הניווט",
-  "expandNavigationPane": "הרחב את לוח הניווט"
+  "expandNavigationPane": "הרחב את לוח הניווט",
+  "pick": "בחר"
 }
