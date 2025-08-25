@@ -34,14 +34,14 @@ const FileList = ({
     selectedFileIndexes,
     clickPosition,
     isSelectionCtx,
-  } = useFileList(onRefresh, enableFilePreview, triggerAction, permissions);
+  } = useFileList(onRefresh, enableFilePreview, triggerAction, permissions, onFileOpen);
 
   const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
 
   const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
     }
     setSortConfig({ key, direction });
   };
@@ -54,11 +54,7 @@ const FileList = ({
       onClick={unselectFiles}
     >
       {activeLayout === "list" && (
-        <FilesHeader 
-          unselectFiles={unselectFiles} 
-          onSort={handleSort}
-          sortConfig={sortConfig}
-        />
+        <FilesHeader unselectFiles={unselectFiles} onSort={handleSort} sortConfig={sortConfig} />
       )}
 
       {currentPathFiles?.length > 0 ? (

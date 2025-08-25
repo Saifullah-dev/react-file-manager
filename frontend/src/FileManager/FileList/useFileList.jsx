@@ -13,7 +13,7 @@ import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
 
-const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) => {
+const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, onFileOpen) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
@@ -22,15 +22,17 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions) =
 
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
-  const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
+  const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles, onFolderChange } =
     useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
   const t = useTranslation();
 
   // Context Menu
   const handleFileOpen = () => {
+    onFileOpen(lastSelectedFile);
     if (lastSelectedFile.isDirectory) {
       setCurrentPath(lastSelectedFile.path);
+      onFolderChange?.(lastSelectedFile.path);
       setSelectedFileIndexes([]);
       setSelectedFiles([]);
     } else {

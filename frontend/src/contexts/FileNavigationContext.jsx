@@ -4,13 +4,13 @@ import sortFiles from "../utils/sortFiles";
 
 const FileNavigationContext = createContext();
 
-export const FileNavigationProvider = ({ children, initialPath }) => {
+export const FileNavigationProvider = ({ children, initialPath, onFolderChange }) => {
   const { files } = useFiles();
   const isMountRef = useRef(false);
   const [currentPath, setCurrentPath] = useState("");
   const [currentFolder, setCurrentFolder] = useState(null);
   const [currentPathFiles, setCurrentPathFiles] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' });
+  const [sortConfig, setSortConfig] = useState({ key: "name", direction: "asc" });
 
   useEffect(() => {
     if (Array.isArray(files) && files.length > 0) {
@@ -27,7 +27,9 @@ export const FileNavigationProvider = ({ children, initialPath }) => {
 
   useEffect(() => {
     if (!isMountRef.current && Array.isArray(files) && files.length > 0) {
-      setCurrentPath(files.some((file) => file.path === initialPath) ? initialPath : "");
+      const activePath = files.some((file) => file.path === initialPath) ? initialPath : "";
+      setCurrentPath(activePath);
+      onFolderChange?.(activePath);
       isMountRef.current = true;
     }
   }, [initialPath, files]);
@@ -43,6 +45,7 @@ export const FileNavigationProvider = ({ children, initialPath }) => {
         setCurrentPathFiles,
         sortConfig,
         setSortConfig,
+        onFolderChange,
       }}
     >
       {children}

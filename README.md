@@ -46,29 +46,29 @@ npm i @cubone/react-file-manager
 Here’s a basic example of how to use the File Manager Component in your React application:
 
 ```jsx
-import { useState } from 'react';
-import { FileManager } from '@cubone/react-file-manager';
-import '@cubone/react-file-manager/dist/style.css';
+import { useState } from "react";
+import { FileManager } from "@cubone/react-file-manager";
+import "@cubone/react-file-manager/dist/style.css";
 
 function App() {
   const [files, setFiles] = useState([
     {
-      name: 'Documents',
+      name: "Documents",
       isDirectory: true, // Folder
-      path: '/Documents', // Located in Root directory
-      updatedAt: '2024-09-09T10:30:00Z', // Last updated time
+      path: "/Documents", // Located in Root directory
+      updatedAt: "2024-09-09T10:30:00Z", // Last updated time
     },
     {
-      name: 'Pictures',
+      name: "Pictures",
       isDirectory: true,
-      path: '/Pictures', // Located in Root directory as well
-      updatedAt: '2024-09-09T11:00:00Z',
+      path: "/Pictures", // Located in Root directory as well
+      updatedAt: "2024-09-09T11:00:00Z",
     },
     {
-      name: 'Pic.png',
+      name: "Pic.png",
       isDirectory: false, // File
-      path: '/Pictures/Pic.png', // Located inside the "Pictures" folder
-      updatedAt: '2024-09-08T16:45:00Z',
+      path: "/Pictures/Pic.png", // Located inside the "Pictures" folder
+      updatedAt: "2024-09-08T16:45:00Z",
       size: 2048, // File size in bytes (example: 2 KB)
     },
   ]);
@@ -125,6 +125,7 @@ type File = {
 | `onDownload`           | (files: Array<[File](#-file-structure)>) => void                                                                                | A callback function triggered when one or more files or folders are downloaded.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onError`              | (error: { type: string, message: string }, file: [File](#-file-structure)) => void                                              | A callback function triggered whenever there is an error in the file manager. Where error is an object containing `type` ("upload", etc.) and a descriptive error `message`.                                                                                                                                                                                                                                                                                                                                                    |
 | `onFileOpen`           | (file: [File](#-file-structure)) => void                                                                                        | A callback function triggered when a file or folder is opened.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `onFolderChange`       | (path: string) => void                                                                                                          | A callback function triggered when the active folder changes. Receives the full path of the current folder as a string parameter. Useful for tracking the active folder path.                                                                                                                                                                                                                                                                                                                                                   |
 | `onFileUploaded`       | (response: { [key: string]: any }) => void                                                                                      | A callback function triggered after a file is successfully uploaded. Provides JSON `response` holding uploaded file details, use it to extract the uploaded file details and add it to the `files` state e.g. `setFiles((prev) => [...prev, JSON.parse(response)]);`                                                                                                                                                                                                                                                            |
 | `onFileUploading`      | (file: [File](#-file-structure), parentFolder: [File](#-file-structure)) => { [key: string]: any }                              | A callback function triggered during the file upload process. You can also return an object with key-value pairs that will be appended to the `FormData` along with the file being uploaded. The object can contain any number of valid properties.                                                                                                                                                                                                                                                                             |
 | `onLayoutChange`       | (layout: "list" \| "grid") => void                                                                                              | A callback function triggered when the layout of the file manager is changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -189,12 +190,7 @@ as an argument and must return a valid React node, JSX element, or HTML.
 
 ```jsx
 const CustomImagePreviewer = ({ file }) => {
-  return (
-    <img
-      src={`${file.path}`}
-      alt={file.name}
-    />
-  );
+  return <img src={`${file.path}`} alt={file.name} />;
 };
 
 <FileManager

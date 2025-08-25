@@ -36,7 +36,7 @@ const FileItem = ({
   const { activeLayout } = useLayout();
   const iconSize = activeLayout === "grid" ? 48 : 20;
   const fileIcons = useFileIcons(iconSize);
-  const { setCurrentPath, currentPathFiles } = useFileNavigation();
+  const { setCurrentPath, currentPathFiles, onFolderChange } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
   const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
   const dragIconRef = useRef(null);
@@ -50,6 +50,7 @@ const FileItem = ({
     onFileOpen(file);
     if (file.isDirectory) {
       setCurrentPath(file.path);
+      onFolderChange?.(file.path);
       setSelectedFiles([]);
     } else {
       enableFilePreview && triggerAction.show("previewFile");
