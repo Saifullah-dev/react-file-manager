@@ -13,7 +13,7 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
   const [hiddenFoldersWidth, setHiddenFoldersWidth] = useState([]);
   const [showHiddenFolders, setShowHiddenFolders] = useState(false);
 
-  const { currentPath, setCurrentPath } = useFileNavigation();
+  const { currentPath, setCurrentPath, onFolderChange } = useFileNavigation();
   const breadCrumbRef = useRef(null);
   const foldersRef = useRef([]);
   const moreBtnRef = useRef(null);
@@ -39,6 +39,7 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
 
   const switchPath = (path) => {
     setCurrentPath(path);
+    onFolderChange?.(path);
   };
 
   const getBreadCrumbWidth = () => {

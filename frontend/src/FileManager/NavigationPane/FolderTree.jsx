@@ -7,12 +7,13 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 const FolderTree = ({ folder, onFileOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const { currentPath, setCurrentPath } = useFileNavigation();
+  const { currentPath, setCurrentPath, onFolderChange } = useFileNavigation();
 
   const handleFolderSwitch = () => {
     setIsActive(true);
     onFileOpen(folder);
     setCurrentPath(folder.path);
+    onFolderChange?.(folder.path);
   };
 
   const handleCollapseChange = (e) => {
