@@ -14,6 +14,7 @@ function App() {
   };
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([]);
+  const [currentPath, setCurrentPath] = useState("");
   const isMountRef = useRef(false);
 
   // Get Files
@@ -162,7 +163,8 @@ function App() {
           acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx, .exe"
           height="100%"
           width="100%"
-          initialPath=""
+          initialPath={currentPath}
+          onFolderChange={setCurrentPath}
         />
       </div>
     </div>

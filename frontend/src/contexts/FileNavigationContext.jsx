@@ -27,12 +27,13 @@ export const FileNavigationProvider = ({ children, initialPath, onFolderChange }
 
   useEffect(() => {
     if (!isMountRef.current && Array.isArray(files) && files.length > 0) {
-      const activePath = files.some((file) => file.path === initialPath) ? initialPath : "";
+      const activePath = files.some((file) => file.isDirectory && file.path === initialPath)
+        ? initialPath
+        : "";
       setCurrentPath(activePath);
-      onFolderChange?.(activePath);
       isMountRef.current = true;
     }
-  }, [initialPath, files]);
+  }, [files]);
 
   return (
     <FileNavigationContext.Provider
