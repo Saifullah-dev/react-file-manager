@@ -180,7 +180,7 @@ if not specified.
 />
 ```
 
-## Custom File Preview
+## </> Custom File Preview
 
 The `FileManager` component allows you to provide a custom file preview by passing the
 `filePreviewComponent` prop. This is an optional callback function that receives the selected file
@@ -198,6 +198,43 @@ const CustomImagePreviewer = ({ file }) => {
   filePreviewComponent={(file) => <CustomImagePreviewer file={file} />}
 />;
 ```
+
+## 🧭 Handling Current Path
+
+By default, the file manager starts in the root directory (`""`). You can override this by passing
+an `initialPath` prop. For example, to start in `/Documents`:
+
+```jsx
+<FileManager initialPath="/Documents" />
+```
+
+### Controlled usage with `currentPath`
+
+If you want to **track and control** the current folder, you can pair `initialPath` with the
+`onFolderChange` callback. A common pattern is to keep the path in React state:
+
+```jsx
+import { useState } from "react";
+
+function App() {
+  const [currentPath, setCurrentPath] = useState("/Documents");
+
+  return (
+    <FileManager
+      // other props...
+      initialPath={currentPath}
+      onFolderChange={setCurrentPath}
+    />
+  );
+}
+```
+
+### Important notes
+
+- `initialPath` is applied **only once** when the `files` state is first set.
+- After that, folder changes are driven by `onFolderChange`.
+- If you want to keep the path in sync with user navigation, use a controlled state (as shown
+  above).
 
 ## 🤝 Contributing
 
