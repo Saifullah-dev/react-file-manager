@@ -131,7 +131,7 @@ function App() {
     console.log("Copied Files", files);
   };
 
-  const handleSelect = (files) => {
+  const handleSelectionChange = (files) => {
     console.log("Selected Files", files);
   };
 
@@ -154,7 +154,7 @@ function App() {
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
-          onSelect={handleSelect}
+          onSelectionChange={handleSelectionChange}
           onError={handleError}
           layout="grid"
           enableFilePreview
