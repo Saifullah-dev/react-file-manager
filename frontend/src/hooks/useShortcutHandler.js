@@ -9,7 +9,7 @@ import { validateApiCallback } from "../utils/validateApiCallback";
 export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   const { setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { currentFolder, currentPathFiles } = useFileNavigation();
-  const { setSelectedFiles, handleDownload } = useSelection();
+  const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { setActiveLayout } = useLayout();
 
   const triggerCreateFolder = () => {
@@ -41,7 +41,9 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   };
 
   const triggerDelete = () => {
-    permissions.delete && triggerAction.show("delete");
+    if (permissions.delete && selectedFiles.length) {
+      triggerAction.show("delete");
+    }
   };
 
   const triggerSelectFirst = () => {
