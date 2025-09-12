@@ -22,6 +22,9 @@ export const FileNavigationProvider = ({ children, initialPath, onFolderChange }
       setCurrentFolder(() => {
         return files.find((file) => file.path === currentPath) ?? null;
       });
+    } else {
+      setCurrentPathFiles([]);
+      setCurrentFolder(null);
     }
   }, [files, currentPath, sortConfig]);
 
