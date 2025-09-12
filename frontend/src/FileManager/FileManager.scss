@@ -34,12 +34,13 @@ svg {
   height: 100%;
   width: 100%;
   font-family: var(--file-manager-font-family);
+  border: 1px solid $border-color;
+  border-radius: 8px;
 
   button {
     font-family: var(--file-manager-font-family);
   }
 
-  border-radius: 8px;
   position: relative;
   background-color: white;
   cursor: default;

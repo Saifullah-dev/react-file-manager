@@ -53,6 +53,8 @@ const FileManager = ({
   permissions: userPermissions = {},
   collapsibleNav = false,
   defaultNavExpanded = true,
+  className = "",
+  style = {},
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
@@ -71,7 +73,11 @@ const FileManager = ({
   );
 
   return (
-    <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
+    <main
+      className={`file-explorer ${className}`}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ ...customStyles, ...style }}
+    >
       <Loader loading={isLoading} />
       <TranslationProvider language={language}>
         <FilesProvider filesData={files} onError={onError}>
@@ -209,6 +215,8 @@ FileManager.propTypes = {
   }),
   collapsibleNav: PropTypes.bool,
   defaultNavExpanded: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default FileManager;
