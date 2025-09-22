@@ -208,12 +208,23 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
 
   const handleItemRenaming = () => {
     setCurrentPathFiles((prev) => {
-      if (prev[selectedFileIndexes.at(-1)]) {
-        prev[selectedFileIndexes.at(-1)].isEditing = true;
-      } else {
+      const lastFileIndex = selectedFileIndexes.at(-1);
+
+      if (!prev[lastFileIndex]) {
         triggerAction.close();
+        return prev;
       }
-      return prev;
+
+      return prev.map((file, index) => {
+        if (index === lastFileIndex) {
+          return {
+            ...file,
+            isEditing: true,
+          };
+        }
+
+        return file;
+      });
     });
 
     setSelectedFileIndexes([]);
