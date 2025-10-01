@@ -16,6 +16,7 @@ import uk from "./locales/uk-UA.json";
 import ur from "./locales/ur-UR.json";
 import vi from "./locales/vi-VN.json";
 import zh from "./locales/zh-CN.json";
+import pl from "./locales/pl-PL.json";
 
 const resources = {
   ar: { translation: ar },
@@ -35,6 +36,7 @@ const resources = {
   ur: { translation: ur },
   vi: { translation: vi },
   zh: { translation: zh },
+  pl: { translation: pl },
 };
 
 export const initI18n = (lng = "en") => {
