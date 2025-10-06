@@ -13,8 +13,6 @@ backend/public/uploads/*
 !backend/public/uploads/.gitkeep
 .env
 node_modules
-dist
-dist-ssr
 *.local
 
 # Editor directories and files
