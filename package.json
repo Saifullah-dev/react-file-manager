@@ -12,8 +12,11 @@
     },
     "./style.css": "./frontend/dist/style.css"
   },
-  "style": "frontend/dist/style.css",
   "files": ["frontend/dist"],
+  "sideEffects": [
+    "./frontend/dist/style.css"
+  ],
+  "style": "frontend/dist/style.css",
   "scripts": {
     "build": "npm -C frontend ci && npm -C frontend run build",
     "prepare": "npm run build",
