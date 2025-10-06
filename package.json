@@ -5,5 +5,10 @@
   "main": "frontend/dist/react-file-manager.es.js",
   "module": "frontend/dist/react-file-manager.es.js",
   "style": "frontend/dist/style.css",
-  "files": ["frontend/dist"]
+  "files": [
+    "frontend/dist"
+  ],
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build"
+  }
 }
