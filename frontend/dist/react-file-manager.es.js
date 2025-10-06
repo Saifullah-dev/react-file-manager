@@ -1,747 +1,118 @@
-import * as qe from "react";
-import Me, { useState as R, useRef as pe, useEffect as oe, createContext as _e, useContext as Be, useLayoutEffect as _r, useCallback as Yt, useMemo as hn } from "react";
-function Br(n) {
-  return n && n.__esModule && Object.prototype.hasOwnProperty.call(n, "default") ? n.default : n;
-}
-var Qe = { exports: {} }, en = {};
-/**
- * @license React
- * react-jsx-dev-runtime.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var et;
-function Wr() {
-  if (et) return en;
-  et = 1;
-  var n = Symbol.for("react.fragment");
-  return en.Fragment = n, en.jsxDEV = void 0, en;
-}
-var nn = {};
-/**
- * @license React
- * react-jsx-dev-runtime.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var nt;
-function Yr() {
-  return nt || (nt = 1, process.env.NODE_ENV !== "production" && (function() {
-    var n = Me, e = Symbol.for("react.element"), t = Symbol.for("react.portal"), r = Symbol.for("react.fragment"), i = Symbol.for("react.strict_mode"), o = Symbol.for("react.profiler"), a = Symbol.for("react.provider"), l = Symbol.for("react.context"), c = Symbol.for("react.forward_ref"), u = Symbol.for("react.suspense"), f = Symbol.for("react.suspense_list"), m = Symbol.for("react.memo"), g = Symbol.for("react.lazy"), p = Symbol.for("react.offscreen"), h = Symbol.iterator, N = "@@iterator";
-    function H(d) {
-      if (d === null || typeof d != "object")
-        return null;
-      var y = h && d[h] || d[N];
-      return typeof y == "function" ? y : null;
-    }
-    var F = n.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-    function j(d) {
-      {
-        for (var y = arguments.length, V = new Array(y > 1 ? y - 1 : 0), W = 1; W < y; W++)
-          V[W - 1] = arguments[W];
-        P("error", d, V);
-      }
-    }
-    function P(d, y, V) {
-      {
-        var W = F.ReactDebugCurrentFrame, ae = W.getStackAddendum();
-        ae !== "" && (y += "%s", V = V.concat([ae]));
-        var ue = V.map(function(ie) {
-          return String(ie);
-        });
-        ue.unshift("Warning: " + y), Function.prototype.apply.call(console[d], console, ue);
-      }
-    }
-    var S = !1, v = !1, U = !1, D = !1, C = !1, b;
-    b = Symbol.for("react.module.reference");
-    function $(d) {
-      return !!(typeof d == "string" || typeof d == "function" || d === r || d === o || C || d === i || d === u || d === f || D || d === p || S || v || U || typeof d == "object" && d !== null && (d.$$typeof === g || d.$$typeof === m || d.$$typeof === a || d.$$typeof === l || d.$$typeof === c || // This needs to include all possible module reference object
-      // types supported by any Flight configuration anywhere since
-      // we don't know which Flight build this will end up being used
-      // with.
-      d.$$typeof === b || d.getModuleId !== void 0));
-    }
-    function M(d, y, V) {
-      var W = d.displayName;
-      if (W)
-        return W;
-      var ae = y.displayName || y.name || "";
-      return ae !== "" ? V + "(" + ae + ")" : V;
-    }
-    function L(d) {
-      return d.displayName || "Context";
-    }
-    function E(d) {
-      if (d == null)
-        return null;
-      if (typeof d.tag == "number" && j("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."), typeof d == "function")
-        return d.displayName || d.name || null;
-      if (typeof d == "string")
-        return d;
-      switch (d) {
-        case r:
-          return "Fragment";
-        case t:
-          return "Portal";
-        case o:
-          return "Profiler";
-        case i:
-          return "StrictMode";
-        case u:
-          return "Suspense";
-        case f:
-          return "SuspenseList";
-      }
-      if (typeof d == "object")
-        switch (d.$$typeof) {
-          case l:
-            var y = d;
-            return L(y) + ".Consumer";
-          case a:
-            var V = d;
-            return L(V._context) + ".Provider";
-          case c:
-            return M(d, d.render, "ForwardRef");
-          case m:
-            var W = d.displayName || null;
-            return W !== null ? W : E(d.type) || "Memo";
-          case g: {
-            var ae = d, ue = ae._payload, ie = ae._init;
-            try {
-              return E(ie(ue));
-            } catch {
-              return null;
-            }
-          }
-        }
-      return null;
-    }
-    var A = Object.assign, Q = 0, J, ne, de, re, x, w, O;
-    function G() {
-    }
-    G.__reactDisabledLog = !0;
-    function I() {
-      {
-        if (Q === 0) {
-          J = console.log, ne = console.info, de = console.warn, re = console.error, x = console.group, w = console.groupCollapsed, O = console.groupEnd;
-          var d = {
-            configurable: !0,
-            enumerable: !0,
-            value: G,
-            writable: !0
-          };
-          Object.defineProperties(console, {
-            info: d,
-            log: d,
-            warn: d,
-            error: d,
-            group: d,
-            groupCollapsed: d,
-            groupEnd: d
-          });
-        }
-        Q++;
-      }
-    }
-    function X() {
-      {
-        if (Q--, Q === 0) {
-          var d = {
-            configurable: !0,
-            enumerable: !0,
-            writable: !0
-          };
-          Object.defineProperties(console, {
-            log: A({}, d, {
-              value: J
-            }),
-            info: A({}, d, {
-              value: ne
-            }),
-            warn: A({}, d, {
-              value: de
-            }),
-            error: A({}, d, {
-              value: re
-            }),
-            group: A({}, d, {
-              value: x
-            }),
-            groupCollapsed: A({}, d, {
-              value: w
-            }),
-            groupEnd: A({}, d, {
-              value: O
-            })
-          });
-        }
-        Q < 0 && j("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
-      }
-    }
-    var _ = F.ReactCurrentDispatcher, B;
-    function q(d, y, V) {
-      {
-        if (B === void 0)
-          try {
-            throw Error();
-          } catch (ae) {
-            var W = ae.stack.trim().match(/\n( *(at )?)/);
-            B = W && W[1] || "";
-          }
-        return `
-` + B + d;
-      }
-    }
-    var Z = !1, k;
-    {
-      var ce = typeof WeakMap == "function" ? WeakMap : Map;
-      k = new ce();
-    }
-    function T(d, y) {
-      if (!d || Z)
-        return "";
-      {
-        var V = k.get(d);
-        if (V !== void 0)
-          return V;
-      }
-      var W;
-      Z = !0;
-      var ae = Error.prepareStackTrace;
-      Error.prepareStackTrace = void 0;
-      var ue;
-      ue = _.current, _.current = null, I();
-      try {
-        if (y) {
-          var ie = function() {
-            throw Error();
-          };
-          if (Object.defineProperty(ie.prototype, "props", {
-            set: function() {
-              throw Error();
-            }
-          }), typeof Reflect == "object" && Reflect.construct) {
-            try {
-              Reflect.construct(ie, []);
-            } catch (Ce) {
-              W = Ce;
-            }
-            Reflect.construct(d, [], ie);
-          } else {
-            try {
-              ie.call();
-            } catch (Ce) {
-              W = Ce;
-            }
-            d.call(ie.prototype);
-          }
-        } else {
-          try {
-            throw Error();
-          } catch (Ce) {
-            W = Ce;
-          }
-          d();
-        }
-      } catch (Ce) {
-        if (Ce && W && typeof Ce.stack == "string") {
-          for (var te = Ce.stack.split(`
-`), xe = W.stack.split(`
-`), me = te.length - 1, he = xe.length - 1; me >= 1 && he >= 0 && te[me] !== xe[he]; )
-            he--;
-          for (; me >= 1 && he >= 0; me--, he--)
-            if (te[me] !== xe[he]) {
-              if (me !== 1 || he !== 1)
-                do
-                  if (me--, he--, he < 0 || te[me] !== xe[he]) {
-                    var De = `
-` + te[me].replace(" at new ", " at ");
-                    return d.displayName && De.includes("<anonymous>") && (De = De.replace("<anonymous>", d.displayName)), typeof d == "function" && k.set(d, De), De;
-                  }
-                while (me >= 1 && he >= 0);
-              break;
-            }
-        }
-      } finally {
-        Z = !1, _.current = ue, X(), Error.prepareStackTrace = ae;
-      }
-      var ze = d ? d.displayName || d.name : "", Ve = ze ? q(ze) : "";
-      return typeof d == "function" && k.set(d, Ve), Ve;
-    }
-    function ge(d, y, V) {
-      return T(d, !1);
-    }
-    function je(d) {
-      var y = d.prototype;
-      return !!(y && y.isReactComponent);
-    }
-    function Pe(d, y, V) {
-      if (d == null)
-        return "";
-      if (typeof d == "function")
-        return T(d, je(d));
-      if (typeof d == "string")
-        return q(d);
-      switch (d) {
-        case u:
-          return q("Suspense");
-        case f:
-          return q("SuspenseList");
-      }
-      if (typeof d == "object")
-        switch (d.$$typeof) {
-          case c:
-            return ge(d.render);
-          case m:
-            return Pe(d.type, y, V);
-          case g: {
-            var W = d, ae = W._payload, ue = W._init;
-            try {
-              return Pe(ue(ae), y, V);
-            } catch {
-            }
-          }
-        }
-      return "";
-    }
-    var Ue = Object.prototype.hasOwnProperty, ee = {}, ve = F.ReactDebugCurrentFrame;
-    function Fe(d) {
-      if (d) {
-        var y = d._owner, V = Pe(d.type, d._source, y ? y.type : null);
-        ve.setExtraStackFrame(V);
-      } else
-        ve.setExtraStackFrame(null);
-    }
-    function Se(d, y, V, W, ae) {
-      {
-        var ue = Function.call.bind(Ue);
-        for (var ie in d)
-          if (ue(d, ie)) {
-            var te = void 0;
-            try {
-              if (typeof d[ie] != "function") {
-                var xe = Error((W || "React class") + ": " + V + " type `" + ie + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof d[ie] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
-                throw xe.name = "Invariant Violation", xe;
-              }
-              te = d[ie](y, ie, W, V, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
-            } catch (me) {
-              te = me;
-            }
-            te && !(te instanceof Error) && (Fe(ae), j("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", W || "React class", V, ie, typeof te), Fe(null)), te instanceof Error && !(te.message in ee) && (ee[te.message] = !0, Fe(ae), j("Failed %s type: %s", V, te.message), Fe(null));
-          }
-      }
-    }
-    var Le = Array.isArray;
-    function Re(d) {
-      return Le(d);
-    }
-    function xn(d) {
-      {
-        var y = typeof Symbol == "function" && Symbol.toStringTag, V = y && d[Symbol.toStringTag] || d.constructor.name || "Object";
-        return V;
-      }
-    }
-    function Pr(d) {
-      try {
-        return _n(d), !1;
-      } catch {
-        return !0;
-      }
-    }
-    function _n(d) {
-      return "" + d;
-    }
-    function Bn(d) {
-      if (Pr(d))
-        return j("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", xn(d)), _n(d);
-    }
-    var We = F.ReactCurrentOwner, Er = {
-      key: !0,
-      ref: !0,
-      __self: !0,
-      __source: !0
-    }, Wn, Yn, $n;
-    $n = {};
-    function jr(d) {
-      if (Ue.call(d, "ref")) {
-        var y = Object.getOwnPropertyDescriptor(d, "ref").get;
-        if (y && y.isReactWarning)
-          return !1;
-      }
-      return d.ref !== void 0;
-    }
-    function Sr(d) {
-      if (Ue.call(d, "key")) {
-        var y = Object.getOwnPropertyDescriptor(d, "key").get;
-        if (y && y.isReactWarning)
-          return !1;
-      }
-      return d.key !== void 0;
-    }
-    function Mr(d, y) {
-      if (typeof d.ref == "string" && We.current && y && We.current.stateNode !== y) {
-        var V = E(We.current.type);
-        $n[V] || (j('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', E(We.current.type), d.ref), $n[V] = !0);
-      }
-    }
-    function Tr(d, y) {
-      {
-        var V = function() {
-          Wn || (Wn = !0, j("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", y));
-        };
-        V.isReactWarning = !0, Object.defineProperty(d, "key", {
-          get: V,
-          configurable: !0
-        });
-      }
-    }
-    function Ur(d, y) {
-      {
-        var V = function() {
-          Yn || (Yn = !0, j("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", y));
-        };
-        V.isReactWarning = !0, Object.defineProperty(d, "ref", {
-          get: V,
-          configurable: !0
-        });
-      }
-    }
-    var Lr = function(d, y, V, W, ae, ue, ie) {
-      var te = {
-        // This tag allows us to uniquely identify this as a React Element
-        $$typeof: e,
-        // Built-in properties that belong on the element
-        type: d,
-        key: y,
-        ref: V,
-        props: ie,
-        // Record the component responsible for creating this element.
-        _owner: ue
-      };
-      return te._store = {}, Object.defineProperty(te._store, "validated", {
-        configurable: !1,
-        enumerable: !1,
-        writable: !0,
-        value: !1
-      }), Object.defineProperty(te, "_self", {
-        configurable: !1,
-        enumerable: !1,
-        writable: !1,
-        value: W
-      }), Object.defineProperty(te, "_source", {
-        configurable: !1,
-        enumerable: !1,
-        writable: !1,
-        value: ae
-      }), Object.freeze && (Object.freeze(te.props), Object.freeze(te)), te;
-    };
-    function Hr(d, y, V, W, ae) {
-      {
-        var ue, ie = {}, te = null, xe = null;
-        V !== void 0 && (Bn(V), te = "" + V), Sr(y) && (Bn(y.key), te = "" + y.key), jr(y) && (xe = y.ref, Mr(y, ae));
-        for (ue in y)
-          Ue.call(y, ue) && !Er.hasOwnProperty(ue) && (ie[ue] = y[ue]);
-        if (d && d.defaultProps) {
-          var me = d.defaultProps;
-          for (ue in me)
-            ie[ue] === void 0 && (ie[ue] = me[ue]);
-        }
-        if (te || xe) {
-          var he = typeof d == "function" ? d.displayName || d.name || "Unknown" : d;
-          te && Tr(ie, he), xe && Ur(ie, he);
-        }
-        return Lr(d, te, xe, ae, W, We.current, ie);
-      }
-    }
-    var yn = F.ReactCurrentOwner, Kn = F.ReactDebugCurrentFrame;
-    function ke(d) {
-      if (d) {
-        var y = d._owner, V = Pe(d.type, d._source, y ? y.type : null);
-        Kn.setExtraStackFrame(V);
-      } else
-        Kn.setExtraStackFrame(null);
-    }
-    var Fn;
-    Fn = !1;
-    function Cn(d) {
-      return typeof d == "object" && d !== null && d.$$typeof === e;
-    }
-    function qn() {
-      {
-        if (yn.current) {
-          var d = E(yn.current.type);
-          if (d)
-            return `
-
-Check the render method of \`` + d + "`.";
-        }
-        return "";
-      }
-    }
-    function Vr(d) {
-      {
-        if (d !== void 0) {
-          var y = d.fileName.replace(/^.*[\\\/]/, ""), V = d.lineNumber;
-          return `
-
-Check your code at ` + y + ":" + V + ".";
-        }
-        return "";
-      }
-    }
-    var Jn = {};
-    function Ar(d) {
-      {
-        var y = qn();
-        if (!y) {
-          var V = typeof d == "string" ? d : d.displayName || d.name;
-          V && (y = `
-
-Check the top-level render call using <` + V + ">.");
-        }
-        return y;
-      }
-    }
-    function Xn(d, y) {
-      {
-        if (!d._store || d._store.validated || d.key != null)
-          return;
-        d._store.validated = !0;
-        var V = Ar(y);
-        if (Jn[V])
-          return;
-        Jn[V] = !0;
-        var W = "";
-        d && d._owner && d._owner !== yn.current && (W = " It was passed a child from " + E(d._owner.type) + "."), ke(d), j('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', V, W), ke(null);
-      }
-    }
-    function Zn(d, y) {
-      {
-        if (typeof d != "object")
-          return;
-        if (Re(d))
-          for (var V = 0; V < d.length; V++) {
-            var W = d[V];
-            Cn(W) && Xn(W, y);
-          }
-        else if (Cn(d))
-          d._store && (d._store.validated = !0);
-        else if (d) {
-          var ae = H(d);
-          if (typeof ae == "function" && ae !== d.entries)
-            for (var ue = ae.call(d), ie; !(ie = ue.next()).done; )
-              Cn(ie.value) && Xn(ie.value, y);
-        }
-      }
-    }
-    function Rr(d) {
-      {
-        var y = d.type;
-        if (y == null || typeof y == "string")
-          return;
-        var V;
-        if (typeof y == "function")
-          V = y.propTypes;
-        else if (typeof y == "object" && (y.$$typeof === c || // Note: Memo only checks outer props here.
-        // Inner props are checked in the reconciler.
-        y.$$typeof === m))
-          V = y.propTypes;
-        else
-          return;
-        if (V) {
-          var W = E(y);
-          Se(V, d.props, "prop", W, d);
-        } else if (y.PropTypes !== void 0 && !Fn) {
-          Fn = !0;
-          var ae = E(y);
-          j("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", ae || "Unknown");
-        }
-        typeof y.getDefaultProps == "function" && !y.getDefaultProps.isReactClassApproved && j("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
-      }
-    }
-    function kr(d) {
-      {
-        for (var y = Object.keys(d.props), V = 0; V < y.length; V++) {
-          var W = y[V];
-          if (W !== "children" && W !== "key") {
-            ke(d), j("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", W), ke(null);
-            break;
-          }
-        }
-        d.ref !== null && (ke(d), j("Invalid attribute `ref` supplied to `React.Fragment`."), ke(null));
-      }
-    }
-    var Qn = {};
-    function zr(d, y, V, W, ae, ue) {
-      {
-        var ie = $(d);
-        if (!ie) {
-          var te = "";
-          (d === void 0 || typeof d == "object" && d !== null && Object.keys(d).length === 0) && (te += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
-          var xe = Vr(ae);
-          xe ? te += xe : te += qn();
-          var me;
-          d === null ? me = "null" : Re(d) ? me = "array" : d !== void 0 && d.$$typeof === e ? (me = "<" + (E(d.type) || "Unknown") + " />", te = " Did you accidentally export a JSX literal instead of a component?") : me = typeof d, j("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", me, te);
-        }
-        var he = Hr(d, y, V, ae, ue);
-        if (he == null)
-          return he;
-        if (ie) {
-          var De = y.children;
-          if (De !== void 0)
-            if (W)
-              if (Re(De)) {
-                for (var ze = 0; ze < De.length; ze++)
-                  Zn(De[ze], d);
-                Object.freeze && Object.freeze(De);
-              } else
-                j("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
-            else
-              Zn(De, d);
-        }
-        if (Ue.call(y, "key")) {
-          var Ve = E(d), Ce = Object.keys(y).filter(function(Gr) {
-            return Gr !== "key";
-          }), Dn = Ce.length > 0 ? "{key: someKey, " + Ce.join(": ..., ") + ": ...}" : "{key: someKey}";
-          if (!Qn[Ve + Dn]) {
-            var Ir = Ce.length > 0 ? "{" + Ce.join(": ..., ") + ": ...}" : "{}";
-            j(`A props object containing a "key" prop is being spread into JSX:
-  let props = %s;
-  <%s {...props} />
-React keys must be passed directly to JSX without using spread:
-  let props = %s;
-  <%s key={someKey} {...props} />`, Dn, Ve, Ir, Ve), Qn[Ve + Dn] = !0;
-          }
-        }
-        return d === r ? kr(he) : Rr(he), he;
-      }
-    }
-    var Or = zr;
-    nn.Fragment = r, nn.jsxDEV = Or;
-  })()), nn;
-}
-var tt;
-function Kr() {
-  return tt || (tt = 1, process.env.NODE_ENV === "production" ? Qe.exports = Wr() : Qe.exports = Yr()), Qe.exports;
-}
-var s = Kr(), Kt = {
+import { jsxDEV as l, Fragment as fe } from "react/jsx-dev-runtime";
+import * as Te from "react";
+import be, { useState as L, useRef as oe, useEffect as X, createContext as Pe, useContext as Me, useLayoutEffect as Vt, useCallback as ct, useMemo as Ye } from "react";
+var dt = {
   color: void 0,
   size: void 0,
   className: void 0,
   style: void 0,
   attr: void 0
-}, rt = Me.createContext && /* @__PURE__ */ Me.createContext(Kt), qr = ["attr", "size", "title"];
-function Jr(n, e) {
+}, Nn = be.createContext && /* @__PURE__ */ be.createContext(dt), Wt = ["attr", "size", "title"];
+function _t(n, e) {
   if (n == null) return {};
-  var t = Xr(n, e), r, i;
+  var t = Yt(n, e), i, r;
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(n);
-    for (i = 0; i < o.length; i++)
-      r = o[i], !(e.indexOf(r) >= 0) && Object.prototype.propertyIsEnumerable.call(n, r) && (t[r] = n[r]);
+    for (r = 0; r < o.length; r++)
+      i = o[r], !(e.indexOf(i) >= 0) && Object.prototype.propertyIsEnumerable.call(n, i) && (t[i] = n[i]);
   }
   return t;
 }
-function Xr(n, e) {
+function Yt(n, e) {
   if (n == null) return {};
   var t = {};
-  for (var r in n)
-    if (Object.prototype.hasOwnProperty.call(n, r)) {
-      if (e.indexOf(r) >= 0) continue;
-      t[r] = n[r];
+  for (var i in n)
+    if (Object.prototype.hasOwnProperty.call(n, i)) {
+      if (e.indexOf(i) >= 0) continue;
+      t[i] = n[i];
     }
   return t;
 }
-function an() {
-  return an = Object.assign ? Object.assign.bind() : function(n) {
+function ke() {
+  return ke = Object.assign ? Object.assign.bind() : function(n) {
     for (var e = 1; e < arguments.length; e++) {
       var t = arguments[e];
-      for (var r in t)
-        Object.prototype.hasOwnProperty.call(t, r) && (n[r] = t[r]);
+      for (var i in t)
+        Object.prototype.hasOwnProperty.call(t, i) && (n[i] = t[i]);
     }
     return n;
-  }, an.apply(this, arguments);
+  }, ke.apply(this, arguments);
 }
-function it(n, e) {
+function $n(n, e) {
   var t = Object.keys(n);
   if (Object.getOwnPropertySymbols) {
-    var r = Object.getOwnPropertySymbols(n);
-    e && (r = r.filter(function(i) {
-      return Object.getOwnPropertyDescriptor(n, i).enumerable;
-    })), t.push.apply(t, r);
+    var i = Object.getOwnPropertySymbols(n);
+    e && (i = i.filter(function(r) {
+      return Object.getOwnPropertyDescriptor(n, r).enumerable;
+    })), t.push.apply(t, i);
   }
   return t;
 }
-function sn(n) {
+function Re(n) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
-    e % 2 ? it(Object(t), !0).forEach(function(r) {
-      Zr(n, r, t[r]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(n, Object.getOwnPropertyDescriptors(t)) : it(Object(t)).forEach(function(r) {
-      Object.defineProperty(n, r, Object.getOwnPropertyDescriptor(t, r));
+    e % 2 ? $n(Object(t), !0).forEach(function(i) {
+      Kt(n, i, t[i]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(n, Object.getOwnPropertyDescriptors(t)) : $n(Object(t)).forEach(function(i) {
+      Object.defineProperty(n, i, Object.getOwnPropertyDescriptor(t, i));
     });
   }
   return n;
 }
-function Zr(n, e, t) {
-  return e = Qr(e), e in n ? Object.defineProperty(n, e, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : n[e] = t, n;
+function Kt(n, e, t) {
+  return e = qt(e), e in n ? Object.defineProperty(n, e, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : n[e] = t, n;
 }
-function Qr(n) {
-  var e = ei(n, "string");
+function qt(n) {
+  var e = Jt(n, "string");
   return typeof e == "symbol" ? e : e + "";
 }
-function ei(n, e) {
+function Jt(n, e) {
   if (typeof n != "object" || !n) return n;
   var t = n[Symbol.toPrimitive];
   if (t !== void 0) {
-    var r = t.call(n, e);
-    if (typeof r != "object") return r;
+    var i = t.call(n, e);
+    if (typeof i != "object") return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (e === "string" ? String : Number)(n);
 }
-function qt(n) {
-  return n && n.map((e, t) => /* @__PURE__ */ Me.createElement(e.tag, sn({
+function ut(n) {
+  return n && n.map((e, t) => /* @__PURE__ */ be.createElement(e.tag, Re({
     key: t
-  }, e.attr), qt(e.child)));
+  }, e.attr), ut(e.child)));
 }
-function K(n) {
-  return (e) => /* @__PURE__ */ Me.createElement(ni, an({
-    attr: sn({}, n.attr)
-  }, e), qt(n.child));
+function G(n) {
+  return (e) => /* @__PURE__ */ be.createElement(Zt, ke({
+    attr: Re({}, n.attr)
+  }, e), ut(n.child));
 }
-function ni(n) {
+function Zt(n) {
   var e = (t) => {
     var {
-      attr: r,
-      size: i,
+      attr: i,
+      size: r,
       title: o
-    } = n, a = Jr(n, qr), l = i || t.size || "1em", c;
-    return t.className && (c = t.className), n.className && (c = (c ? c + " " : "") + n.className), /* @__PURE__ */ Me.createElement("svg", an({
+    } = n, a = _t(n, Wt), s = r || t.size || "1em", c;
+    return t.className && (c = t.className), n.className && (c = (c ? c + " " : "") + n.className), /* @__PURE__ */ be.createElement("svg", ke({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
-    }, t.attr, r, a, {
+    }, t.attr, i, a, {
       className: c,
-      style: sn(sn({
+      style: Re(Re({
         color: n.color || t.color
       }, t.style), n.style),
-      height: l,
-      width: l,
+      height: s,
+      width: s,
       xmlns: "http://www.w3.org/2000/svg"
-    }), o && /* @__PURE__ */ Me.createElement("title", null, o), n.children);
+    }), o && /* @__PURE__ */ be.createElement("title", null, o), n.children);
   };
-  return rt !== void 0 ? /* @__PURE__ */ Me.createElement(rt.Consumer, null, (t) => e(t)) : e(Kt);
+  return Nn !== void 0 ? /* @__PURE__ */ be.createElement(Nn.Consumer, null, (t) => e(t)) : e(dt);
 }
-function ti(n) {
-  return K({ attr: { version: "1.1", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M16 8c-0.020-1.045-0.247-2.086-0.665-3.038-0.417-0.953-1.023-1.817-1.766-2.53s-1.624-1.278-2.578-1.651c-0.953-0.374-1.978-0.552-2.991-0.531-1.013 0.020-2.021 0.24-2.943 0.646-0.923 0.405-1.758 0.992-2.449 1.712s-1.237 1.574-1.597 2.497c-0.361 0.923-0.533 1.914-0.512 2.895 0.020 0.981 0.234 1.955 0.627 2.847 0.392 0.892 0.961 1.7 1.658 2.368s1.523 1.195 2.416 1.543c0.892 0.348 1.851 0.514 2.799 0.493 0.949-0.020 1.89-0.227 2.751-0.608 0.862-0.379 1.642-0.929 2.287-1.604s1.154-1.472 1.488-2.335c0.204-0.523 0.342-1.069 0.415-1.622 0.019 0.001 0.039 0.002 0.059 0.002 0.552 0 1-0.448 1-1 0-0.028-0.001-0.056-0.004-0.083h0.004zM14.411 10.655c-0.367 0.831-0.898 1.584-1.55 2.206s-1.422 1.112-2.254 1.434c-0.832 0.323-1.723 0.476-2.608 0.454-0.884-0.020-1.759-0.215-2.56-0.57-0.801-0.354-1.526-0.867-2.125-1.495s-1.071-1.371-1.38-2.173c-0.31-0.801-0.457-1.66-0.435-2.512s0.208-1.694 0.551-2.464c0.342-0.77 0.836-1.468 1.441-2.044s1.321-1.029 2.092-1.326c0.771-0.298 1.596-0.438 2.416-0.416s1.629 0.202 2.368 0.532c0.74 0.329 1.41 0.805 1.963 1.387s0.988 1.27 1.272 2.011c0.285 0.74 0.418 1.532 0.397 2.32h0.004c-0.002 0.027-0.004 0.055-0.004 0.083 0 0.516 0.39 0.94 0.892 0.994-0.097 0.544-0.258 1.075-0.481 1.578z" }, child: [] }] })(n);
+function Xt(n) {
+  return G({ attr: { version: "1.1", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M16 8c-0.020-1.045-0.247-2.086-0.665-3.038-0.417-0.953-1.023-1.817-1.766-2.53s-1.624-1.278-2.578-1.651c-0.953-0.374-1.978-0.552-2.991-0.531-1.013 0.020-2.021 0.24-2.943 0.646-0.923 0.405-1.758 0.992-2.449 1.712s-1.237 1.574-1.597 2.497c-0.361 0.923-0.533 1.914-0.512 2.895 0.020 0.981 0.234 1.955 0.627 2.847 0.392 0.892 0.961 1.7 1.658 2.368s1.523 1.195 2.416 1.543c0.892 0.348 1.851 0.514 2.799 0.493 0.949-0.020 1.89-0.227 2.751-0.608 0.862-0.379 1.642-0.929 2.287-1.604s1.154-1.472 1.488-2.335c0.204-0.523 0.342-1.069 0.415-1.622 0.019 0.001 0.039 0.002 0.059 0.002 0.552 0 1-0.448 1-1 0-0.028-0.001-0.056-0.004-0.083h0.004zM14.411 10.655c-0.367 0.831-0.898 1.584-1.55 2.206s-1.422 1.112-2.254 1.434c-0.832 0.323-1.723 0.476-2.608 0.454-0.884-0.020-1.759-0.215-2.56-0.57-0.801-0.354-1.526-0.867-2.125-1.495s-1.071-1.371-1.38-2.173c-0.31-0.801-0.457-1.66-0.435-2.512s0.208-1.694 0.551-2.464c0.342-0.77 0.836-1.468 1.441-2.044s1.321-1.029 2.092-1.326c0.771-0.298 1.596-0.438 2.416-0.416s1.629 0.202 2.368 0.532c0.74 0.329 1.41 0.805 1.963 1.387s0.988 1.27 1.272 2.011c0.285 0.74 0.418 1.532 0.397 2.32h0.004c-0.002 0.027-0.004 0.055-0.004 0.083 0 0.516 0.39 0.94 0.892 0.994-0.097 0.544-0.258 1.075-0.481 1.578z" }, child: [] }] })(n);
 }
-const zn = ({ loading: n = !1, className: e }) => n ? /* @__PURE__ */ s.jsxDEV("div", { className: `loader-container ${e}`, children: /* @__PURE__ */ s.jsxDEV(ti, { className: "spinner" }, void 0, !1, {
+const mn = ({ loading: n = !1, className: e }) => n ? /* @__PURE__ */ l("div", { className: `loader-container ${e}`, children: /* @__PURE__ */ l(Xt, { className: "spinner" }, void 0, !1, {
   fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Loader/Loader.jsx",
   lineNumber: 9,
   columnNumber: 7
@@ -750,184 +121,184 @@ const zn = ({ loading: n = !1, className: e }) => n ? /* @__PURE__ */ s.jsxDEV("
   lineNumber: 8,
   columnNumber: 5
 }, void 0) : null;
-function Jt(n) {
-  return K({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { fillRule: "evenodd", d: "M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" }, child: [] }] })(n);
+function ft(n) {
+  return G({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { fillRule: "evenodd", d: "M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" }, child: [] }] })(n);
 }
-function Xt(n) {
-  return K({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z" }, child: [] }, { tag: "path", attr: { d: "M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5" }, child: [] }] })(n);
+function mt(n) {
+  return G({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z" }, child: [] }, { tag: "path", attr: { d: "M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5" }, child: [] }] })(n);
 }
-function Zt(n) {
-  return K({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z" }, child: [] }] })(n);
+function pt(n) {
+  return G({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z" }, child: [] }] })(n);
 }
-function ot(n) {
-  return K({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z" }, child: [] }] })(n);
+function yn(n) {
+  return G({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z" }, child: [] }] })(n);
+}
+function ht(n) {
+  return G({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.794.637L8 9.73l-1.572 2.177a2.5 2.5 0 1 1-.794-.637L7.19 8.61zm2.5 10a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0m7 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" }, child: [] }] })(n);
+}
+function gt(n) {
+  return G({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "polyline", attr: { points: "23 4 23 10 17 10" }, child: [] }, { tag: "polyline", attr: { points: "1 20 1 14 7 14" }, child: [] }, { tag: "path", attr: { d: "M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" }, child: [] }] })(n);
 }
 function Qt(n) {
-  return K({ attr: { fill: "currentColor", viewBox: "0 0 16 16" }, child: [{ tag: "path", attr: { d: "M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.794.637L8 9.73l-1.572 2.177a2.5 2.5 0 1 1-.794-.637L7.19 8.61zm2.5 10a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0m7 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" }, child: [] }] })(n);
 }
-function er(n) {
-  return K({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "polyline", attr: { points: "23 4 23 10 17 10" }, child: [] }, { tag: "polyline", attr: { points: "1 20 1 14 7 14" }, child: [] }, { tag: "path", attr: { d: "M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" }, child: [] }] })(n);
+function ei(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" }, child: [] }] })(n);
 }
-function ri(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" }, child: [] }] })(n);
+function ni(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" }, child: [] }] })(n);
+}
+function ti(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" }, child: [] }] })(n);
 }
 function ii(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" }, child: [] }] })(n);
+}
+function bt(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" }, child: [] }] })(n);
+}
+function pn(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zm-1-4-1.41-1.41L13 12.17V4h-2v8.17L8.41 9.59 7 11l5 5 5-5z" }, child: [] }] })(n);
+}
+function vt(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z" }, child: [] }] })(n);
+}
+function ri(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M10.02 6 8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" }, child: [] }] })(n);
+}
+function Nt(n) {
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { d: "M20.005 5.995h-1v2h1v8h-1v2h1c1.103 0 2-.897 2-2v-8c0-1.102-.898-2-2-2zm-14 4H15v4H6.005z" }, child: [] }, { tag: "path", attr: { d: "M17.005 17.995V4H20V2h-8v2h3.005v1.995h-11c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h11V20H12v2h8v-2h-2.995v-2.005zm-13-2v-8h11v8h-11z" }, child: [] }] })(n);
 }
 function oi(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { d: "M20 2H8c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM8 16V4h12l.002 12H8z" }, child: [] }, { tag: "path", attr: { d: "M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8zm8.933 3.519-1.726-1.726-1.414 1.414 3.274 3.274 5.702-6.84-1.538-1.282z" }, child: [] }] })(n);
+}
+function $t(n) {
+  return G({ attr: { viewBox: "0 0 448 512" }, child: [{ tag: "path", attr: { d: "M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" }, child: [] }] })(n);
 }
 function ai(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" }, child: [] }] })(n);
 }
 function si(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 640 512" }, child: [{ tag: "path", attr: { d: "M128 0C92.7 0 64 28.7 64 64l0 224-44.8 0C8.6 288 0 296.6 0 307.2C0 349.6 34.4 384 76.8 384L320 384l0-96-192 0 0-224 320 0 0 32 64 0 0-32c0-35.3-28.7-64-64-64L128 0zM512 128l-112 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l192 0c26.5 0 48-21.5 48-48l0-208-96 0c-17.7 0-32-14.3-32-32l0-96zm32 0l0 96 96 0-96-96z" }, child: [] }] })(n);
 }
-function nr(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" }, child: [] }] })(n);
+function Ie(n) {
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" }, child: [] }] })(n);
 }
-function On(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zm-1-4-1.41-1.41L13 12.17V4h-2v8.17L8.41 9.59 7 11l5 5 5-5z" }, child: [] }] })(n);
+function Fn(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464l256 0c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM192 272l0 128c0 6.5-3.9 12.3-9.9 14.8s-12.9 1.1-17.4-3.5L129.4 376 112 376c-8.8 0-16-7.2-16-16l0-48c0-8.8 7.2-16 16-16l17.4 0 35.3-35.3c4.6-4.6 11.5-5.9 17.4-3.5s9.9 8.3 9.9 14.8zm85.8-4c11.6 20 18.2 43.3 18.2 68s-6.6 48-18.2 68c-6.6 11.5-21.3 15.4-32.8 8.8s-15.4-21.3-8.8-32.8c7.5-12.9 11.8-27.9 11.8-44s-4.3-31.1-11.8-44c-6.6-11.5-2.7-26.2 8.8-32.8s26.2-2.7 32.8 8.8z" }, child: [] }] })(n);
 }
-function tr(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0z" }, child: [] }, { tag: "path", attr: { d: "M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z" }, child: [] }] })(n);
+function ae(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm97 289c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L79 303c-9.4 9.4-9.4 24.6 0 33.9l48 48c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-31-31 31-31zM257 255c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l31 31-31 31c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l48-48c9.4-9.4 9.4-24.6 0-33.9l-48-48z" }, child: [] }] })(n);
+}
+function xn(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M48 448L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm90.9 233.3c-8.1-10.5-23.2-12.3-33.7-4.2s-12.3 23.2-4.2 33.7L161.6 320l-44.5 57.3c-8.1 10.5-6.3 25.5 4.2 33.7s25.5 6.3 33.7-4.2L192 359.1l37.1 47.6c8.1 10.5 23.2 12.3 33.7 4.2s12.3-23.2 4.2-33.7L222.4 320l44.5-57.3c8.1-10.5 6.3-25.5-4.2-33.7s-25.5-6.3-33.7 4.2L192 280.9l-37.1-47.6z" }, child: [] }] })(n);
+}
+function Xe(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm96 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm69.2 46.9c-3-4.3-7.9-6.9-13.2-6.9s-10.2 2.6-13.2 6.9l-41.3 59.7-11.9-19.1c-2.9-4.7-8.1-7.5-13.6-7.5s-10.6 2.8-13.6 7.5l-40 64c-3.1 4.9-3.2 11.1-.4 16.2s8.2 8.2 14 8.2l48 0 32 0 40 0 72 0c6 0 11.4-3.3 14.2-8.6s2.4-11.6-1-16.5l-72-104z" }, child: [] }] })(n);
 }
 function li(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { fill: "none", d: "M0 0h24v24H0V0z" }, child: [] }, { tag: "path", attr: { d: "M10.02 6 8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" }, child: [] }] })(n);
-}
-function rr(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { d: "M20.005 5.995h-1v2h1v8h-1v2h1c1.103 0 2-.897 2-2v-8c0-1.102-.898-2-2-2zm-14 4H15v4H6.005z" }, child: [] }, { tag: "path", attr: { d: "M17.005 17.995V4H20V2h-8v2h3.005v1.995h-11c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h11V20H12v2h8v-2h-2.995v-2.005zm-13-2v-8h11v8h-11z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" }, child: [] }] })(n);
 }
 function ci(n) {
-  return K({ attr: { viewBox: "0 0 24 24" }, child: [{ tag: "path", attr: { d: "M20 2H8c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM8 16V4h12l.002 12H8z" }, child: [] }, { tag: "path", attr: { d: "M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8zm8.933 3.519-1.726-1.726-1.414 1.414 3.274 3.274 5.702-6.84-1.538-1.282z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M64 464l48 0 0 48-48 0c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 304l-48 0 0-144-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z" }, child: [] }] })(n);
 }
-function ir(n) {
-  return K({ attr: { viewBox: "0 0 448 512" }, child: [{ tag: "path", attr: { d: "M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" }, child: [] }] })(n);
-}
-function ui(n) {
-  return K({ attr: { viewBox: "0 0 320 512" }, child: [{ tag: "path", attr: { d: "M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" }, child: [] }] })(n);
-}
-function di(n) {
-  return K({ attr: { viewBox: "0 0 640 512" }, child: [{ tag: "path", attr: { d: "M128 0C92.7 0 64 28.7 64 64l0 224-44.8 0C8.6 288 0 296.6 0 307.2C0 349.6 34.4 384 76.8 384L320 384l0-96-192 0 0-224 320 0 0 32 64 0 0-32c0-35.3-28.7-64-64-64L128 0zM512 128l-112 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l192 0c26.5 0 48-21.5 48-48l0-208-96 0c-17.7 0-32-14.3-32-32l0-96zm32 0l0 96 96 0-96-96z" }, child: [] }] })(n);
-}
-function ln(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" }, child: [] }] })(n);
-}
-function at(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464l256 0c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM192 272l0 128c0 6.5-3.9 12.3-9.9 14.8s-12.9 1.1-17.4-3.5L129.4 376 112 376c-8.8 0-16-7.2-16-16l0-48c0-8.8 7.2-16 16-16l17.4 0 35.3-35.3c4.6-4.6 11.5-5.9 17.4-3.5s9.9 8.3 9.9 14.8zm85.8-4c11.6 20 18.2 43.3 18.2 68s-6.6 48-18.2 68c-6.6 11.5-21.3 15.4-32.8 8.8s-15.4-21.3-8.8-32.8c7.5-12.9 11.8-27.9 11.8-44s-4.3-31.1-11.8-44c-6.6-11.5-2.7-26.2 8.8-32.8s26.2-2.7 32.8 8.8z" }, child: [] }] })(n);
-}
-function be(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm97 289c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L79 303c-9.4 9.4-9.4 24.6 0 33.9l48 48c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-31-31 31-31zM257 255c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l31 31-31 31c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l48-48c9.4-9.4 9.4-24.6 0-33.9l-48-48z" }, child: [] }] })(n);
-}
-function st(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M48 448L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm90.9 233.3c-8.1-10.5-23.2-12.3-33.7-4.2s-12.3 23.2-4.2 33.7L161.6 320l-44.5 57.3c-8.1 10.5-6.3 25.5 4.2 33.7s25.5 6.3 33.7-4.2L192 359.1l37.1 47.6c8.1 10.5 23.2 12.3 33.7 4.2s12.3-23.2 4.2-33.7L222.4 320l44.5-57.3c8.1-10.5 6.3-25.5-4.2-33.7s-25.5-6.3-33.7 4.2L192 280.9l-37.1-47.6z" }, child: [] }] })(n);
+function Cn(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm72 208c-13.3 0-24 10.7-24 24l0 104 0 56c0 13.3 10.7 24 24 24s24-10.7 24-24l0-32 44 0c42 0 76-34 76-76s-34-76-76-76l-68 0zm68 104l-44 0 0-56 44 0c15.5 0 28 12.5 28 28s-12.5 28-28 28z" }, child: [] }] })(n);
 }
 function wn(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm96 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm69.2 46.9c-3-4.3-7.9-6.9-13.2-6.9s-10.2 2.6-13.2 6.9l-41.3 59.7-11.9-19.1c-2.9-4.7-8.1-7.5-13.6-7.5s-10.6 2.8-13.6 7.5l-40 64c-3.1 4.9-3.2 11.1-.4 16.2s8.2 8.2 14 8.2l48 0 32 0 40 0 72 0c6 0 11.4-3.3 14.2-8.6s2.4-11.6-1-16.5l-72-104z" }, child: [] }] })(n);
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M320 464c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l256 0zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM80 288c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32l0 16 44.9-29.9c2-1.3 4.4-2.1 6.8-2.1c6.8 0 12.3 5.5 12.3 12.3l0 103.4c0 6.8-5.5 12.3-12.3 12.3c-2.4 0-4.8-.7-6.8-2.1L240 368l0 16c0 17.7-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32l0-96z" }, child: [] }] })(n);
 }
-function fi(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" }, child: [] }] })(n);
+function Pn(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M48 448L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm55 241.1c-3.8-12.7-17.2-19.9-29.9-16.1s-19.9 17.2-16.1 29.9l48 160c3 10.2 12.4 17.1 23 17.1s19.9-7 23-17.1l25-83.4 25 83.4c3 10.2 12.4 17.1 23 17.1s19.9-7 23-17.1l48-160c3.8-12.7-3.4-26.1-16.1-29.9s-26.1 3.4-29.9 16.1l-25 83.4-25-83.4c-3-10.2-12.4-17.1-23-17.1s-19.9 7-23 17.1l-25 83.4-25-83.4z" }, child: [] }] })(n);
 }
-function mi(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M64 464l48 0 0 48-48 0c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 304l-48 0 0-144-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z" }, child: [] }] })(n);
+function di(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l48 0c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l48 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm48 112c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm0 64c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm-6.3 71.8L82.1 335.9c-1.4 5.4-2.1 10.9-2.1 16.4c0 35.2 28.8 63.7 64 63.7s64-28.5 64-63.7c0-5.5-.7-11.1-2.1-16.4l-23.5-88.2c-3.7-14-16.4-23.8-30.9-23.8l-14.8 0c-14.5 0-27.2 9.7-30.9 23.8zM128 336l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z" }, child: [] }] })(n);
 }
-function lt(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm72 208c-13.3 0-24 10.7-24 24l0 104 0 56c0 13.3 10.7 24 24 24s24-10.7 24-24l0-32 44 0c42 0 76-34 76-76s-34-76-76-76l-68 0zm68 104l-44 0 0-56 44 0c15.5 0 28 12.5 28 28s-12.5 28-28 28z" }, child: [] }] })(n);
+function Oe(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M320 464c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l256 0zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64z" }, child: [] }] })(n);
 }
-function ct(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M320 464c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l256 0zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM80 288c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32l0 16 44.9-29.9c2-1.3 4.4-2.1 6.8-2.1c6.8 0 12.3 5.5 12.3 12.3l0 103.4c0 6.8-5.5 12.3-12.3 12.3c-2.4 0-4.8-.7-6.8-2.1L240 368l0 16c0 17.7-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32l0-96z" }, child: [] }] })(n);
+function Mn(n) {
+  return G({ attr: { viewBox: "0 0 576 512" }, child: [{ tag: "path", attr: { d: "M384 480l48 0c11.4 0 21.9-6 27.6-15.9l112-192c5.8-9.9 5.8-22.1 .1-32.1S555.5 224 544 224l-400 0c-11.4 0-21.9 6-27.6 15.9L48 357.1 48 96c0-8.8 7.2-16 16-16l117.5 0c4.2 0 8.3 1.7 11.3 4.7l26.5 26.5c21 21 49.5 32.8 79.2 32.8L416 144c8.8 0 16 7.2 16 16l0 32 48 0 0-32c0-35.3-28.7-64-64-64L298.5 96c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l23.7 0L384 480z" }, child: [] }] })(n);
 }
-function ut(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M48 448L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm55 241.1c-3.8-12.7-17.2-19.9-29.9-16.1s-19.9 17.2-16.1 29.9l48 160c3 10.2 12.4 17.1 23 17.1s19.9-7 23-17.1l25-83.4 25 83.4c3 10.2 12.4 17.1 23 17.1s19.9-7 23-17.1l48-160c3.8-12.7-3.4-26.1-16.1-29.9s-26.1 3.4-29.9 16.1l-25 83.4-25-83.4c-3-10.2-12.4-17.1-23-17.1s-19.9 7-23 17.1l-25 83.4-25-83.4z" }, child: [] }] })(n);
+function dn(n) {
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M104.6 48L64 48C28.7 48 0 76.7 0 112L0 384c0 35.3 28.7 64 64 64l96 0 0-48-96 0c-8.8 0-16-7.2-16-16l0-272c0-8.8 7.2-16 16-16l16 0c0 17.7 14.3 32 32 32l72.4 0C202 108.4 227.6 96 256 96l62 0c-7.1-27.6-32.2-48-62-48l-40.6 0C211.6 20.9 188.2 0 160 0s-51.6 20.9-55.4 48zM144 56a16 16 0 1 1 32 0 16 16 0 1 1 -32 0zM448 464l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L464 243.9 464 448c0 8.8-7.2 16-16 16zM256 512l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9l-67.9-67.9c-9-9-21.2-14.1-33.9-14.1L256 128c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64z" }, child: [] }] })(n);
 }
-function pi(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l48 0c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l48 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm48 112c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm0 64c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm-6.3 71.8L82.1 335.9c-1.4 5.4-2.1 10.9-2.1 16.4c0 35.2 28.8 63.7 64 63.7s64-28.5 64-63.7c0-5.5-.7-11.1-2.1-16.4l-23.5-88.2c-3.7-14-16.4-23.8-30.9-23.8l-14.8 0c-14.5 0-27.2 9.7-30.9 23.8zM128 336l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z" }, child: [] }] })(n);
-}
-function cn(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M320 464c8.8 0 16-7.2 16-16l0-288-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l256 0zM0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64z" }, child: [] }] })(n);
-}
-function dt(n) {
-  return K({ attr: { viewBox: "0 0 576 512" }, child: [{ tag: "path", attr: { d: "M384 480l48 0c11.4 0 21.9-6 27.6-15.9l112-192c5.8-9.9 5.8-22.1 .1-32.1S555.5 224 544 224l-400 0c-11.4 0-21.9 6-27.6 15.9L48 357.1 48 96c0-8.8 7.2-16 16-16l117.5 0c4.2 0 8.3 1.7 11.3 4.7l26.5 26.5c21 21 49.5 32.8 79.2 32.8L416 144c8.8 0 16 7.2 16 16l0 32 48 0 0-32c0-35.3-28.7-64-64-64L298.5 96c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l23.7 0L384 480z" }, child: [] }] })(n);
-}
-function An(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M104.6 48L64 48C28.7 48 0 76.7 0 112L0 384c0 35.3 28.7 64 64 64l96 0 0-48-96 0c-8.8 0-16-7.2-16-16l0-272c0-8.8 7.2-16 16-16l16 0c0 17.7 14.3 32 32 32l72.4 0C202 108.4 227.6 96 256 96l62 0c-7.1-27.6-32.2-48-62-48l-40.6 0C211.6 20.9 188.2 0 160 0s-51.6 20.9-55.4 48zM144 56a16 16 0 1 1 32 0 16 16 0 1 1 -32 0zM448 464l-192 0c-8.8 0-16-7.2-16-16l0-256c0-8.8 7.2-16 16-16l140.1 0L464 243.9 464 448c0 8.8-7.2 16-16 16zM256 512l192 0c35.3 0 64-28.7 64-64l0-204.1c0-12.7-5.1-24.9-14.1-33.9l-67.9-67.9c-9-9-21.2-14.1-33.9-14.1L256 128c-35.3 0-64 28.7-64 64l0 256c0 35.3 28.7 64 64 64z" }, child: [] }] })(n);
-}
-const Ze = (n = () => {
+const He = (n = () => {
 }) => {
-  const [e, t] = R(!1), r = pe(null), i = (o) => {
+  const [e, t] = L(!1), i = oe(null), r = (o) => {
     var a;
-    (a = r.current) != null && a.contains(o.target) ? t(!1) : (t(!0), n(o, r));
+    (a = i.current) != null && a.contains(o.target) ? t(!1) : (t(!0), n(o, i));
   };
-  return oe(() => (document.addEventListener("click", i, !0), document.addEventListener("mousedown", i, !0), () => {
-    document.removeEventListener("click", i, !0), document.removeEventListener("mousedown", i, !0);
-  }), []), { ref: r, isClicked: e, setIsClicked: t };
-}, or = _e(), hi = ({ children: n, layout: e }) => {
-  const [t, r] = R(() => i(e));
-  function i(o) {
+  return X(() => (document.addEventListener("click", r, !0), document.addEventListener("mousedown", r, !0), () => {
+    document.removeEventListener("click", r, !0), document.removeEventListener("mousedown", r, !0);
+  }), []), { ref: i, isClicked: e, setIsClicked: t };
+}, yt = Pe(), ui = ({ children: n, layout: e }) => {
+  const [t, i] = L(() => r(e));
+  function r(o) {
     return ["list", "grid"].includes(o) ? o : "grid";
   }
-  return /* @__PURE__ */ s.jsxDEV(or.Provider, { value: { activeLayout: t, setActiveLayout: r }, children: n }, void 0, !1, {
+  return /* @__PURE__ */ l(yt.Provider, { value: { activeLayout: t, setActiveLayout: i }, children: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/contexts/LayoutContext.jsx",
     lineNumber: 14,
     columnNumber: 5
   }, void 0);
-}, He = () => Be(or), Y = (n) => typeof n == "string", Ye = () => {
+}, ve = () => Me(yt), O = (n) => typeof n == "string", Se = () => {
   let n, e;
-  const t = new Promise((r, i) => {
-    n = r, e = i;
+  const t = new Promise((i, r) => {
+    n = i, e = r;
   });
   return t.resolve = n, t.reject = e, t;
-}, ft = (n) => n == null ? "" : "" + n, gi = (n, e, t) => {
-  n.forEach((r) => {
-    e[r] && (t[r] = e[r]);
+}, Un = (n) => n == null ? "" : "" + n, fi = (n, e, t) => {
+  n.forEach((i) => {
+    e[i] && (t[i] = e[i]);
   });
-}, vi = /###/g, mt = (n) => n && n.indexOf("###") > -1 ? n.replace(vi, ".") : n, pt = (n) => !n || Y(n), Ke = (n, e, t) => {
-  const r = Y(e) ? e.split(".") : e;
-  let i = 0;
-  for (; i < r.length - 1; ) {
-    if (pt(n)) return {};
-    const o = mt(r[i]);
-    !n[o] && t && (n[o] = new t()), Object.prototype.hasOwnProperty.call(n, o) ? n = n[o] : n = {}, ++i;
+}, mi = /###/g, Sn = (n) => n && n.indexOf("###") > -1 ? n.replace(mi, ".") : n, Dn = (n) => !n || O(n), De = (n, e, t) => {
+  const i = O(e) ? e.split(".") : e;
+  let r = 0;
+  for (; r < i.length - 1; ) {
+    if (Dn(n)) return {};
+    const o = Sn(i[r]);
+    !n[o] && t && (n[o] = new t()), Object.prototype.hasOwnProperty.call(n, o) ? n = n[o] : n = {}, ++r;
   }
-  return pt(n) ? {} : {
+  return Dn(n) ? {} : {
     obj: n,
-    k: mt(r[i])
+    k: Sn(i[r])
   };
-}, ht = (n, e, t) => {
-  const {
-    obj: r,
-    k: i
-  } = Ke(n, e, Object);
-  if (r !== void 0 || e.length === 1) {
-    r[i] = t;
-    return;
-  }
-  let o = e[e.length - 1], a = e.slice(0, e.length - 1), l = Ke(n, a, Object);
-  for (; l.obj === void 0 && a.length; )
-    o = `${a[a.length - 1]}.${o}`, a = a.slice(0, a.length - 1), l = Ke(n, a, Object), l != null && l.obj && typeof l.obj[`${l.k}.${o}`] < "u" && (l.obj = void 0);
-  l.obj[`${l.k}.${o}`] = t;
-}, bi = (n, e, t, r) => {
+}, Tn = (n, e, t) => {
   const {
     obj: i,
+    k: r
+  } = De(n, e, Object);
+  if (i !== void 0 || e.length === 1) {
+    i[r] = t;
+    return;
+  }
+  let o = e[e.length - 1], a = e.slice(0, e.length - 1), s = De(n, a, Object);
+  for (; s.obj === void 0 && a.length; )
+    o = `${a[a.length - 1]}.${o}`, a = a.slice(0, a.length - 1), s = De(n, a, Object), s != null && s.obj && typeof s.obj[`${s.k}.${o}`] < "u" && (s.obj = void 0);
+  s.obj[`${s.k}.${o}`] = t;
+}, pi = (n, e, t, i) => {
+  const {
+    obj: r,
     k: o
-  } = Ke(n, e, Object);
-  i[o] = i[o] || [], i[o].push(t);
-}, un = (n, e) => {
+  } = De(n, e, Object);
+  r[o] = r[o] || [], r[o].push(t);
+}, Ge = (n, e) => {
   const {
     obj: t,
-    k: r
-  } = Ke(n, e);
-  if (t && Object.prototype.hasOwnProperty.call(t, r))
-    return t[r];
-}, Ni = (n, e, t) => {
-  const r = un(n, t);
-  return r !== void 0 ? r : un(e, t);
-}, ar = (n, e, t) => {
-  for (const r in e)
-    r !== "__proto__" && r !== "constructor" && (r in n ? Y(n[r]) || n[r] instanceof String || Y(e[r]) || e[r] instanceof String ? t && (n[r] = e[r]) : ar(n[r], e[r], t) : n[r] = e[r]);
+    k: i
+  } = De(n, e);
+  if (t && Object.prototype.hasOwnProperty.call(t, i))
+    return t[i];
+}, hi = (n, e, t) => {
+  const i = Ge(n, t);
+  return i !== void 0 ? i : Ge(e, t);
+}, Ft = (n, e, t) => {
+  for (const i in e)
+    i !== "__proto__" && i !== "constructor" && (i in n ? O(n[i]) || n[i] instanceof String || O(e[i]) || e[i] instanceof String ? t && (n[i] = e[i]) : Ft(n[i], e[i], t) : n[i] = e[i]);
   return n;
-}, Oe = (n) => n.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-var xi = {
+}, xe = (n) => n.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+var gi = {
   "&": "&amp;",
   "<": "&lt;",
   ">": "&gt;",
@@ -935,8 +306,8 @@ var xi = {
   "'": "&#39;",
   "/": "&#x2F;"
 };
-const $i = (n) => Y(n) ? n.replace(/[&<>"'\/]/g, (e) => xi[e]) : n;
-class yi {
+const bi = (n) => O(n) ? n.replace(/[&<>"'\/]/g, (e) => gi[e]) : n;
+class vi {
   constructor(e) {
     this.capacity = e, this.regExpMap = /* @__PURE__ */ new Map(), this.regExpQueue = [];
   }
@@ -944,42 +315,42 @@ class yi {
     const t = this.regExpMap.get(e);
     if (t !== void 0)
       return t;
-    const r = new RegExp(e);
-    return this.regExpQueue.length === this.capacity && this.regExpMap.delete(this.regExpQueue.shift()), this.regExpMap.set(e, r), this.regExpQueue.push(e), r;
+    const i = new RegExp(e);
+    return this.regExpQueue.length === this.capacity && this.regExpMap.delete(this.regExpQueue.shift()), this.regExpMap.set(e, i), this.regExpQueue.push(e), i;
   }
 }
-const Fi = [" ", ",", "?", "!", ";"], Ci = new yi(20), Di = (n, e, t) => {
+const Ni = [" ", ",", "?", "!", ";"], $i = new vi(20), yi = (n, e, t) => {
   e = e || "", t = t || "";
-  const r = Fi.filter((a) => e.indexOf(a) < 0 && t.indexOf(a) < 0);
-  if (r.length === 0) return !0;
-  const i = Ci.getRegExp(`(${r.map((a) => a === "?" ? "\\?" : a).join("|")})`);
-  let o = !i.test(n);
+  const i = Ni.filter((a) => e.indexOf(a) < 0 && t.indexOf(a) < 0);
+  if (i.length === 0) return !0;
+  const r = $i.getRegExp(`(${i.map((a) => a === "?" ? "\\?" : a).join("|")})`);
+  let o = !r.test(n);
   if (!o) {
     const a = n.indexOf(t);
-    a > 0 && !i.test(n.substring(0, a)) && (o = !0);
+    a > 0 && !r.test(n.substring(0, a)) && (o = !0);
   }
   return o;
-}, Rn = (n, e, t = ".") => {
+}, un = (n, e, t = ".") => {
   if (!n) return;
   if (n[e])
     return Object.prototype.hasOwnProperty.call(n, e) ? n[e] : void 0;
-  const r = e.split(t);
-  let i = n;
-  for (let o = 0; o < r.length; ) {
-    if (!i || typeof i != "object")
+  const i = e.split(t);
+  let r = n;
+  for (let o = 0; o < i.length; ) {
+    if (!r || typeof r != "object")
       return;
-    let a, l = "";
-    for (let c = o; c < r.length; ++c)
-      if (c !== o && (l += t), l += r[c], a = i[l], a !== void 0) {
-        if (["string", "number", "boolean"].indexOf(typeof a) > -1 && c < r.length - 1)
+    let a, s = "";
+    for (let c = o; c < i.length; ++c)
+      if (c !== o && (s += t), s += i[c], a = r[s], a !== void 0) {
+        if (["string", "number", "boolean"].indexOf(typeof a) > -1 && c < i.length - 1)
           continue;
         o += c - o + 1;
         break;
       }
-    i = a;
+    r = a;
   }
-  return i;
-}, Je = (n) => n == null ? void 0 : n.replace("_", "-"), wi = {
+  return r;
+}, je = (n) => n == null ? void 0 : n.replace("_", "-"), Fi = {
   type: "logger",
   log(n) {
     this.output("log", n);
@@ -991,16 +362,16 @@ const Fi = [" ", ",", "?", "!", ";"], Ci = new yi(20), Di = (n, e, t) => {
     this.output("error", n);
   },
   output(n, e) {
-    var t, r;
-    (r = (t = console == null ? void 0 : console[n]) == null ? void 0 : t.apply) == null || r.call(t, console, e);
+    var t, i;
+    (i = (t = console == null ? void 0 : console[n]) == null ? void 0 : t.apply) == null || i.call(t, console, e);
   }
 };
-class dn {
+class Be {
   constructor(e, t = {}) {
     this.init(e, t);
   }
   init(e, t = {}) {
-    this.prefix = t.prefix || "i18next:", this.logger = e || wi, this.options = t, this.debug = t.debug;
+    this.prefix = t.prefix || "i18next:", this.logger = e || Fi, this.options = t, this.debug = t.debug;
   }
   log(...e) {
     return this.forward(e, "log", "", !0);
@@ -1014,29 +385,29 @@ class dn {
   deprecate(...e) {
     return this.forward(e, "warn", "WARNING DEPRECATED: ", !0);
   }
-  forward(e, t, r, i) {
-    return i && !this.debug ? null : (Y(e[0]) && (e[0] = `${r}${this.prefix} ${e[0]}`), this.logger[t](e));
+  forward(e, t, i, r) {
+    return r && !this.debug ? null : (O(e[0]) && (e[0] = `${i}${this.prefix} ${e[0]}`), this.logger[t](e));
   }
   create(e) {
-    return new dn(this.logger, {
+    return new Be(this.logger, {
       prefix: `${this.prefix}:${e}:`,
       ...this.options
     });
   }
   clone(e) {
-    return e = e || this.options, e.prefix = e.prefix || this.prefix, new dn(this.logger, e);
+    return e = e || this.options, e.prefix = e.prefix || this.prefix, new Be(this.logger, e);
   }
 }
-var Ee = new dn();
-class gn {
+var pe = new Be();
+class Ke {
   constructor() {
     this.observers = {};
   }
   on(e, t) {
-    return e.split(" ").forEach((r) => {
-      this.observers[r] || (this.observers[r] = /* @__PURE__ */ new Map());
-      const i = this.observers[r].get(t) || 0;
-      this.observers[r].set(t, i + 1);
+    return e.split(" ").forEach((i) => {
+      this.observers[i] || (this.observers[i] = /* @__PURE__ */ new Map());
+      const r = this.observers[i].get(t) || 0;
+      this.observers[i].set(t, r + 1);
     }), this;
   }
   off(e, t) {
@@ -1049,16 +420,16 @@ class gn {
     }
   }
   emit(e, ...t) {
-    this.observers[e] && Array.from(this.observers[e].entries()).forEach(([i, o]) => {
+    this.observers[e] && Array.from(this.observers[e].entries()).forEach(([r, o]) => {
       for (let a = 0; a < o; a++)
-        i(...t);
-    }), this.observers["*"] && Array.from(this.observers["*"].entries()).forEach(([i, o]) => {
+        r(...t);
+    }), this.observers["*"] && Array.from(this.observers["*"].entries()).forEach(([r, o]) => {
       for (let a = 0; a < o; a++)
-        i.apply(i, [e, ...t]);
+        r.apply(r, [e, ...t]);
     });
   }
 }
-class gt extends gn {
+class jn extends Ke {
   constructor(e, t = {
     ns: ["translation"],
     defaultNS: "translation"
@@ -1072,41 +443,41 @@ class gt extends gn {
     const t = this.options.ns.indexOf(e);
     t > -1 && this.options.ns.splice(t, 1);
   }
-  getResource(e, t, r, i = {}) {
-    var u, f;
-    const o = i.keySeparator !== void 0 ? i.keySeparator : this.options.keySeparator, a = i.ignoreJSONStructure !== void 0 ? i.ignoreJSONStructure : this.options.ignoreJSONStructure;
-    let l;
-    e.indexOf(".") > -1 ? l = e.split(".") : (l = [e, t], r && (Array.isArray(r) ? l.push(...r) : Y(r) && o ? l.push(...r.split(o)) : l.push(r)));
-    const c = un(this.data, l);
-    return !c && !t && !r && e.indexOf(".") > -1 && (e = l[0], t = l[1], r = l.slice(2).join(".")), c || !a || !Y(r) ? c : Rn((f = (u = this.data) == null ? void 0 : u[e]) == null ? void 0 : f[t], r, o);
+  getResource(e, t, i, r = {}) {
+    var d, u;
+    const o = r.keySeparator !== void 0 ? r.keySeparator : this.options.keySeparator, a = r.ignoreJSONStructure !== void 0 ? r.ignoreJSONStructure : this.options.ignoreJSONStructure;
+    let s;
+    e.indexOf(".") > -1 ? s = e.split(".") : (s = [e, t], i && (Array.isArray(i) ? s.push(...i) : O(i) && o ? s.push(...i.split(o)) : s.push(i)));
+    const c = Ge(this.data, s);
+    return !c && !t && !i && e.indexOf(".") > -1 && (e = s[0], t = s[1], i = s.slice(2).join(".")), c || !a || !O(i) ? c : un((u = (d = this.data) == null ? void 0 : d[e]) == null ? void 0 : u[t], i, o);
   }
-  addResource(e, t, r, i, o = {
+  addResource(e, t, i, r, o = {
     silent: !1
   }) {
     const a = o.keySeparator !== void 0 ? o.keySeparator : this.options.keySeparator;
-    let l = [e, t];
-    r && (l = l.concat(a ? r.split(a) : r)), e.indexOf(".") > -1 && (l = e.split("."), i = t, t = l[1]), this.addNamespaces(t), ht(this.data, l, i), o.silent || this.emit("added", e, t, r, i);
+    let s = [e, t];
+    i && (s = s.concat(a ? i.split(a) : i)), e.indexOf(".") > -1 && (s = e.split("."), r = t, t = s[1]), this.addNamespaces(t), Tn(this.data, s, r), o.silent || this.emit("added", e, t, i, r);
   }
-  addResources(e, t, r, i = {
+  addResources(e, t, i, r = {
     silent: !1
   }) {
-    for (const o in r)
-      (Y(r[o]) || Array.isArray(r[o])) && this.addResource(e, t, o, r[o], {
+    for (const o in i)
+      (O(i[o]) || Array.isArray(i[o])) && this.addResource(e, t, o, i[o], {
         silent: !0
       });
-    i.silent || this.emit("added", e, t, r);
+    r.silent || this.emit("added", e, t, i);
   }
-  addResourceBundle(e, t, r, i, o, a = {
+  addResourceBundle(e, t, i, r, o, a = {
     silent: !1,
     skipCopy: !1
   }) {
-    let l = [e, t];
-    e.indexOf(".") > -1 && (l = e.split("."), i = r, r = t, t = l[1]), this.addNamespaces(t);
-    let c = un(this.data, l) || {};
-    a.skipCopy || (r = JSON.parse(JSON.stringify(r))), i ? ar(c, r, o) : c = {
+    let s = [e, t];
+    e.indexOf(".") > -1 && (s = e.split("."), r = i, i = t, t = s[1]), this.addNamespaces(t);
+    let c = Ge(this.data, s) || {};
+    a.skipCopy || (i = JSON.parse(JSON.stringify(i))), r ? Ft(c, i, o) : c = {
       ...c,
-      ...r
-    }, ht(this.data, l, c), a.silent || this.emit("added", e, t, r);
+      ...i
+    }, Tn(this.data, s, c), a.silent || this.emit("added", e, t, i);
   }
   removeResourceBundle(e, t) {
     this.hasResourceBundle(e, t) && delete this.data[e][t], this.removeNamespaces(t), this.emit("removed", e, t);
@@ -1122,43 +493,43 @@ class gt extends gn {
   }
   hasLanguageSomeTranslations(e) {
     const t = this.getDataByLanguage(e);
-    return !!(t && Object.keys(t) || []).find((i) => t[i] && Object.keys(t[i]).length > 0);
+    return !!(t && Object.keys(t) || []).find((r) => t[r] && Object.keys(t[r]).length > 0);
   }
   toJSON() {
     return this.data;
   }
 }
-var sr = {
+var xt = {
   processors: {},
   addPostProcessor(n) {
     this.processors[n.name] = n;
   },
-  handle(n, e, t, r, i) {
+  handle(n, e, t, i, r) {
     return n.forEach((o) => {
       var a;
-      e = ((a = this.processors[o]) == null ? void 0 : a.process(e, t, r, i)) ?? e;
+      e = ((a = this.processors[o]) == null ? void 0 : a.process(e, t, i, r)) ?? e;
     }), e;
   }
 };
-const lr = Symbol("i18next/PATH_KEY");
-function Pi() {
+const Ct = Symbol("i18next/PATH_KEY");
+function xi() {
   const n = [], e = /* @__PURE__ */ Object.create(null);
   let t;
-  return e.get = (r, i) => {
+  return e.get = (i, r) => {
     var o;
-    return (o = t == null ? void 0 : t.revoke) == null || o.call(t), i === lr ? n : (n.push(i), t = Proxy.revocable(r, e), t.proxy);
+    return (o = t == null ? void 0 : t.revoke) == null || o.call(t), r === Ct ? n : (n.push(r), t = Proxy.revocable(i, e), t.proxy);
   }, Proxy.revocable(/* @__PURE__ */ Object.create(null), e).proxy;
 }
-function kn(n, e) {
+function fn(n, e) {
   const {
-    [lr]: t
-  } = n(Pi());
+    [Ct]: t
+  } = n(xi());
   return t.join((e == null ? void 0 : e.keySeparator) ?? ".");
 }
-const vt = {}, bt = (n) => !Y(n) && typeof n != "boolean" && typeof n != "number";
-class fn extends gn {
+const Ln = {}, Hn = (n) => !O(n) && typeof n != "boolean" && typeof n != "number";
+class Ve extends Ke {
   constructor(e, t = {}) {
-    super(), gi(["resourceStore", "languageUtils", "pluralResolver", "interpolator", "backendConnector", "i18nFormat", "utils"], e, this), this.options = t, this.options.keySeparator === void 0 && (this.options.keySeparator = "."), this.logger = Ee.create("translator");
+    super(), fi(["resourceStore", "languageUtils", "pluralResolver", "interpolator", "backendConnector", "i18nFormat", "utils"], e, this), this.options = t, this.options.keySeparator === void 0 && (this.options.keySeparator = "."), this.logger = pe.create("translator");
   }
   changeLanguage(e) {
     e && (this.language = e);
@@ -1166,267 +537,267 @@ class fn extends gn {
   exists(e, t = {
     interpolation: {}
   }) {
-    const r = {
+    const i = {
       ...t
     };
     if (e == null) return !1;
-    const i = this.resolve(e, r);
-    return (i == null ? void 0 : i.res) !== void 0;
+    const r = this.resolve(e, i);
+    return (r == null ? void 0 : r.res) !== void 0;
   }
   extractFromKey(e, t) {
-    let r = t.nsSeparator !== void 0 ? t.nsSeparator : this.options.nsSeparator;
-    r === void 0 && (r = ":");
-    const i = t.keySeparator !== void 0 ? t.keySeparator : this.options.keySeparator;
+    let i = t.nsSeparator !== void 0 ? t.nsSeparator : this.options.nsSeparator;
+    i === void 0 && (i = ":");
+    const r = t.keySeparator !== void 0 ? t.keySeparator : this.options.keySeparator;
     let o = t.ns || this.options.defaultNS || [];
-    const a = r && e.indexOf(r) > -1, l = !this.options.userDefinedKeySeparator && !t.keySeparator && !this.options.userDefinedNsSeparator && !t.nsSeparator && !Di(e, r, i);
-    if (a && !l) {
+    const a = i && e.indexOf(i) > -1, s = !this.options.userDefinedKeySeparator && !t.keySeparator && !this.options.userDefinedNsSeparator && !t.nsSeparator && !yi(e, i, r);
+    if (a && !s) {
       const c = e.match(this.interpolator.nestingRegexp);
       if (c && c.length > 0)
         return {
           key: e,
-          namespaces: Y(o) ? [o] : o
+          namespaces: O(o) ? [o] : o
         };
-      const u = e.split(r);
-      (r !== i || r === i && this.options.ns.indexOf(u[0]) > -1) && (o = u.shift()), e = u.join(i);
+      const d = e.split(i);
+      (i !== r || i === r && this.options.ns.indexOf(d[0]) > -1) && (o = d.shift()), e = d.join(r);
     }
     return {
       key: e,
-      namespaces: Y(o) ? [o] : o
+      namespaces: O(o) ? [o] : o
     };
   }
-  translate(e, t, r) {
-    let i = typeof t == "object" ? {
+  translate(e, t, i) {
+    let r = typeof t == "object" ? {
       ...t
     } : t;
-    if (typeof i != "object" && this.options.overloadTranslationOptionHandler && (i = this.options.overloadTranslationOptionHandler(arguments)), typeof i == "object" && (i = {
-      ...i
-    }), i || (i = {}), e == null) return "";
-    typeof e == "function" && (e = kn(e, {
+    if (typeof r != "object" && this.options.overloadTranslationOptionHandler && (r = this.options.overloadTranslationOptionHandler(arguments)), typeof r == "object" && (r = {
+      ...r
+    }), r || (r = {}), e == null) return "";
+    typeof e == "function" && (e = fn(e, {
       ...this.options,
-      ...i
+      ...r
     })), Array.isArray(e) || (e = [String(e)]);
-    const o = i.returnDetails !== void 0 ? i.returnDetails : this.options.returnDetails, a = i.keySeparator !== void 0 ? i.keySeparator : this.options.keySeparator, {
-      key: l,
+    const o = r.returnDetails !== void 0 ? r.returnDetails : this.options.returnDetails, a = r.keySeparator !== void 0 ? r.keySeparator : this.options.keySeparator, {
+      key: s,
       namespaces: c
-    } = this.extractFromKey(e[e.length - 1], i), u = c[c.length - 1];
-    let f = i.nsSeparator !== void 0 ? i.nsSeparator : this.options.nsSeparator;
-    f === void 0 && (f = ":");
-    const m = i.lng || this.language, g = i.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
-    if ((m == null ? void 0 : m.toLowerCase()) === "cimode")
-      return g ? o ? {
-        res: `${u}${f}${l}`,
-        usedKey: l,
-        exactUsedKey: l,
-        usedLng: m,
-        usedNS: u,
-        usedParams: this.getUsedParamsDetails(i)
-      } : `${u}${f}${l}` : o ? {
-        res: l,
-        usedKey: l,
-        exactUsedKey: l,
-        usedLng: m,
-        usedNS: u,
-        usedParams: this.getUsedParamsDetails(i)
-      } : l;
-    const p = this.resolve(e, i);
-    let h = p == null ? void 0 : p.res;
-    const N = (p == null ? void 0 : p.usedKey) || l, H = (p == null ? void 0 : p.exactUsedKey) || l, F = ["[object Number]", "[object Function]", "[object RegExp]"], j = i.joinArrays !== void 0 ? i.joinArrays : this.options.joinArrays, P = !this.i18nFormat || this.i18nFormat.handleAsObject, S = i.count !== void 0 && !Y(i.count), v = fn.hasDefaultValue(i), U = S ? this.pluralResolver.getSuffix(m, i.count, i) : "", D = i.ordinal && S ? this.pluralResolver.getSuffix(m, i.count, {
+    } = this.extractFromKey(e[e.length - 1], r), d = c[c.length - 1];
+    let u = r.nsSeparator !== void 0 ? r.nsSeparator : this.options.nsSeparator;
+    u === void 0 && (u = ":");
+    const f = r.lng || this.language, h = r.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
+    if ((f == null ? void 0 : f.toLowerCase()) === "cimode")
+      return h ? o ? {
+        res: `${d}${u}${s}`,
+        usedKey: s,
+        exactUsedKey: s,
+        usedLng: f,
+        usedNS: d,
+        usedParams: this.getUsedParamsDetails(r)
+      } : `${d}${u}${s}` : o ? {
+        res: s,
+        usedKey: s,
+        exactUsedKey: s,
+        usedLng: f,
+        usedNS: d,
+        usedParams: this.getUsedParamsDetails(r)
+      } : s;
+    const m = this.resolve(e, r);
+    let p = m == null ? void 0 : m.res;
+    const v = (m == null ? void 0 : m.usedKey) || s, j = (m == null ? void 0 : m.exactUsedKey) || s, w = ["[object Number]", "[object Function]", "[object RegExp]"], H = r.joinArrays !== void 0 ? r.joinArrays : this.options.joinArrays, C = !this.i18nFormat || this.i18nFormat.handleAsObject, P = r.count !== void 0 && !O(r.count), g = Ve.hasDefaultValue(r), S = P ? this.pluralResolver.getSuffix(f, r.count, r) : "", F = r.ordinal && P ? this.pluralResolver.getSuffix(f, r.count, {
       ordinal: !1
-    }) : "", C = S && !i.ordinal && i.count === 0, b = C && i[`defaultValue${this.options.pluralSeparator}zero`] || i[`defaultValue${U}`] || i[`defaultValue${D}`] || i.defaultValue;
-    let $ = h;
-    P && !h && v && ($ = b);
-    const M = bt($), L = Object.prototype.toString.apply($);
-    if (P && $ && M && F.indexOf(L) < 0 && !(Y(j) && Array.isArray($))) {
-      if (!i.returnObjects && !this.options.returnObjects) {
+    }) : "", y = P && !r.ordinal && r.count === 0, b = y && r[`defaultValue${this.options.pluralSeparator}zero`] || r[`defaultValue${S}`] || r[`defaultValue${F}`] || r.defaultValue;
+    let N = p;
+    C && !p && g && (N = b);
+    const M = Hn(N), T = Object.prototype.toString.apply(N);
+    if (C && N && M && w.indexOf(T) < 0 && !(O(H) && Array.isArray(N))) {
+      if (!r.returnObjects && !this.options.returnObjects) {
         this.options.returnedObjectHandler || this.logger.warn("accessing an object - but returnObjects options is not enabled!");
-        const E = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(N, $, {
-          ...i,
+        const D = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(v, N, {
+          ...r,
           ns: c
-        }) : `key '${l} (${this.language})' returned an object instead of string.`;
-        return o ? (p.res = E, p.usedParams = this.getUsedParamsDetails(i), p) : E;
+        }) : `key '${s} (${this.language})' returned an object instead of string.`;
+        return o ? (m.res = D, m.usedParams = this.getUsedParamsDetails(r), m) : D;
       }
       if (a) {
-        const E = Array.isArray($), A = E ? [] : {}, Q = E ? H : N;
-        for (const J in $)
-          if (Object.prototype.hasOwnProperty.call($, J)) {
-            const ne = `${Q}${a}${J}`;
-            v && !h ? A[J] = this.translate(ne, {
-              ...i,
-              defaultValue: bt(b) ? b[J] : void 0,
+        const D = Array.isArray(N), E = D ? [] : {}, Z = D ? j : v;
+        for (const _ in N)
+          if (Object.prototype.hasOwnProperty.call(N, _)) {
+            const J = `${Z}${a}${_}`;
+            g && !p ? E[_] = this.translate(J, {
+              ...r,
+              defaultValue: Hn(b) ? b[_] : void 0,
               joinArrays: !1,
               ns: c
-            }) : A[J] = this.translate(ne, {
-              ...i,
+            }) : E[_] = this.translate(J, {
+              ...r,
               joinArrays: !1,
               ns: c
-            }), A[J] === ne && (A[J] = $[J]);
+            }), E[_] === J && (E[_] = N[_]);
           }
-        h = A;
+        p = E;
       }
-    } else if (P && Y(j) && Array.isArray(h))
-      h = h.join(j), h && (h = this.extendTranslation(h, e, i, r));
+    } else if (C && O(H) && Array.isArray(p))
+      p = p.join(H), p && (p = this.extendTranslation(p, e, r, i));
     else {
-      let E = !1, A = !1;
-      !this.isValidLookup(h) && v && (E = !0, h = b), this.isValidLookup(h) || (A = !0, h = l);
-      const J = (i.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && A ? void 0 : h, ne = v && b !== h && this.options.updateMissing;
-      if (A || E || ne) {
-        if (this.logger.log(ne ? "updateKey" : "missingKey", m, u, l, ne ? b : h), a) {
-          const w = this.resolve(l, {
-            ...i,
+      let D = !1, E = !1;
+      !this.isValidLookup(p) && g && (D = !0, p = b), this.isValidLookup(p) || (E = !0, p = s);
+      const _ = (r.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && E ? void 0 : p, J = g && b !== p && this.options.updateMissing;
+      if (E || D || J) {
+        if (this.logger.log(J ? "updateKey" : "missingKey", f, d, s, J ? b : p), a) {
+          const x = this.resolve(s, {
+            ...r,
             keySeparator: !1
           });
-          w && w.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
+          x && x.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
         }
-        let de = [];
-        const re = this.languageUtils.getFallbackCodes(this.options.fallbackLng, i.lng || this.language);
-        if (this.options.saveMissingTo === "fallback" && re && re[0])
-          for (let w = 0; w < re.length; w++)
-            de.push(re[w]);
-        else this.options.saveMissingTo === "all" ? de = this.languageUtils.toResolveHierarchy(i.lng || this.language) : de.push(i.lng || this.language);
-        const x = (w, O, G) => {
-          var X;
-          const I = v && G !== h ? G : J;
-          this.options.missingKeyHandler ? this.options.missingKeyHandler(w, u, O, I, ne, i) : (X = this.backendConnector) != null && X.saveMissing && this.backendConnector.saveMissing(w, u, O, I, ne, i), this.emit("missingKey", w, u, O, h);
+        let ie = [];
+        const Q = this.languageUtils.getFallbackCodes(this.options.fallbackLng, r.lng || this.language);
+        if (this.options.saveMissingTo === "fallback" && Q && Q[0])
+          for (let x = 0; x < Q.length; x++)
+            ie.push(Q[x]);
+        else this.options.saveMissingTo === "all" ? ie = this.languageUtils.toResolveHierarchy(r.lng || this.language) : ie.push(r.lng || this.language);
+        const $ = (x, k, I) => {
+          var W;
+          const R = g && I !== p ? I : _;
+          this.options.missingKeyHandler ? this.options.missingKeyHandler(x, d, k, R, J, r) : (W = this.backendConnector) != null && W.saveMissing && this.backendConnector.saveMissing(x, d, k, R, J, r), this.emit("missingKey", x, d, k, p);
         };
-        this.options.saveMissing && (this.options.saveMissingPlurals && S ? de.forEach((w) => {
-          const O = this.pluralResolver.getSuffixes(w, i);
-          C && i[`defaultValue${this.options.pluralSeparator}zero`] && O.indexOf(`${this.options.pluralSeparator}zero`) < 0 && O.push(`${this.options.pluralSeparator}zero`), O.forEach((G) => {
-            x([w], l + G, i[`defaultValue${G}`] || b);
+        this.options.saveMissing && (this.options.saveMissingPlurals && P ? ie.forEach((x) => {
+          const k = this.pluralResolver.getSuffixes(x, r);
+          y && r[`defaultValue${this.options.pluralSeparator}zero`] && k.indexOf(`${this.options.pluralSeparator}zero`) < 0 && k.push(`${this.options.pluralSeparator}zero`), k.forEach((I) => {
+            $([x], s + I, r[`defaultValue${I}`] || b);
           });
-        }) : x(de, l, b));
+        }) : $(ie, s, b));
       }
-      h = this.extendTranslation(h, e, i, p, r), A && h === l && this.options.appendNamespaceToMissingKey && (h = `${u}${f}${l}`), (A || E) && this.options.parseMissingKeyHandler && (h = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${u}${f}${l}` : l, E ? h : void 0, i));
+      p = this.extendTranslation(p, e, r, m, i), E && p === s && this.options.appendNamespaceToMissingKey && (p = `${d}${u}${s}`), (E || D) && this.options.parseMissingKeyHandler && (p = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${d}${u}${s}` : s, D ? p : void 0, r));
     }
-    return o ? (p.res = h, p.usedParams = this.getUsedParamsDetails(i), p) : h;
+    return o ? (m.res = p, m.usedParams = this.getUsedParamsDetails(r), m) : p;
   }
-  extendTranslation(e, t, r, i, o) {
-    var c, u;
+  extendTranslation(e, t, i, r, o) {
+    var c, d;
     if ((c = this.i18nFormat) != null && c.parse)
       e = this.i18nFormat.parse(e, {
         ...this.options.interpolation.defaultVariables,
-        ...r
-      }, r.lng || this.language || i.usedLng, i.usedNS, i.usedKey, {
-        resolved: i
+        ...i
+      }, i.lng || this.language || r.usedLng, r.usedNS, r.usedKey, {
+        resolved: r
       });
-    else if (!r.skipInterpolation) {
-      r.interpolation && this.interpolator.init({
-        ...r,
+    else if (!i.skipInterpolation) {
+      i.interpolation && this.interpolator.init({
+        ...i,
         interpolation: {
           ...this.options.interpolation,
-          ...r.interpolation
+          ...i.interpolation
         }
       });
-      const f = Y(e) && (((u = r == null ? void 0 : r.interpolation) == null ? void 0 : u.skipOnVariables) !== void 0 ? r.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables);
-      let m;
-      if (f) {
-        const p = e.match(this.interpolator.nestingRegexp);
-        m = p && p.length;
+      const u = O(e) && (((d = i == null ? void 0 : i.interpolation) == null ? void 0 : d.skipOnVariables) !== void 0 ? i.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables);
+      let f;
+      if (u) {
+        const m = e.match(this.interpolator.nestingRegexp);
+        f = m && m.length;
       }
-      let g = r.replace && !Y(r.replace) ? r.replace : r;
-      if (this.options.interpolation.defaultVariables && (g = {
+      let h = i.replace && !O(i.replace) ? i.replace : i;
+      if (this.options.interpolation.defaultVariables && (h = {
         ...this.options.interpolation.defaultVariables,
-        ...g
-      }), e = this.interpolator.interpolate(e, g, r.lng || this.language || i.usedLng, r), f) {
-        const p = e.match(this.interpolator.nestingRegexp), h = p && p.length;
-        m < h && (r.nest = !1);
+        ...h
+      }), e = this.interpolator.interpolate(e, h, i.lng || this.language || r.usedLng, i), u) {
+        const m = e.match(this.interpolator.nestingRegexp), p = m && m.length;
+        f < p && (i.nest = !1);
       }
-      !r.lng && i && i.res && (r.lng = this.language || i.usedLng), r.nest !== !1 && (e = this.interpolator.nest(e, (...p) => (o == null ? void 0 : o[0]) === p[0] && !r.context ? (this.logger.warn(`It seems you are nesting recursively key: ${p[0]} in key: ${t[0]}`), null) : this.translate(...p, t), r)), r.interpolation && this.interpolator.reset();
+      !i.lng && r && r.res && (i.lng = this.language || r.usedLng), i.nest !== !1 && (e = this.interpolator.nest(e, (...m) => (o == null ? void 0 : o[0]) === m[0] && !i.context ? (this.logger.warn(`It seems you are nesting recursively key: ${m[0]} in key: ${t[0]}`), null) : this.translate(...m, t), i)), i.interpolation && this.interpolator.reset();
     }
-    const a = r.postProcess || this.options.postProcess, l = Y(a) ? [a] : a;
-    return e != null && (l != null && l.length) && r.applyPostProcessor !== !1 && (e = sr.handle(l, e, t, this.options && this.options.postProcessPassResolved ? {
+    const a = i.postProcess || this.options.postProcess, s = O(a) ? [a] : a;
+    return e != null && (s != null && s.length) && i.applyPostProcessor !== !1 && (e = xt.handle(s, e, t, this.options && this.options.postProcessPassResolved ? {
       i18nResolved: {
-        ...i,
-        usedParams: this.getUsedParamsDetails(r)
+        ...r,
+        usedParams: this.getUsedParamsDetails(i)
       },
-      ...r
-    } : r, this)), e;
+      ...i
+    } : i, this)), e;
   }
   resolve(e, t = {}) {
-    let r, i, o, a, l;
-    return Y(e) && (e = [e]), e.forEach((c) => {
-      if (this.isValidLookup(r)) return;
-      const u = this.extractFromKey(c, t), f = u.key;
-      i = f;
-      let m = u.namespaces;
-      this.options.fallbackNS && (m = m.concat(this.options.fallbackNS));
-      const g = t.count !== void 0 && !Y(t.count), p = g && !t.ordinal && t.count === 0, h = t.context !== void 0 && (Y(t.context) || typeof t.context == "number") && t.context !== "", N = t.lngs ? t.lngs : this.languageUtils.toResolveHierarchy(t.lng || this.language, t.fallbackLng);
-      m.forEach((H) => {
-        var F, j;
-        this.isValidLookup(r) || (l = H, !vt[`${N[0]}-${H}`] && ((F = this.utils) != null && F.hasLoadedNamespace) && !((j = this.utils) != null && j.hasLoadedNamespace(l)) && (vt[`${N[0]}-${H}`] = !0, this.logger.warn(`key "${i}" for languages "${N.join(", ")}" won't get resolved as namespace "${l}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!")), N.forEach((P) => {
-          var U;
-          if (this.isValidLookup(r)) return;
-          a = P;
-          const S = [f];
-          if ((U = this.i18nFormat) != null && U.addLookupKeys)
-            this.i18nFormat.addLookupKeys(S, f, P, H, t);
+    let i, r, o, a, s;
+    return O(e) && (e = [e]), e.forEach((c) => {
+      if (this.isValidLookup(i)) return;
+      const d = this.extractFromKey(c, t), u = d.key;
+      r = u;
+      let f = d.namespaces;
+      this.options.fallbackNS && (f = f.concat(this.options.fallbackNS));
+      const h = t.count !== void 0 && !O(t.count), m = h && !t.ordinal && t.count === 0, p = t.context !== void 0 && (O(t.context) || typeof t.context == "number") && t.context !== "", v = t.lngs ? t.lngs : this.languageUtils.toResolveHierarchy(t.lng || this.language, t.fallbackLng);
+      f.forEach((j) => {
+        var w, H;
+        this.isValidLookup(i) || (s = j, !Ln[`${v[0]}-${j}`] && ((w = this.utils) != null && w.hasLoadedNamespace) && !((H = this.utils) != null && H.hasLoadedNamespace(s)) && (Ln[`${v[0]}-${j}`] = !0, this.logger.warn(`key "${r}" for languages "${v.join(", ")}" won't get resolved as namespace "${s}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!")), v.forEach((C) => {
+          var S;
+          if (this.isValidLookup(i)) return;
+          a = C;
+          const P = [u];
+          if ((S = this.i18nFormat) != null && S.addLookupKeys)
+            this.i18nFormat.addLookupKeys(P, u, C, j, t);
           else {
-            let D;
-            g && (D = this.pluralResolver.getSuffix(P, t.count, t));
-            const C = `${this.options.pluralSeparator}zero`, b = `${this.options.pluralSeparator}ordinal${this.options.pluralSeparator}`;
-            if (g && (t.ordinal && D.indexOf(b) === 0 && S.push(f + D.replace(b, this.options.pluralSeparator)), S.push(f + D), p && S.push(f + C)), h) {
-              const $ = `${f}${this.options.contextSeparator || "_"}${t.context}`;
-              S.push($), g && (t.ordinal && D.indexOf(b) === 0 && S.push($ + D.replace(b, this.options.pluralSeparator)), S.push($ + D), p && S.push($ + C));
+            let F;
+            h && (F = this.pluralResolver.getSuffix(C, t.count, t));
+            const y = `${this.options.pluralSeparator}zero`, b = `${this.options.pluralSeparator}ordinal${this.options.pluralSeparator}`;
+            if (h && (t.ordinal && F.indexOf(b) === 0 && P.push(u + F.replace(b, this.options.pluralSeparator)), P.push(u + F), m && P.push(u + y)), p) {
+              const N = `${u}${this.options.contextSeparator || "_"}${t.context}`;
+              P.push(N), h && (t.ordinal && F.indexOf(b) === 0 && P.push(N + F.replace(b, this.options.pluralSeparator)), P.push(N + F), m && P.push(N + y));
             }
           }
-          let v;
-          for (; v = S.pop(); )
-            this.isValidLookup(r) || (o = v, r = this.getResource(P, H, v, t));
+          let g;
+          for (; g = P.pop(); )
+            this.isValidLookup(i) || (o = g, i = this.getResource(C, j, g, t));
         }));
       });
     }), {
-      res: r,
-      usedKey: i,
+      res: i,
+      usedKey: r,
       exactUsedKey: o,
       usedLng: a,
-      usedNS: l
+      usedNS: s
     };
   }
   isValidLookup(e) {
     return e !== void 0 && !(!this.options.returnNull && e === null) && !(!this.options.returnEmptyString && e === "");
   }
-  getResource(e, t, r, i = {}) {
+  getResource(e, t, i, r = {}) {
     var o;
-    return (o = this.i18nFormat) != null && o.getResource ? this.i18nFormat.getResource(e, t, r, i) : this.resourceStore.getResource(e, t, r, i);
+    return (o = this.i18nFormat) != null && o.getResource ? this.i18nFormat.getResource(e, t, i, r) : this.resourceStore.getResource(e, t, i, r);
   }
   getUsedParamsDetails(e = {}) {
-    const t = ["defaultValue", "ordinal", "context", "replace", "lng", "lngs", "fallbackLng", "ns", "keySeparator", "nsSeparator", "returnObjects", "returnDetails", "joinArrays", "postProcess", "interpolation"], r = e.replace && !Y(e.replace);
-    let i = r ? e.replace : e;
-    if (r && typeof e.count < "u" && (i.count = e.count), this.options.interpolation.defaultVariables && (i = {
+    const t = ["defaultValue", "ordinal", "context", "replace", "lng", "lngs", "fallbackLng", "ns", "keySeparator", "nsSeparator", "returnObjects", "returnDetails", "joinArrays", "postProcess", "interpolation"], i = e.replace && !O(e.replace);
+    let r = i ? e.replace : e;
+    if (i && typeof e.count < "u" && (r.count = e.count), this.options.interpolation.defaultVariables && (r = {
       ...this.options.interpolation.defaultVariables,
-      ...i
-    }), !r) {
-      i = {
-        ...i
+      ...r
+    }), !i) {
+      r = {
+        ...r
       };
       for (const o of t)
-        delete i[o];
+        delete r[o];
     }
-    return i;
+    return r;
   }
   static hasDefaultValue(e) {
     const t = "defaultValue";
-    for (const r in e)
-      if (Object.prototype.hasOwnProperty.call(e, r) && t === r.substring(0, t.length) && e[r] !== void 0)
+    for (const i in e)
+      if (Object.prototype.hasOwnProperty.call(e, i) && t === i.substring(0, t.length) && e[i] !== void 0)
         return !0;
     return !1;
   }
 }
-class Nt {
+class En {
   constructor(e) {
-    this.options = e, this.supportedLngs = this.options.supportedLngs || !1, this.logger = Ee.create("languageUtils");
+    this.options = e, this.supportedLngs = this.options.supportedLngs || !1, this.logger = pe.create("languageUtils");
   }
   getScriptPartFromCode(e) {
-    if (e = Je(e), !e || e.indexOf("-") < 0) return null;
+    if (e = je(e), !e || e.indexOf("-") < 0) return null;
     const t = e.split("-");
     return t.length === 2 || (t.pop(), t[t.length - 1].toLowerCase() === "x") ? null : this.formatLanguageCode(t.join("-"));
   }
   getLanguagePartFromCode(e) {
-    if (e = Je(e), !e || e.indexOf("-") < 0) return e;
+    if (e = je(e), !e || e.indexOf("-") < 0) return e;
     const t = e.split("-");
     return this.formatLanguageCode(t[0]);
   }
   formatLanguageCode(e) {
-    if (Y(e) && e.indexOf("-") > -1) {
+    if (O(e) && e.indexOf("-") > -1) {
       let t;
       try {
         t = Intl.getCanonicalLocales(e)[0];
@@ -1442,15 +813,15 @@ class Nt {
   getBestMatchFromCodes(e) {
     if (!e) return null;
     let t;
-    return e.forEach((r) => {
+    return e.forEach((i) => {
       if (t) return;
-      const i = this.formatLanguageCode(r);
-      (!this.options.supportedLngs || this.isSupportedCode(i)) && (t = i);
-    }), !t && this.options.supportedLngs && e.forEach((r) => {
+      const r = this.formatLanguageCode(i);
+      (!this.options.supportedLngs || this.isSupportedCode(r)) && (t = r);
+    }), !t && this.options.supportedLngs && e.forEach((i) => {
       if (t) return;
-      const i = this.getScriptPartFromCode(r);
-      if (this.isSupportedCode(i)) return t = i;
-      const o = this.getLanguagePartFromCode(r);
+      const r = this.getScriptPartFromCode(i);
+      if (this.isSupportedCode(r)) return t = r;
+      const o = this.getLanguagePartFromCode(i);
       if (this.isSupportedCode(o)) return t = o;
       t = this.options.supportedLngs.find((a) => {
         if (a === o) return a;
@@ -1461,36 +832,36 @@ class Nt {
   }
   getFallbackCodes(e, t) {
     if (!e) return [];
-    if (typeof e == "function" && (e = e(t)), Y(e) && (e = [e]), Array.isArray(e)) return e;
+    if (typeof e == "function" && (e = e(t)), O(e) && (e = [e]), Array.isArray(e)) return e;
     if (!t) return e.default || [];
-    let r = e[t];
-    return r || (r = e[this.getScriptPartFromCode(t)]), r || (r = e[this.formatLanguageCode(t)]), r || (r = e[this.getLanguagePartFromCode(t)]), r || (r = e.default), r || [];
+    let i = e[t];
+    return i || (i = e[this.getScriptPartFromCode(t)]), i || (i = e[this.formatLanguageCode(t)]), i || (i = e[this.getLanguagePartFromCode(t)]), i || (i = e.default), i || [];
   }
   toResolveHierarchy(e, t) {
-    const r = this.getFallbackCodes((t === !1 ? [] : t) || this.options.fallbackLng || [], e), i = [], o = (a) => {
-      a && (this.isSupportedCode(a) ? i.push(a) : this.logger.warn(`rejecting language code not found in supportedLngs: ${a}`));
+    const i = this.getFallbackCodes((t === !1 ? [] : t) || this.options.fallbackLng || [], e), r = [], o = (a) => {
+      a && (this.isSupportedCode(a) ? r.push(a) : this.logger.warn(`rejecting language code not found in supportedLngs: ${a}`));
     };
-    return Y(e) && (e.indexOf("-") > -1 || e.indexOf("_") > -1) ? (this.options.load !== "languageOnly" && o(this.formatLanguageCode(e)), this.options.load !== "languageOnly" && this.options.load !== "currentOnly" && o(this.getScriptPartFromCode(e)), this.options.load !== "currentOnly" && o(this.getLanguagePartFromCode(e))) : Y(e) && o(this.formatLanguageCode(e)), r.forEach((a) => {
-      i.indexOf(a) < 0 && o(this.formatLanguageCode(a));
-    }), i;
+    return O(e) && (e.indexOf("-") > -1 || e.indexOf("_") > -1) ? (this.options.load !== "languageOnly" && o(this.formatLanguageCode(e)), this.options.load !== "languageOnly" && this.options.load !== "currentOnly" && o(this.getScriptPartFromCode(e)), this.options.load !== "currentOnly" && o(this.getLanguagePartFromCode(e))) : O(e) && o(this.formatLanguageCode(e)), i.forEach((a) => {
+      r.indexOf(a) < 0 && o(this.formatLanguageCode(a));
+    }), r;
   }
 }
-const xt = {
+const An = {
   zero: 0,
   one: 1,
   two: 2,
   few: 3,
   many: 4,
   other: 5
-}, $t = {
+}, zn = {
   select: (n) => n === 1 ? "one" : "other",
   resolvedOptions: () => ({
     pluralCategories: ["one", "other"]
   })
 };
-class Ei {
+class Ci {
   constructor(e, t = {}) {
-    this.languageUtils = e, this.options = t, this.logger = Ee.create("pluralResolver"), this.pluralRulesCache = {};
+    this.languageUtils = e, this.options = t, this.logger = pe.create("pluralResolver"), this.pluralRulesCache = {};
   }
   addRule(e, t) {
     this.rules[e] = t;
@@ -1499,50 +870,50 @@ class Ei {
     this.pluralRulesCache = {};
   }
   getRule(e, t = {}) {
-    const r = Je(e === "dev" ? "en" : e), i = t.ordinal ? "ordinal" : "cardinal", o = JSON.stringify({
-      cleanedCode: r,
-      type: i
+    const i = je(e === "dev" ? "en" : e), r = t.ordinal ? "ordinal" : "cardinal", o = JSON.stringify({
+      cleanedCode: i,
+      type: r
     });
     if (o in this.pluralRulesCache)
       return this.pluralRulesCache[o];
     let a;
     try {
-      a = new Intl.PluralRules(r, {
-        type: i
+      a = new Intl.PluralRules(i, {
+        type: r
       });
     } catch {
       if (!Intl)
-        return this.logger.error("No Intl support, please use an Intl polyfill!"), $t;
-      if (!e.match(/-|_/)) return $t;
+        return this.logger.error("No Intl support, please use an Intl polyfill!"), zn;
+      if (!e.match(/-|_/)) return zn;
       const c = this.languageUtils.getLanguagePartFromCode(e);
       a = this.getRule(c, t);
     }
     return this.pluralRulesCache[o] = a, a;
   }
   needsPlural(e, t = {}) {
-    let r = this.getRule(e, t);
-    return r || (r = this.getRule("dev", t)), (r == null ? void 0 : r.resolvedOptions().pluralCategories.length) > 1;
+    let i = this.getRule(e, t);
+    return i || (i = this.getRule("dev", t)), (i == null ? void 0 : i.resolvedOptions().pluralCategories.length) > 1;
   }
-  getPluralFormsOfKey(e, t, r = {}) {
-    return this.getSuffixes(e, r).map((i) => `${t}${i}`);
+  getPluralFormsOfKey(e, t, i = {}) {
+    return this.getSuffixes(e, i).map((r) => `${t}${r}`);
   }
   getSuffixes(e, t = {}) {
-    let r = this.getRule(e, t);
-    return r || (r = this.getRule("dev", t)), r ? r.resolvedOptions().pluralCategories.sort((i, o) => xt[i] - xt[o]).map((i) => `${this.options.prepend}${t.ordinal ? `ordinal${this.options.prepend}` : ""}${i}`) : [];
+    let i = this.getRule(e, t);
+    return i || (i = this.getRule("dev", t)), i ? i.resolvedOptions().pluralCategories.sort((r, o) => An[r] - An[o]).map((r) => `${this.options.prepend}${t.ordinal ? `ordinal${this.options.prepend}` : ""}${r}`) : [];
   }
-  getSuffix(e, t, r = {}) {
-    const i = this.getRule(e, r);
-    return i ? `${this.options.prepend}${r.ordinal ? `ordinal${this.options.prepend}` : ""}${i.select(t)}` : (this.logger.warn(`no plural rule found for: ${e}`), this.getSuffix("dev", t, r));
+  getSuffix(e, t, i = {}) {
+    const r = this.getRule(e, i);
+    return r ? `${this.options.prepend}${i.ordinal ? `ordinal${this.options.prepend}` : ""}${r.select(t)}` : (this.logger.warn(`no plural rule found for: ${e}`), this.getSuffix("dev", t, i));
   }
 }
-const yt = (n, e, t, r = ".", i = !0) => {
-  let o = Ni(n, e, t);
-  return !o && i && Y(t) && (o = Rn(n, t, r), o === void 0 && (o = Rn(e, t, r))), o;
-}, Pn = (n) => n.replace(/\$/g, "$$$$");
-class ji {
+const kn = (n, e, t, i = ".", r = !0) => {
+  let o = hi(n, e, t);
+  return !o && r && O(t) && (o = un(n, t, i), o === void 0 && (o = un(e, t, i))), o;
+}, Qe = (n) => n.replace(/\$/g, "$$$$");
+class wi {
   constructor(e = {}) {
     var t;
-    this.logger = Ee.create("interpolator"), this.options = e, this.format = ((t = e == null ? void 0 : e.interpolation) == null ? void 0 : t.format) || ((r) => r), this.init(e);
+    this.logger = pe.create("interpolator"), this.options = e, this.format = ((t = e == null ? void 0 : e.interpolation) == null ? void 0 : t.format) || ((i) => i), this.init(e);
   }
   init(e = {}) {
     e.interpolation || (e.interpolation = {
@@ -1550,126 +921,126 @@ class ji {
     });
     const {
       escape: t,
-      escapeValue: r,
-      useRawValueToEscape: i,
+      escapeValue: i,
+      useRawValueToEscape: r,
       prefix: o,
       prefixEscaped: a,
-      suffix: l,
+      suffix: s,
       suffixEscaped: c,
-      formatSeparator: u,
-      unescapeSuffix: f,
-      unescapePrefix: m,
-      nestingPrefix: g,
-      nestingPrefixEscaped: p,
-      nestingSuffix: h,
-      nestingSuffixEscaped: N,
-      nestingOptionsSeparator: H,
-      maxReplaces: F,
-      alwaysFormat: j
+      formatSeparator: d,
+      unescapeSuffix: u,
+      unescapePrefix: f,
+      nestingPrefix: h,
+      nestingPrefixEscaped: m,
+      nestingSuffix: p,
+      nestingSuffixEscaped: v,
+      nestingOptionsSeparator: j,
+      maxReplaces: w,
+      alwaysFormat: H
     } = e.interpolation;
-    this.escape = t !== void 0 ? t : $i, this.escapeValue = r !== void 0 ? r : !0, this.useRawValueToEscape = i !== void 0 ? i : !1, this.prefix = o ? Oe(o) : a || "{{", this.suffix = l ? Oe(l) : c || "}}", this.formatSeparator = u || ",", this.unescapePrefix = f ? "" : m || "-", this.unescapeSuffix = this.unescapePrefix ? "" : f || "", this.nestingPrefix = g ? Oe(g) : p || Oe("$t("), this.nestingSuffix = h ? Oe(h) : N || Oe(")"), this.nestingOptionsSeparator = H || ",", this.maxReplaces = F || 1e3, this.alwaysFormat = j !== void 0 ? j : !1, this.resetRegExp();
+    this.escape = t !== void 0 ? t : bi, this.escapeValue = i !== void 0 ? i : !0, this.useRawValueToEscape = r !== void 0 ? r : !1, this.prefix = o ? xe(o) : a || "{{", this.suffix = s ? xe(s) : c || "}}", this.formatSeparator = d || ",", this.unescapePrefix = u ? "" : f || "-", this.unescapeSuffix = this.unescapePrefix ? "" : u || "", this.nestingPrefix = h ? xe(h) : m || xe("$t("), this.nestingSuffix = p ? xe(p) : v || xe(")"), this.nestingOptionsSeparator = j || ",", this.maxReplaces = w || 1e3, this.alwaysFormat = H !== void 0 ? H : !1, this.resetRegExp();
   }
   reset() {
     this.options && this.init(this.options);
   }
   resetRegExp() {
-    const e = (t, r) => (t == null ? void 0 : t.source) === r ? (t.lastIndex = 0, t) : new RegExp(r, "g");
+    const e = (t, i) => (t == null ? void 0 : t.source) === i ? (t.lastIndex = 0, t) : new RegExp(i, "g");
     this.regexp = e(this.regexp, `${this.prefix}(.+?)${this.suffix}`), this.regexpUnescape = e(this.regexpUnescape, `${this.prefix}${this.unescapePrefix}(.+?)${this.unescapeSuffix}${this.suffix}`), this.nestingRegexp = e(this.nestingRegexp, `${this.nestingPrefix}((?:[^()"']+|"[^"]*"|'[^']*'|\\((?:[^()]|"[^"]*"|'[^']*')*\\))*?)${this.nestingSuffix}`);
   }
-  interpolate(e, t, r, i) {
-    var p;
-    let o, a, l;
-    const c = this.options && this.options.interpolation && this.options.interpolation.defaultVariables || {}, u = (h) => {
-      if (h.indexOf(this.formatSeparator) < 0) {
-        const j = yt(t, c, h, this.options.keySeparator, this.options.ignoreJSONStructure);
-        return this.alwaysFormat ? this.format(j, void 0, r, {
-          ...i,
+  interpolate(e, t, i, r) {
+    var m;
+    let o, a, s;
+    const c = this.options && this.options.interpolation && this.options.interpolation.defaultVariables || {}, d = (p) => {
+      if (p.indexOf(this.formatSeparator) < 0) {
+        const H = kn(t, c, p, this.options.keySeparator, this.options.ignoreJSONStructure);
+        return this.alwaysFormat ? this.format(H, void 0, i, {
+          ...r,
           ...t,
-          interpolationkey: h
-        }) : j;
+          interpolationkey: p
+        }) : H;
       }
-      const N = h.split(this.formatSeparator), H = N.shift().trim(), F = N.join(this.formatSeparator).trim();
-      return this.format(yt(t, c, H, this.options.keySeparator, this.options.ignoreJSONStructure), F, r, {
-        ...i,
+      const v = p.split(this.formatSeparator), j = v.shift().trim(), w = v.join(this.formatSeparator).trim();
+      return this.format(kn(t, c, j, this.options.keySeparator, this.options.ignoreJSONStructure), w, i, {
+        ...r,
         ...t,
-        interpolationkey: H
+        interpolationkey: j
       });
     };
     this.resetRegExp();
-    const f = (i == null ? void 0 : i.missingInterpolationHandler) || this.options.missingInterpolationHandler, m = ((p = i == null ? void 0 : i.interpolation) == null ? void 0 : p.skipOnVariables) !== void 0 ? i.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables;
+    const u = (r == null ? void 0 : r.missingInterpolationHandler) || this.options.missingInterpolationHandler, f = ((m = r == null ? void 0 : r.interpolation) == null ? void 0 : m.skipOnVariables) !== void 0 ? r.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables;
     return [{
       regex: this.regexpUnescape,
-      safeValue: (h) => Pn(h)
+      safeValue: (p) => Qe(p)
     }, {
       regex: this.regexp,
-      safeValue: (h) => this.escapeValue ? Pn(this.escape(h)) : Pn(h)
-    }].forEach((h) => {
-      for (l = 0; o = h.regex.exec(e); ) {
-        const N = o[1].trim();
-        if (a = u(N), a === void 0)
-          if (typeof f == "function") {
-            const F = f(e, o, i);
-            a = Y(F) ? F : "";
-          } else if (i && Object.prototype.hasOwnProperty.call(i, N))
+      safeValue: (p) => this.escapeValue ? Qe(this.escape(p)) : Qe(p)
+    }].forEach((p) => {
+      for (s = 0; o = p.regex.exec(e); ) {
+        const v = o[1].trim();
+        if (a = d(v), a === void 0)
+          if (typeof u == "function") {
+            const w = u(e, o, r);
+            a = O(w) ? w : "";
+          } else if (r && Object.prototype.hasOwnProperty.call(r, v))
             a = "";
-          else if (m) {
+          else if (f) {
             a = o[0];
             continue;
           } else
-            this.logger.warn(`missed to pass in variable ${N} for interpolating ${e}`), a = "";
-        else !Y(a) && !this.useRawValueToEscape && (a = ft(a));
-        const H = h.safeValue(a);
-        if (e = e.replace(o[0], H), m ? (h.regex.lastIndex += a.length, h.regex.lastIndex -= o[0].length) : h.regex.lastIndex = 0, l++, l >= this.maxReplaces)
+            this.logger.warn(`missed to pass in variable ${v} for interpolating ${e}`), a = "";
+        else !O(a) && !this.useRawValueToEscape && (a = Un(a));
+        const j = p.safeValue(a);
+        if (e = e.replace(o[0], j), f ? (p.regex.lastIndex += a.length, p.regex.lastIndex -= o[0].length) : p.regex.lastIndex = 0, s++, s >= this.maxReplaces)
           break;
       }
     }), e;
   }
-  nest(e, t, r = {}) {
-    let i, o, a;
-    const l = (c, u) => {
-      const f = this.nestingOptionsSeparator;
-      if (c.indexOf(f) < 0) return c;
-      const m = c.split(new RegExp(`${f}[ ]*{`));
-      let g = `{${m[1]}`;
-      c = m[0], g = this.interpolate(g, a);
-      const p = g.match(/'/g), h = g.match(/"/g);
-      (((p == null ? void 0 : p.length) ?? 0) % 2 === 0 && !h || h.length % 2 !== 0) && (g = g.replace(/'/g, '"'));
+  nest(e, t, i = {}) {
+    let r, o, a;
+    const s = (c, d) => {
+      const u = this.nestingOptionsSeparator;
+      if (c.indexOf(u) < 0) return c;
+      const f = c.split(new RegExp(`${u}[ ]*{`));
+      let h = `{${f[1]}`;
+      c = f[0], h = this.interpolate(h, a);
+      const m = h.match(/'/g), p = h.match(/"/g);
+      (((m == null ? void 0 : m.length) ?? 0) % 2 === 0 && !p || p.length % 2 !== 0) && (h = h.replace(/'/g, '"'));
       try {
-        a = JSON.parse(g), u && (a = {
-          ...u,
+        a = JSON.parse(h), d && (a = {
+          ...d,
           ...a
         });
-      } catch (N) {
-        return this.logger.warn(`failed parsing options string in nesting for key ${c}`, N), `${c}${f}${g}`;
+      } catch (v) {
+        return this.logger.warn(`failed parsing options string in nesting for key ${c}`, v), `${c}${u}${h}`;
       }
       return a.defaultValue && a.defaultValue.indexOf(this.prefix) > -1 && delete a.defaultValue, c;
     };
-    for (; i = this.nestingRegexp.exec(e); ) {
+    for (; r = this.nestingRegexp.exec(e); ) {
       let c = [];
       a = {
-        ...r
-      }, a = a.replace && !Y(a.replace) ? a.replace : a, a.applyPostProcessor = !1, delete a.defaultValue;
-      const u = /{.*}/.test(i[1]) ? i[1].lastIndexOf("}") + 1 : i[1].indexOf(this.formatSeparator);
-      if (u !== -1 && (c = i[1].slice(u).split(this.formatSeparator).map((f) => f.trim()).filter(Boolean), i[1] = i[1].slice(0, u)), o = t(l.call(this, i[1].trim(), a), a), o && i[0] === e && !Y(o)) return o;
-      Y(o) || (o = ft(o)), o || (this.logger.warn(`missed to resolve ${i[1]} for nesting ${e}`), o = ""), c.length && (o = c.reduce((f, m) => this.format(f, m, r.lng, {
-        ...r,
-        interpolationkey: i[1].trim()
-      }), o.trim())), e = e.replace(i[0], o), this.regexp.lastIndex = 0;
+        ...i
+      }, a = a.replace && !O(a.replace) ? a.replace : a, a.applyPostProcessor = !1, delete a.defaultValue;
+      const d = /{.*}/.test(r[1]) ? r[1].lastIndexOf("}") + 1 : r[1].indexOf(this.formatSeparator);
+      if (d !== -1 && (c = r[1].slice(d).split(this.formatSeparator).map((u) => u.trim()).filter(Boolean), r[1] = r[1].slice(0, d)), o = t(s.call(this, r[1].trim(), a), a), o && r[0] === e && !O(o)) return o;
+      O(o) || (o = Un(o)), o || (this.logger.warn(`missed to resolve ${r[1]} for nesting ${e}`), o = ""), c.length && (o = c.reduce((u, f) => this.format(u, f, i.lng, {
+        ...i,
+        interpolationkey: r[1].trim()
+      }), o.trim())), e = e.replace(r[0], o), this.regexp.lastIndex = 0;
     }
     return e;
   }
 }
-const Si = (n) => {
+const Pi = (n) => {
   let e = n.toLowerCase().trim();
   const t = {};
   if (n.indexOf("(") > -1) {
-    const r = n.split("(");
-    e = r[0].toLowerCase().trim();
-    const i = r[1].substring(0, r[1].length - 1);
-    e === "currency" && i.indexOf(":") < 0 ? t.currency || (t.currency = i.trim()) : e === "relativetime" && i.indexOf(":") < 0 ? t.range || (t.range = i.trim()) : i.split(";").forEach((a) => {
+    const i = n.split("(");
+    e = i[0].toLowerCase().trim();
+    const r = i[1].substring(0, i[1].length - 1);
+    e === "currency" && r.indexOf(":") < 0 ? t.currency || (t.currency = r.trim()) : e === "relativetime" && r.indexOf(":") < 0 ? t.range || (t.range = r.trim()) : r.split(";").forEach((a) => {
       if (a) {
-        const [l, ...c] = a.split(":"), u = c.join(":").trim().replace(/^'+|'+$/g, ""), f = l.trim();
-        t[f] || (t[f] = u), u === "false" && (t[f] = !1), u === "true" && (t[f] = !0), isNaN(u) || (t[f] = parseInt(u, 10));
+        const [s, ...c] = a.split(":"), d = c.join(":").trim().replace(/^'+|'+$/g, ""), u = s.trim();
+        t[u] || (t[u] = d), d === "false" && (t[u] = !1), d === "true" && (t[u] = !0), isNaN(d) || (t[u] = parseInt(d, 10));
       }
     });
   }
@@ -1677,59 +1048,59 @@ const Si = (n) => {
     formatName: e,
     formatOptions: t
   };
-}, Ft = (n) => {
+}, Rn = (n) => {
   const e = {};
-  return (t, r, i) => {
-    let o = i;
-    i && i.interpolationkey && i.formatParams && i.formatParams[i.interpolationkey] && i[i.interpolationkey] && (o = {
+  return (t, i, r) => {
+    let o = r;
+    r && r.interpolationkey && r.formatParams && r.formatParams[r.interpolationkey] && r[r.interpolationkey] && (o = {
       ...o,
-      [i.interpolationkey]: void 0
+      [r.interpolationkey]: void 0
     });
-    const a = r + JSON.stringify(o);
-    let l = e[a];
-    return l || (l = n(Je(r), i), e[a] = l), l(t);
+    const a = i + JSON.stringify(o);
+    let s = e[a];
+    return s || (s = n(je(i), r), e[a] = s), s(t);
   };
-}, Mi = (n) => (e, t, r) => n(Je(t), r)(e);
-class Ti {
+}, Mi = (n) => (e, t, i) => n(je(t), i)(e);
+class Ui {
   constructor(e = {}) {
-    this.logger = Ee.create("formatter"), this.options = e, this.init(e);
+    this.logger = pe.create("formatter"), this.options = e, this.init(e);
   }
   init(e, t = {
     interpolation: {}
   }) {
     this.formatSeparator = t.interpolation.formatSeparator || ",";
-    const r = t.cacheInBuiltFormats ? Ft : Mi;
+    const i = t.cacheInBuiltFormats ? Rn : Mi;
     this.formats = {
-      number: r((i, o) => {
-        const a = new Intl.NumberFormat(i, {
+      number: i((r, o) => {
+        const a = new Intl.NumberFormat(r, {
           ...o
         });
-        return (l) => a.format(l);
+        return (s) => a.format(s);
       }),
-      currency: r((i, o) => {
-        const a = new Intl.NumberFormat(i, {
+      currency: i((r, o) => {
+        const a = new Intl.NumberFormat(r, {
           ...o,
           style: "currency"
         });
-        return (l) => a.format(l);
+        return (s) => a.format(s);
       }),
-      datetime: r((i, o) => {
-        const a = new Intl.DateTimeFormat(i, {
+      datetime: i((r, o) => {
+        const a = new Intl.DateTimeFormat(r, {
           ...o
         });
-        return (l) => a.format(l);
+        return (s) => a.format(s);
       }),
-      relativetime: r((i, o) => {
-        const a = new Intl.RelativeTimeFormat(i, {
+      relativetime: i((r, o) => {
+        const a = new Intl.RelativeTimeFormat(r, {
           ...o
         });
-        return (l) => a.format(l, o.range || "day");
+        return (s) => a.format(s, o.range || "day");
       }),
-      list: r((i, o) => {
-        const a = new Intl.ListFormat(i, {
+      list: i((r, o) => {
+        const a = new Intl.ListFormat(r, {
           ...o
         });
-        return (l) => a.format(l);
+        return (s) => a.format(s);
       })
     };
   }
@@ -1737,175 +1108,175 @@ class Ti {
     this.formats[e.toLowerCase().trim()] = t;
   }
   addCached(e, t) {
-    this.formats[e.toLowerCase().trim()] = Ft(t);
+    this.formats[e.toLowerCase().trim()] = Rn(t);
   }
-  format(e, t, r, i = {}) {
+  format(e, t, i, r = {}) {
     const o = t.split(this.formatSeparator);
-    if (o.length > 1 && o[0].indexOf("(") > 1 && o[0].indexOf(")") < 0 && o.find((l) => l.indexOf(")") > -1)) {
-      const l = o.findIndex((c) => c.indexOf(")") > -1);
-      o[0] = [o[0], ...o.splice(1, l)].join(this.formatSeparator);
+    if (o.length > 1 && o[0].indexOf("(") > 1 && o[0].indexOf(")") < 0 && o.find((s) => s.indexOf(")") > -1)) {
+      const s = o.findIndex((c) => c.indexOf(")") > -1);
+      o[0] = [o[0], ...o.splice(1, s)].join(this.formatSeparator);
     }
-    return o.reduce((l, c) => {
-      var m;
+    return o.reduce((s, c) => {
+      var f;
       const {
-        formatName: u,
-        formatOptions: f
-      } = Si(c);
-      if (this.formats[u]) {
-        let g = l;
+        formatName: d,
+        formatOptions: u
+      } = Pi(c);
+      if (this.formats[d]) {
+        let h = s;
         try {
-          const p = ((m = i == null ? void 0 : i.formatParams) == null ? void 0 : m[i.interpolationkey]) || {}, h = p.locale || p.lng || i.locale || i.lng || r;
-          g = this.formats[u](l, h, {
-            ...f,
-            ...i,
-            ...p
+          const m = ((f = r == null ? void 0 : r.formatParams) == null ? void 0 : f[r.interpolationkey]) || {}, p = m.locale || m.lng || r.locale || r.lng || i;
+          h = this.formats[d](s, p, {
+            ...u,
+            ...r,
+            ...m
           });
-        } catch (p) {
-          this.logger.warn(p);
+        } catch (m) {
+          this.logger.warn(m);
         }
-        return g;
+        return h;
       } else
-        this.logger.warn(`there was no format function for ${u}`);
-      return l;
+        this.logger.warn(`there was no format function for ${d}`);
+      return s;
     }, e);
   }
 }
-const Ui = (n, e) => {
+const Si = (n, e) => {
   n.pending[e] !== void 0 && (delete n.pending[e], n.pendingCount--);
 };
-class Li extends gn {
-  constructor(e, t, r, i = {}) {
+class Di extends Ke {
+  constructor(e, t, i, r = {}) {
     var o, a;
-    super(), this.backend = e, this.store = t, this.services = r, this.languageUtils = r.languageUtils, this.options = i, this.logger = Ee.create("backendConnector"), this.waitingReads = [], this.maxParallelReads = i.maxParallelReads || 10, this.readingCalls = 0, this.maxRetries = i.maxRetries >= 0 ? i.maxRetries : 5, this.retryTimeout = i.retryTimeout >= 1 ? i.retryTimeout : 350, this.state = {}, this.queue = [], (a = (o = this.backend) == null ? void 0 : o.init) == null || a.call(o, r, i.backend, i);
+    super(), this.backend = e, this.store = t, this.services = i, this.languageUtils = i.languageUtils, this.options = r, this.logger = pe.create("backendConnector"), this.waitingReads = [], this.maxParallelReads = r.maxParallelReads || 10, this.readingCalls = 0, this.maxRetries = r.maxRetries >= 0 ? r.maxRetries : 5, this.retryTimeout = r.retryTimeout >= 1 ? r.retryTimeout : 350, this.state = {}, this.queue = [], (a = (o = this.backend) == null ? void 0 : o.init) == null || a.call(o, i, r.backend, r);
   }
-  queueLoad(e, t, r, i) {
-    const o = {}, a = {}, l = {}, c = {};
-    return e.forEach((u) => {
-      let f = !0;
-      t.forEach((m) => {
-        const g = `${u}|${m}`;
-        !r.reload && this.store.hasResourceBundle(u, m) ? this.state[g] = 2 : this.state[g] < 0 || (this.state[g] === 1 ? a[g] === void 0 && (a[g] = !0) : (this.state[g] = 1, f = !1, a[g] === void 0 && (a[g] = !0), o[g] === void 0 && (o[g] = !0), c[m] === void 0 && (c[m] = !0)));
-      }), f || (l[u] = !0);
+  queueLoad(e, t, i, r) {
+    const o = {}, a = {}, s = {}, c = {};
+    return e.forEach((d) => {
+      let u = !0;
+      t.forEach((f) => {
+        const h = `${d}|${f}`;
+        !i.reload && this.store.hasResourceBundle(d, f) ? this.state[h] = 2 : this.state[h] < 0 || (this.state[h] === 1 ? a[h] === void 0 && (a[h] = !0) : (this.state[h] = 1, u = !1, a[h] === void 0 && (a[h] = !0), o[h] === void 0 && (o[h] = !0), c[f] === void 0 && (c[f] = !0)));
+      }), u || (s[d] = !0);
     }), (Object.keys(o).length || Object.keys(a).length) && this.queue.push({
       pending: a,
       pendingCount: Object.keys(a).length,
       loaded: {},
       errors: [],
-      callback: i
+      callback: r
     }), {
       toLoad: Object.keys(o),
       pending: Object.keys(a),
-      toLoadLanguages: Object.keys(l),
+      toLoadLanguages: Object.keys(s),
       toLoadNamespaces: Object.keys(c)
     };
   }
-  loaded(e, t, r) {
-    const i = e.split("|"), o = i[0], a = i[1];
-    t && this.emit("failedLoading", o, a, t), !t && r && this.store.addResourceBundle(o, a, r, void 0, void 0, {
+  loaded(e, t, i) {
+    const r = e.split("|"), o = r[0], a = r[1];
+    t && this.emit("failedLoading", o, a, t), !t && i && this.store.addResourceBundle(o, a, i, void 0, void 0, {
       skipCopy: !0
-    }), this.state[e] = t ? -1 : 2, t && r && (this.state[e] = 0);
-    const l = {};
+    }), this.state[e] = t ? -1 : 2, t && i && (this.state[e] = 0);
+    const s = {};
     this.queue.forEach((c) => {
-      bi(c.loaded, [o], a), Ui(c, e), t && c.errors.push(t), c.pendingCount === 0 && !c.done && (Object.keys(c.loaded).forEach((u) => {
-        l[u] || (l[u] = {});
-        const f = c.loaded[u];
-        f.length && f.forEach((m) => {
-          l[u][m] === void 0 && (l[u][m] = !0);
+      pi(c.loaded, [o], a), Si(c, e), t && c.errors.push(t), c.pendingCount === 0 && !c.done && (Object.keys(c.loaded).forEach((d) => {
+        s[d] || (s[d] = {});
+        const u = c.loaded[d];
+        u.length && u.forEach((f) => {
+          s[d][f] === void 0 && (s[d][f] = !0);
         });
       }), c.done = !0, c.errors.length ? c.callback(c.errors) : c.callback());
-    }), this.emit("loaded", l), this.queue = this.queue.filter((c) => !c.done);
+    }), this.emit("loaded", s), this.queue = this.queue.filter((c) => !c.done);
   }
-  read(e, t, r, i = 0, o = this.retryTimeout, a) {
+  read(e, t, i, r = 0, o = this.retryTimeout, a) {
     if (!e.length) return a(null, {});
     if (this.readingCalls >= this.maxParallelReads) {
       this.waitingReads.push({
         lng: e,
         ns: t,
-        fcName: r,
-        tried: i,
+        fcName: i,
+        tried: r,
         wait: o,
         callback: a
       });
       return;
     }
     this.readingCalls++;
-    const l = (u, f) => {
+    const s = (d, u) => {
       if (this.readingCalls--, this.waitingReads.length > 0) {
-        const m = this.waitingReads.shift();
-        this.read(m.lng, m.ns, m.fcName, m.tried, m.wait, m.callback);
+        const f = this.waitingReads.shift();
+        this.read(f.lng, f.ns, f.fcName, f.tried, f.wait, f.callback);
       }
-      if (u && f && i < this.maxRetries) {
+      if (d && u && r < this.maxRetries) {
         setTimeout(() => {
-          this.read.call(this, e, t, r, i + 1, o * 2, a);
+          this.read.call(this, e, t, i, r + 1, o * 2, a);
         }, o);
         return;
       }
-      a(u, f);
-    }, c = this.backend[r].bind(this.backend);
+      a(d, u);
+    }, c = this.backend[i].bind(this.backend);
     if (c.length === 2) {
       try {
-        const u = c(e, t);
-        u && typeof u.then == "function" ? u.then((f) => l(null, f)).catch(l) : l(null, u);
-      } catch (u) {
-        l(u);
+        const d = c(e, t);
+        d && typeof d.then == "function" ? d.then((u) => s(null, u)).catch(s) : s(null, d);
+      } catch (d) {
+        s(d);
       }
       return;
     }
-    return c(e, t, l);
+    return c(e, t, s);
   }
-  prepareLoading(e, t, r = {}, i) {
+  prepareLoading(e, t, i = {}, r) {
     if (!this.backend)
-      return this.logger.warn("No backend was added via i18next.use. Will not load resources."), i && i();
-    Y(e) && (e = this.languageUtils.toResolveHierarchy(e)), Y(t) && (t = [t]);
-    const o = this.queueLoad(e, t, r, i);
+      return this.logger.warn("No backend was added via i18next.use. Will not load resources."), r && r();
+    O(e) && (e = this.languageUtils.toResolveHierarchy(e)), O(t) && (t = [t]);
+    const o = this.queueLoad(e, t, i, r);
     if (!o.toLoad.length)
-      return o.pending.length || i(), null;
+      return o.pending.length || r(), null;
     o.toLoad.forEach((a) => {
       this.loadOne(a);
     });
   }
-  load(e, t, r) {
-    this.prepareLoading(e, t, {}, r);
+  load(e, t, i) {
+    this.prepareLoading(e, t, {}, i);
   }
-  reload(e, t, r) {
+  reload(e, t, i) {
     this.prepareLoading(e, t, {
       reload: !0
-    }, r);
+    }, i);
   }
   loadOne(e, t = "") {
-    const r = e.split("|"), i = r[0], o = r[1];
-    this.read(i, o, "read", void 0, void 0, (a, l) => {
-      a && this.logger.warn(`${t}loading namespace ${o} for language ${i} failed`, a), !a && l && this.logger.log(`${t}loaded namespace ${o} for language ${i}`, l), this.loaded(e, a, l);
+    const i = e.split("|"), r = i[0], o = i[1];
+    this.read(r, o, "read", void 0, void 0, (a, s) => {
+      a && this.logger.warn(`${t}loading namespace ${o} for language ${r} failed`, a), !a && s && this.logger.log(`${t}loaded namespace ${o} for language ${r}`, s), this.loaded(e, a, s);
     });
   }
-  saveMissing(e, t, r, i, o, a = {}, l = () => {
+  saveMissing(e, t, i, r, o, a = {}, s = () => {
   }) {
-    var c, u, f, m, g;
-    if ((u = (c = this.services) == null ? void 0 : c.utils) != null && u.hasLoadedNamespace && !((m = (f = this.services) == null ? void 0 : f.utils) != null && m.hasLoadedNamespace(t))) {
-      this.logger.warn(`did not save key "${r}" as the namespace "${t}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!");
+    var c, d, u, f, h;
+    if ((d = (c = this.services) == null ? void 0 : c.utils) != null && d.hasLoadedNamespace && !((f = (u = this.services) == null ? void 0 : u.utils) != null && f.hasLoadedNamespace(t))) {
+      this.logger.warn(`did not save key "${i}" as the namespace "${t}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!");
       return;
     }
-    if (!(r == null || r === "")) {
-      if ((g = this.backend) != null && g.create) {
-        const p = {
+    if (!(i == null || i === "")) {
+      if ((h = this.backend) != null && h.create) {
+        const m = {
           ...a,
           isUpdate: o
-        }, h = this.backend.create.bind(this.backend);
-        if (h.length < 6)
+        }, p = this.backend.create.bind(this.backend);
+        if (p.length < 6)
           try {
-            let N;
-            h.length === 5 ? N = h(e, t, r, i, p) : N = h(e, t, r, i), N && typeof N.then == "function" ? N.then((H) => l(null, H)).catch(l) : l(null, N);
-          } catch (N) {
-            l(N);
+            let v;
+            p.length === 5 ? v = p(e, t, i, r, m) : v = p(e, t, i, r), v && typeof v.then == "function" ? v.then((j) => s(null, j)).catch(s) : s(null, v);
+          } catch (v) {
+            s(v);
           }
         else
-          h(e, t, r, i, l, p);
+          p(e, t, i, r, s, m);
       }
-      !e || !e[0] || this.store.addResource(e[0], t, r, i);
+      !e || !e[0] || this.store.addResource(e[0], t, i, r);
     }
   }
 }
-const Ct = () => ({
+const In = () => ({
   debug: !1,
   initAsync: !0,
   ns: ["translation"],
@@ -1940,10 +1311,10 @@ const Ct = () => ({
   appendNamespaceToCIMode: !1,
   overloadTranslationOptionHandler: (n) => {
     let e = {};
-    if (typeof n[1] == "object" && (e = n[1]), Y(n[1]) && (e.defaultValue = n[1]), Y(n[2]) && (e.tDescription = n[2]), typeof n[2] == "object" || typeof n[3] == "object") {
+    if (typeof n[1] == "object" && (e = n[1]), O(n[1]) && (e.defaultValue = n[1]), O(n[2]) && (e.tDescription = n[2]), typeof n[2] == "object" || typeof n[3] == "object") {
       const t = n[3] || n[2];
-      Object.keys(t).forEach((r) => {
-        e[r] = t[r];
+      Object.keys(t).forEach((i) => {
+        e[i] = t[i];
       });
     }
     return e;
@@ -1962,20 +1333,20 @@ const Ct = () => ({
     skipOnVariables: !0
   },
   cacheInBuiltFormats: !0
-}), Dt = (n) => {
+}), On = (n) => {
   var e, t;
-  return Y(n.ns) && (n.ns = [n.ns]), Y(n.fallbackLng) && (n.fallbackLng = [n.fallbackLng]), Y(n.fallbackNS) && (n.fallbackNS = [n.fallbackNS]), ((t = (e = n.supportedLngs) == null ? void 0 : e.indexOf) == null ? void 0 : t.call(e, "cimode")) < 0 && (n.supportedLngs = n.supportedLngs.concat(["cimode"])), typeof n.initImmediate == "boolean" && (n.initAsync = n.initImmediate), n;
-}, tn = () => {
-}, Hi = (n) => {
+  return O(n.ns) && (n.ns = [n.ns]), O(n.fallbackLng) && (n.fallbackLng = [n.fallbackLng]), O(n.fallbackNS) && (n.fallbackNS = [n.fallbackNS]), ((t = (e = n.supportedLngs) == null ? void 0 : e.indexOf) == null ? void 0 : t.call(e, "cimode")) < 0 && (n.supportedLngs = n.supportedLngs.concat(["cimode"])), typeof n.initImmediate == "boolean" && (n.initAsync = n.initImmediate), n;
+}, Ee = () => {
+}, Ti = (n) => {
   Object.getOwnPropertyNames(Object.getPrototypeOf(n)).forEach((t) => {
     typeof n[t] == "function" && (n[t] = n[t].bind(n));
   });
 };
-class Xe extends gn {
+class Le extends Ke {
   constructor(e = {}, t) {
-    if (super(), this.options = Dt(e), this.services = {}, this.logger = Ee, this.modules = {
+    if (super(), this.options = On(e), this.services = {}, this.logger = pe, this.modules = {
       external: []
-    }, Hi(this), t && !this.isInitialized && !e.isClone) {
+    }, Ti(this), t && !this.isInitialized && !e.isClone) {
       if (!this.options.initAsync)
         return this.init(e, t), this;
       setTimeout(() => {
@@ -1984,90 +1355,90 @@ class Xe extends gn {
     }
   }
   init(e = {}, t) {
-    this.isInitializing = !0, typeof e == "function" && (t = e, e = {}), e.defaultNS == null && e.ns && (Y(e.ns) ? e.defaultNS = e.ns : e.ns.indexOf("translation") < 0 && (e.defaultNS = e.ns[0]));
-    const r = Ct();
+    this.isInitializing = !0, typeof e == "function" && (t = e, e = {}), e.defaultNS == null && e.ns && (O(e.ns) ? e.defaultNS = e.ns : e.ns.indexOf("translation") < 0 && (e.defaultNS = e.ns[0]));
+    const i = In();
     this.options = {
-      ...r,
+      ...i,
       ...this.options,
-      ...Dt(e)
+      ...On(e)
     }, this.options.interpolation = {
-      ...r.interpolation,
+      ...i.interpolation,
       ...this.options.interpolation
     }, e.keySeparator !== void 0 && (this.options.userDefinedKeySeparator = e.keySeparator), e.nsSeparator !== void 0 && (this.options.userDefinedNsSeparator = e.nsSeparator);
-    const i = (u) => u ? typeof u == "function" ? new u() : u : null;
+    const r = (d) => d ? typeof d == "function" ? new d() : d : null;
     if (!this.options.isClone) {
-      this.modules.logger ? Ee.init(i(this.modules.logger), this.options) : Ee.init(null, this.options);
-      let u;
-      this.modules.formatter ? u = this.modules.formatter : u = Ti;
-      const f = new Nt(this.options);
-      this.store = new gt(this.options.resources, this.options);
-      const m = this.services;
-      m.logger = Ee, m.resourceStore = this.store, m.languageUtils = f, m.pluralResolver = new Ei(f, {
+      this.modules.logger ? pe.init(r(this.modules.logger), this.options) : pe.init(null, this.options);
+      let d;
+      this.modules.formatter ? d = this.modules.formatter : d = Ui;
+      const u = new En(this.options);
+      this.store = new jn(this.options.resources, this.options);
+      const f = this.services;
+      f.logger = pe, f.resourceStore = this.store, f.languageUtils = u, f.pluralResolver = new Ci(u, {
         prepend: this.options.pluralSeparator,
         simplifyPluralSuffix: this.options.simplifyPluralSuffix
-      }), this.options.interpolation.format && this.options.interpolation.format !== r.interpolation.format && this.logger.deprecate("init: you are still using the legacy format function, please use the new approach: https://www.i18next.com/translation-function/formatting"), u && (!this.options.interpolation.format || this.options.interpolation.format === r.interpolation.format) && (m.formatter = i(u), m.formatter.init && m.formatter.init(m, this.options), this.options.interpolation.format = m.formatter.format.bind(m.formatter)), m.interpolator = new ji(this.options), m.utils = {
+      }), this.options.interpolation.format && this.options.interpolation.format !== i.interpolation.format && this.logger.deprecate("init: you are still using the legacy format function, please use the new approach: https://www.i18next.com/translation-function/formatting"), d && (!this.options.interpolation.format || this.options.interpolation.format === i.interpolation.format) && (f.formatter = r(d), f.formatter.init && f.formatter.init(f, this.options), this.options.interpolation.format = f.formatter.format.bind(f.formatter)), f.interpolator = new wi(this.options), f.utils = {
         hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
-      }, m.backendConnector = new Li(i(this.modules.backend), m.resourceStore, m, this.options), m.backendConnector.on("*", (p, ...h) => {
-        this.emit(p, ...h);
-      }), this.modules.languageDetector && (m.languageDetector = i(this.modules.languageDetector), m.languageDetector.init && m.languageDetector.init(m, this.options.detection, this.options)), this.modules.i18nFormat && (m.i18nFormat = i(this.modules.i18nFormat), m.i18nFormat.init && m.i18nFormat.init(this)), this.translator = new fn(this.services, this.options), this.translator.on("*", (p, ...h) => {
-        this.emit(p, ...h);
-      }), this.modules.external.forEach((p) => {
-        p.init && p.init(this);
+      }, f.backendConnector = new Di(r(this.modules.backend), f.resourceStore, f, this.options), f.backendConnector.on("*", (m, ...p) => {
+        this.emit(m, ...p);
+      }), this.modules.languageDetector && (f.languageDetector = r(this.modules.languageDetector), f.languageDetector.init && f.languageDetector.init(f, this.options.detection, this.options)), this.modules.i18nFormat && (f.i18nFormat = r(this.modules.i18nFormat), f.i18nFormat.init && f.i18nFormat.init(this)), this.translator = new Ve(this.services, this.options), this.translator.on("*", (m, ...p) => {
+        this.emit(m, ...p);
+      }), this.modules.external.forEach((m) => {
+        m.init && m.init(this);
       });
     }
-    if (this.format = this.options.interpolation.format, t || (t = tn), this.options.fallbackLng && !this.services.languageDetector && !this.options.lng) {
-      const u = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
-      u.length > 0 && u[0] !== "dev" && (this.options.lng = u[0]);
+    if (this.format = this.options.interpolation.format, t || (t = Ee), this.options.fallbackLng && !this.services.languageDetector && !this.options.lng) {
+      const d = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
+      d.length > 0 && d[0] !== "dev" && (this.options.lng = d[0]);
     }
-    !this.services.languageDetector && !this.options.lng && this.logger.warn("init: no languageDetector is used and no lng is defined"), ["getResource", "hasResourceBundle", "getResourceBundle", "getDataByLanguage"].forEach((u) => {
-      this[u] = (...f) => this.store[u](...f);
-    }), ["addResource", "addResources", "addResourceBundle", "removeResourceBundle"].forEach((u) => {
-      this[u] = (...f) => (this.store[u](...f), this);
+    !this.services.languageDetector && !this.options.lng && this.logger.warn("init: no languageDetector is used and no lng is defined"), ["getResource", "hasResourceBundle", "getResourceBundle", "getDataByLanguage"].forEach((d) => {
+      this[d] = (...u) => this.store[d](...u);
+    }), ["addResource", "addResources", "addResourceBundle", "removeResourceBundle"].forEach((d) => {
+      this[d] = (...u) => (this.store[d](...u), this);
     });
-    const l = Ye(), c = () => {
-      const u = (f, m) => {
-        this.isInitializing = !1, this.isInitialized && !this.initializedStoreOnce && this.logger.warn("init: i18next is already initialized. You should call init just once!"), this.isInitialized = !0, this.options.isClone || this.logger.log("initialized", this.options), this.emit("initialized", this.options), l.resolve(m), t(f, m);
+    const s = Se(), c = () => {
+      const d = (u, f) => {
+        this.isInitializing = !1, this.isInitialized && !this.initializedStoreOnce && this.logger.warn("init: i18next is already initialized. You should call init just once!"), this.isInitialized = !0, this.options.isClone || this.logger.log("initialized", this.options), this.emit("initialized", this.options), s.resolve(f), t(u, f);
       };
-      if (this.languages && !this.isInitialized) return u(null, this.t.bind(this));
-      this.changeLanguage(this.options.lng, u);
+      if (this.languages && !this.isInitialized) return d(null, this.t.bind(this));
+      this.changeLanguage(this.options.lng, d);
     };
-    return this.options.resources || !this.options.initAsync ? c() : setTimeout(c, 0), l;
+    return this.options.resources || !this.options.initAsync ? c() : setTimeout(c, 0), s;
   }
-  loadResources(e, t = tn) {
+  loadResources(e, t = Ee) {
     var o, a;
-    let r = t;
-    const i = Y(e) ? e : this.language;
-    if (typeof e == "function" && (r = e), !this.options.resources || this.options.partialBundledLanguages) {
-      if ((i == null ? void 0 : i.toLowerCase()) === "cimode" && (!this.options.preload || this.options.preload.length === 0)) return r();
-      const l = [], c = (u) => {
-        if (!u || u === "cimode") return;
-        this.services.languageUtils.toResolveHierarchy(u).forEach((m) => {
-          m !== "cimode" && l.indexOf(m) < 0 && l.push(m);
+    let i = t;
+    const r = O(e) ? e : this.language;
+    if (typeof e == "function" && (i = e), !this.options.resources || this.options.partialBundledLanguages) {
+      if ((r == null ? void 0 : r.toLowerCase()) === "cimode" && (!this.options.preload || this.options.preload.length === 0)) return i();
+      const s = [], c = (d) => {
+        if (!d || d === "cimode") return;
+        this.services.languageUtils.toResolveHierarchy(d).forEach((f) => {
+          f !== "cimode" && s.indexOf(f) < 0 && s.push(f);
         });
       };
-      i ? c(i) : this.services.languageUtils.getFallbackCodes(this.options.fallbackLng).forEach((f) => c(f)), (a = (o = this.options.preload) == null ? void 0 : o.forEach) == null || a.call(o, (u) => c(u)), this.services.backendConnector.load(l, this.options.ns, (u) => {
-        !u && !this.resolvedLanguage && this.language && this.setResolvedLanguage(this.language), r(u);
+      r ? c(r) : this.services.languageUtils.getFallbackCodes(this.options.fallbackLng).forEach((u) => c(u)), (a = (o = this.options.preload) == null ? void 0 : o.forEach) == null || a.call(o, (d) => c(d)), this.services.backendConnector.load(s, this.options.ns, (d) => {
+        !d && !this.resolvedLanguage && this.language && this.setResolvedLanguage(this.language), i(d);
       });
     } else
-      r(null);
+      i(null);
   }
-  reloadResources(e, t, r) {
-    const i = Ye();
-    return typeof e == "function" && (r = e, e = void 0), typeof t == "function" && (r = t, t = void 0), e || (e = this.languages), t || (t = this.options.ns), r || (r = tn), this.services.backendConnector.reload(e, t, (o) => {
-      i.resolve(), r(o);
-    }), i;
+  reloadResources(e, t, i) {
+    const r = Se();
+    return typeof e == "function" && (i = e, e = void 0), typeof t == "function" && (i = t, t = void 0), e || (e = this.languages), t || (t = this.options.ns), i || (i = Ee), this.services.backendConnector.reload(e, t, (o) => {
+      r.resolve(), i(o);
+    }), r;
   }
   use(e) {
     if (!e) throw new Error("You are passing an undefined module! Please check the object you are passing to i18next.use()");
     if (!e.type) throw new Error("You are passing a wrong module! Please check the object you are passing to i18next.use()");
-    return e.type === "backend" && (this.modules.backend = e), (e.type === "logger" || e.log && e.warn && e.error) && (this.modules.logger = e), e.type === "languageDetector" && (this.modules.languageDetector = e), e.type === "i18nFormat" && (this.modules.i18nFormat = e), e.type === "postProcessor" && sr.addPostProcessor(e), e.type === "formatter" && (this.modules.formatter = e), e.type === "3rdParty" && this.modules.external.push(e), this;
+    return e.type === "backend" && (this.modules.backend = e), (e.type === "logger" || e.log && e.warn && e.error) && (this.modules.logger = e), e.type === "languageDetector" && (this.modules.languageDetector = e), e.type === "i18nFormat" && (this.modules.i18nFormat = e), e.type === "postProcessor" && xt.addPostProcessor(e), e.type === "formatter" && (this.modules.formatter = e), e.type === "3rdParty" && this.modules.external.push(e), this;
   }
   setResolvedLanguage(e) {
     if (!(!e || !this.languages) && !(["cimode", "dev"].indexOf(e) > -1)) {
       for (let t = 0; t < this.languages.length; t++) {
-        const r = this.languages[t];
-        if (!(["cimode", "dev"].indexOf(r) > -1) && this.store.hasLanguageSomeTranslations(r)) {
-          this.resolvedLanguage = r;
+        const i = this.languages[t];
+        if (!(["cimode", "dev"].indexOf(i) > -1) && this.store.hasLanguageSomeTranslations(i)) {
+          this.resolvedLanguage = i;
           break;
         }
       }
@@ -2076,39 +1447,39 @@ class Xe extends gn {
   }
   changeLanguage(e, t) {
     this.isLanguageChangingTo = e;
-    const r = Ye();
+    const i = Se();
     this.emit("languageChanging", e);
-    const i = (l) => {
-      this.language = l, this.languages = this.services.languageUtils.toResolveHierarchy(l), this.resolvedLanguage = void 0, this.setResolvedLanguage(l);
-    }, o = (l, c) => {
-      c ? this.isLanguageChangingTo === e && (i(c), this.translator.changeLanguage(c), this.isLanguageChangingTo = void 0, this.emit("languageChanged", c), this.logger.log("languageChanged", c)) : this.isLanguageChangingTo = void 0, r.resolve((...u) => this.t(...u)), t && t(l, (...u) => this.t(...u));
-    }, a = (l) => {
-      var f, m;
-      !e && !l && this.services.languageDetector && (l = []);
-      const c = Y(l) ? l : l && l[0], u = this.store.hasLanguageSomeTranslations(c) ? c : this.services.languageUtils.getBestMatchFromCodes(Y(l) ? [l] : l);
-      u && (this.language || i(u), this.translator.language || this.translator.changeLanguage(u), (m = (f = this.services.languageDetector) == null ? void 0 : f.cacheUserLanguage) == null || m.call(f, u)), this.loadResources(u, (g) => {
-        o(g, u);
+    const r = (s) => {
+      this.language = s, this.languages = this.services.languageUtils.toResolveHierarchy(s), this.resolvedLanguage = void 0, this.setResolvedLanguage(s);
+    }, o = (s, c) => {
+      c ? this.isLanguageChangingTo === e && (r(c), this.translator.changeLanguage(c), this.isLanguageChangingTo = void 0, this.emit("languageChanged", c), this.logger.log("languageChanged", c)) : this.isLanguageChangingTo = void 0, i.resolve((...d) => this.t(...d)), t && t(s, (...d) => this.t(...d));
+    }, a = (s) => {
+      var u, f;
+      !e && !s && this.services.languageDetector && (s = []);
+      const c = O(s) ? s : s && s[0], d = this.store.hasLanguageSomeTranslations(c) ? c : this.services.languageUtils.getBestMatchFromCodes(O(s) ? [s] : s);
+      d && (this.language || r(d), this.translator.language || this.translator.changeLanguage(d), (f = (u = this.services.languageDetector) == null ? void 0 : u.cacheUserLanguage) == null || f.call(u, d)), this.loadResources(d, (h) => {
+        o(h, d);
       });
     };
-    return !e && this.services.languageDetector && !this.services.languageDetector.async ? a(this.services.languageDetector.detect()) : !e && this.services.languageDetector && this.services.languageDetector.async ? this.services.languageDetector.detect.length === 0 ? this.services.languageDetector.detect().then(a) : this.services.languageDetector.detect(a) : a(e), r;
+    return !e && this.services.languageDetector && !this.services.languageDetector.async ? a(this.services.languageDetector.detect()) : !e && this.services.languageDetector && this.services.languageDetector.async ? this.services.languageDetector.detect.length === 0 ? this.services.languageDetector.detect().then(a) : this.services.languageDetector.detect(a) : a(e), i;
   }
-  getFixedT(e, t, r) {
-    const i = (o, a, ...l) => {
+  getFixedT(e, t, i) {
+    const r = (o, a, ...s) => {
       let c;
-      typeof a != "object" ? c = this.options.overloadTranslationOptionHandler([o, a].concat(l)) : c = {
+      typeof a != "object" ? c = this.options.overloadTranslationOptionHandler([o, a].concat(s)) : c = {
         ...a
-      }, c.lng = c.lng || i.lng, c.lngs = c.lngs || i.lngs, c.ns = c.ns || i.ns, c.keyPrefix !== "" && (c.keyPrefix = c.keyPrefix || r || i.keyPrefix);
-      const u = this.options.keySeparator || ".";
-      let f;
-      return c.keyPrefix && Array.isArray(o) ? f = o.map((m) => (typeof m == "function" && (m = kn(m, {
+      }, c.lng = c.lng || r.lng, c.lngs = c.lngs || r.lngs, c.ns = c.ns || r.ns, c.keyPrefix !== "" && (c.keyPrefix = c.keyPrefix || i || r.keyPrefix);
+      const d = this.options.keySeparator || ".";
+      let u;
+      return c.keyPrefix && Array.isArray(o) ? u = o.map((f) => (typeof f == "function" && (f = fn(f, {
         ...this.options,
         ...a
-      })), `${c.keyPrefix}${u}${m}`)) : (typeof o == "function" && (o = kn(o, {
+      })), `${c.keyPrefix}${d}${f}`)) : (typeof o == "function" && (o = fn(o, {
         ...this.options,
         ...a
-      })), f = c.keyPrefix ? `${c.keyPrefix}${u}${o}` : o), this.t(f, c);
+      })), u = c.keyPrefix ? `${c.keyPrefix}${d}${o}` : o), this.t(u, c);
     };
-    return Y(e) ? i.lng = e : i.lngs = e, i.ns = t, i.keyPrefix = r, i;
+    return O(e) ? r.lng = e : r.lngs = e, r.ns = t, r.keyPrefix = i, r;
   }
   t(...e) {
     var t;
@@ -2126,76 +1497,76 @@ class Xe extends gn {
       return this.logger.warn("hasLoadedNamespace: i18next was not initialized", this.languages), !1;
     if (!this.languages || !this.languages.length)
       return this.logger.warn("hasLoadedNamespace: i18n.languages were undefined or empty", this.languages), !1;
-    const r = t.lng || this.resolvedLanguage || this.languages[0], i = this.options ? this.options.fallbackLng : !1, o = this.languages[this.languages.length - 1];
-    if (r.toLowerCase() === "cimode") return !0;
-    const a = (l, c) => {
-      const u = this.services.backendConnector.state[`${l}|${c}`];
-      return u === -1 || u === 0 || u === 2;
+    const i = t.lng || this.resolvedLanguage || this.languages[0], r = this.options ? this.options.fallbackLng : !1, o = this.languages[this.languages.length - 1];
+    if (i.toLowerCase() === "cimode") return !0;
+    const a = (s, c) => {
+      const d = this.services.backendConnector.state[`${s}|${c}`];
+      return d === -1 || d === 0 || d === 2;
     };
     if (t.precheck) {
-      const l = t.precheck(this, a);
-      if (l !== void 0) return l;
+      const s = t.precheck(this, a);
+      if (s !== void 0) return s;
     }
-    return !!(this.hasResourceBundle(r, e) || !this.services.backendConnector.backend || this.options.resources && !this.options.partialBundledLanguages || a(r, e) && (!i || a(o, e)));
+    return !!(this.hasResourceBundle(i, e) || !this.services.backendConnector.backend || this.options.resources && !this.options.partialBundledLanguages || a(i, e) && (!r || a(o, e)));
   }
   loadNamespaces(e, t) {
-    const r = Ye();
-    return this.options.ns ? (Y(e) && (e = [e]), e.forEach((i) => {
-      this.options.ns.indexOf(i) < 0 && this.options.ns.push(i);
-    }), this.loadResources((i) => {
-      r.resolve(), t && t(i);
-    }), r) : (t && t(), Promise.resolve());
+    const i = Se();
+    return this.options.ns ? (O(e) && (e = [e]), e.forEach((r) => {
+      this.options.ns.indexOf(r) < 0 && this.options.ns.push(r);
+    }), this.loadResources((r) => {
+      i.resolve(), t && t(r);
+    }), i) : (t && t(), Promise.resolve());
   }
   loadLanguages(e, t) {
-    const r = Ye();
-    Y(e) && (e = [e]);
-    const i = this.options.preload || [], o = e.filter((a) => i.indexOf(a) < 0 && this.services.languageUtils.isSupportedCode(a));
-    return o.length ? (this.options.preload = i.concat(o), this.loadResources((a) => {
-      r.resolve(), t && t(a);
-    }), r) : (t && t(), Promise.resolve());
+    const i = Se();
+    O(e) && (e = [e]);
+    const r = this.options.preload || [], o = e.filter((a) => r.indexOf(a) < 0 && this.services.languageUtils.isSupportedCode(a));
+    return o.length ? (this.options.preload = r.concat(o), this.loadResources((a) => {
+      i.resolve(), t && t(a);
+    }), i) : (t && t(), Promise.resolve());
   }
   dir(e) {
-    var i, o;
-    if (e || (e = this.resolvedLanguage || (((i = this.languages) == null ? void 0 : i.length) > 0 ? this.languages[0] : this.language)), !e) return "rtl";
+    var r, o;
+    if (e || (e = this.resolvedLanguage || (((r = this.languages) == null ? void 0 : r.length) > 0 ? this.languages[0] : this.language)), !e) return "rtl";
     try {
       const a = new Intl.Locale(e);
       if (a && a.getTextInfo) {
-        const l = a.getTextInfo();
-        if (l && l.direction) return l.direction;
+        const s = a.getTextInfo();
+        if (s && s.direction) return s.direction;
       }
     } catch {
     }
-    const t = ["ar", "shu", "sqr", "ssh", "xaa", "yhd", "yud", "aao", "abh", "abv", "acm", "acq", "acw", "acx", "acy", "adf", "ads", "aeb", "aec", "afb", "ajp", "apc", "apd", "arb", "arq", "ars", "ary", "arz", "auz", "avl", "ayh", "ayl", "ayn", "ayp", "bbz", "pga", "he", "iw", "ps", "pbt", "pbu", "pst", "prp", "prd", "ug", "ur", "ydd", "yds", "yih", "ji", "yi", "hbo", "men", "xmn", "fa", "jpr", "peo", "pes", "prs", "dv", "sam", "ckb"], r = ((o = this.services) == null ? void 0 : o.languageUtils) || new Nt(Ct());
-    return e.toLowerCase().indexOf("-latn") > 1 ? "ltr" : t.indexOf(r.getLanguagePartFromCode(e)) > -1 || e.toLowerCase().indexOf("-arab") > 1 ? "rtl" : "ltr";
+    const t = ["ar", "shu", "sqr", "ssh", "xaa", "yhd", "yud", "aao", "abh", "abv", "acm", "acq", "acw", "acx", "acy", "adf", "ads", "aeb", "aec", "afb", "ajp", "apc", "apd", "arb", "arq", "ars", "ary", "arz", "auz", "avl", "ayh", "ayl", "ayn", "ayp", "bbz", "pga", "he", "iw", "ps", "pbt", "pbu", "pst", "prp", "prd", "ug", "ur", "ydd", "yds", "yih", "ji", "yi", "hbo", "men", "xmn", "fa", "jpr", "peo", "pes", "prs", "dv", "sam", "ckb"], i = ((o = this.services) == null ? void 0 : o.languageUtils) || new En(In());
+    return e.toLowerCase().indexOf("-latn") > 1 ? "ltr" : t.indexOf(i.getLanguagePartFromCode(e)) > -1 || e.toLowerCase().indexOf("-arab") > 1 ? "rtl" : "ltr";
   }
   static createInstance(e = {}, t) {
-    return new Xe(e, t);
+    return new Le(e, t);
   }
-  cloneInstance(e = {}, t = tn) {
-    const r = e.forkResourceStore;
-    r && delete e.forkResourceStore;
-    const i = {
+  cloneInstance(e = {}, t = Ee) {
+    const i = e.forkResourceStore;
+    i && delete e.forkResourceStore;
+    const r = {
       ...this.options,
       ...e,
       isClone: !0
-    }, o = new Xe(i);
-    if ((e.debug !== void 0 || e.prefix !== void 0) && (o.logger = o.logger.clone(e)), ["store", "services", "language"].forEach((l) => {
-      o[l] = this[l];
+    }, o = new Le(r);
+    if ((e.debug !== void 0 || e.prefix !== void 0) && (o.logger = o.logger.clone(e)), ["store", "services", "language"].forEach((s) => {
+      o[s] = this[s];
     }), o.services = {
       ...this.services
     }, o.services.utils = {
       hasLoadedNamespace: o.hasLoadedNamespace.bind(o)
-    }, r) {
-      const l = Object.keys(this.store.data).reduce((c, u) => (c[u] = {
-        ...this.store.data[u]
-      }, c[u] = Object.keys(c[u]).reduce((f, m) => (f[m] = {
-        ...c[u][m]
-      }, f), c[u]), c), {});
-      o.store = new gt(l, i), o.services.resourceStore = o.store;
+    }, i) {
+      const s = Object.keys(this.store.data).reduce((c, d) => (c[d] = {
+        ...this.store.data[d]
+      }, c[d] = Object.keys(c[d]).reduce((u, f) => (u[f] = {
+        ...c[d][f]
+      }, u), c[d]), c), {});
+      o.store = new jn(s, r), o.services.resourceStore = o.store;
     }
-    return o.translator = new fn(o.services, i), o.translator.on("*", (l, ...c) => {
-      o.emit(l, ...c);
-    }), o.init(i, t), o.translator.options = i, o.translator.backendConnector.services.utils = {
+    return o.translator = new Ve(o.services, r), o.translator.on("*", (s, ...c) => {
+      o.emit(s, ...c);
+    }), o.init(r, t), o.translator.options = r, o.translator.backendConnector.services.utils = {
       hasLoadedNamespace: o.hasLoadedNamespace.bind(o)
     }, o;
   }
@@ -2209,1076 +1580,1076 @@ class Xe extends gn {
     };
   }
 }
-const fe = Xe.createInstance();
-fe.createInstance = Xe.createInstance;
-fe.createInstance;
-fe.dir;
-fe.init;
-fe.loadResources;
-fe.reloadResources;
-fe.use;
-fe.changeLanguage;
-fe.getFixedT;
-fe.t;
-fe.exists;
-fe.setDefaultNamespace;
-fe.hasLoadedNamespace;
-fe.loadNamespaces;
-fe.loadLanguages;
-const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير العرض", zi = "تحديث", Oi = "قص", Ii = "نسخ", Gi = "إعادة تسمية", _i = "تنزيل", Bi = "تم تحديد العنصر", Wi = "تم تحديد {{count}} عناصر", Yi = "إلغاء", Ki = "مسح التحديد", qi = "تم", Ji = "إذا قمت بتغيير امتداد الملف، قد يصبح الملف غير قابل للاستخدام. هل أنت متأكد من أنك تريد تغييره؟", Xi = "لا", Zi = "نعم", Qi = "إغلاق", eo = "نوع الملف غير مسموح به.", no = "الملف موجود بالفعل.", to = "أقصى حجم رفع هو", ro = "اسحب الملفات للرفع", io = "اختيار ملف", oo = "فشل الرفع.", ao = "جاري الرفع", so = "تم الرفع", lo = "إزالة", co = "إلغاء الرفع", uo = "معاينة", fo = "آسف! المعاينة غير متاحة لهذا الملف.", mo = "الصفحة الرئيسية", po = "عرض المزيد من المجلدات", ho = "نقل إلى", go = "هذا المجلد فارغ.", vo = "تحديد الكل", bo = "عرض", No = "شبكة", xo = "قائمة", $o = "فتح", yo = "لا شيء هنا بعد", Fo = "الاسم", Co = "تاريخ التعديل", Do = "الحجم", wo = 'هل أنت متأكد أنك تريد حذف "{{fileName}}"؟', Po = "هل أنت متأكد أنك تريد حذف هذه العناصر {{count}}؟", Eo = "{{percent}}% تم", jo = "تم الإلغاء", So = 'لا يمكن أن يحتوي اسم الملف على أي من الحروف التالية: \\ / : * ? " < > |', Mo = 'هذا الموقع يحتوي بالفعل على مجلد باسم "{{renameFile}}".', To = "طي لوحة التنقل", Uo = "توسيع لوحة التنقل", Lo = {
-  newFolder: Vi,
-  upload: Ai,
-  paste: Ri,
-  changeView: ki,
-  refresh: zi,
-  cut: Oi,
-  copy: Ii,
-  rename: Gi,
-  download: _i,
+const re = Le.createInstance();
+re.createInstance = Le.createInstance;
+re.createInstance;
+re.dir;
+re.init;
+re.loadResources;
+re.reloadResources;
+re.use;
+re.changeLanguage;
+re.getFixedT;
+re.t;
+re.exists;
+re.setDefaultNamespace;
+re.hasLoadedNamespace;
+re.loadNamespaces;
+re.loadLanguages;
+const ji = "مجلد جديد", Li = "رفع", Hi = "لصق", Ei = "تغيير العرض", Ai = "تحديث", zi = "قص", ki = "نسخ", Ri = "إعادة تسمية", Ii = "تنزيل", Oi = "تم تحديد العنصر", Gi = "تم تحديد {{count}} عناصر", Bi = "إلغاء", Vi = "مسح التحديد", Wi = "تم", _i = "إذا قمت بتغيير امتداد الملف، قد يصبح الملف غير قابل للاستخدام. هل أنت متأكد من أنك تريد تغييره؟", Yi = "لا", Ki = "نعم", qi = "إغلاق", Ji = "نوع الملف غير مسموح به.", Zi = "الملف موجود بالفعل.", Xi = "أقصى حجم رفع هو", Qi = "اسحب الملفات للرفع", er = "اختيار ملف", nr = "فشل الرفع.", tr = "جاري الرفع", ir = "تم الرفع", rr = "إزالة", or = "إلغاء الرفع", ar = "معاينة", sr = "آسف! المعاينة غير متاحة لهذا الملف.", lr = "الصفحة الرئيسية", cr = "عرض المزيد من المجلدات", dr = "نقل إلى", ur = "هذا المجلد فارغ.", fr = "تحديد الكل", mr = "عرض", pr = "شبكة", hr = "قائمة", gr = "فتح", br = "لا شيء هنا بعد", vr = "الاسم", Nr = "تاريخ التعديل", $r = "الحجم", yr = 'هل أنت متأكد أنك تريد حذف "{{fileName}}"؟', Fr = "هل أنت متأكد أنك تريد حذف هذه العناصر {{count}}؟", xr = "{{percent}}% تم", Cr = "تم الإلغاء", wr = 'لا يمكن أن يحتوي اسم الملف على أي من الحروف التالية: \\ / : * ? " < > |', Pr = 'هذا الموقع يحتوي بالفعل على مجلد باسم "{{renameFile}}".', Mr = "طي لوحة التنقل", Ur = "توسيع لوحة التنقل", Sr = {
+  newFolder: ji,
+  upload: Li,
+  paste: Hi,
+  changeView: Ei,
+  refresh: Ai,
+  cut: zi,
+  copy: ki,
+  rename: Ri,
+  download: Ii,
   delete: "حذف",
-  itemSelected: Bi,
-  itemsSelected: Wi,
-  cancel: Yi,
-  clearSelection: Ki,
-  completed: qi,
-  fileNameChangeWarning: Ji,
-  no: Xi,
-  yes: Zi,
-  close: Qi,
-  fileTypeNotAllowed: eo,
-  fileAlreadyExist: no,
-  maxUploadSize: to,
-  dragFileToUpload: ro,
-  chooseFile: io,
-  uploadFail: oo,
-  uploading: ao,
-  uploaded: so,
-  remove: lo,
-  abortUpload: co,
-  preview: uo,
-  previewUnavailable: fo,
-  home: mo,
-  showMoreFolder: po,
-  moveTo: ho,
-  folderEmpty: go,
-  selectAll: vo,
-  view: bo,
-  grid: No,
-  list: xo,
-  open: $o,
-  nothingHereYet: yo,
-  name: Fo,
-  modified: Co,
-  size: Do,
-  deleteItemConfirm: wo,
-  deleteItemsConfirm: Po,
-  percentDone: Eo,
-  canceled: jo,
-  invalidFileName: So,
-  folderExists: Mo,
-  collapseNavigationPane: To,
-  expandNavigationPane: Uo
-}, Ho = "Neuer Ordner", Vo = "Hochladen", Ao = "Einfügen", Ro = "Ansicht ändern", ko = "Aktualisieren", zo = "Ausschneiden", Oo = "Kopieren", Io = "Umbenennen", Go = "Herunterladen", _o = "Element ausgewählt", Bo = "Elemente ausgewählt", Wo = "Abbrechen", Yo = "Auswahl aufheben", Ko = "Abgeschlossen", qo = "Wenn Sie die Dateierweiterung ändern, kann die Datei unbrauchbar werden. Möchten Sie das wirklich tun?", Jo = "Nein", Xo = "Ja", Zo = "Schließen", Qo = "Dateityp nicht erlaubt.", ea = "Datei existiert bereits.", na = "Maximale Uploadgröße ist", ta = "Dateien zum Hochladen ziehen", ra = "Datei auswählen", ia = "Hochladen fehlgeschlagen.", oa = "Wird hochgeladen", aa = "Hochgeladen", sa = "Entfernen", la = "Upload abbrechen", ca = "Vorschau", ua = "Leider ist keine Vorschau für diese Datei verfügbar.", da = "Startseite", fa = "Mehr Ordner anzeigen", ma = "Verschieben nach", pa = "Dieser Ordner ist leer.", ha = "Alle auswählen", ga = "Ansicht", va = "Raster", ba = "Liste", Na = "Öffnen", xa = "Hier ist noch nichts", $a = "Name", ya = "Geändert", Fa = "Größe", Ca = 'Möchten Sie "{{fileName}}" wirklich löschen?', Da = "Möchten Sie diese {{count}} Elemente wirklich löschen?", wa = "{{percent}}% erledigt", Pa = "Abgebrochen", Ea = 'Ein Dateiname darf keines der folgenden Zeichen enthalten: \\ / : * ? " < > |', ja = 'In diesem Zielordner gibt es bereits einen Ordner namens "{{renameFile}}".', Sa = "Navigationsbereich einklappen", Ma = "Navigationsbereich erweitern", Ta = {
-  newFolder: Ho,
-  upload: Vo,
-  paste: Ao,
-  changeView: Ro,
-  refresh: ko,
-  cut: zo,
-  copy: Oo,
-  rename: Io,
-  download: Go,
+  itemSelected: Oi,
+  itemsSelected: Gi,
+  cancel: Bi,
+  clearSelection: Vi,
+  completed: Wi,
+  fileNameChangeWarning: _i,
+  no: Yi,
+  yes: Ki,
+  close: qi,
+  fileTypeNotAllowed: Ji,
+  fileAlreadyExist: Zi,
+  maxUploadSize: Xi,
+  dragFileToUpload: Qi,
+  chooseFile: er,
+  uploadFail: nr,
+  uploading: tr,
+  uploaded: ir,
+  remove: rr,
+  abortUpload: or,
+  preview: ar,
+  previewUnavailable: sr,
+  home: lr,
+  showMoreFolder: cr,
+  moveTo: dr,
+  folderEmpty: ur,
+  selectAll: fr,
+  view: mr,
+  grid: pr,
+  list: hr,
+  open: gr,
+  nothingHereYet: br,
+  name: vr,
+  modified: Nr,
+  size: $r,
+  deleteItemConfirm: yr,
+  deleteItemsConfirm: Fr,
+  percentDone: xr,
+  canceled: Cr,
+  invalidFileName: wr,
+  folderExists: Pr,
+  collapseNavigationPane: Mr,
+  expandNavigationPane: Ur
+}, Dr = "Neuer Ordner", Tr = "Hochladen", jr = "Einfügen", Lr = "Ansicht ändern", Hr = "Aktualisieren", Er = "Ausschneiden", Ar = "Kopieren", zr = "Umbenennen", kr = "Herunterladen", Rr = "Element ausgewählt", Ir = "Elemente ausgewählt", Or = "Abbrechen", Gr = "Auswahl aufheben", Br = "Abgeschlossen", Vr = "Wenn Sie die Dateierweiterung ändern, kann die Datei unbrauchbar werden. Möchten Sie das wirklich tun?", Wr = "Nein", _r = "Ja", Yr = "Schließen", Kr = "Dateityp nicht erlaubt.", qr = "Datei existiert bereits.", Jr = "Maximale Uploadgröße ist", Zr = "Dateien zum Hochladen ziehen", Xr = "Datei auswählen", Qr = "Hochladen fehlgeschlagen.", eo = "Wird hochgeladen", no = "Hochgeladen", to = "Entfernen", io = "Upload abbrechen", ro = "Vorschau", oo = "Leider ist keine Vorschau für diese Datei verfügbar.", ao = "Startseite", so = "Mehr Ordner anzeigen", lo = "Verschieben nach", co = "Dieser Ordner ist leer.", uo = "Alle auswählen", fo = "Ansicht", mo = "Raster", po = "Liste", ho = "Öffnen", go = "Hier ist noch nichts", bo = "Name", vo = "Geändert", No = "Größe", $o = 'Möchten Sie "{{fileName}}" wirklich löschen?', yo = "Möchten Sie diese {{count}} Elemente wirklich löschen?", Fo = "{{percent}}% erledigt", xo = "Abgebrochen", Co = 'Ein Dateiname darf keines der folgenden Zeichen enthalten: \\ / : * ? " < > |', wo = 'In diesem Zielordner gibt es bereits einen Ordner namens "{{renameFile}}".', Po = "Navigationsbereich einklappen", Mo = "Navigationsbereich erweitern", Uo = {
+  newFolder: Dr,
+  upload: Tr,
+  paste: jr,
+  changeView: Lr,
+  refresh: Hr,
+  cut: Er,
+  copy: Ar,
+  rename: zr,
+  download: kr,
   delete: "Löschen",
-  itemSelected: _o,
-  itemsSelected: Bo,
-  cancel: Wo,
-  clearSelection: Yo,
-  completed: Ko,
-  fileNameChangeWarning: qo,
-  no: Jo,
-  yes: Xo,
-  close: Zo,
-  fileTypeNotAllowed: Qo,
-  fileAlreadyExist: ea,
-  maxUploadSize: na,
-  dragFileToUpload: ta,
-  chooseFile: ra,
-  uploadFail: ia,
-  uploading: oa,
-  uploaded: aa,
-  remove: sa,
-  abortUpload: la,
-  preview: ca,
-  previewUnavailable: ua,
-  home: da,
-  showMoreFolder: fa,
-  moveTo: ma,
-  folderEmpty: pa,
-  selectAll: ha,
-  view: ga,
-  grid: va,
-  list: ba,
-  open: Na,
-  nothingHereYet: xa,
-  name: $a,
-  modified: ya,
-  size: Fa,
-  deleteItemConfirm: Ca,
-  deleteItemsConfirm: Da,
-  percentDone: wa,
-  canceled: Pa,
-  invalidFileName: Ea,
-  folderExists: ja,
-  collapseNavigationPane: Sa,
-  expandNavigationPane: Ma
-}, Ua = "New Folder", La = "Upload", Ha = "Paste", Va = "Change View", Aa = "Refresh", Ra = "Cut", ka = "Copy", za = "Rename", Oa = "Download", Ia = "item selected", Ga = "items selected", _a = "Cancel", Ba = "Clear Selection", Wa = "Completed", Ya = "If you change a file name extension, the file might become unusable. Are you sure you want to change it?", Ka = "No", qa = "Yes", Ja = "Close", Xa = "File type is not allowed.", Za = "File already exists.", Qa = "Maximum upload size is", es = "Drag files to upload", ns = "Choose File", ts = "Upload failed.", rs = "Uploading", is = "Uploaded", os = "Remove", as = "Abort Upload", ss = "Preview", ls = "Sorry! Preview is not available for this file.", cs = "Home", us = "Show more folders", ds = "Move to", fs = "This folder is empty.", ms = "Select all", ps = "View", hs = "Grid", gs = "List", vs = "Open", bs = "Nothing here yet", Ns = "Name", xs = "Modified", $s = "Size", ys = 'Are you sure you want to delete "{{fileName}}"?', Fs = "Are you sure you want to delete these {{count}} items?", Cs = "{{percent}}% done", Ds = "Canceled", ws = `A file name can't contain any of the following characters: \\ / : * ? " < > |`, Ps = 'This destination already contains a folder named "{{renameFile}}".', Es = "Collapse Navigation Pane", js = "Expand Navigation Pane", Ss = {
-  newFolder: Ua,
-  upload: La,
-  paste: Ha,
-  changeView: Va,
-  refresh: Aa,
-  cut: Ra,
-  copy: ka,
-  rename: za,
-  download: Oa,
+  itemSelected: Rr,
+  itemsSelected: Ir,
+  cancel: Or,
+  clearSelection: Gr,
+  completed: Br,
+  fileNameChangeWarning: Vr,
+  no: Wr,
+  yes: _r,
+  close: Yr,
+  fileTypeNotAllowed: Kr,
+  fileAlreadyExist: qr,
+  maxUploadSize: Jr,
+  dragFileToUpload: Zr,
+  chooseFile: Xr,
+  uploadFail: Qr,
+  uploading: eo,
+  uploaded: no,
+  remove: to,
+  abortUpload: io,
+  preview: ro,
+  previewUnavailable: oo,
+  home: ao,
+  showMoreFolder: so,
+  moveTo: lo,
+  folderEmpty: co,
+  selectAll: uo,
+  view: fo,
+  grid: mo,
+  list: po,
+  open: ho,
+  nothingHereYet: go,
+  name: bo,
+  modified: vo,
+  size: No,
+  deleteItemConfirm: $o,
+  deleteItemsConfirm: yo,
+  percentDone: Fo,
+  canceled: xo,
+  invalidFileName: Co,
+  folderExists: wo,
+  collapseNavigationPane: Po,
+  expandNavigationPane: Mo
+}, So = "New Folder", Do = "Upload", To = "Paste", jo = "Change View", Lo = "Refresh", Ho = "Cut", Eo = "Copy", Ao = "Rename", zo = "Download", ko = "item selected", Ro = "items selected", Io = "Cancel", Oo = "Clear Selection", Go = "Completed", Bo = "If you change a file name extension, the file might become unusable. Are you sure you want to change it?", Vo = "No", Wo = "Yes", _o = "Close", Yo = "File type is not allowed.", Ko = "File already exists.", qo = "Maximum upload size is", Jo = "Drag files to upload", Zo = "Choose File", Xo = "Upload failed.", Qo = "Uploading", ea = "Uploaded", na = "Remove", ta = "Abort Upload", ia = "Preview", ra = "Sorry! Preview is not available for this file.", oa = "Home", aa = "Show more folders", sa = "Move to", la = "This folder is empty.", ca = "Select all", da = "View", ua = "Grid", fa = "List", ma = "Open", pa = "Nothing here yet", ha = "Name", ga = "Modified", ba = "Size", va = 'Are you sure you want to delete "{{fileName}}"?', Na = "Are you sure you want to delete these {{count}} items?", $a = "{{percent}}% done", ya = "Canceled", Fa = `A file name can't contain any of the following characters: \\ / : * ? " < > |`, xa = 'This destination already contains a folder named "{{renameFile}}".', Ca = "Collapse Navigation Pane", wa = "Expand Navigation Pane", Pa = {
+  newFolder: So,
+  upload: Do,
+  paste: To,
+  changeView: jo,
+  refresh: Lo,
+  cut: Ho,
+  copy: Eo,
+  rename: Ao,
+  download: zo,
   delete: "Delete",
-  itemSelected: Ia,
-  itemsSelected: Ga,
-  cancel: _a,
-  clearSelection: Ba,
-  completed: Wa,
-  fileNameChangeWarning: Ya,
-  no: Ka,
-  yes: qa,
-  close: Ja,
-  fileTypeNotAllowed: Xa,
-  fileAlreadyExist: Za,
-  maxUploadSize: Qa,
-  dragFileToUpload: es,
-  chooseFile: ns,
-  uploadFail: ts,
-  uploading: rs,
-  uploaded: is,
-  remove: os,
-  abortUpload: as,
-  preview: ss,
-  previewUnavailable: ls,
-  home: cs,
-  showMoreFolder: us,
-  moveTo: ds,
-  folderEmpty: fs,
-  selectAll: ms,
-  view: ps,
-  grid: hs,
-  list: gs,
-  open: vs,
-  nothingHereYet: bs,
-  name: Ns,
-  modified: xs,
-  size: $s,
-  deleteItemConfirm: ys,
-  deleteItemsConfirm: Fs,
-  percentDone: Cs,
-  canceled: Ds,
-  invalidFileName: ws,
-  folderExists: Ps,
-  collapseNavigationPane: Es,
-  expandNavigationPane: js
-}, Ms = "Nueva carpeta", Ts = "Subir", Us = "Pegar", Ls = "Cambiar vista", Hs = "Actualizar", Vs = "Cortar", As = "Copiar", Rs = "Renombrar", ks = "Descargar", zs = "elemento seleccionado", Os = "elementos seleccionados", Is = "Cancelar", Gs = "Borrar selección", _s = "Completado", Bs = "Si cambia la extensión del archivo, es posible que no funcione. ¿Está seguro de que desea cambiarla?", Ws = "No", Ys = "Sí", Ks = "Cerrar", qs = "Tipo de archivo no permitido.", Js = "El archivo ya existe.", Xs = "El tamaño máximo de subida es", Zs = "Arrastre archivos para subir", Qs = "Elegir archivo", el = "Error al subir.", nl = "Subiendo", tl = "Subido", rl = "Eliminar", il = "Cancelar subida", ol = "Vista previa", al = "¡Lo sentimos! No hay vista previa disponible para este archivo.", sl = "Inicio", ll = "Mostrar más carpetas", cl = "Mover a", ul = "Esta carpeta está vacía.", dl = "Seleccionar todo", fl = "Vista", ml = "Cuadrícula", pl = "Lista", hl = "Abrir", gl = "Nada por aquí aún", vl = "Nombre", bl = "Modificado", Nl = "Tamaño", xl = '¿Está seguro de que desea eliminar "{{fileName}}"?', $l = "¿Está seguro de que desea eliminar estos {{count}} elementos?", yl = "{{percent}}% completado", Fl = "Cancelado", Cl = 'Un nombre de archivo no puede contener ninguno de los siguientes caracteres: \\ / : * ? " < > |', Dl = 'Ya existe una carpeta llamada "{{renameFile}}" en este destino.', wl = "Contraer panel de navegación", Pl = "Expandir panel de navegación", El = {
-  newFolder: Ms,
-  upload: Ts,
-  paste: Us,
-  changeView: Ls,
-  refresh: Hs,
-  cut: Vs,
-  copy: As,
-  rename: Rs,
-  download: ks,
+  itemSelected: ko,
+  itemsSelected: Ro,
+  cancel: Io,
+  clearSelection: Oo,
+  completed: Go,
+  fileNameChangeWarning: Bo,
+  no: Vo,
+  yes: Wo,
+  close: _o,
+  fileTypeNotAllowed: Yo,
+  fileAlreadyExist: Ko,
+  maxUploadSize: qo,
+  dragFileToUpload: Jo,
+  chooseFile: Zo,
+  uploadFail: Xo,
+  uploading: Qo,
+  uploaded: ea,
+  remove: na,
+  abortUpload: ta,
+  preview: ia,
+  previewUnavailable: ra,
+  home: oa,
+  showMoreFolder: aa,
+  moveTo: sa,
+  folderEmpty: la,
+  selectAll: ca,
+  view: da,
+  grid: ua,
+  list: fa,
+  open: ma,
+  nothingHereYet: pa,
+  name: ha,
+  modified: ga,
+  size: ba,
+  deleteItemConfirm: va,
+  deleteItemsConfirm: Na,
+  percentDone: $a,
+  canceled: ya,
+  invalidFileName: Fa,
+  folderExists: xa,
+  collapseNavigationPane: Ca,
+  expandNavigationPane: wa
+}, Ma = "Nueva carpeta", Ua = "Subir", Sa = "Pegar", Da = "Cambiar vista", Ta = "Actualizar", ja = "Cortar", La = "Copiar", Ha = "Renombrar", Ea = "Descargar", Aa = "elemento seleccionado", za = "elementos seleccionados", ka = "Cancelar", Ra = "Borrar selección", Ia = "Completado", Oa = "Si cambia la extensión del archivo, es posible que no funcione. ¿Está seguro de que desea cambiarla?", Ga = "No", Ba = "Sí", Va = "Cerrar", Wa = "Tipo de archivo no permitido.", _a = "El archivo ya existe.", Ya = "El tamaño máximo de subida es", Ka = "Arrastre archivos para subir", qa = "Elegir archivo", Ja = "Error al subir.", Za = "Subiendo", Xa = "Subido", Qa = "Eliminar", es = "Cancelar subida", ns = "Vista previa", ts = "¡Lo sentimos! No hay vista previa disponible para este archivo.", is = "Inicio", rs = "Mostrar más carpetas", os = "Mover a", as = "Esta carpeta está vacía.", ss = "Seleccionar todo", ls = "Vista", cs = "Cuadrícula", ds = "Lista", us = "Abrir", fs = "Nada por aquí aún", ms = "Nombre", ps = "Modificado", hs = "Tamaño", gs = '¿Está seguro de que desea eliminar "{{fileName}}"?', bs = "¿Está seguro de que desea eliminar estos {{count}} elementos?", vs = "{{percent}}% completado", Ns = "Cancelado", $s = 'Un nombre de archivo no puede contener ninguno de los siguientes caracteres: \\ / : * ? " < > |', ys = 'Ya existe una carpeta llamada "{{renameFile}}" en este destino.', Fs = "Contraer panel de navegación", xs = "Expandir panel de navegación", Cs = {
+  newFolder: Ma,
+  upload: Ua,
+  paste: Sa,
+  changeView: Da,
+  refresh: Ta,
+  cut: ja,
+  copy: La,
+  rename: Ha,
+  download: Ea,
   delete: "Eliminar",
-  itemSelected: zs,
-  itemsSelected: Os,
-  cancel: Is,
-  clearSelection: Gs,
-  completed: _s,
-  fileNameChangeWarning: Bs,
-  no: Ws,
-  yes: Ys,
-  close: Ks,
-  fileTypeNotAllowed: qs,
-  fileAlreadyExist: Js,
-  maxUploadSize: Xs,
-  dragFileToUpload: Zs,
-  chooseFile: Qs,
-  uploadFail: el,
-  uploading: nl,
-  uploaded: tl,
-  remove: rl,
-  abortUpload: il,
-  preview: ol,
-  previewUnavailable: al,
-  home: sl,
-  showMoreFolder: ll,
-  moveTo: cl,
-  folderEmpty: ul,
-  selectAll: dl,
-  view: fl,
-  grid: ml,
-  list: pl,
-  open: hl,
-  nothingHereYet: gl,
-  name: vl,
-  modified: bl,
-  size: Nl,
-  deleteItemConfirm: xl,
-  deleteItemsConfirm: $l,
-  percentDone: yl,
-  canceled: Fl,
-  invalidFileName: Cl,
-  folderExists: Dl,
-  collapseNavigationPane: wl,
-  expandNavigationPane: Pl
-}, jl = "Nouveau dossier", Sl = "Téléverser", Ml = "Coller", Tl = "Changer la vue", Ul = "Rafraîchir", Ll = "Couper", Hl = "Copier", Vl = "Renommer", Al = "Télécharger", Rl = "élément sélectionné", kl = "éléments sélectionnés", zl = "Annuler", Ol = "Effacer la sélection", Il = "Terminé", Gl = "Si vous modifiez l'extension d'un fichier, celui-ci pourrait devenir inutilisable. Êtes-vous sûr de vouloir le modifier ?", _l = "Non", Bl = "Oui", Wl = "Fermer", Yl = "Type de fichier non autorisé.", Kl = "Le fichier existe déjà.", ql = "La taille maximale de téléversement est", Jl = "Glissez les fichiers à téléverser", Xl = "Choisir un fichier", Zl = "Échec du téléversement.", Ql = "Téléversement en cours", ec = "Téléversé", nc = "Supprimer", tc = "Annuler le téléversement", rc = "Aperçu", ic = "Désolé ! L'aperçu n'est pas disponible pour ce fichier.", oc = "Accueil", ac = "Afficher plus de dossiers", sc = "Déplacer vers", lc = "Ce dossier est vide.", cc = "Tout sélectionner", uc = "Vue", dc = "Grille", fc = "Liste", mc = "Ouvrir", pc = "Rien ici pour le moment", hc = "Nom", gc = "Modifié", vc = "Taille", bc = 'Êtes-vous sûr de vouloir supprimer "{{fileName}}" ?', Nc = "Êtes-vous sûr de vouloir supprimer ces {{count}} éléments ?", xc = "{{percent}}% terminé", $c = "Annulé", yc = 'Un nom de fichier ne peut pas contenir les caractères suivants : \\ / : * ? " < > |', Fc = 'Cette destination contient déjà un dossier nommé "{{renameFile}}".', Cc = "Réduire le panneau de navigation", Dc = "Développer le panneau de navigation", wc = {
-  newFolder: jl,
-  upload: Sl,
-  paste: Ml,
-  changeView: Tl,
-  refresh: Ul,
-  cut: Ll,
-  copy: Hl,
-  rename: Vl,
-  download: Al,
+  itemSelected: Aa,
+  itemsSelected: za,
+  cancel: ka,
+  clearSelection: Ra,
+  completed: Ia,
+  fileNameChangeWarning: Oa,
+  no: Ga,
+  yes: Ba,
+  close: Va,
+  fileTypeNotAllowed: Wa,
+  fileAlreadyExist: _a,
+  maxUploadSize: Ya,
+  dragFileToUpload: Ka,
+  chooseFile: qa,
+  uploadFail: Ja,
+  uploading: Za,
+  uploaded: Xa,
+  remove: Qa,
+  abortUpload: es,
+  preview: ns,
+  previewUnavailable: ts,
+  home: is,
+  showMoreFolder: rs,
+  moveTo: os,
+  folderEmpty: as,
+  selectAll: ss,
+  view: ls,
+  grid: cs,
+  list: ds,
+  open: us,
+  nothingHereYet: fs,
+  name: ms,
+  modified: ps,
+  size: hs,
+  deleteItemConfirm: gs,
+  deleteItemsConfirm: bs,
+  percentDone: vs,
+  canceled: Ns,
+  invalidFileName: $s,
+  folderExists: ys,
+  collapseNavigationPane: Fs,
+  expandNavigationPane: xs
+}, ws = "Nouveau dossier", Ps = "Téléverser", Ms = "Coller", Us = "Changer la vue", Ss = "Rafraîchir", Ds = "Couper", Ts = "Copier", js = "Renommer", Ls = "Télécharger", Hs = "élément sélectionné", Es = "éléments sélectionnés", As = "Annuler", zs = "Effacer la sélection", ks = "Terminé", Rs = "Si vous modifiez l'extension d'un fichier, celui-ci pourrait devenir inutilisable. Êtes-vous sûr de vouloir le modifier ?", Is = "Non", Os = "Oui", Gs = "Fermer", Bs = "Type de fichier non autorisé.", Vs = "Le fichier existe déjà.", Ws = "La taille maximale de téléversement est", _s = "Glissez les fichiers à téléverser", Ys = "Choisir un fichier", Ks = "Échec du téléversement.", qs = "Téléversement en cours", Js = "Téléversé", Zs = "Supprimer", Xs = "Annuler le téléversement", Qs = "Aperçu", el = "Désolé ! L'aperçu n'est pas disponible pour ce fichier.", nl = "Accueil", tl = "Afficher plus de dossiers", il = "Déplacer vers", rl = "Ce dossier est vide.", ol = "Tout sélectionner", al = "Vue", sl = "Grille", ll = "Liste", cl = "Ouvrir", dl = "Rien ici pour le moment", ul = "Nom", fl = "Modifié", ml = "Taille", pl = 'Êtes-vous sûr de vouloir supprimer "{{fileName}}" ?', hl = "Êtes-vous sûr de vouloir supprimer ces {{count}} éléments ?", gl = "{{percent}}% terminé", bl = "Annulé", vl = 'Un nom de fichier ne peut pas contenir les caractères suivants : \\ / : * ? " < > |', Nl = 'Cette destination contient déjà un dossier nommé "{{renameFile}}".', $l = "Réduire le panneau de navigation", yl = "Développer le panneau de navigation", Fl = {
+  newFolder: ws,
+  upload: Ps,
+  paste: Ms,
+  changeView: Us,
+  refresh: Ss,
+  cut: Ds,
+  copy: Ts,
+  rename: js,
+  download: Ls,
   delete: "Supprimer",
-  itemSelected: Rl,
-  itemsSelected: kl,
-  cancel: zl,
-  clearSelection: Ol,
-  completed: Il,
-  fileNameChangeWarning: Gl,
-  no: _l,
-  yes: Bl,
-  close: Wl,
-  fileTypeNotAllowed: Yl,
-  fileAlreadyExist: Kl,
-  maxUploadSize: ql,
-  dragFileToUpload: Jl,
-  chooseFile: Xl,
-  uploadFail: Zl,
-  uploading: Ql,
-  uploaded: ec,
-  remove: nc,
-  abortUpload: tc,
-  preview: rc,
-  previewUnavailable: ic,
-  home: oc,
-  showMoreFolder: ac,
-  moveTo: sc,
-  folderEmpty: lc,
-  selectAll: cc,
-  view: uc,
-  grid: dc,
-  list: fc,
-  open: mc,
-  nothingHereYet: pc,
-  name: hc,
-  modified: gc,
-  size: vc,
-  deleteItemConfirm: bc,
-  deleteItemsConfirm: Nc,
-  percentDone: xc,
-  canceled: $c,
-  invalidFileName: yc,
-  folderExists: Fc,
-  collapseNavigationPane: Cc,
-  expandNavigationPane: Dc
-}, Pc = "תיקייה חדשה", Ec = "העלה", jc = "הדבק", Sc = "שנה תצוגה", Mc = "רענן", Tc = "גזור", Uc = "העתק", Lc = "שנה שם", Hc = "הורד", Vc = "פריט נבחר", Ac = "פריטים נבחרו", Rc = "בטל", kc = "נקה בחירה", zc = "הושלם", Oc = "אם תשנה את סיומת הקובץ, הקובץ עלול להפוך לבלתי שמיש. האם אתה בטוח שברצונך לשנות זאת?", Ic = "לא", Gc = "כן", _c = "סגור", Bc = "סוג הקובץ אינו מורשה.", Wc = "הקובץ כבר קיים.", Yc = "גודל העלאה מקסימלי הוא", Kc = "גרור קבצים להעלאה", qc = "בחר קובץ", Jc = "ההעלאה נכשלה.", Xc = "מעלה...", Zc = "הועלה", Qc = "הסר", eu = "בטל העלאה", nu = "תצוגה מקדימה", tu = "מצטערים! אין תצוגה מקדימה זמינה לקובץ זה.", ru = "דף הבית", iu = "הצג תיקיות נוספות", ou = "העבר ל", au = "התיקייה ריקה.", su = "בחר הכל", lu = "תצוגה", cu = "רשת", uu = "רשימה", du = "פתח", fu = "אין כאן כלום עדיין", mu = "שם", pu = "שונה", hu = "גודל", gu = 'האם אתה בטוח שברצונך למחוק את "{{fileName}}"?', vu = "האם אתה בטוח שברצונך למחוק את {{count}} הפריטים האלו?", bu = "{{percent}}% הושלמו", Nu = "בוטל", xu = 'שם קובץ לא יכול להכיל את התווים הבאים: \\ / : * ? " < > |', $u = 'כבר קיימת תיקייה בשם "{{renameFile}}" במיקום זה.', yu = "כווץ את לוח הניווט", Fu = "הרחב את לוח הניווט", Cu = {
-  newFolder: Pc,
-  upload: Ec,
-  paste: jc,
-  changeView: Sc,
-  refresh: Mc,
-  cut: Tc,
-  copy: Uc,
-  rename: Lc,
-  download: Hc,
+  itemSelected: Hs,
+  itemsSelected: Es,
+  cancel: As,
+  clearSelection: zs,
+  completed: ks,
+  fileNameChangeWarning: Rs,
+  no: Is,
+  yes: Os,
+  close: Gs,
+  fileTypeNotAllowed: Bs,
+  fileAlreadyExist: Vs,
+  maxUploadSize: Ws,
+  dragFileToUpload: _s,
+  chooseFile: Ys,
+  uploadFail: Ks,
+  uploading: qs,
+  uploaded: Js,
+  remove: Zs,
+  abortUpload: Xs,
+  preview: Qs,
+  previewUnavailable: el,
+  home: nl,
+  showMoreFolder: tl,
+  moveTo: il,
+  folderEmpty: rl,
+  selectAll: ol,
+  view: al,
+  grid: sl,
+  list: ll,
+  open: cl,
+  nothingHereYet: dl,
+  name: ul,
+  modified: fl,
+  size: ml,
+  deleteItemConfirm: pl,
+  deleteItemsConfirm: hl,
+  percentDone: gl,
+  canceled: bl,
+  invalidFileName: vl,
+  folderExists: Nl,
+  collapseNavigationPane: $l,
+  expandNavigationPane: yl
+}, xl = "תיקייה חדשה", Cl = "העלה", wl = "הדבק", Pl = "שנה תצוגה", Ml = "רענן", Ul = "גזור", Sl = "העתק", Dl = "שנה שם", Tl = "הורד", jl = "פריט נבחר", Ll = "פריטים נבחרו", Hl = "בטל", El = "נקה בחירה", Al = "הושלם", zl = "אם תשנה את סיומת הקובץ, הקובץ עלול להפוך לבלתי שמיש. האם אתה בטוח שברצונך לשנות זאת?", kl = "לא", Rl = "כן", Il = "סגור", Ol = "סוג הקובץ אינו מורשה.", Gl = "הקובץ כבר קיים.", Bl = "גודל העלאה מקסימלי הוא", Vl = "גרור קבצים להעלאה", Wl = "בחר קובץ", _l = "ההעלאה נכשלה.", Yl = "מעלה...", Kl = "הועלה", ql = "הסר", Jl = "בטל העלאה", Zl = "תצוגה מקדימה", Xl = "מצטערים! אין תצוגה מקדימה זמינה לקובץ זה.", Ql = "דף הבית", ec = "הצג תיקיות נוספות", nc = "העבר ל", tc = "התיקייה ריקה.", ic = "בחר הכל", rc = "תצוגה", oc = "רשת", ac = "רשימה", sc = "פתח", lc = "אין כאן כלום עדיין", cc = "שם", dc = "שונה", uc = "גודל", fc = 'האם אתה בטוח שברצונך למחוק את "{{fileName}}"?', mc = "האם אתה בטוח שברצונך למחוק את {{count}} הפריטים האלו?", pc = "{{percent}}% הושלמו", hc = "בוטל", gc = 'שם קובץ לא יכול להכיל את התווים הבאים: \\ / : * ? " < > |', bc = 'כבר קיימת תיקייה בשם "{{renameFile}}" במיקום זה.', vc = "כווץ את לוח הניווט", Nc = "הרחב את לוח הניווט", $c = {
+  newFolder: xl,
+  upload: Cl,
+  paste: wl,
+  changeView: Pl,
+  refresh: Ml,
+  cut: Ul,
+  copy: Sl,
+  rename: Dl,
+  download: Tl,
   delete: "מחק",
-  itemSelected: Vc,
-  itemsSelected: Ac,
-  cancel: Rc,
-  clearSelection: kc,
-  completed: zc,
-  fileNameChangeWarning: Oc,
-  no: Ic,
-  yes: Gc,
-  close: _c,
-  fileTypeNotAllowed: Bc,
-  fileAlreadyExist: Wc,
-  maxUploadSize: Yc,
-  dragFileToUpload: Kc,
-  chooseFile: qc,
-  uploadFail: Jc,
-  uploading: Xc,
-  uploaded: Zc,
-  remove: Qc,
-  abortUpload: eu,
-  preview: nu,
-  previewUnavailable: tu,
-  home: ru,
-  showMoreFolder: iu,
-  moveTo: ou,
-  folderEmpty: au,
-  selectAll: su,
-  view: lu,
-  grid: cu,
-  list: uu,
-  open: du,
-  nothingHereYet: fu,
-  name: mu,
-  modified: pu,
-  size: hu,
-  deleteItemConfirm: gu,
-  deleteItemsConfirm: vu,
-  percentDone: bu,
-  canceled: Nu,
-  invalidFileName: xu,
-  folderExists: $u,
-  collapseNavigationPane: yu,
-  expandNavigationPane: Fu
-}, Du = "नया फ़ोल्डर", wu = "अपलोड करें", Pu = "पेस्ट करें", Eu = "दृश्य बदलें", ju = "रिफ्रेश करें", Su = "काटें", Mu = "कॉपी करें", Tu = "नाम बदलें", Uu = "डाउनलोड करें", Lu = "आइटम चुना गया", Hu = "आइटम्स चुने गए", Vu = "रद्द करें", Au = "चयन साफ़ करें", Ru = "पूर्ण हुआ", ku = "यदि आप फ़ाइल नाम एक्सटेंशन बदलते हैं, तो फ़ाइल अनुपयोगी हो सकती है। क्या आप वाकई इसे बदलना चाहते हैं?", zu = "नहीं", Ou = "हाँ", Iu = "बंद करें", Gu = "फ़ाइल प्रकार की अनुमति नहीं है।", _u = "फ़ाइल पहले से मौजूद है।", Bu = "अधिकतम अपलोड आकार है", Wu = "अपलोड करने के लिए फ़ाइलें खींचें", Yu = "फ़ाइल चुनें", Ku = "अपलोड विफल रहा।", qu = "अपलोड हो रहा है", Ju = "अपलोड हो गया", Xu = "हटाएं", Zu = "अपलोड रोकें", Qu = "पूर्वावलोकन", ed = "माफ़ कीजिए! इस फ़ाइल के लिए पूर्वावलोकन उपलब्ध नहीं है।", nd = "होम", td = "और फ़ोल्डर दिखाएँ", rd = "इसमें ले जाएँ", id = "यह फ़ोल्डर खाली है।", od = "सभी का चयन करें", ad = "दृश्य", sd = "ग्रिड", ld = "सूची", cd = "खोलें", ud = "यहाँ अभी कुछ नहीं है", dd = "नाम", fd = "परिवर्तित", md = "आकार", pd = 'क्या आप वाकई "{{fileName}}" को हटाना चाहते हैं?', hd = "क्या आप वाकई इन {{count}} आइटम्स को हटाना चाहते हैं?", gd = "{{percent}}% पूर्ण", vd = "रद्द किया गया", bd = 'फ़ाइल नाम में निम्नलिखित वर्ण नहीं हो सकते: \\ / : * ? " < > |', Nd = 'इस स्थान पर "{{renameFile}}" नाम का एक फ़ोल्डर पहले से मौजूद है।', xd = "नेविगेशन पैन को संकुचित करें", $d = "नेविगेशन पैन को विस्तारित करें", yd = {
-  newFolder: Du,
-  upload: wu,
-  paste: Pu,
-  changeView: Eu,
-  refresh: ju,
-  cut: Su,
-  copy: Mu,
-  rename: Tu,
-  download: Uu,
+  itemSelected: jl,
+  itemsSelected: Ll,
+  cancel: Hl,
+  clearSelection: El,
+  completed: Al,
+  fileNameChangeWarning: zl,
+  no: kl,
+  yes: Rl,
+  close: Il,
+  fileTypeNotAllowed: Ol,
+  fileAlreadyExist: Gl,
+  maxUploadSize: Bl,
+  dragFileToUpload: Vl,
+  chooseFile: Wl,
+  uploadFail: _l,
+  uploading: Yl,
+  uploaded: Kl,
+  remove: ql,
+  abortUpload: Jl,
+  preview: Zl,
+  previewUnavailable: Xl,
+  home: Ql,
+  showMoreFolder: ec,
+  moveTo: nc,
+  folderEmpty: tc,
+  selectAll: ic,
+  view: rc,
+  grid: oc,
+  list: ac,
+  open: sc,
+  nothingHereYet: lc,
+  name: cc,
+  modified: dc,
+  size: uc,
+  deleteItemConfirm: fc,
+  deleteItemsConfirm: mc,
+  percentDone: pc,
+  canceled: hc,
+  invalidFileName: gc,
+  folderExists: bc,
+  collapseNavigationPane: vc,
+  expandNavigationPane: Nc
+}, yc = "नया फ़ोल्डर", Fc = "अपलोड करें", xc = "पेस्ट करें", Cc = "दृश्य बदलें", wc = "रिफ्रेश करें", Pc = "काटें", Mc = "कॉपी करें", Uc = "नाम बदलें", Sc = "डाउनलोड करें", Dc = "आइटम चुना गया", Tc = "आइटम्स चुने गए", jc = "रद्द करें", Lc = "चयन साफ़ करें", Hc = "पूर्ण हुआ", Ec = "यदि आप फ़ाइल नाम एक्सटेंशन बदलते हैं, तो फ़ाइल अनुपयोगी हो सकती है। क्या आप वाकई इसे बदलना चाहते हैं?", Ac = "नहीं", zc = "हाँ", kc = "बंद करें", Rc = "फ़ाइल प्रकार की अनुमति नहीं है।", Ic = "फ़ाइल पहले से मौजूद है।", Oc = "अधिकतम अपलोड आकार है", Gc = "अपलोड करने के लिए फ़ाइलें खींचें", Bc = "फ़ाइल चुनें", Vc = "अपलोड विफल रहा।", Wc = "अपलोड हो रहा है", _c = "अपलोड हो गया", Yc = "हटाएं", Kc = "अपलोड रोकें", qc = "पूर्वावलोकन", Jc = "माफ़ कीजिए! इस फ़ाइल के लिए पूर्वावलोकन उपलब्ध नहीं है।", Zc = "होम", Xc = "और फ़ोल्डर दिखाएँ", Qc = "इसमें ले जाएँ", ed = "यह फ़ोल्डर खाली है।", nd = "सभी का चयन करें", td = "दृश्य", id = "ग्रिड", rd = "सूची", od = "खोलें", ad = "यहाँ अभी कुछ नहीं है", sd = "नाम", ld = "परिवर्तित", cd = "आकार", dd = 'क्या आप वाकई "{{fileName}}" को हटाना चाहते हैं?', ud = "क्या आप वाकई इन {{count}} आइटम्स को हटाना चाहते हैं?", fd = "{{percent}}% पूर्ण", md = "रद्द किया गया", pd = 'फ़ाइल नाम में निम्नलिखित वर्ण नहीं हो सकते: \\ / : * ? " < > |', hd = 'इस स्थान पर "{{renameFile}}" नाम का एक फ़ोल्डर पहले से मौजूद है।', gd = "नेविगेशन पैन को संकुचित करें", bd = "नेविगेशन पैन को विस्तारित करें", vd = {
+  newFolder: yc,
+  upload: Fc,
+  paste: xc,
+  changeView: Cc,
+  refresh: wc,
+  cut: Pc,
+  copy: Mc,
+  rename: Uc,
+  download: Sc,
   delete: "हटाएं",
-  itemSelected: Lu,
-  itemsSelected: Hu,
-  cancel: Vu,
-  clearSelection: Au,
-  completed: Ru,
-  fileNameChangeWarning: ku,
-  no: zu,
-  yes: Ou,
-  close: Iu,
-  fileTypeNotAllowed: Gu,
-  fileAlreadyExist: _u,
-  maxUploadSize: Bu,
-  dragFileToUpload: Wu,
-  chooseFile: Yu,
-  uploadFail: Ku,
-  uploading: qu,
-  uploaded: Ju,
-  remove: Xu,
-  abortUpload: Zu,
-  preview: Qu,
-  previewUnavailable: ed,
-  home: nd,
-  showMoreFolder: td,
-  moveTo: rd,
-  folderEmpty: id,
-  selectAll: od,
-  view: ad,
-  grid: sd,
-  list: ld,
-  open: cd,
-  nothingHereYet: ud,
-  name: dd,
-  modified: fd,
-  size: md,
-  deleteItemConfirm: pd,
-  deleteItemsConfirm: hd,
-  percentDone: gd,
-  canceled: vd,
-  invalidFileName: bd,
-  folderExists: Nd,
-  collapseNavigationPane: xd,
-  expandNavigationPane: $d
-}, Fd = "Nuova cartella", Cd = "Carica", Dd = "Incolla", wd = "Cambia vista", Pd = "Ricarica", Ed = "Taglia", jd = "Copia", Sd = "Rinomina", Md = "Scarica", Td = "elemento selezionato", Ud = "elementi selezionati", Ld = "Annulla", Hd = "Pulisci selezione", Vd = "Completato", Ad = "Se cambi l'estensione del file, potrebbe diventare inutilizzabile. Sei sicuro di volerlo fare?", Rd = "No", kd = "Sì", zd = "Chiudi", Od = "Tipo di file non consentito.", Id = "Il file esiste già.", Gd = "La dimensione massima di caricamento è", _d = "Trascina i file per caricarli", Bd = "Scegli file", Wd = "Caricamento fallito.", Yd = "Caricamento in corso", Kd = "Caricato", qd = "Rimuovi", Jd = "Annulla caricamento", Xd = "Anteprima", Zd = "Spiacenti! L'anteprima non è disponibile per questo file.", Qd = "Home", ef = "Mostra altre cartelle", nf = "Sposta in", tf = "Questa cartella è vuota.", rf = "Seleziona tutto", of = "Vista", af = "Griglia", sf = "Lista", lf = "Apri", cf = "Niente qui per ora", uf = "Nome", df = "Modificato", ff = "Dimensione", mf = 'Sei sicuro di voler eliminare "{{fileName}}"?', pf = "Sei sicuro di voler eliminare questi {{count}} elementi?", hf = "{{percent}}% completato", gf = "Annullato", vf = 'Un nome di file non può contenere nessuno dei seguenti caratteri: \\ / : * ? " < > |', bf = 'Questa destinazione contiene già una cartella chiamata "{{renameFile}}".', Nf = "Comprimi pannello di navigazione", xf = "Espandi pannello di navigazione", $f = {
-  newFolder: Fd,
-  upload: Cd,
-  paste: Dd,
-  changeView: wd,
-  refresh: Pd,
-  cut: Ed,
-  copy: jd,
-  rename: Sd,
+  itemSelected: Dc,
+  itemsSelected: Tc,
+  cancel: jc,
+  clearSelection: Lc,
+  completed: Hc,
+  fileNameChangeWarning: Ec,
+  no: Ac,
+  yes: zc,
+  close: kc,
+  fileTypeNotAllowed: Rc,
+  fileAlreadyExist: Ic,
+  maxUploadSize: Oc,
+  dragFileToUpload: Gc,
+  chooseFile: Bc,
+  uploadFail: Vc,
+  uploading: Wc,
+  uploaded: _c,
+  remove: Yc,
+  abortUpload: Kc,
+  preview: qc,
+  previewUnavailable: Jc,
+  home: Zc,
+  showMoreFolder: Xc,
+  moveTo: Qc,
+  folderEmpty: ed,
+  selectAll: nd,
+  view: td,
+  grid: id,
+  list: rd,
+  open: od,
+  nothingHereYet: ad,
+  name: sd,
+  modified: ld,
+  size: cd,
+  deleteItemConfirm: dd,
+  deleteItemsConfirm: ud,
+  percentDone: fd,
+  canceled: md,
+  invalidFileName: pd,
+  folderExists: hd,
+  collapseNavigationPane: gd,
+  expandNavigationPane: bd
+}, Nd = "Nuova cartella", $d = "Carica", yd = "Incolla", Fd = "Cambia vista", xd = "Ricarica", Cd = "Taglia", wd = "Copia", Pd = "Rinomina", Md = "Scarica", Ud = "elemento selezionato", Sd = "elementi selezionati", Dd = "Annulla", Td = "Pulisci selezione", jd = "Completato", Ld = "Se cambi l'estensione del file, potrebbe diventare inutilizzabile. Sei sicuro di volerlo fare?", Hd = "No", Ed = "Sì", Ad = "Chiudi", zd = "Tipo di file non consentito.", kd = "Il file esiste già.", Rd = "La dimensione massima di caricamento è", Id = "Trascina i file per caricarli", Od = "Scegli file", Gd = "Caricamento fallito.", Bd = "Caricamento in corso", Vd = "Caricato", Wd = "Rimuovi", _d = "Annulla caricamento", Yd = "Anteprima", Kd = "Spiacenti! L'anteprima non è disponibile per questo file.", qd = "Home", Jd = "Mostra altre cartelle", Zd = "Sposta in", Xd = "Questa cartella è vuota.", Qd = "Seleziona tutto", eu = "Vista", nu = "Griglia", tu = "Lista", iu = "Apri", ru = "Niente qui per ora", ou = "Nome", au = "Modificato", su = "Dimensione", lu = 'Sei sicuro di voler eliminare "{{fileName}}"?', cu = "Sei sicuro di voler eliminare questi {{count}} elementi?", du = "{{percent}}% completato", uu = "Annullato", fu = 'Un nome di file non può contenere nessuno dei seguenti caratteri: \\ / : * ? " < > |', mu = 'Questa destinazione contiene già una cartella chiamata "{{renameFile}}".', pu = "Comprimi pannello di navigazione", hu = "Espandi pannello di navigazione", gu = {
+  newFolder: Nd,
+  upload: $d,
+  paste: yd,
+  changeView: Fd,
+  refresh: xd,
+  cut: Cd,
+  copy: wd,
+  rename: Pd,
   download: Md,
   delete: "Elimina",
-  itemSelected: Td,
-  itemsSelected: Ud,
-  cancel: Ld,
-  clearSelection: Hd,
-  completed: Vd,
-  fileNameChangeWarning: Ad,
-  no: Rd,
-  yes: kd,
-  close: zd,
-  fileTypeNotAllowed: Od,
-  fileAlreadyExist: Id,
-  maxUploadSize: Gd,
-  dragFileToUpload: _d,
-  chooseFile: Bd,
-  uploadFail: Wd,
-  uploading: Yd,
-  uploaded: Kd,
-  remove: qd,
-  abortUpload: Jd,
-  preview: Xd,
-  previewUnavailable: Zd,
-  home: Qd,
-  showMoreFolder: ef,
-  moveTo: nf,
-  folderEmpty: tf,
-  selectAll: rf,
-  view: of,
-  grid: af,
-  list: sf,
-  open: lf,
-  nothingHereYet: cf,
-  name: uf,
-  modified: df,
-  size: ff,
-  deleteItemConfirm: mf,
-  deleteItemsConfirm: pf,
-  percentDone: hf,
-  canceled: gf,
-  invalidFileName: vf,
-  folderExists: bf,
-  collapseNavigationPane: Nf,
-  expandNavigationPane: xf
-}, yf = "新しいフォルダー", Ff = "アップロード", Cf = "貼り付け", Df = "ビューを変更", wf = "更新", Pf = "切り取り", Ef = "コピー", jf = "名前変更", Sf = "ダウンロード", Mf = "アイテムが選択されました", Tf = "{{count}} アイテムが選択されました", Uf = "キャンセル", Lf = "選択をクリア", Hf = "完了", Vf = "ファイル拡張子を変更すると、ファイルが使えなくなる場合があります。本当に変更しますか？", Af = "いいえ", Rf = "はい", kf = "閉じる", zf = "ファイルタイプは許可されていません。", Of = "ファイルはすでに存在します。", If = "最大アップロードサイズは", Gf = "ファイルをドラッグしてアップロード", _f = "ファイルを選択", Bf = "アップロード失敗。", Wf = "アップロード中", Yf = "アップロード済み", Kf = "削除", qf = "アップロード中止", Jf = "プレビュー", Xf = "申し訳ありません！このファイルのプレビューは利用できません。", Zf = "ホーム", Qf = "さらにフォルダーを表示", em = "移動先", nm = "このフォルダーは空です。", tm = "すべて選択", rm = "ビュー", im = "グリッド", om = "リスト", am = "開く", sm = "まだ何もありません", lm = "名前", cm = "修正日", um = "サイズ", dm = '"{{fileName}}" を削除してもよろしいですか？', fm = "{{count}} 件のアイテムを削除してもよろしいですか？", mm = "{{percent}}% 完了", pm = "キャンセルしました", hm = 'ファイル名には以下の文字を含めることはできません：\\ / : * ? " < > |', gm = 'この宛先には "{{renameFile}}" という名前のフォルダーがすでに存在します。', vm = "ナビゲーションペインを折りたたむ", bm = "ナビゲーションペインを展開", Nm = {
-  newFolder: yf,
-  upload: Ff,
-  paste: Cf,
-  changeView: Df,
-  refresh: wf,
-  cut: Pf,
-  copy: Ef,
-  rename: jf,
-  download: Sf,
+  itemSelected: Ud,
+  itemsSelected: Sd,
+  cancel: Dd,
+  clearSelection: Td,
+  completed: jd,
+  fileNameChangeWarning: Ld,
+  no: Hd,
+  yes: Ed,
+  close: Ad,
+  fileTypeNotAllowed: zd,
+  fileAlreadyExist: kd,
+  maxUploadSize: Rd,
+  dragFileToUpload: Id,
+  chooseFile: Od,
+  uploadFail: Gd,
+  uploading: Bd,
+  uploaded: Vd,
+  remove: Wd,
+  abortUpload: _d,
+  preview: Yd,
+  previewUnavailable: Kd,
+  home: qd,
+  showMoreFolder: Jd,
+  moveTo: Zd,
+  folderEmpty: Xd,
+  selectAll: Qd,
+  view: eu,
+  grid: nu,
+  list: tu,
+  open: iu,
+  nothingHereYet: ru,
+  name: ou,
+  modified: au,
+  size: su,
+  deleteItemConfirm: lu,
+  deleteItemsConfirm: cu,
+  percentDone: du,
+  canceled: uu,
+  invalidFileName: fu,
+  folderExists: mu,
+  collapseNavigationPane: pu,
+  expandNavigationPane: hu
+}, bu = "新しいフォルダー", vu = "アップロード", Nu = "貼り付け", $u = "ビューを変更", yu = "更新", Fu = "切り取り", xu = "コピー", Cu = "名前変更", wu = "ダウンロード", Pu = "アイテムが選択されました", Mu = "{{count}} アイテムが選択されました", Uu = "キャンセル", Su = "選択をクリア", Du = "完了", Tu = "ファイル拡張子を変更すると、ファイルが使えなくなる場合があります。本当に変更しますか？", ju = "いいえ", Lu = "はい", Hu = "閉じる", Eu = "ファイルタイプは許可されていません。", Au = "ファイルはすでに存在します。", zu = "最大アップロードサイズは", ku = "ファイルをドラッグしてアップロード", Ru = "ファイルを選択", Iu = "アップロード失敗。", Ou = "アップロード中", Gu = "アップロード済み", Bu = "削除", Vu = "アップロード中止", Wu = "プレビュー", _u = "申し訳ありません！このファイルのプレビューは利用できません。", Yu = "ホーム", Ku = "さらにフォルダーを表示", qu = "移動先", Ju = "このフォルダーは空です。", Zu = "すべて選択", Xu = "ビュー", Qu = "グリッド", ef = "リスト", nf = "開く", tf = "まだ何もありません", rf = "名前", of = "修正日", af = "サイズ", sf = '"{{fileName}}" を削除してもよろしいですか？', lf = "{{count}} 件のアイテムを削除してもよろしいですか？", cf = "{{percent}}% 完了", df = "キャンセルしました", uf = 'ファイル名には以下の文字を含めることはできません：\\ / : * ? " < > |', ff = 'この宛先には "{{renameFile}}" という名前のフォルダーがすでに存在します。', mf = "ナビゲーションペインを折りたたむ", pf = "ナビゲーションペインを展開", hf = {
+  newFolder: bu,
+  upload: vu,
+  paste: Nu,
+  changeView: $u,
+  refresh: yu,
+  cut: Fu,
+  copy: xu,
+  rename: Cu,
+  download: wu,
   delete: "削除",
-  itemSelected: Mf,
-  itemsSelected: Tf,
-  cancel: Uf,
-  clearSelection: Lf,
-  completed: Hf,
-  fileNameChangeWarning: Vf,
-  no: Af,
-  yes: Rf,
-  close: kf,
-  fileTypeNotAllowed: zf,
-  fileAlreadyExist: Of,
-  maxUploadSize: If,
-  dragFileToUpload: Gf,
-  chooseFile: _f,
-  uploadFail: Bf,
-  uploading: Wf,
-  uploaded: Yf,
-  remove: Kf,
-  abortUpload: qf,
-  preview: Jf,
-  previewUnavailable: Xf,
-  home: Zf,
-  showMoreFolder: Qf,
-  moveTo: em,
-  folderEmpty: nm,
-  selectAll: tm,
-  view: rm,
-  grid: im,
-  list: om,
-  open: am,
-  nothingHereYet: sm,
-  name: lm,
-  modified: cm,
-  size: um,
-  deleteItemConfirm: dm,
-  deleteItemsConfirm: fm,
-  percentDone: mm,
-  canceled: pm,
-  invalidFileName: hm,
-  folderExists: gm,
-  collapseNavigationPane: vm,
-  expandNavigationPane: bm
-}, xm = "새 폴더", $m = "업로드", ym = "붙여넣기", Fm = "보기 변경", Cm = "새로 고침", Dm = "잘라내기", wm = "복사", Pm = "이름 바꾸기", Em = "다운로드", jm = "항목 선택됨", Sm = "개 항목 선택됨", Mm = "취소", Tm = "선택 지우기", Um = "완료됨", Lm = "파일 확장자를 변경하면 사용할 수 없게 될 수 있습니다. 정말로 변경하시겠습니까?", Hm = "아니오", Vm = "예", Am = "닫기", Rm = "허용되지 않는 파일 형식입니다.", km = "파일이 이미 존재합니다.", zm = "최대 업로드 크기", Om = "업로드하려면 파일을 끌어오세요", Im = "파일 선택", Gm = "업로드 실패", _m = "업로드 중", Bm = "업로드 완료", Wm = "제거", Ym = "업로드 중단", Km = "미리보기", qm = "죄송합니다! 이 파일은 미리보기를 제공하지 않습니다.", Jm = "홈", Xm = "더 많은 폴더 보기", Zm = "이동", Qm = "이 폴더는 비어 있습니다.", ep = "전체 선택", np = "보기", tp = "그리드", rp = "목록", ip = "열기", op = "아직 아무것도 없습니다", ap = "이름", sp = "수정됨", lp = "크기", cp = '"{{fileName}}" 파일을 삭제하시겠습니까?', up = "{{count}}개의 항목을 삭제하시겠습니까?", dp = "{{percent}}% 완료", fp = "취소됨", mp = '파일 이름에는 다음 문자를 사용할 수 없습니다: \\ / : * ? " < > |', pp = '해당 위치에 "{{renameFile}}" 폴더가 이미 있습니다.', hp = "탐색 창 축소", gp = "탐색 창 확장", vp = {
-  newFolder: xm,
-  upload: $m,
-  paste: ym,
-  changeView: Fm,
-  refresh: Cm,
-  cut: Dm,
-  copy: wm,
-  rename: Pm,
-  download: Em,
+  itemSelected: Pu,
+  itemsSelected: Mu,
+  cancel: Uu,
+  clearSelection: Su,
+  completed: Du,
+  fileNameChangeWarning: Tu,
+  no: ju,
+  yes: Lu,
+  close: Hu,
+  fileTypeNotAllowed: Eu,
+  fileAlreadyExist: Au,
+  maxUploadSize: zu,
+  dragFileToUpload: ku,
+  chooseFile: Ru,
+  uploadFail: Iu,
+  uploading: Ou,
+  uploaded: Gu,
+  remove: Bu,
+  abortUpload: Vu,
+  preview: Wu,
+  previewUnavailable: _u,
+  home: Yu,
+  showMoreFolder: Ku,
+  moveTo: qu,
+  folderEmpty: Ju,
+  selectAll: Zu,
+  view: Xu,
+  grid: Qu,
+  list: ef,
+  open: nf,
+  nothingHereYet: tf,
+  name: rf,
+  modified: of,
+  size: af,
+  deleteItemConfirm: sf,
+  deleteItemsConfirm: lf,
+  percentDone: cf,
+  canceled: df,
+  invalidFileName: uf,
+  folderExists: ff,
+  collapseNavigationPane: mf,
+  expandNavigationPane: pf
+}, gf = "새 폴더", bf = "업로드", vf = "붙여넣기", Nf = "보기 변경", $f = "새로 고침", yf = "잘라내기", Ff = "복사", xf = "이름 바꾸기", Cf = "다운로드", wf = "항목 선택됨", Pf = "개 항목 선택됨", Mf = "취소", Uf = "선택 지우기", Sf = "완료됨", Df = "파일 확장자를 변경하면 사용할 수 없게 될 수 있습니다. 정말로 변경하시겠습니까?", Tf = "아니오", jf = "예", Lf = "닫기", Hf = "허용되지 않는 파일 형식입니다.", Ef = "파일이 이미 존재합니다.", Af = "최대 업로드 크기", zf = "업로드하려면 파일을 끌어오세요", kf = "파일 선택", Rf = "업로드 실패", If = "업로드 중", Of = "업로드 완료", Gf = "제거", Bf = "업로드 중단", Vf = "미리보기", Wf = "죄송합니다! 이 파일은 미리보기를 제공하지 않습니다.", _f = "홈", Yf = "더 많은 폴더 보기", Kf = "이동", qf = "이 폴더는 비어 있습니다.", Jf = "전체 선택", Zf = "보기", Xf = "그리드", Qf = "목록", em = "열기", nm = "아직 아무것도 없습니다", tm = "이름", im = "수정됨", rm = "크기", om = '"{{fileName}}" 파일을 삭제하시겠습니까?', am = "{{count}}개의 항목을 삭제하시겠습니까?", sm = "{{percent}}% 완료", lm = "취소됨", cm = '파일 이름에는 다음 문자를 사용할 수 없습니다: \\ / : * ? " < > |', dm = '해당 위치에 "{{renameFile}}" 폴더가 이미 있습니다.', um = "탐색 창 축소", fm = "탐색 창 확장", mm = {
+  newFolder: gf,
+  upload: bf,
+  paste: vf,
+  changeView: Nf,
+  refresh: $f,
+  cut: yf,
+  copy: Ff,
+  rename: xf,
+  download: Cf,
   delete: "삭제",
-  itemSelected: jm,
-  itemsSelected: Sm,
-  cancel: Mm,
-  clearSelection: Tm,
-  completed: Um,
-  fileNameChangeWarning: Lm,
-  no: Hm,
-  yes: Vm,
-  close: Am,
-  fileTypeNotAllowed: Rm,
-  fileAlreadyExist: km,
-  maxUploadSize: zm,
-  dragFileToUpload: Om,
-  chooseFile: Im,
-  uploadFail: Gm,
-  uploading: _m,
-  uploaded: Bm,
-  remove: Wm,
-  abortUpload: Ym,
-  preview: Km,
-  previewUnavailable: qm,
-  home: Jm,
-  showMoreFolder: Xm,
-  moveTo: Zm,
-  folderEmpty: Qm,
-  selectAll: ep,
-  view: np,
-  grid: tp,
-  list: rp,
-  open: ip,
-  nothingHereYet: op,
-  name: ap,
-  modified: sp,
-  size: lp,
-  deleteItemConfirm: cp,
-  deleteItemsConfirm: up,
-  percentDone: dp,
-  canceled: fp,
-  invalidFileName: mp,
-  folderExists: pp,
-  collapseNavigationPane: hp,
-  expandNavigationPane: gp
-}, bp = "Nova pasta", Np = "Carregar", xp = "Colar", $p = "Alterar visualização", yp = "Atualizar", Fp = "Cortar", Cp = "Copiar", Dp = "Renomear", wp = "Baixar", Pp = "item selecionado", Ep = "itens selecionados", jp = "Cancelar", Sp = "Limpar seleção", Mp = "Concluído", Tp = "Se você alterar a extensão do arquivo, ele pode se tornar inutilizável. Tem certeza de que deseja fazer isso?", Up = "Não", Lp = "Sim", Hp = "Fechar", Vp = "Tipo de arquivo não permitido.", Ap = "Arquivo já existe.", Rp = "Tamanho máximo de upload é", kp = "Arraste os arquivos para carregar", zp = "Escolher arquivo", Op = "Falha no upload.", Ip = "Carregando", Gp = "Carregado", _p = "Remover", Bp = "Abortar upload", Wp = "Visualizar", Yp = "Desculpe! Não há visualização disponível para este arquivo.", Kp = "Início", qp = "Mostrar mais pastas", Jp = "Mover para", Xp = "Esta pasta está vazia.", Zp = "Selecionar tudo", Qp = "Visualização", eh = "Grade", nh = "Lista", th = "Abrir", rh = "Nada aqui ainda", ih = "Nome", oh = "Modificado", ah = "Tamanho", sh = 'Tem certeza de que deseja excluir "{{fileName}}"?', lh = "Tem certeza de que deseja excluir esses {{count}} itens?", ch = "{{percent}}% concluído", uh = "Cancelado", dh = 'Um nome de arquivo não pode conter nenhum dos seguintes caracteres: \\ / : * ? " < > |', fh = 'Já existe uma pasta com o nome "{{renameFile}}" neste local.', mh = "Recolher painel de navegação", ph = "Expandir painel de navegação", hh = {
-  newFolder: bp,
-  upload: Np,
-  paste: xp,
-  changeView: $p,
-  refresh: yp,
-  cut: Fp,
-  copy: Cp,
-  rename: Dp,
-  download: wp,
+  itemSelected: wf,
+  itemsSelected: Pf,
+  cancel: Mf,
+  clearSelection: Uf,
+  completed: Sf,
+  fileNameChangeWarning: Df,
+  no: Tf,
+  yes: jf,
+  close: Lf,
+  fileTypeNotAllowed: Hf,
+  fileAlreadyExist: Ef,
+  maxUploadSize: Af,
+  dragFileToUpload: zf,
+  chooseFile: kf,
+  uploadFail: Rf,
+  uploading: If,
+  uploaded: Of,
+  remove: Gf,
+  abortUpload: Bf,
+  preview: Vf,
+  previewUnavailable: Wf,
+  home: _f,
+  showMoreFolder: Yf,
+  moveTo: Kf,
+  folderEmpty: qf,
+  selectAll: Jf,
+  view: Zf,
+  grid: Xf,
+  list: Qf,
+  open: em,
+  nothingHereYet: nm,
+  name: tm,
+  modified: im,
+  size: rm,
+  deleteItemConfirm: om,
+  deleteItemsConfirm: am,
+  percentDone: sm,
+  canceled: lm,
+  invalidFileName: cm,
+  folderExists: dm,
+  collapseNavigationPane: um,
+  expandNavigationPane: fm
+}, pm = "Nova pasta", hm = "Carregar", gm = "Colar", bm = "Alterar visualização", vm = "Atualizar", Nm = "Cortar", $m = "Copiar", ym = "Renomear", Fm = "Baixar", xm = "item selecionado", Cm = "itens selecionados", wm = "Cancelar", Pm = "Limpar seleção", Mm = "Concluído", Um = "Se você alterar a extensão do arquivo, ele pode se tornar inutilizável. Tem certeza de que deseja fazer isso?", Sm = "Não", Dm = "Sim", Tm = "Fechar", jm = "Tipo de arquivo não permitido.", Lm = "Arquivo já existe.", Hm = "Tamanho máximo de upload é", Em = "Arraste os arquivos para carregar", Am = "Escolher arquivo", zm = "Falha no upload.", km = "Carregando", Rm = "Carregado", Im = "Remover", Om = "Abortar upload", Gm = "Visualizar", Bm = "Desculpe! Não há visualização disponível para este arquivo.", Vm = "Início", Wm = "Mostrar mais pastas", _m = "Mover para", Ym = "Esta pasta está vazia.", Km = "Selecionar tudo", qm = "Visualização", Jm = "Grade", Zm = "Lista", Xm = "Abrir", Qm = "Nada aqui ainda", ep = "Nome", np = "Modificado", tp = "Tamanho", ip = 'Tem certeza de que deseja excluir "{{fileName}}"?', rp = "Tem certeza de que deseja excluir esses {{count}} itens?", op = "{{percent}}% concluído", ap = "Cancelado", sp = 'Um nome de arquivo não pode conter nenhum dos seguintes caracteres: \\ / : * ? " < > |', lp = 'Já existe uma pasta com o nome "{{renameFile}}" neste local.', cp = "Recolher painel de navegação", dp = "Expandir painel de navegação", up = {
+  newFolder: pm,
+  upload: hm,
+  paste: gm,
+  changeView: bm,
+  refresh: vm,
+  cut: Nm,
+  copy: $m,
+  rename: ym,
+  download: Fm,
   delete: "Excluir",
-  itemSelected: Pp,
-  itemsSelected: Ep,
-  cancel: jp,
-  clearSelection: Sp,
-  completed: Mp,
-  fileNameChangeWarning: Tp,
-  no: Up,
-  yes: Lp,
-  close: Hp,
-  fileTypeNotAllowed: Vp,
-  fileAlreadyExist: Ap,
-  maxUploadSize: Rp,
-  dragFileToUpload: kp,
-  chooseFile: zp,
-  uploadFail: Op,
-  uploading: Ip,
-  uploaded: Gp,
-  remove: _p,
-  abortUpload: Bp,
-  preview: Wp,
-  previewUnavailable: Yp,
-  home: Kp,
-  showMoreFolder: qp,
-  moveTo: Jp,
-  folderEmpty: Xp,
-  selectAll: Zp,
-  view: Qp,
-  grid: eh,
-  list: nh,
-  open: th,
-  nothingHereYet: rh,
-  name: ih,
-  modified: oh,
-  size: ah,
-  deleteItemConfirm: sh,
-  deleteItemsConfirm: lh,
-  percentDone: ch,
-  canceled: uh,
-  invalidFileName: dh,
-  folderExists: fh,
-  collapseNavigationPane: mh,
-  expandNavigationPane: ph
-}, gh = "Nova pasta", vh = "Carregar", bh = "Colar", Nh = "Mudar vista", xh = "Atualizar", $h = "Cortar", yh = "Copiar", Fh = "Renomear", Ch = "Transferir", Dh = "item selecionado", wh = "itens selecionados", Ph = "Cancelar", Eh = "Limpar seleção", jh = "Concluído", Sh = "Se alterar a extensão de um ficheiro, este pode deixar de funcionar corretamente. Tem a certeza de que deseja alterá-la?", Mh = "Não", Th = "Sim", Uh = "Fechar", Lh = "Tipo de ficheiro não permitido.", Hh = "O ficheiro já existe.", Vh = "O tamanho máximo de carregamento é", Ah = "Arraste os ficheiros para carregar", Rh = "Escolher ficheiro", kh = "Falha no carregamento.", zh = "A carregar", Oh = "Carregado", Ih = "Remover", Gh = "Cancelar carregamento", _h = "Pré-visualizar", Bh = "Lamentamos! A pré-visualização não está disponível para este ficheiro.", Wh = "Início", Yh = "Mostrar mais pastas", Kh = "Mover para", qh = "Esta pasta está vazia.", Jh = "Selecionar tudo", Xh = "Vista", Zh = "Grelha", Qh = "Lista", eg = "Abrir", ng = "Ainda não há nada aqui", tg = "Nome", rg = "Modificado", ig = "Tamanho", og = 'Tem a certeza de que deseja eliminar "{{fileName}}"?', ag = "Tem a certeza de que deseja eliminar estes {{count}} itens?", sg = "{{percent}}% concluído", lg = "Cancelado", cg = 'O nome do ficheiro não pode conter nenhum dos seguintes caracteres: \\ / : * ? " < > |', ug = 'O destino já contém uma pasta chamada "{{renameFile}}".', dg = "Recolher painel de navegação", fg = "Expandir painel de navegação", mg = {
-  newFolder: gh,
-  upload: vh,
-  paste: bh,
-  changeView: Nh,
-  refresh: xh,
-  cut: $h,
-  copy: yh,
-  rename: Fh,
-  download: Ch,
+  itemSelected: xm,
+  itemsSelected: Cm,
+  cancel: wm,
+  clearSelection: Pm,
+  completed: Mm,
+  fileNameChangeWarning: Um,
+  no: Sm,
+  yes: Dm,
+  close: Tm,
+  fileTypeNotAllowed: jm,
+  fileAlreadyExist: Lm,
+  maxUploadSize: Hm,
+  dragFileToUpload: Em,
+  chooseFile: Am,
+  uploadFail: zm,
+  uploading: km,
+  uploaded: Rm,
+  remove: Im,
+  abortUpload: Om,
+  preview: Gm,
+  previewUnavailable: Bm,
+  home: Vm,
+  showMoreFolder: Wm,
+  moveTo: _m,
+  folderEmpty: Ym,
+  selectAll: Km,
+  view: qm,
+  grid: Jm,
+  list: Zm,
+  open: Xm,
+  nothingHereYet: Qm,
+  name: ep,
+  modified: np,
+  size: tp,
+  deleteItemConfirm: ip,
+  deleteItemsConfirm: rp,
+  percentDone: op,
+  canceled: ap,
+  invalidFileName: sp,
+  folderExists: lp,
+  collapseNavigationPane: cp,
+  expandNavigationPane: dp
+}, fp = "Nova pasta", mp = "Carregar", pp = "Colar", hp = "Mudar vista", gp = "Atualizar", bp = "Cortar", vp = "Copiar", Np = "Renomear", $p = "Transferir", yp = "item selecionado", Fp = "itens selecionados", xp = "Cancelar", Cp = "Limpar seleção", wp = "Concluído", Pp = "Se alterar a extensão de um ficheiro, este pode deixar de funcionar corretamente. Tem a certeza de que deseja alterá-la?", Mp = "Não", Up = "Sim", Sp = "Fechar", Dp = "Tipo de ficheiro não permitido.", Tp = "O ficheiro já existe.", jp = "O tamanho máximo de carregamento é", Lp = "Arraste os ficheiros para carregar", Hp = "Escolher ficheiro", Ep = "Falha no carregamento.", Ap = "A carregar", zp = "Carregado", kp = "Remover", Rp = "Cancelar carregamento", Ip = "Pré-visualizar", Op = "Lamentamos! A pré-visualização não está disponível para este ficheiro.", Gp = "Início", Bp = "Mostrar mais pastas", Vp = "Mover para", Wp = "Esta pasta está vazia.", _p = "Selecionar tudo", Yp = "Vista", Kp = "Grelha", qp = "Lista", Jp = "Abrir", Zp = "Ainda não há nada aqui", Xp = "Nome", Qp = "Modificado", eh = "Tamanho", nh = 'Tem a certeza de que deseja eliminar "{{fileName}}"?', th = "Tem a certeza de que deseja eliminar estes {{count}} itens?", ih = "{{percent}}% concluído", rh = "Cancelado", oh = 'O nome do ficheiro não pode conter nenhum dos seguintes caracteres: \\ / : * ? " < > |', ah = 'O destino já contém uma pasta chamada "{{renameFile}}".', sh = "Recolher painel de navegação", lh = "Expandir painel de navegação", ch = {
+  newFolder: fp,
+  upload: mp,
+  paste: pp,
+  changeView: hp,
+  refresh: gp,
+  cut: bp,
+  copy: vp,
+  rename: Np,
+  download: $p,
   delete: "Eliminar",
-  itemSelected: Dh,
-  itemsSelected: wh,
-  cancel: Ph,
-  clearSelection: Eh,
-  completed: jh,
-  fileNameChangeWarning: Sh,
-  no: Mh,
-  yes: Th,
-  close: Uh,
-  fileTypeNotAllowed: Lh,
-  fileAlreadyExist: Hh,
-  maxUploadSize: Vh,
-  dragFileToUpload: Ah,
-  chooseFile: Rh,
-  uploadFail: kh,
-  uploading: zh,
-  uploaded: Oh,
-  remove: Ih,
-  abortUpload: Gh,
-  preview: _h,
-  previewUnavailable: Bh,
-  home: Wh,
-  showMoreFolder: Yh,
-  moveTo: Kh,
-  folderEmpty: qh,
-  selectAll: Jh,
-  view: Xh,
-  grid: Zh,
-  list: Qh,
-  open: eg,
-  nothingHereYet: ng,
-  name: tg,
-  modified: rg,
-  size: ig,
-  deleteItemConfirm: og,
-  deleteItemsConfirm: ag,
-  percentDone: sg,
-  canceled: lg,
-  invalidFileName: cg,
-  folderExists: ug,
-  collapseNavigationPane: dg,
-  expandNavigationPane: fg
-}, pg = "Новая папка", hg = "Загрузить", gg = "Вставить", vg = "Изменить вид", bg = "Обновить", Ng = "Вырезать", xg = "Копировать", $g = "Переименовать", yg = "Скачать", Fg = "выбран элемент", Cg = "выбрано {{count}} элементов", Dg = "Отменить", wg = "Очистить выбор", Pg = "Завершено", Eg = "Если вы измените расширение файла, файл может стать неисправным. Вы уверены, что хотите изменить его?", jg = "Нет", Sg = "Да", Mg = "Закрыть", Tg = "Тип файла не разрешен.", Ug = "Файл уже существует.", Lg = "Максимальный размер загрузки:", Hg = "Перетащите файлы для загрузки", Vg = "Выбрать файл", Ag = "Загрузка не удалась.", Rg = "Загрузка", kg = "Загружено", zg = "Удалить", Og = "Прервать загрузку", Ig = "Предпросмотр", Gg = "Извините! Предпросмотр для этого файла недоступен.", _g = "Главная", Bg = "Показать больше папок", Wg = "Переместить в", Yg = "Эта папка пуста.", Kg = "Выбрать все", qg = "Вид", Jg = "Сетка", Xg = "Список", Zg = "Открыть", Qg = "Здесь еще ничего нет", e1 = "Имя", n1 = "Изменено", t1 = "Размер", r1 = 'Вы уверены, что хотите удалить "{{fileName}}"?', i1 = "Вы уверены, что хотите удалить эти {{count}} элементы?", o1 = "{{percent}}% завершено", a1 = "Отменено", s1 = 'Имя файла не может содержать следующие символы: \\ / : * ? " < > |', l1 = 'В этом местоположении уже существует папка с именем "{{renameFile}}".', c1 = "Свернуть панель навигации", u1 = "Развернуть панель навигации", d1 = {
-  newFolder: pg,
-  upload: hg,
-  paste: gg,
-  changeView: vg,
-  refresh: bg,
-  cut: Ng,
-  copy: xg,
-  rename: $g,
-  download: yg,
+  itemSelected: yp,
+  itemsSelected: Fp,
+  cancel: xp,
+  clearSelection: Cp,
+  completed: wp,
+  fileNameChangeWarning: Pp,
+  no: Mp,
+  yes: Up,
+  close: Sp,
+  fileTypeNotAllowed: Dp,
+  fileAlreadyExist: Tp,
+  maxUploadSize: jp,
+  dragFileToUpload: Lp,
+  chooseFile: Hp,
+  uploadFail: Ep,
+  uploading: Ap,
+  uploaded: zp,
+  remove: kp,
+  abortUpload: Rp,
+  preview: Ip,
+  previewUnavailable: Op,
+  home: Gp,
+  showMoreFolder: Bp,
+  moveTo: Vp,
+  folderEmpty: Wp,
+  selectAll: _p,
+  view: Yp,
+  grid: Kp,
+  list: qp,
+  open: Jp,
+  nothingHereYet: Zp,
+  name: Xp,
+  modified: Qp,
+  size: eh,
+  deleteItemConfirm: nh,
+  deleteItemsConfirm: th,
+  percentDone: ih,
+  canceled: rh,
+  invalidFileName: oh,
+  folderExists: ah,
+  collapseNavigationPane: sh,
+  expandNavigationPane: lh
+}, dh = "Новая папка", uh = "Загрузить", fh = "Вставить", mh = "Изменить вид", ph = "Обновить", hh = "Вырезать", gh = "Копировать", bh = "Переименовать", vh = "Скачать", Nh = "выбран элемент", $h = "выбрано {{count}} элементов", yh = "Отменить", Fh = "Очистить выбор", xh = "Завершено", Ch = "Если вы измените расширение файла, файл может стать неисправным. Вы уверены, что хотите изменить его?", wh = "Нет", Ph = "Да", Mh = "Закрыть", Uh = "Тип файла не разрешен.", Sh = "Файл уже существует.", Dh = "Максимальный размер загрузки:", Th = "Перетащите файлы для загрузки", jh = "Выбрать файл", Lh = "Загрузка не удалась.", Hh = "Загрузка", Eh = "Загружено", Ah = "Удалить", zh = "Прервать загрузку", kh = "Предпросмотр", Rh = "Извините! Предпросмотр для этого файла недоступен.", Ih = "Главная", Oh = "Показать больше папок", Gh = "Переместить в", Bh = "Эта папка пуста.", Vh = "Выбрать все", Wh = "Вид", _h = "Сетка", Yh = "Список", Kh = "Открыть", qh = "Здесь еще ничего нет", Jh = "Имя", Zh = "Изменено", Xh = "Размер", Qh = 'Вы уверены, что хотите удалить "{{fileName}}"?', e1 = "Вы уверены, что хотите удалить эти {{count}} элементы?", n1 = "{{percent}}% завершено", t1 = "Отменено", i1 = 'Имя файла не может содержать следующие символы: \\ / : * ? " < > |', r1 = 'В этом местоположении уже существует папка с именем "{{renameFile}}".', o1 = "Свернуть панель навигации", a1 = "Развернуть панель навигации", s1 = {
+  newFolder: dh,
+  upload: uh,
+  paste: fh,
+  changeView: mh,
+  refresh: ph,
+  cut: hh,
+  copy: gh,
+  rename: bh,
+  download: vh,
   delete: "Удалить",
-  itemSelected: Fg,
-  itemsSelected: Cg,
-  cancel: Dg,
-  clearSelection: wg,
-  completed: Pg,
-  fileNameChangeWarning: Eg,
-  no: jg,
-  yes: Sg,
-  close: Mg,
-  fileTypeNotAllowed: Tg,
-  fileAlreadyExist: Ug,
-  maxUploadSize: Lg,
-  dragFileToUpload: Hg,
-  chooseFile: Vg,
-  uploadFail: Ag,
-  uploading: Rg,
-  uploaded: kg,
-  remove: zg,
-  abortUpload: Og,
-  preview: Ig,
-  previewUnavailable: Gg,
-  home: _g,
-  showMoreFolder: Bg,
-  moveTo: Wg,
-  folderEmpty: Yg,
-  selectAll: Kg,
-  view: qg,
-  grid: Jg,
-  list: Xg,
-  open: Zg,
-  nothingHereYet: Qg,
-  name: e1,
-  modified: n1,
-  size: t1,
-  deleteItemConfirm: r1,
-  deleteItemsConfirm: i1,
-  percentDone: o1,
-  canceled: a1,
-  invalidFileName: s1,
-  folderExists: l1,
-  collapseNavigationPane: c1,
-  expandNavigationPane: u1
-}, f1 = "Yeni Klasör", m1 = "Dosya Yükle", p1 = "Yapıştır", h1 = "Görünümü Değiştir", g1 = "Yenile", v1 = "Kes", b1 = "Kopyala", N1 = "Yeniden İsimlendir", x1 = "İndir", $1 = "öğe seçildi", y1 = "seçilen öğeler", F1 = "İptal", C1 = "Seçimi Temizle", D1 = "Tamamlandı", w1 = "Dosya adı aşağıdaki karakterlerden hiçbirini içeremez:", P1 = "Bir dosya adı uzantısını değiştirirseniz, dosya kullanılamaz hale gelebilir. Bunu değiştirmek istediğinizden emin misiniz?", E1 = "Hayır", j1 = "Evet", S1 = "Kapalı", M1 = "Dosya türüne izin verilmiyor.", T1 = "Dosya zaten mevcut.", U1 = "Maksimum yükleme boyutu", L1 = "Yüklemek için dosyaları sürükleyin", H1 = "Dosya Seç", V1 = "Yükleme hatası.", A1 = "Yükleniyor", R1 = "Yüklendi", k1 = "Kaldır", z1 = "Yüklemeyi İptal Et", O1 = "Görünüm", I1 = "Üzgünüz! Bu dosya için önizleme mevcut değil.", G1 = "Ana Sayfa", _1 = "Daha fazla klasör göster", B1 = "Burya Taşı", W1 = "Bu klasör boş.", Y1 = "Hepsini Seç", K1 = "Görünüm", q1 = "Izgara", J1 = "Liste", X1 = "Aç", Z1 = "Henüz hiçbir şey yok", Q1 = "Ad", e0 = "Değiştirilme Tarihi", n0 = "Boyut", t0 = '"{{fileName}}" dosyasını silmek istediğinizden emin misiniz?', r0 = "{{count}} öğeyi silmek istediğinizden emin misiniz?", i0 = "%{{percent}} tamamlandı", o0 = "İptal edildi", a0 = 'Bir dosya adı aşağıdaki karakterlerden hiçbirini içeremez: \\ / : * ? " < > |', s0 = 'Bu konumda "{{renameFile}}" adında bir klasör zaten var.', l0 = "Gezinti Panelini Daralt", c0 = "Gezinti Panelini Genişlet", u0 = {
-  newFolder: f1,
-  upload: m1,
-  paste: p1,
-  changeView: h1,
-  refresh: g1,
-  cut: v1,
-  copy: b1,
-  rename: N1,
-  download: x1,
+  itemSelected: Nh,
+  itemsSelected: $h,
+  cancel: yh,
+  clearSelection: Fh,
+  completed: xh,
+  fileNameChangeWarning: Ch,
+  no: wh,
+  yes: Ph,
+  close: Mh,
+  fileTypeNotAllowed: Uh,
+  fileAlreadyExist: Sh,
+  maxUploadSize: Dh,
+  dragFileToUpload: Th,
+  chooseFile: jh,
+  uploadFail: Lh,
+  uploading: Hh,
+  uploaded: Eh,
+  remove: Ah,
+  abortUpload: zh,
+  preview: kh,
+  previewUnavailable: Rh,
+  home: Ih,
+  showMoreFolder: Oh,
+  moveTo: Gh,
+  folderEmpty: Bh,
+  selectAll: Vh,
+  view: Wh,
+  grid: _h,
+  list: Yh,
+  open: Kh,
+  nothingHereYet: qh,
+  name: Jh,
+  modified: Zh,
+  size: Xh,
+  deleteItemConfirm: Qh,
+  deleteItemsConfirm: e1,
+  percentDone: n1,
+  canceled: t1,
+  invalidFileName: i1,
+  folderExists: r1,
+  collapseNavigationPane: o1,
+  expandNavigationPane: a1
+}, l1 = "Yeni Klasör", c1 = "Dosya Yükle", d1 = "Yapıştır", u1 = "Görünümü Değiştir", f1 = "Yenile", m1 = "Kes", p1 = "Kopyala", h1 = "Yeniden İsimlendir", g1 = "İndir", b1 = "öğe seçildi", v1 = "seçilen öğeler", N1 = "İptal", $1 = "Seçimi Temizle", y1 = "Tamamlandı", F1 = "Dosya adı aşağıdaki karakterlerden hiçbirini içeremez:", x1 = "Bir dosya adı uzantısını değiştirirseniz, dosya kullanılamaz hale gelebilir. Bunu değiştirmek istediğinizden emin misiniz?", C1 = "Hayır", w1 = "Evet", P1 = "Kapalı", M1 = "Dosya türüne izin verilmiyor.", U1 = "Dosya zaten mevcut.", S1 = "Maksimum yükleme boyutu", D1 = "Yüklemek için dosyaları sürükleyin", T1 = "Dosya Seç", j1 = "Yükleme hatası.", L1 = "Yükleniyor", H1 = "Yüklendi", E1 = "Kaldır", A1 = "Yüklemeyi İptal Et", z1 = "Görünüm", k1 = "Üzgünüz! Bu dosya için önizleme mevcut değil.", R1 = "Ana Sayfa", I1 = "Daha fazla klasör göster", O1 = "Burya Taşı", G1 = "Bu klasör boş.", B1 = "Hepsini Seç", V1 = "Görünüm", W1 = "Izgara", _1 = "Liste", Y1 = "Aç", K1 = "Henüz hiçbir şey yok", q1 = "Ad", J1 = "Değiştirilme Tarihi", Z1 = "Boyut", X1 = '"{{fileName}}" dosyasını silmek istediğinizden emin misiniz?', Q1 = "{{count}} öğeyi silmek istediğinizden emin misiniz?", eg = "%{{percent}} tamamlandı", ng = "İptal edildi", tg = 'Bir dosya adı aşağıdaki karakterlerden hiçbirini içeremez: \\ / : * ? " < > |', ig = 'Bu konumda "{{renameFile}}" adında bir klasör zaten var.', rg = "Gezinti Panelini Daralt", og = "Gezinti Panelini Genişlet", ag = {
+  newFolder: l1,
+  upload: c1,
+  paste: d1,
+  changeView: u1,
+  refresh: f1,
+  cut: m1,
+  copy: p1,
+  rename: h1,
+  download: g1,
   delete: "Sil",
-  itemSelected: $1,
-  itemsSelected: y1,
-  cancel: F1,
-  clearSelection: C1,
-  completed: D1,
-  folderErrorMessage: w1,
-  fileNameChangeWarning: P1,
-  no: E1,
-  yes: j1,
-  close: S1,
+  itemSelected: b1,
+  itemsSelected: v1,
+  cancel: N1,
+  clearSelection: $1,
+  completed: y1,
+  folderErrorMessage: F1,
+  fileNameChangeWarning: x1,
+  no: C1,
+  yes: w1,
+  close: P1,
   fileTypeNotAllowed: M1,
-  fileAlreadyExist: T1,
-  maxUploadSize: U1,
-  dragFileToUpload: L1,
-  chooseFile: H1,
-  uploadFail: V1,
-  uploading: A1,
-  uploaded: R1,
-  remove: k1,
-  abortUpload: z1,
-  preview: O1,
-  previewUnavailable: I1,
-  home: G1,
-  showMoreFolder: _1,
-  moveTo: B1,
-  folderEmpty: W1,
-  selectAll: Y1,
-  view: K1,
-  grid: q1,
-  list: J1,
-  open: X1,
-  nothingHereYet: Z1,
-  name: Q1,
-  modified: e0,
-  size: n0,
-  deleteItemConfirm: t0,
-  deleteItemsConfirm: r0,
-  percentDone: i0,
-  canceled: o0,
-  invalidFileName: a0,
-  folderExists: s0,
-  collapseNavigationPane: l0,
-  expandNavigationPane: c0
-}, d0 = "Нова папка", f0 = "Завантажити", m0 = "Вставити", p0 = "Змінити вигляд", h0 = "Оновити", g0 = "Вирізати", v0 = "Копіювати", b0 = "Перейменувати", N0 = "Завантажити", x0 = "вибраний елемент", $0 = "вибрані елементи", y0 = "Скасувати", F0 = "Очистити вибір", C0 = "Завершено", D0 = "Якщо ви зміните розширення файлу, він може стати непридатним для використання. Ви впевнені, що хочете змінити його?", w0 = "Ні", P0 = "Так", E0 = "Закрити", j0 = "Тип файлу не дозволено.", S0 = "Файл уже існує.", M0 = "Максимальний розмір завантаження —", T0 = "Перетягніть файли для завантаження", U0 = "Вибрати файл", L0 = "Помилка завантаження.", H0 = "Завантаження", V0 = "Завантажено", A0 = "Видалити", R0 = "Скасувати завантаження", k0 = "Попередній перегляд", z0 = "На жаль! Попередній перегляд для цього файлу недоступний.", O0 = "Головна", I0 = "Показати більше папок", G0 = "Перемістити до", _0 = "Ця папка порожня.", B0 = "Вибрати все", W0 = "Вигляд", Y0 = "Сітка", K0 = "Список", q0 = "Відкрити", J0 = "Тут ще нічого немає", X0 = "Назва", Z0 = "Змінено", Q0 = "Розмір", ev = 'Ви впевнені, що хочете видалити "{{fileName}}"?', nv = "Ви впевнені, що хочете видалити ці {{count}} елементи?", tv = "{{percent}}% завершено", rv = "Скасовано", iv = `Ім'я файлу не може містити такі символи: \\ / : * ? " < > |`, ov = 'У цьому місці вже існує папка з назвою "{{renameFile}}".', av = "Згорнути панель навігації", sv = "Розгорнути панель навігації", lv = {
-  newFolder: d0,
-  upload: f0,
-  paste: m0,
-  changeView: p0,
-  refresh: h0,
-  cut: g0,
-  copy: v0,
-  rename: b0,
-  download: N0,
+  fileAlreadyExist: U1,
+  maxUploadSize: S1,
+  dragFileToUpload: D1,
+  chooseFile: T1,
+  uploadFail: j1,
+  uploading: L1,
+  uploaded: H1,
+  remove: E1,
+  abortUpload: A1,
+  preview: z1,
+  previewUnavailable: k1,
+  home: R1,
+  showMoreFolder: I1,
+  moveTo: O1,
+  folderEmpty: G1,
+  selectAll: B1,
+  view: V1,
+  grid: W1,
+  list: _1,
+  open: Y1,
+  nothingHereYet: K1,
+  name: q1,
+  modified: J1,
+  size: Z1,
+  deleteItemConfirm: X1,
+  deleteItemsConfirm: Q1,
+  percentDone: eg,
+  canceled: ng,
+  invalidFileName: tg,
+  folderExists: ig,
+  collapseNavigationPane: rg,
+  expandNavigationPane: og
+}, sg = "Нова папка", lg = "Завантажити", cg = "Вставити", dg = "Змінити вигляд", ug = "Оновити", fg = "Вирізати", mg = "Копіювати", pg = "Перейменувати", hg = "Завантажити", gg = "вибраний елемент", bg = "вибрані елементи", vg = "Скасувати", Ng = "Очистити вибір", $g = "Завершено", yg = "Якщо ви зміните розширення файлу, він може стати непридатним для використання. Ви впевнені, що хочете змінити його?", Fg = "Ні", xg = "Так", Cg = "Закрити", wg = "Тип файлу не дозволено.", Pg = "Файл уже існує.", Mg = "Максимальний розмір завантаження —", Ug = "Перетягніть файли для завантаження", Sg = "Вибрати файл", Dg = "Помилка завантаження.", Tg = "Завантаження", jg = "Завантажено", Lg = "Видалити", Hg = "Скасувати завантаження", Eg = "Попередній перегляд", Ag = "На жаль! Попередній перегляд для цього файлу недоступний.", zg = "Головна", kg = "Показати більше папок", Rg = "Перемістити до", Ig = "Ця папка порожня.", Og = "Вибрати все", Gg = "Вигляд", Bg = "Сітка", Vg = "Список", Wg = "Відкрити", _g = "Тут ще нічого немає", Yg = "Назва", Kg = "Змінено", qg = "Розмір", Jg = 'Ви впевнені, що хочете видалити "{{fileName}}"?', Zg = "Ви впевнені, що хочете видалити ці {{count}} елементи?", Xg = "{{percent}}% завершено", Qg = "Скасовано", e0 = `Ім'я файлу не може містити такі символи: \\ / : * ? " < > |`, n0 = 'У цьому місці вже існує папка з назвою "{{renameFile}}".', t0 = "Згорнути панель навігації", i0 = "Розгорнути панель навігації", r0 = {
+  newFolder: sg,
+  upload: lg,
+  paste: cg,
+  changeView: dg,
+  refresh: ug,
+  cut: fg,
+  copy: mg,
+  rename: pg,
+  download: hg,
   delete: "Видалити",
-  itemSelected: x0,
-  itemsSelected: $0,
-  cancel: y0,
-  clearSelection: F0,
-  completed: C0,
-  fileNameChangeWarning: D0,
-  no: w0,
-  yes: P0,
-  close: E0,
-  fileTypeNotAllowed: j0,
-  fileAlreadyExist: S0,
-  maxUploadSize: M0,
-  dragFileToUpload: T0,
-  chooseFile: U0,
-  uploadFail: L0,
-  uploading: H0,
-  uploaded: V0,
-  remove: A0,
-  abortUpload: R0,
-  preview: k0,
-  previewUnavailable: z0,
-  home: O0,
-  showMoreFolder: I0,
-  moveTo: G0,
-  folderEmpty: _0,
-  selectAll: B0,
-  view: W0,
-  grid: Y0,
-  list: K0,
-  open: q0,
-  nothingHereYet: J0,
-  name: X0,
-  modified: Z0,
-  size: Q0,
-  deleteItemConfirm: ev,
-  deleteItemsConfirm: nv,
-  percentDone: tv,
-  canceled: rv,
-  invalidFileName: iv,
-  folderExists: ov,
-  collapseNavigationPane: av,
-  expandNavigationPane: sv
-}, cv = "نیا فولڈر", uv = "اپ لوڈ کریں", dv = "چسپاں کریں", fv = "دیکھنے کا طریقہ تبدیل کریں", mv = "تازہ کریں", pv = "کٹ کریں", hv = "کاپی کریں", gv = "نام تبدیل کریں", vv = "ڈاؤن لوڈ کریں", bv = "آئٹم منتخب کیا گیا", Nv = "{{count}} آئٹمز منتخب کی گئیں", xv = "منسوخ کریں", $v = "انتخاب صاف کریں", yv = "مکمل ہوا", Fv = "اگر آپ فائل کا ایکسٹینشن تبدیل کرتے ہیں، تو فائل ناقابل استعمال ہو سکتی ہے۔ کیا آپ واقعی اسے تبدیل کرنا چاہتے ہیں؟", Cv = "نہیں", Dv = "ہاں", wv = "بند کریں", Pv = "فائل کی قسم کی اجازت نہیں ہے۔", Ev = "فائل پہلے سے موجود ہے۔", jv = "زیادہ سے زیادہ اپ لوڈ سائز ہے", Sv = "اپ لوڈ کرنے کے لیے فائلز گھسیٹیں", Mv = "فائل منتخب کریں", Tv = "اپ لوڈ میں ناکامی۔", Uv = "اپ لوڈ ہو رہا ہے", Lv = "اپ لوڈ ہو گیا", Hv = "ہٹائیں", Vv = "اپ لوڈ منسوخ کریں", Av = "پریویو", Rv = "معذرت! اس فائل کا پریویو دستیاب نہیں ہے۔", kv = "ہوم", zv = "مزید فولڈرز دکھائیں", Ov = "منتقل کریں", Iv = "یہ فولڈر خالی ہے۔", Gv = "سبھی منتخب کریں", _v = "دیکھیں", Bv = "گِریڈ", Wv = "فہرست", Yv = "کھولیں", Kv = "ابھی کچھ بھی نہیں ہے", qv = "نام", Jv = "ترمیم شدہ", Xv = "سائز", Zv = 'کیا آپ واقعی "{{fileName}}" کو حذف کرنا چاہتے ہیں؟', Qv = "کیا آپ واقعی ان {{count}} آئٹمز کو حذف کرنا چاہتے ہیں؟", eb = "{{percent}}% مکمل ہوا", nb = "منسوخ کیا گیا", tb = 'فائل کا نام درج ذیل میں سے کوئی بھی حرف نہیں رکھ سکتا: \\ / : * ? " < > |', rb = 'اس منزل پر پہلے ہی "{{renameFile}}" کے نام کا فولڈر موجود ہے۔', ib = "نیویگیشن پین کو بند کریں", ob = "نیویگیشن پین کو کھولیں", ab = {
-  newFolder: cv,
-  upload: uv,
-  paste: dv,
-  changeView: fv,
-  refresh: mv,
-  cut: pv,
-  copy: hv,
-  rename: gv,
-  download: vv,
+  itemSelected: gg,
+  itemsSelected: bg,
+  cancel: vg,
+  clearSelection: Ng,
+  completed: $g,
+  fileNameChangeWarning: yg,
+  no: Fg,
+  yes: xg,
+  close: Cg,
+  fileTypeNotAllowed: wg,
+  fileAlreadyExist: Pg,
+  maxUploadSize: Mg,
+  dragFileToUpload: Ug,
+  chooseFile: Sg,
+  uploadFail: Dg,
+  uploading: Tg,
+  uploaded: jg,
+  remove: Lg,
+  abortUpload: Hg,
+  preview: Eg,
+  previewUnavailable: Ag,
+  home: zg,
+  showMoreFolder: kg,
+  moveTo: Rg,
+  folderEmpty: Ig,
+  selectAll: Og,
+  view: Gg,
+  grid: Bg,
+  list: Vg,
+  open: Wg,
+  nothingHereYet: _g,
+  name: Yg,
+  modified: Kg,
+  size: qg,
+  deleteItemConfirm: Jg,
+  deleteItemsConfirm: Zg,
+  percentDone: Xg,
+  canceled: Qg,
+  invalidFileName: e0,
+  folderExists: n0,
+  collapseNavigationPane: t0,
+  expandNavigationPane: i0
+}, o0 = "نیا فولڈر", a0 = "اپ لوڈ کریں", s0 = "چسپاں کریں", l0 = "دیکھنے کا طریقہ تبدیل کریں", c0 = "تازہ کریں", d0 = "کٹ کریں", u0 = "کاپی کریں", f0 = "نام تبدیل کریں", m0 = "ڈاؤن لوڈ کریں", p0 = "آئٹم منتخب کیا گیا", h0 = "{{count}} آئٹمز منتخب کی گئیں", g0 = "منسوخ کریں", b0 = "انتخاب صاف کریں", v0 = "مکمل ہوا", N0 = "اگر آپ فائل کا ایکسٹینشن تبدیل کرتے ہیں، تو فائل ناقابل استعمال ہو سکتی ہے۔ کیا آپ واقعی اسے تبدیل کرنا چاہتے ہیں؟", $0 = "نہیں", y0 = "ہاں", F0 = "بند کریں", x0 = "فائل کی قسم کی اجازت نہیں ہے۔", C0 = "فائل پہلے سے موجود ہے۔", w0 = "زیادہ سے زیادہ اپ لوڈ سائز ہے", P0 = "اپ لوڈ کرنے کے لیے فائلز گھسیٹیں", M0 = "فائل منتخب کریں", U0 = "اپ لوڈ میں ناکامی۔", S0 = "اپ لوڈ ہو رہا ہے", D0 = "اپ لوڈ ہو گیا", T0 = "ہٹائیں", j0 = "اپ لوڈ منسوخ کریں", L0 = "پریویو", H0 = "معذرت! اس فائل کا پریویو دستیاب نہیں ہے۔", E0 = "ہوم", A0 = "مزید فولڈرز دکھائیں", z0 = "منتقل کریں", k0 = "یہ فولڈر خالی ہے۔", R0 = "سبھی منتخب کریں", I0 = "دیکھیں", O0 = "گِریڈ", G0 = "فہرست", B0 = "کھولیں", V0 = "ابھی کچھ بھی نہیں ہے", W0 = "نام", _0 = "ترمیم شدہ", Y0 = "سائز", K0 = 'کیا آپ واقعی "{{fileName}}" کو حذف کرنا چاہتے ہیں؟', q0 = "کیا آپ واقعی ان {{count}} آئٹمز کو حذف کرنا چاہتے ہیں؟", J0 = "{{percent}}% مکمل ہوا", Z0 = "منسوخ کیا گیا", X0 = 'فائل کا نام درج ذیل میں سے کوئی بھی حرف نہیں رکھ سکتا: \\ / : * ? " < > |', Q0 = 'اس منزل پر پہلے ہی "{{renameFile}}" کے نام کا فولڈر موجود ہے۔', eb = "نیویگیشن پین کو بند کریں", nb = "نیویگیشن پین کو کھولیں", tb = {
+  newFolder: o0,
+  upload: a0,
+  paste: s0,
+  changeView: l0,
+  refresh: c0,
+  cut: d0,
+  copy: u0,
+  rename: f0,
+  download: m0,
   delete: "حذف کریں",
-  itemSelected: bv,
-  itemsSelected: Nv,
-  cancel: xv,
-  clearSelection: $v,
-  completed: yv,
-  fileNameChangeWarning: Fv,
-  no: Cv,
-  yes: Dv,
-  close: wv,
-  fileTypeNotAllowed: Pv,
-  fileAlreadyExist: Ev,
-  maxUploadSize: jv,
-  dragFileToUpload: Sv,
-  chooseFile: Mv,
-  uploadFail: Tv,
-  uploading: Uv,
-  uploaded: Lv,
-  remove: Hv,
-  abortUpload: Vv,
-  preview: Av,
-  previewUnavailable: Rv,
-  home: kv,
-  showMoreFolder: zv,
-  moveTo: Ov,
-  folderEmpty: Iv,
-  selectAll: Gv,
-  view: _v,
-  grid: Bv,
-  list: Wv,
-  open: Yv,
-  nothingHereYet: Kv,
-  name: qv,
-  modified: Jv,
-  size: Xv,
-  deleteItemConfirm: Zv,
-  deleteItemsConfirm: Qv,
-  percentDone: eb,
-  canceled: nb,
-  invalidFileName: tb,
-  folderExists: rb,
-  collapseNavigationPane: ib,
-  expandNavigationPane: ob
-}, sb = "Thư mục mới", lb = "Tải lên", cb = "Dán", ub = "Thay đổi chế độ xem", db = "Làm mới", fb = "Cắt", mb = "Sao chép", pb = "Đổi tên", hb = "Tải xuống", gb = "mục đã chọn", vb = "mục được chọn", bb = "Hủy", Nb = "Xóa lựa chọn", xb = "Hoàn thành", $b = "Nếu bạn thay đổi phần mở rộng tên tệp, tệp có thể không sử dụng được. Bạn có chắc chắn muốn thay đổi không?", yb = "Không", Fb = "Có", Cb = "Đóng", Db = "Loại tệp không được phép.", wb = "Tệp đã tồn tại.", Pb = "Kích thước tải lên tối đa là", Eb = "Kéo tệp vào để tải lên", jb = "Chọn tệp", Sb = "Tải lên thất bại.", Mb = "Đang tải lên", Tb = "Đã tải lên", Ub = "Gỡ bỏ", Lb = "Hủy tải lên", Hb = "Xem trước", Vb = "Rất tiếc! Không thể xem trước tệp này.", Ab = "Trang chủ", Rb = "Hiển thị thêm thư mục", kb = "Chuyển đến", zb = "Thư mục này trống.", Ob = "Chọn tất cả", Ib = "Chế độ xem", Gb = "Lưới", _b = "Danh sách", Bb = "Mở", Wb = "Chưa có gì ở đây", Yb = "Tên", Kb = "Đã chỉnh sửa", qb = "Kích thước", Jb = 'Bạn có chắc muốn xóa "{{fileName}}"?', Xb = "Bạn có chắc muốn xóa {{count}} mục này không?", Zb = "Hoàn thành {{percent}}%", Qb = "Đã hủy", e2 = 'Tên tệp không được chứa các ký tự sau: \\ / : * ? " < > |', n2 = 'Đã có thư mục tên "{{renameFile}}" tại vị trí này.', t2 = "Thu gọn ngăn điều hướng", r2 = "Mở rộng ngăn điều hướng", i2 = {
-  newFolder: sb,
-  upload: lb,
-  paste: cb,
-  changeView: ub,
-  refresh: db,
-  cut: fb,
-  copy: mb,
-  rename: pb,
-  download: hb,
+  itemSelected: p0,
+  itemsSelected: h0,
+  cancel: g0,
+  clearSelection: b0,
+  completed: v0,
+  fileNameChangeWarning: N0,
+  no: $0,
+  yes: y0,
+  close: F0,
+  fileTypeNotAllowed: x0,
+  fileAlreadyExist: C0,
+  maxUploadSize: w0,
+  dragFileToUpload: P0,
+  chooseFile: M0,
+  uploadFail: U0,
+  uploading: S0,
+  uploaded: D0,
+  remove: T0,
+  abortUpload: j0,
+  preview: L0,
+  previewUnavailable: H0,
+  home: E0,
+  showMoreFolder: A0,
+  moveTo: z0,
+  folderEmpty: k0,
+  selectAll: R0,
+  view: I0,
+  grid: O0,
+  list: G0,
+  open: B0,
+  nothingHereYet: V0,
+  name: W0,
+  modified: _0,
+  size: Y0,
+  deleteItemConfirm: K0,
+  deleteItemsConfirm: q0,
+  percentDone: J0,
+  canceled: Z0,
+  invalidFileName: X0,
+  folderExists: Q0,
+  collapseNavigationPane: eb,
+  expandNavigationPane: nb
+}, ib = "Thư mục mới", rb = "Tải lên", ob = "Dán", ab = "Thay đổi chế độ xem", sb = "Làm mới", lb = "Cắt", cb = "Sao chép", db = "Đổi tên", ub = "Tải xuống", fb = "mục đã chọn", mb = "mục được chọn", pb = "Hủy", hb = "Xóa lựa chọn", gb = "Hoàn thành", bb = "Nếu bạn thay đổi phần mở rộng tên tệp, tệp có thể không sử dụng được. Bạn có chắc chắn muốn thay đổi không?", vb = "Không", Nb = "Có", $b = "Đóng", yb = "Loại tệp không được phép.", Fb = "Tệp đã tồn tại.", xb = "Kích thước tải lên tối đa là", Cb = "Kéo tệp vào để tải lên", wb = "Chọn tệp", Pb = "Tải lên thất bại.", Mb = "Đang tải lên", Ub = "Đã tải lên", Sb = "Gỡ bỏ", Db = "Hủy tải lên", Tb = "Xem trước", jb = "Rất tiếc! Không thể xem trước tệp này.", Lb = "Trang chủ", Hb = "Hiển thị thêm thư mục", Eb = "Chuyển đến", Ab = "Thư mục này trống.", zb = "Chọn tất cả", kb = "Chế độ xem", Rb = "Lưới", Ib = "Danh sách", Ob = "Mở", Gb = "Chưa có gì ở đây", Bb = "Tên", Vb = "Đã chỉnh sửa", Wb = "Kích thước", _b = 'Bạn có chắc muốn xóa "{{fileName}}"?', Yb = "Bạn có chắc muốn xóa {{count}} mục này không?", Kb = "Hoàn thành {{percent}}%", qb = "Đã hủy", Jb = 'Tên tệp không được chứa các ký tự sau: \\ / : * ? " < > |', Zb = 'Đã có thư mục tên "{{renameFile}}" tại vị trí này.', Xb = "Thu gọn ngăn điều hướng", Qb = "Mở rộng ngăn điều hướng", e2 = {
+  newFolder: ib,
+  upload: rb,
+  paste: ob,
+  changeView: ab,
+  refresh: sb,
+  cut: lb,
+  copy: cb,
+  rename: db,
+  download: ub,
   delete: "Xóa",
-  itemSelected: gb,
-  itemsSelected: vb,
-  cancel: bb,
-  clearSelection: Nb,
-  completed: xb,
-  fileNameChangeWarning: $b,
-  no: yb,
-  yes: Fb,
-  close: Cb,
-  fileTypeNotAllowed: Db,
-  fileAlreadyExist: wb,
-  maxUploadSize: Pb,
-  dragFileToUpload: Eb,
-  chooseFile: jb,
-  uploadFail: Sb,
+  itemSelected: fb,
+  itemsSelected: mb,
+  cancel: pb,
+  clearSelection: hb,
+  completed: gb,
+  fileNameChangeWarning: bb,
+  no: vb,
+  yes: Nb,
+  close: $b,
+  fileTypeNotAllowed: yb,
+  fileAlreadyExist: Fb,
+  maxUploadSize: xb,
+  dragFileToUpload: Cb,
+  chooseFile: wb,
+  uploadFail: Pb,
   uploading: Mb,
-  uploaded: Tb,
-  remove: Ub,
-  abortUpload: Lb,
-  preview: Hb,
-  previewUnavailable: Vb,
-  home: Ab,
-  showMoreFolder: Rb,
-  moveTo: kb,
-  folderEmpty: zb,
-  selectAll: Ob,
-  view: Ib,
-  grid: Gb,
-  list: _b,
-  open: Bb,
-  nothingHereYet: Wb,
-  name: Yb,
-  modified: Kb,
-  size: qb,
-  deleteItemConfirm: Jb,
-  deleteItemsConfirm: Xb,
-  percentDone: Zb,
-  canceled: Qb,
-  invalidFileName: e2,
-  folderExists: n2,
-  collapseNavigationPane: t2,
-  expandNavigationPane: r2
-}, o2 = "新建文件夹", a2 = "上传", s2 = "粘贴", l2 = "更改视图", c2 = "刷新", u2 = "剪切", d2 = "复制", f2 = "重命名", m2 = "下载", p2 = "已选择项", h2 = "已选择{{count}}项", g2 = "取消", v2 = "清除选择", b2 = "完成", N2 = "如果更改文件扩展名，文件可能会变得无法使用。您确定要更改吗？", x2 = "否", $2 = "是", y2 = "关闭", F2 = "不允许的文件类型。", C2 = "文件已存在。", D2 = "最大上传大小为", w2 = "拖动文件上传", P2 = "选择文件", E2 = "上传失败。", j2 = "上传中", S2 = "已上传", M2 = "移除", T2 = "取消上传", U2 = "预览", L2 = "抱歉！该文件无法预览。", H2 = "首页", V2 = "显示更多文件夹", A2 = "移动到", R2 = "该文件夹为空。", k2 = "全选", z2 = "视图", O2 = "网格", I2 = "列表", G2 = "打开", _2 = "这里暂时没有内容", B2 = "名称", W2 = "修改时间", Y2 = "大小", K2 = '您确定要删除 "{{fileName}}" 吗？', q2 = "您确定要删除这些 {{count}} 项吗？", J2 = "{{percent}}% 完成", X2 = "已取消", Z2 = '文件名不能包含以下字符：\\ / : * ? " < > |', Q2 = '目标文件夹中已存在名为 "{{renameFile}}" 的文件夹。', eN = "折叠导航窗格", nN = "展开导航窗格", tN = {
-  newFolder: o2,
-  upload: a2,
-  paste: s2,
-  changeView: l2,
-  refresh: c2,
-  cut: u2,
-  copy: d2,
-  rename: f2,
-  download: m2,
+  uploaded: Ub,
+  remove: Sb,
+  abortUpload: Db,
+  preview: Tb,
+  previewUnavailable: jb,
+  home: Lb,
+  showMoreFolder: Hb,
+  moveTo: Eb,
+  folderEmpty: Ab,
+  selectAll: zb,
+  view: kb,
+  grid: Rb,
+  list: Ib,
+  open: Ob,
+  nothingHereYet: Gb,
+  name: Bb,
+  modified: Vb,
+  size: Wb,
+  deleteItemConfirm: _b,
+  deleteItemsConfirm: Yb,
+  percentDone: Kb,
+  canceled: qb,
+  invalidFileName: Jb,
+  folderExists: Zb,
+  collapseNavigationPane: Xb,
+  expandNavigationPane: Qb
+}, n2 = "新建文件夹", t2 = "上传", i2 = "粘贴", r2 = "更改视图", o2 = "刷新", a2 = "剪切", s2 = "复制", l2 = "重命名", c2 = "下载", d2 = "已选择项", u2 = "已选择{{count}}项", f2 = "取消", m2 = "清除选择", p2 = "完成", h2 = "如果更改文件扩展名，文件可能会变得无法使用。您确定要更改吗？", g2 = "否", b2 = "是", v2 = "关闭", N2 = "不允许的文件类型。", $2 = "文件已存在。", y2 = "最大上传大小为", F2 = "拖动文件上传", x2 = "选择文件", C2 = "上传失败。", w2 = "上传中", P2 = "已上传", M2 = "移除", U2 = "取消上传", S2 = "预览", D2 = "抱歉！该文件无法预览。", T2 = "首页", j2 = "显示更多文件夹", L2 = "移动到", H2 = "该文件夹为空。", E2 = "全选", A2 = "视图", z2 = "网格", k2 = "列表", R2 = "打开", I2 = "这里暂时没有内容", O2 = "名称", G2 = "修改时间", B2 = "大小", V2 = '您确定要删除 "{{fileName}}" 吗？', W2 = "您确定要删除这些 {{count}} 项吗？", _2 = "{{percent}}% 完成", Y2 = "已取消", K2 = '文件名不能包含以下字符：\\ / : * ? " < > |', q2 = '目标文件夹中已存在名为 "{{renameFile}}" 的文件夹。', J2 = "折叠导航窗格", Z2 = "展开导航窗格", X2 = {
+  newFolder: n2,
+  upload: t2,
+  paste: i2,
+  changeView: r2,
+  refresh: o2,
+  cut: a2,
+  copy: s2,
+  rename: l2,
+  download: c2,
   delete: "删除",
-  itemSelected: p2,
-  itemsSelected: h2,
-  cancel: g2,
-  clearSelection: v2,
-  completed: b2,
-  fileNameChangeWarning: N2,
-  no: x2,
-  yes: $2,
-  close: y2,
-  fileTypeNotAllowed: F2,
-  fileAlreadyExist: C2,
-  maxUploadSize: D2,
-  dragFileToUpload: w2,
-  chooseFile: P2,
-  uploadFail: E2,
-  uploading: j2,
-  uploaded: S2,
+  itemSelected: d2,
+  itemsSelected: u2,
+  cancel: f2,
+  clearSelection: m2,
+  completed: p2,
+  fileNameChangeWarning: h2,
+  no: g2,
+  yes: b2,
+  close: v2,
+  fileTypeNotAllowed: N2,
+  fileAlreadyExist: $2,
+  maxUploadSize: y2,
+  dragFileToUpload: F2,
+  chooseFile: x2,
+  uploadFail: C2,
+  uploading: w2,
+  uploaded: P2,
   remove: M2,
-  abortUpload: T2,
-  preview: U2,
-  previewUnavailable: L2,
-  home: H2,
-  showMoreFolder: V2,
-  moveTo: A2,
-  folderEmpty: R2,
-  selectAll: k2,
-  view: z2,
-  grid: O2,
-  list: I2,
-  open: G2,
-  nothingHereYet: _2,
-  name: B2,
-  modified: W2,
-  size: Y2,
-  deleteItemConfirm: K2,
-  deleteItemsConfirm: q2,
-  percentDone: J2,
-  canceled: X2,
-  invalidFileName: Z2,
-  folderExists: Q2,
-  collapseNavigationPane: eN,
-  expandNavigationPane: nN
-}, rN = "Nowy folder", iN = "Prześlij", oN = "Wklej", aN = "Zmień widok", sN = "Odśwież", lN = "Wytnij", cN = "Kopiuj", uN = "Zmień nazwę", dN = "Pobierz", fN = "element zaznaczony", mN = "elementy zaznaczone", pN = "Anuluj", hN = "Wyczyść zaznaczenie", gN = "Zakończono", vN = "Jeśli zmienisz rozszerzenie pliku, może on stać się nieużyteczny. Czy na pewno chcesz to zrobić?", bN = "Nie", NN = "Tak", xN = "Zamknij", $N = "Typ pliku nie jest dozwolony.", yN = "Plik już istnieje.", FN = "Maksymalny rozmiar przesyłanego pliku to", CN = "Przeciągnij pliki, aby je przesłać", DN = "Wybierz plik", wN = "Przesyłanie nie powiodło się.", PN = "Przesyłanie", EN = "Przesłano", jN = "Usuń", SN = "Przerwij przesyłanie", MN = "Podgląd", TN = "Przepraszamy! Podgląd tego pliku nie jest dostępny.", UN = "Strona główna", LN = "Pokaż więcej folderów", HN = "Przenieś do", VN = "Ten folder jest pusty.", AN = "Zaznacz wszystko", RN = "Widok", kN = "Siatka", zN = "Lista", ON = "Otwórz", IN = "Nic tu jeszcze nie ma", GN = "Nazwa", _N = "Zmodyfikowano", BN = "Rozmiar", WN = 'Czy na pewno chcesz usunąć "{{fileName}}"?', YN = "Czy na pewno chcesz usunąć te {{count}} elementy?", KN = "{{percent}}% ukończono", qN = "Anulowano", JN = 'Nazwa pliku nie może zawierać żadnego z następujących znaków: \\ / : * ? " < > |', XN = 'To miejsce docelowe zawiera już folder o nazwie "{{renameFile}}".', ZN = "Zwiń panel nawigacyjny", QN = "Rozwiń panel nawigacyjny", ex = {
-  newFolder: rN,
-  upload: iN,
-  paste: oN,
-  changeView: aN,
-  refresh: sN,
-  cut: lN,
-  copy: cN,
-  rename: uN,
-  download: dN,
+  abortUpload: U2,
+  preview: S2,
+  previewUnavailable: D2,
+  home: T2,
+  showMoreFolder: j2,
+  moveTo: L2,
+  folderEmpty: H2,
+  selectAll: E2,
+  view: A2,
+  grid: z2,
+  list: k2,
+  open: R2,
+  nothingHereYet: I2,
+  name: O2,
+  modified: G2,
+  size: B2,
+  deleteItemConfirm: V2,
+  deleteItemsConfirm: W2,
+  percentDone: _2,
+  canceled: Y2,
+  invalidFileName: K2,
+  folderExists: q2,
+  collapseNavigationPane: J2,
+  expandNavigationPane: Z2
+}, Q2 = "Nowy folder", ev = "Prześlij", nv = "Wklej", tv = "Zmień widok", iv = "Odśwież", rv = "Wytnij", ov = "Kopiuj", av = "Zmień nazwę", sv = "Pobierz", lv = "element zaznaczony", cv = "elementy zaznaczone", dv = "Anuluj", uv = "Wyczyść zaznaczenie", fv = "Zakończono", mv = "Jeśli zmienisz rozszerzenie pliku, może on stać się nieużyteczny. Czy na pewno chcesz to zrobić?", pv = "Nie", hv = "Tak", gv = "Zamknij", bv = "Typ pliku nie jest dozwolony.", vv = "Plik już istnieje.", Nv = "Maksymalny rozmiar przesyłanego pliku to", $v = "Przeciągnij pliki, aby je przesłać", yv = "Wybierz plik", Fv = "Przesyłanie nie powiodło się.", xv = "Przesyłanie", Cv = "Przesłano", wv = "Usuń", Pv = "Przerwij przesyłanie", Mv = "Podgląd", Uv = "Przepraszamy! Podgląd tego pliku nie jest dostępny.", Sv = "Strona główna", Dv = "Pokaż więcej folderów", Tv = "Przenieś do", jv = "Ten folder jest pusty.", Lv = "Zaznacz wszystko", Hv = "Widok", Ev = "Siatka", Av = "Lista", zv = "Otwórz", kv = "Nic tu jeszcze nie ma", Rv = "Nazwa", Iv = "Zmodyfikowano", Ov = "Rozmiar", Gv = 'Czy na pewno chcesz usunąć "{{fileName}}"?', Bv = "Czy na pewno chcesz usunąć te {{count}} elementy?", Vv = "{{percent}}% ukończono", Wv = "Anulowano", _v = 'Nazwa pliku nie może zawierać żadnego z następujących znaków: \\ / : * ? " < > |', Yv = 'To miejsce docelowe zawiera już folder o nazwie "{{renameFile}}".', Kv = "Zwiń panel nawigacyjny", qv = "Rozwiń panel nawigacyjny", Jv = {
+  newFolder: Q2,
+  upload: ev,
+  paste: nv,
+  changeView: tv,
+  refresh: iv,
+  cut: rv,
+  copy: ov,
+  rename: av,
+  download: sv,
   delete: "Usuń",
-  itemSelected: fN,
-  itemsSelected: mN,
-  cancel: pN,
-  clearSelection: hN,
-  completed: gN,
-  fileNameChangeWarning: vN,
-  no: bN,
-  yes: NN,
-  close: xN,
-  fileTypeNotAllowed: $N,
-  fileAlreadyExist: yN,
-  maxUploadSize: FN,
-  dragFileToUpload: CN,
-  chooseFile: DN,
-  uploadFail: wN,
-  uploading: PN,
-  uploaded: EN,
-  remove: jN,
-  abortUpload: SN,
-  preview: MN,
-  previewUnavailable: TN,
-  home: UN,
-  showMoreFolder: LN,
-  moveTo: HN,
-  folderEmpty: VN,
-  selectAll: AN,
-  view: RN,
-  grid: kN,
-  list: zN,
-  open: ON,
-  nothingHereYet: IN,
-  name: GN,
-  modified: _N,
-  size: BN,
-  deleteItemConfirm: WN,
-  deleteItemsConfirm: YN,
-  percentDone: KN,
-  canceled: qN,
-  invalidFileName: JN,
-  folderExists: XN,
-  collapseNavigationPane: ZN,
-  expandNavigationPane: QN
-}, nx = {
-  ar: { translation: Lo },
-  de: { translation: Ta },
-  en: { translation: Ss },
-  es: { translation: El },
-  fr: { translation: wc },
-  he: { translation: Cu },
-  hi: { translation: yd },
-  it: { translation: $f },
-  ja: { translation: Nm },
-  ko: { translation: vp },
-  pt: { translation: hh },
-  ptpt: { translation: mg },
-  ru: { translation: d1 },
-  tr: { translation: u0 },
-  uk: { translation: lv },
-  ur: { translation: ab },
-  vi: { translation: i2 },
-  zh: { translation: tN },
-  pl: { translation: ex }
-}, tx = (n = "en") => {
-  fe.isInitialized ? fe.changeLanguage(n) : fe.init({
-    resources: nx,
+  itemSelected: lv,
+  itemsSelected: cv,
+  cancel: dv,
+  clearSelection: uv,
+  completed: fv,
+  fileNameChangeWarning: mv,
+  no: pv,
+  yes: hv,
+  close: gv,
+  fileTypeNotAllowed: bv,
+  fileAlreadyExist: vv,
+  maxUploadSize: Nv,
+  dragFileToUpload: $v,
+  chooseFile: yv,
+  uploadFail: Fv,
+  uploading: xv,
+  uploaded: Cv,
+  remove: wv,
+  abortUpload: Pv,
+  preview: Mv,
+  previewUnavailable: Uv,
+  home: Sv,
+  showMoreFolder: Dv,
+  moveTo: Tv,
+  folderEmpty: jv,
+  selectAll: Lv,
+  view: Hv,
+  grid: Ev,
+  list: Av,
+  open: zv,
+  nothingHereYet: kv,
+  name: Rv,
+  modified: Iv,
+  size: Ov,
+  deleteItemConfirm: Gv,
+  deleteItemsConfirm: Bv,
+  percentDone: Vv,
+  canceled: Wv,
+  invalidFileName: _v,
+  folderExists: Yv,
+  collapseNavigationPane: Kv,
+  expandNavigationPane: qv
+}, Zv = {
+  ar: { translation: Sr },
+  de: { translation: Uo },
+  en: { translation: Pa },
+  es: { translation: Cs },
+  fr: { translation: Fl },
+  he: { translation: $c },
+  hi: { translation: vd },
+  it: { translation: gu },
+  ja: { translation: hf },
+  ko: { translation: mm },
+  pt: { translation: up },
+  ptpt: { translation: ch },
+  ru: { translation: s1 },
+  tr: { translation: ag },
+  uk: { translation: r0 },
+  ur: { translation: tb },
+  vi: { translation: e2 },
+  zh: { translation: X2 },
+  pl: { translation: Jv }
+}, Xv = (n = "en") => {
+  re.isInitialized ? re.changeLanguage(n) : re.init({
+    resources: Zv,
     lng: n,
     fallbackLng: "en",
     interpolation: {
       escapeValue: !1
     }
   });
-}, cr = _e(() => (n) => n), rx = ({ children: n, language: e }) => {
-  const [t, r] = R(() => fe.t.bind(fe));
-  return oe(() => {
-    tx(e), r(() => fe.t.bind(fe));
-  }, [e]), /* @__PURE__ */ s.jsxDEV(cr.Provider, { value: t, children: n }, void 0, !1, {
+}, wt = Pe(() => (n) => n), Qv = ({ children: n, language: e }) => {
+  const [t, i] = L(() => re.t.bind(re));
+  return X(() => {
+    Xv(e), i(() => re.t.bind(re));
+  }, [e]), /* @__PURE__ */ l(wt.Provider, { value: t, children: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/contexts/TranslationProvider.jsx",
     lineNumber: 14,
     columnNumber: 10
   }, void 0);
-}, Ne = () => Be(cr), ix = ({ setShowToggleViewMenu: n, onLayoutChange: e }) => {
-  const t = Ze(() => {
+}, se = () => Me(wt), eN = ({ setShowToggleViewMenu: n, onLayoutChange: e }) => {
+  const t = He(() => {
     n(!1);
-  }), { activeLayout: r, setActiveLayout: i } = He(), o = Ne(), a = [
+  }), { activeLayout: i, setActiveLayout: r } = ve(), o = se(), a = [
     {
       key: "grid",
       name: o("grid"),
-      icon: /* @__PURE__ */ s.jsxDEV(Zt, { size: 18 }, void 0, !1, {
+      icon: /* @__PURE__ */ l(pt, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/LayoutToggler.jsx",
         lineNumber: 18,
         columnNumber: 13
@@ -3287,23 +2658,23 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
     {
       key: "list",
       name: o("list"),
-      icon: /* @__PURE__ */ s.jsxDEV(ln, { size: 18 }, void 0, !1, {
+      icon: /* @__PURE__ */ l(Ie, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/LayoutToggler.jsx",
         lineNumber: 23,
         columnNumber: 13
       }, void 0)
     }
-  ], l = (c) => {
-    i(c), e(c), n(!1);
+  ], s = (c) => {
+    r(c), e(c), n(!1);
   };
-  return /* @__PURE__ */ s.jsxDEV("div", { ref: t.ref, className: "toggle-view", role: "dropdown", children: /* @__PURE__ */ s.jsxDEV("ul", { role: "menu", "aria-orientation": "vertical", children: a.map((c) => /* @__PURE__ */ s.jsxDEV(
+  return /* @__PURE__ */ l("div", { ref: t.ref, className: "toggle-view", role: "dropdown", children: /* @__PURE__ */ l("ul", { role: "menu", "aria-orientation": "vertical", children: a.map((c) => /* @__PURE__ */ l(
     "li",
     {
       role: "menuitem",
-      onClick: () => l(c.key),
-      onKeyDown: () => l(c.key),
+      onClick: () => s(c.key),
+      onKeyDown: () => s(c.key),
       children: [
-        /* @__PURE__ */ s.jsxDEV("span", { children: c.key === r && /* @__PURE__ */ s.jsxDEV(ir, { size: 13 }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: c.key === i && /* @__PURE__ */ l($t, { size: 13 }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/LayoutToggler.jsx",
           lineNumber: 43,
           columnNumber: 51
@@ -3312,12 +2683,12 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
           lineNumber: 43,
           columnNumber: 13
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { children: c.icon }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: c.icon }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/LayoutToggler.jsx",
           lineNumber: 44,
           columnNumber: 13
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { children: c.name }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: c.name }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/LayoutToggler.jsx",
           lineNumber: 45,
           columnNumber: 13
@@ -3341,62 +2712,62 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
     lineNumber: 34,
     columnNumber: 5
   }, void 0);
-}, ur = _e(), ox = ({ children: n, filesData: e, onError: t }) => {
-  const [r, i] = R([]);
-  oe(() => {
-    i(e);
+}, Pt = Pe(), nN = ({ children: n, filesData: e, onError: t }) => {
+  const [i, r] = L([]);
+  X(() => {
+    r(e);
   }, [e]);
-  const o = (a) => a.isDirectory ? r.filter((l) => l.path === `${a.path}/${l.name}`) : [];
-  return /* @__PURE__ */ s.jsxDEV(ur.Provider, { value: { files: r, setFiles: i, getChildren: o, onError: t }, children: n }, void 0, !1, {
+  const o = (a) => a.isDirectory ? i.filter((s) => s.path === `${a.path}/${s.name}`) : [];
+  return /* @__PURE__ */ l(Pt.Provider, { value: { files: i, setFiles: r, getChildren: o, onError: t }, children: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/contexts/FilesContext.jsx",
     lineNumber: 19,
     columnNumber: 5
   }, void 0);
-}, vn = () => Be(ur), ax = (n, e = "name", t = "asc") => {
-  const r = n.filter((c) => c.isDirectory), i = n.filter((c) => !c.isDirectory), o = (c, u) => {
-    let f = 0;
+}, qe = () => Me(Pt), tN = (n, e = "name", t = "asc") => {
+  const i = n.filter((c) => c.isDirectory), r = n.filter((c) => !c.isDirectory), o = (c, d) => {
+    let u = 0;
     switch (e) {
       case "name":
-        f = c.name.localeCompare(u.name);
+        u = c.name.localeCompare(d.name);
         break;
       case "size":
-        const m = c.size || 0, g = u.size || 0;
-        f = m - g;
+        const f = c.size || 0, h = d.size || 0;
+        u = f - h;
         break;
       case "modified":
-        const p = c.updatedAt ? new Date(c.updatedAt).getTime() : 0, h = u.updatedAt ? new Date(u.updatedAt).getTime() : 0;
-        f = p - h;
+        const m = c.updatedAt ? new Date(c.updatedAt).getTime() : 0, p = d.updatedAt ? new Date(d.updatedAt).getTime() : 0;
+        u = m - p;
         break;
       default:
-        f = c.name.localeCompare(u.name);
+        u = c.name.localeCompare(d.name);
     }
-    return t === "asc" ? f : -f;
-  }, a = [...r].sort(o), l = [...i].sort(o);
-  return [...a, ...l];
-}, dr = _e(), sx = ({ children: n, initialPath: e, onFolderChange: t }) => {
-  const { files: r } = vn(), i = pe(!1), [o, a] = R(""), [l, c] = R(null), [u, f] = R([]), [m, g] = R({ key: "name", direction: "asc" });
-  return oe(() => {
-    Array.isArray(r) && r.length > 0 ? (f(() => {
-      const p = r.filter((h) => h.path === `${o}/${h.name}`);
-      return ax(p, m.key, m.direction);
-    }), c(() => r.find((p) => p.path === o) ?? null)) : (f([]), c(null));
-  }, [r, o, m]), oe(() => {
-    if (!i.current && Array.isArray(r) && r.length > 0) {
-      const p = r.some((h) => h.isDirectory && h.path === e) ? e : "";
-      a(p), i.current = !0;
+    return t === "asc" ? u : -u;
+  }, a = [...i].sort(o), s = [...r].sort(o);
+  return [...a, ...s];
+}, Mt = Pe(), iN = ({ children: n, initialPath: e, onFolderChange: t }) => {
+  const { files: i } = qe(), r = oe(!1), [o, a] = L(""), [s, c] = L(null), [d, u] = L([]), [f, h] = L({ key: "name", direction: "asc" });
+  return X(() => {
+    Array.isArray(i) && i.length > 0 ? (u(() => {
+      const m = i.filter((p) => p.path === `${o}/${p.name}`);
+      return tN(m, f.key, f.direction);
+    }), c(() => i.find((m) => m.path === o) ?? null)) : (u([]), c(null));
+  }, [i, o, f]), X(() => {
+    if (!r.current && Array.isArray(i) && i.length > 0) {
+      const m = i.some((p) => p.isDirectory && p.path === e) ? e : "";
+      a(m), r.current = !0;
     }
-  }, [r]), /* @__PURE__ */ s.jsxDEV(
-    dr.Provider,
+  }, [i]), /* @__PURE__ */ l(
+    Mt.Provider,
     {
       value: {
         currentPath: o,
         setCurrentPath: a,
-        currentFolder: l,
+        currentFolder: s,
         setCurrentFolder: c,
-        currentPathFiles: u,
-        setCurrentPathFiles: f,
-        sortConfig: m,
-        setSortConfig: g,
+        currentPathFiles: d,
+        setCurrentPathFiles: u,
+        sortConfig: f,
+        setSortConfig: h,
         onFolderChange: t
       },
       children: n
@@ -3410,7 +2781,7 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
     },
     void 0
   );
-}, we = () => Be(dr), Ae = (n, e, ...t) => {
+}, me = () => Me(Mt), ye = (n, e, ...t) => {
   try {
     if (typeof n == "function")
       n(...t);
@@ -3418,112 +2789,112 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
       throw new Error(
         `<FileManager /> Missing prop: Callback function "${e}" is required.`
       );
-  } catch (r) {
-    console.error(r.message);
+  } catch (i) {
+    console.error(i.message);
   }
-}, fr = _e(), lx = ({ children: n, onDownload: e, onSelect: t, onSelectionChange: r }) => {
-  const [i, o] = R([]);
-  oe(() => {
-    t == null || t(i), r == null || r(i);
-  }, [i]);
+}, Ut = Pe(), rN = ({ children: n, onDownload: e, onSelect: t, onSelectionChange: i }) => {
+  const [r, o] = L([]);
+  X(() => {
+    t == null || t(r), i == null || i(r);
+  }, [r]);
   const a = () => {
-    Ae(e, "onDownload", i);
+    ye(e, "onDownload", r);
   };
-  return /* @__PURE__ */ s.jsxDEV(fr.Provider, { value: { selectedFiles: i, setSelectedFiles: o, handleDownload: a }, children: n }, void 0, !1, {
+  return /* @__PURE__ */ l(Ut.Provider, { value: { selectedFiles: r, setSelectedFiles: o, handleDownload: a }, children: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/contexts/SelectionContext.jsx",
     lineNumber: 19,
     columnNumber: 5
   }, void 0);
-}, Te = () => Be(fr), mr = _e(), cx = ({ children: n, onPaste: e, onCut: t, onCopy: r }) => {
-  const [i, o] = R(null), { selectedFiles: a, setSelectedFiles: l } = Te(), c = (f) => {
+}, ge = () => Me(Ut), St = Pe(), oN = ({ children: n, onPaste: e, onCut: t, onCopy: i }) => {
+  const [r, o] = L(null), { selectedFiles: a, setSelectedFiles: s } = ge(), c = (u) => {
     o({
       files: a,
-      isMoving: f
-    }), f ? t && t(a) : r && r(a);
-  }, u = (f) => {
-    if (f && !f.isDirectory) return;
-    const m = i.files, g = i.isMoving ? "move" : "copy";
-    Ae(e, "onPaste", m, f, g), i.isMoving && o(null), l([]);
+      isMoving: u
+    }), u ? t && t(a) : i && i(a);
+  }, d = (u) => {
+    if (u && !u.isDirectory) return;
+    const f = r.files, h = r.isMoving ? "move" : "copy";
+    ye(e, "onPaste", f, u, h), r.isMoving && o(null), s([]);
   };
-  return /* @__PURE__ */ s.jsxDEV(mr.Provider, { value: { clipBoard: i, setClipBoard: o, handleCutCopy: c, handlePasting: u }, children: n }, void 0, !1, {
+  return /* @__PURE__ */ l(St.Provider, { value: { clipBoard: r, setClipBoard: o, handleCutCopy: c, handlePasting: d }, children: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/contexts/ClipboardContext.jsx",
     lineNumber: 38,
     columnNumber: 5
   }, void 0);
-}, bn = () => Be(mr), pr = ({ onLayoutChange: n, onRefresh: e, triggerAction: t, permissions: r }) => {
-  var S;
-  const [i, o] = R(!1), { currentFolder: a } = we(), { selectedFiles: l, setSelectedFiles: c, handleDownload: u } = Te(), { clipBoard: f, setClipBoard: m, handleCutCopy: g, handlePasting: p } = bn(), { activeLayout: h } = He(), N = Ne(), H = [
+}, Je = () => Me(St), Dt = ({ onLayoutChange: n, onRefresh: e, triggerAction: t, permissions: i }) => {
+  var P;
+  const [r, o] = L(!1), { currentFolder: a } = me(), { selectedFiles: s, setSelectedFiles: c, handleDownload: d } = ge(), { clipBoard: u, setClipBoard: f, handleCutCopy: h, handlePasting: m } = Je(), { activeLayout: p } = ve(), v = se(), j = [
     {
-      icon: /* @__PURE__ */ s.jsxDEV(Xt, { size: 17, strokeWidth: 0.3 }, void 0, !1, {
+      icon: /* @__PURE__ */ l(mt, { size: 17, strokeWidth: 0.3 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 32,
         columnNumber: 13
       }, void 0),
-      text: N("newFolder"),
-      permission: r.create,
+      text: v("newFolder"),
+      permission: i.create,
       onClick: () => t.show("createFolder")
     },
     {
-      icon: /* @__PURE__ */ s.jsxDEV(tr, { size: 18 }, void 0, !1, {
+      icon: /* @__PURE__ */ l(vt, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 38,
         columnNumber: 13
       }, void 0),
-      text: N("upload"),
-      permission: r.upload,
+      text: v("upload"),
+      permission: i.upload,
       onClick: () => t.show("uploadFile")
     },
     {
-      icon: /* @__PURE__ */ s.jsxDEV(An, { size: 18 }, void 0, !1, {
+      icon: /* @__PURE__ */ l(dn, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 44,
         columnNumber: 13
       }, void 0),
-      text: N("paste"),
-      permission: !!f,
-      onClick: j
+      text: v("paste"),
+      permission: !!u,
+      onClick: H
     }
-  ], F = [
+  ], w = [
     {
-      icon: h === "grid" ? /* @__PURE__ */ s.jsxDEV(Zt, { size: 16 }, void 0, !1, {
+      icon: p === "grid" ? /* @__PURE__ */ l(pt, { size: 16 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 53,
         columnNumber: 39
-      }, void 0) : /* @__PURE__ */ s.jsxDEV(ln, { size: 16 }, void 0, !1, {
+      }, void 0) : /* @__PURE__ */ l(Ie, { size: 16 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 53,
         columnNumber: 66
       }, void 0),
-      title: N("changeView"),
-      onClick: () => o((v) => !v)
+      title: v("changeView"),
+      onClick: () => o((g) => !g)
     },
     {
-      icon: /* @__PURE__ */ s.jsxDEV(er, { size: 16 }, void 0, !1, {
+      icon: /* @__PURE__ */ l(gt, { size: 16 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 58,
         columnNumber: 13
       }, void 0),
-      title: N("refresh"),
+      title: v("refresh"),
       onClick: () => {
-        Ae(e, "onRefresh"), m(null);
+        ye(e, "onRefresh"), f(null);
       }
     }
   ];
-  function j() {
-    p(a);
+  function H() {
+    m(a);
   }
-  const P = () => {
-    u(), c([]);
+  const C = () => {
+    d(), c([]);
   };
-  return l.length > 0 ? /* @__PURE__ */ s.jsxDEV("div", { className: "toolbar file-selected", children: /* @__PURE__ */ s.jsxDEV("div", { className: "file-action-container", children: [
-    /* @__PURE__ */ s.jsxDEV("div", { children: [
-      r.move && /* @__PURE__ */ s.jsxDEV("button", { className: "item-action file-action", onClick: () => g(!0), children: [
-        /* @__PURE__ */ s.jsxDEV(Qt, { size: 18 }, void 0, !1, {
+  return s.length > 0 ? /* @__PURE__ */ l("div", { className: "toolbar file-selected", children: /* @__PURE__ */ l("div", { className: "file-action-container", children: [
+    /* @__PURE__ */ l("div", { children: [
+      i.move && /* @__PURE__ */ l("button", { className: "item-action file-action", onClick: () => h(!0), children: [
+        /* @__PURE__ */ l(ht, { size: 18 }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 84,
           columnNumber: 17
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { children: N("cut") }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: v("cut") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 85,
           columnNumber: 17
@@ -3533,13 +2904,13 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
         lineNumber: 83,
         columnNumber: 15
       }, void 0),
-      r.copy && /* @__PURE__ */ s.jsxDEV("button", { className: "item-action file-action", onClick: () => g(!1), children: [
-        /* @__PURE__ */ s.jsxDEV(Jt, { strokeWidth: 0.1, size: 17 }, void 0, !1, {
+      i.copy && /* @__PURE__ */ l("button", { className: "item-action file-action", onClick: () => h(!1), children: [
+        /* @__PURE__ */ l(ft, { strokeWidth: 0.1, size: 17 }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 90,
           columnNumber: 17
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { children: N("copy") }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: v("copy") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 91,
           columnNumber: 17
@@ -3549,18 +2920,18 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
         lineNumber: 89,
         columnNumber: 15
       }, void 0),
-      ((S = f == null ? void 0 : f.files) == null ? void 0 : S.length) > 0 && /* @__PURE__ */ s.jsxDEV(
+      ((P = u == null ? void 0 : u.files) == null ? void 0 : P.length) > 0 && /* @__PURE__ */ l(
         "button",
         {
           className: "item-action file-action",
-          onClick: j,
+          onClick: H,
           children: [
-            /* @__PURE__ */ s.jsxDEV(An, { size: 18 }, void 0, !1, {
+            /* @__PURE__ */ l(dn, { size: 18 }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
               lineNumber: 100,
               columnNumber: 17
             }, void 0),
-            /* @__PURE__ */ s.jsxDEV("span", { children: N("paste") }, void 0, !1, {
+            /* @__PURE__ */ l("span", { children: v("paste") }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
               lineNumber: 101,
               columnNumber: 17
@@ -3576,18 +2947,18 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
         },
         void 0
       ),
-      l.length === 1 && r.rename && /* @__PURE__ */ s.jsxDEV(
+      s.length === 1 && i.rename && /* @__PURE__ */ l(
         "button",
         {
           className: "item-action file-action",
           onClick: () => t.show("rename"),
           children: [
-            /* @__PURE__ */ s.jsxDEV(rr, { size: 19 }, void 0, !1, {
+            /* @__PURE__ */ l(Nt, { size: 19 }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
               lineNumber: 109,
               columnNumber: 17
             }, void 0),
-            /* @__PURE__ */ s.jsxDEV("span", { children: N("rename") }, void 0, !1, {
+            /* @__PURE__ */ l("span", { children: v("rename") }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
               lineNumber: 110,
               columnNumber: 17
@@ -3603,13 +2974,13 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
         },
         void 0
       ),
-      r.download && /* @__PURE__ */ s.jsxDEV("button", { className: "item-action file-action", onClick: P, children: [
-        /* @__PURE__ */ s.jsxDEV(On, { size: 19 }, void 0, !1, {
+      i.download && /* @__PURE__ */ l("button", { className: "item-action file-action", onClick: C, children: [
+        /* @__PURE__ */ l(pn, { size: 19 }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 115,
           columnNumber: 17
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { children: N("download") }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: v("download") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 116,
           columnNumber: 17
@@ -3619,18 +2990,18 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
         lineNumber: 114,
         columnNumber: 15
       }, void 0),
-      r.delete && /* @__PURE__ */ s.jsxDEV(
+      i.delete && /* @__PURE__ */ l(
         "button",
         {
           className: "item-action file-action",
           onClick: () => t.show("delete"),
           children: [
-            /* @__PURE__ */ s.jsxDEV(nr, { size: 19 }, void 0, !1, {
+            /* @__PURE__ */ l(bt, { size: 19 }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
               lineNumber: 124,
               columnNumber: 17
             }, void 0),
-            /* @__PURE__ */ s.jsxDEV("span", { children: N("delete") }, void 0, !1, {
+            /* @__PURE__ */ l("span", { children: v("delete") }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
               lineNumber: 125,
               columnNumber: 17
@@ -3651,23 +3022,23 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
       lineNumber: 81,
       columnNumber: 11
     }, void 0),
-    /* @__PURE__ */ s.jsxDEV(
+    /* @__PURE__ */ l(
       "button",
       {
         className: "item-action file-action",
-        title: N("clearSelection"),
+        title: v("clearSelection"),
         onClick: () => c([]),
         children: [
-          /* @__PURE__ */ s.jsxDEV("span", { children: [
-            l.length,
+          /* @__PURE__ */ l("span", { children: [
+            s.length,
             " ",
-            N(l.length > 1 ? "itemsSelected" : "itemSelected")
+            v(s.length > 1 ? "itemsSelected" : "itemSelected")
           ] }, void 0, !0, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
             lineNumber: 134,
             columnNumber: 13
           }, void 0),
-          /* @__PURE__ */ s.jsxDEV(ii, { size: 18 }, void 0, !1, {
+          /* @__PURE__ */ l(ei, { size: 18 }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
             lineNumber: 138,
             columnNumber: 13
@@ -3691,15 +3062,15 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
     lineNumber: 79,
     columnNumber: 7
-  }, void 0) : /* @__PURE__ */ s.jsxDEV("div", { className: "toolbar", children: /* @__PURE__ */ s.jsxDEV("div", { className: "fm-toolbar", children: [
-    /* @__PURE__ */ s.jsxDEV("div", { children: H.filter((v) => v.permission).map((v, U) => /* @__PURE__ */ s.jsxDEV("button", { className: "item-action", onClick: v.onClick, children: [
-      v.icon,
-      /* @__PURE__ */ s.jsxDEV("span", { children: v.text }, void 0, !1, {
+  }, void 0) : /* @__PURE__ */ l("div", { className: "toolbar", children: /* @__PURE__ */ l("div", { className: "fm-toolbar", children: [
+    /* @__PURE__ */ l("div", { children: j.filter((g) => g.permission).map((g, S) => /* @__PURE__ */ l("button", { className: "item-action", onClick: g.onClick, children: [
+      g.icon,
+      /* @__PURE__ */ l("span", { children: g.text }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 155,
         columnNumber: 17
       }, void 0)
-    ] }, U, !0, {
+    ] }, S, !0, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
       lineNumber: 153,
       columnNumber: 15
@@ -3708,25 +3079,25 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
       lineNumber: 149,
       columnNumber: 9
     }, void 0),
-    /* @__PURE__ */ s.jsxDEV("div", { children: [
-      F.map((v, U) => /* @__PURE__ */ s.jsxDEV("div", { className: "toolbar-left-items", children: [
-        /* @__PURE__ */ s.jsxDEV("button", { className: "item-action icon-only", title: v.title, onClick: v.onClick, children: v.icon }, void 0, !1, {
+    /* @__PURE__ */ l("div", { children: [
+      w.map((g, S) => /* @__PURE__ */ l("div", { className: "toolbar-left-items", children: [
+        /* @__PURE__ */ l("button", { className: "item-action icon-only", title: g.title, onClick: g.onClick, children: g.icon }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 162,
           columnNumber: 15
         }, void 0),
-        U !== F.length - 1 && /* @__PURE__ */ s.jsxDEV("div", { className: "item-separator" }, void 0, !1, {
+        S !== w.length - 1 && /* @__PURE__ */ l("div", { className: "item-separator" }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
           lineNumber: 165,
           columnNumber: 58
         }, void 0)
-      ] }, U, !0, {
+      ] }, S, !0, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
         lineNumber: 161,
         columnNumber: 13
       }, void 0)),
-      i && /* @__PURE__ */ s.jsxDEV(
-        ix,
+      r && /* @__PURE__ */ l(
+        eN,
         {
           setShowToggleViewMenu: o,
           onLayoutChange: n
@@ -3755,10 +3126,10 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
     columnNumber: 5
   }, void 0);
 };
-pr.displayName = "Toolbar";
-var ux = process.env.NODE_ENV === "production";
-function dx(n, e) {
-  if (!ux) {
+Dt.displayName = "Toolbar";
+var aN = process.env.NODE_ENV === "production";
+function sN(n, e) {
+  if (!aN) {
     if (n)
       return;
     var t = "Warning: " + e;
@@ -3779,102 +3150,102 @@ function dx(n, e) {
   *
   * @license MIT
   */
-var fx = class extends Error {
+var lN = class extends Error {
   constructor(n) {
     super(`react-collapsed: ${n}`);
   }
-}, mn = (...n) => dx(n[0], `[react-collapsed] -- ${n[1]}`);
-function hr(n) {
-  const e = pe(n);
-  return oe(() => {
+}, We = (...n) => sN(n[0], `[react-collapsed] -- ${n[1]}`);
+function Tt(n) {
+  const e = oe(n);
+  return X(() => {
     e.current = n;
-  }), Yt((...t) => {
-    var r;
-    return (r = e.current) == null ? void 0 : r.call(e, ...t);
+  }), ct((...t) => {
+    var i;
+    return (i = e.current) == null ? void 0 : i.call(e, ...t);
   }, []);
 }
-function mx(n, e, t) {
-  const [r, i] = R(e), o = pe(typeof n < "u"), a = o.current ? n : r, l = hr(t), c = Yt(
-    (u) => {
-      const m = typeof u == "function" ? u(a) : u;
-      o.current || i(m), l == null || l(m);
+function cN(n, e, t) {
+  const [i, r] = L(e), o = oe(typeof n < "u"), a = o.current ? n : i, s = Tt(t), c = ct(
+    (d) => {
+      const f = typeof d == "function" ? d(a) : d;
+      o.current || r(f), s == null || s(f);
     },
-    [l, a]
+    [s, a]
   );
-  return oe(() => {
-    mn(
+  return X(() => {
+    We(
       !(o.current && n == null),
       "`isExpanded` state is changing from controlled to uncontrolled. useCollapse should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled collapse for the lifetime of the component. Check the `isExpanded` prop."
-    ), mn(
+    ), We(
       !(!o.current && n != null),
       "`isExpanded` state is changing from uncontrolled to controlled. useCollapse should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled collapse for the lifetime of the component. Check the `isExpanded` prop."
     );
   }, [n]), [a, c];
 }
-var px = "(prefers-reduced-motion: reduce)";
-function hx() {
-  const [n, e] = R(!1);
-  return oe(() => {
+var dN = "(prefers-reduced-motion: reduce)";
+function uN() {
+  const [n, e] = L(!1);
+  return X(() => {
     if (typeof window > "u" || typeof window.matchMedia != "function")
       return;
-    const t = window.matchMedia(px);
+    const t = window.matchMedia(dN);
     e(t.matches);
-    const r = (i) => {
-      e(i.matches);
+    const i = (r) => {
+      e(r.matches);
     };
     if (t.addEventListener)
-      return t.addEventListener("change", r), () => {
-        t.removeEventListener("change", r);
+      return t.addEventListener("change", i), () => {
+        t.removeEventListener("change", i);
       };
     if (t.addListener)
-      return t.addListener(r), () => {
-        t.removeListener(r);
+      return t.addListener(i), () => {
+        t.removeListener(i);
       };
   }, []), n;
 }
-var gx = qe.useId || (() => {
+var fN = Te.useId || (() => {
 });
-function vx() {
-  return gx() ?? "";
+function mN() {
+  return fN() ?? "";
 }
-var bx = typeof window < "u" ? qe.useLayoutEffect : qe.useEffect, En = !1, Nx = 0, wt = () => ++Nx;
-function xx(n) {
-  const e = n || (En ? wt() : null), [t, r] = qe.useState(e);
-  return bx(() => {
-    t === null && r(wt());
-  }, []), qe.useEffect(() => {
-    En === !1 && (En = !0);
+var pN = typeof window < "u" ? Te.useLayoutEffect : Te.useEffect, en = !1, hN = 0, Gn = () => ++hN;
+function gN(n) {
+  const e = n || (en ? Gn() : null), [t, i] = Te.useState(e);
+  return pN(() => {
+    t === null && i(Gn());
+  }, []), Te.useEffect(() => {
+    en === !1 && (en = !0);
   }, []), t != null ? String(t) : void 0;
 }
-function $x(n) {
-  const e = vx(), t = xx(n);
+function bN(n) {
+  const e = mN(), t = gN(n);
   return typeof n == "string" ? n : typeof e == "string" ? e : t;
 }
-function yx(n, e) {
-  const t = performance.now(), r = {};
-  function i() {
-    r.id = requestAnimationFrame((o) => {
-      o - t > e ? n() : i();
+function vN(n, e) {
+  const t = performance.now(), i = {};
+  function r() {
+    i.id = requestAnimationFrame((o) => {
+      o - t > e ? n() : r();
     });
   }
-  return i(), r;
+  return r(), i;
 }
-function Pt(n) {
+function Bn(n) {
   n.id && cancelAnimationFrame(n.id);
 }
-function Et(n) {
-  return n != null && n.current ? n.current.scrollHeight : (mn(
+function Vn(n) {
+  return n != null && n.current ? n.current.scrollHeight : (We(
     !0,
     "Was not able to find a ref to the collapse element via `getCollapseProps`. Ensure that the element exposes its `ref` prop. If it exposes the ref prop under a different name (like `innerRef`), use the `refKey` property to change it. Example:\n\nconst collapseProps = getCollapseProps({refKey: 'innerRef'})"
   ), 0);
 }
-function Fx(n) {
+function NN(n) {
   if (!n || typeof n == "string")
     return 0;
   const e = n / 36;
   return Math.round((4 + 15 * e ** 0.25 + e / 5) * 10);
 }
-function Cx(n, e) {
+function $N(n, e) {
   if (n != null)
     if (typeof n == "function")
       n(e);
@@ -3882,25 +3253,25 @@ function Cx(n, e) {
       try {
         n.current = e;
       } catch {
-        throw new fx(`Cannot assign value "${e}" to ref "${n}"`);
+        throw new lN(`Cannot assign value "${e}" to ref "${n}"`);
       }
 }
-function jt(...n) {
+function Wn(...n) {
   return n.every((e) => e == null) ? null : (e) => {
     n.forEach((t) => {
-      Cx(t, e);
+      $N(t, e);
     });
   };
 }
-function Dx(n) {
+function yN(n) {
   let e = (t) => {
   };
   e = (t) => {
     if (!(t != null && t.current))
       return;
-    const { paddingTop: r, paddingBottom: i } = window.getComputedStyle(t.current);
-    mn(
-      !(r && r !== "0px" || i && i !== "0px"),
+    const { paddingTop: i, paddingBottom: r } = window.getComputedStyle(t.current);
+    We(
+      !(i && i !== "0px" || r && r !== "0px"),
       `Padding applied to the collapse element will cause the animation to break and not perform as expected. To fix, apply equivalent padding to the direct descendent of the collapse element. Example:
 
 Before:   <div {...getCollapseProps({style: {padding: 10}})}>{children}</div>
@@ -3911,135 +3282,135 @@ After:   <div {...getCollapseProps()}>
              </div>
           </div>`
     );
-  }, oe(() => {
+  }, X(() => {
     e(n);
   }, [n]);
 }
-var wx = typeof window > "u" ? oe : _r;
-function Px({
+var FN = typeof window > "u" ? X : Vt;
+function xN({
   duration: n,
   easing: e = "cubic-bezier(0.4, 0, 0.2, 1)",
   onTransitionStateChange: t = () => {
   },
-  isExpanded: r,
-  defaultExpanded: i = !1,
+  isExpanded: i,
+  defaultExpanded: r = !1,
   hasDisabledAnimation: o,
   id: a,
-  ...l
+  ...s
 } = {}) {
-  const c = hr(t), u = $x(a ? `${a}` : void 0), [f, m] = mx(
-    r,
-    i
-  ), g = pe(f), [p, h] = R(!1), N = hx(), H = o ?? N, F = pe(), j = pe(), P = pe(null), [S, v] = R(null);
-  Dx(P);
-  const U = `${l.collapsedHeight || 0}px`;
-  function D(C) {
-    if (!P.current)
+  const c = Tt(t), d = bN(a ? `${a}` : void 0), [u, f] = cN(
+    i,
+    r
+  ), h = oe(u), [m, p] = L(!1), v = uN(), j = o ?? v, w = oe(), H = oe(), C = oe(null), [P, g] = L(null);
+  yN(C);
+  const S = `${s.collapsedHeight || 0}px`;
+  function F(y) {
+    if (!C.current)
       return;
-    const b = P.current;
-    for (const $ in C) {
-      const M = C[$];
-      M ? b.style[$] = M : b.style.removeProperty($);
+    const b = C.current;
+    for (const N in y) {
+      const M = y[N];
+      M ? b.style[N] = M : b.style.removeProperty(N);
     }
   }
-  return wx(() => {
-    if (!P.current || f === g.current)
+  return FN(() => {
+    if (!C.current || u === h.current)
       return;
-    g.current = f;
-    function b(L) {
-      return H ? 0 : n ?? Fx(L);
+    h.current = u;
+    function b(T) {
+      return j ? 0 : n ?? NN(T);
     }
-    const $ = (L) => `height ${b(L)}ms ${e}`, M = (L) => {
-      function E() {
-        f ? (D({
+    const N = (T) => `height ${b(T)}ms ${e}`, M = (T) => {
+      function D() {
+        u ? (F({
           height: "",
           overflow: "",
           transition: "",
           display: ""
-        }), c("expandEnd")) : (D({ transition: "" }), c("collapseEnd")), h(!1);
+        }), c("expandEnd")) : (F({ transition: "" }), c("collapseEnd")), p(!1);
       }
-      j.current && Pt(j.current), j.current = yx(E, L);
+      H.current && Bn(H.current), H.current = vN(D, T);
     };
-    return h(!0), f ? F.current = requestAnimationFrame(() => {
-      c("expandStart"), D({
+    return p(!0), u ? w.current = requestAnimationFrame(() => {
+      c("expandStart"), F({
         display: "block",
         overflow: "hidden",
-        height: U
-      }), F.current = requestAnimationFrame(() => {
+        height: S
+      }), w.current = requestAnimationFrame(() => {
         c("expanding");
-        const L = Et(P);
-        M(b(L)), P.current && (P.current.style.transition = $(L), P.current.style.height = `${L}px`);
+        const T = Vn(C);
+        M(b(T)), C.current && (C.current.style.transition = N(T), C.current.style.height = `${T}px`);
       });
-    }) : F.current = requestAnimationFrame(() => {
+    }) : w.current = requestAnimationFrame(() => {
       c("collapseStart");
-      const L = Et(P);
-      M(b(L)), D({
-        transition: $(L),
-        height: `${L}px`
-      }), F.current = requestAnimationFrame(() => {
-        c("collapsing"), D({
-          height: U,
+      const T = Vn(C);
+      M(b(T)), F({
+        transition: N(T),
+        height: `${T}px`
+      }), w.current = requestAnimationFrame(() => {
+        c("collapsing"), F({
+          height: S,
           overflow: "hidden"
         });
       });
     }), () => {
-      F.current && cancelAnimationFrame(F.current), j.current && Pt(j.current);
+      w.current && cancelAnimationFrame(w.current), H.current && Bn(H.current);
     };
   }, [
-    f,
-    U,
-    H,
+    u,
+    S,
+    j,
     n,
     e,
     c
   ]), {
-    isExpanded: f,
-    setExpanded: m,
-    getToggleProps(C) {
-      const { disabled: b, onClick: $, refKey: M, ...L } = {
+    isExpanded: u,
+    setExpanded: f,
+    getToggleProps(y) {
+      const { disabled: b, onClick: N, refKey: M, ...T } = {
         refKey: "ref",
         onClick() {
         },
         disabled: !1,
-        ...C
-      }, E = S ? S.tagName === "BUTTON" : void 0, A = C == null ? void 0 : C[M || "ref"], Q = {
-        id: `react-collapsed-toggle-${u}`,
-        "aria-controls": `react-collapsed-panel-${u}`,
-        "aria-expanded": f,
-        onClick(de) {
-          b || ($ == null || $(de), m((re) => !re));
+        ...y
+      }, D = P ? P.tagName === "BUTTON" : void 0, E = y == null ? void 0 : y[M || "ref"], Z = {
+        id: `react-collapsed-toggle-${d}`,
+        "aria-controls": `react-collapsed-panel-${d}`,
+        "aria-expanded": u,
+        onClick(ie) {
+          b || (N == null || N(ie), f((Q) => !Q));
         },
-        [M || "ref"]: jt(A, v)
-      }, J = {
+        [M || "ref"]: Wn(E, g)
+      }, _ = {
         type: "button",
         disabled: b ? !0 : void 0
-      }, ne = {
+      }, J = {
         "aria-disabled": b ? !0 : void 0,
         role: "button",
         tabIndex: b ? -1 : 0
       };
-      return E === !1 ? { ...Q, ...ne, ...L } : E === !0 ? { ...Q, ...J, ...L } : {
-        ...Q,
+      return D === !1 ? { ...Z, ...J, ...T } : D === !0 ? { ...Z, ..._, ...T } : {
+        ...Z,
+        ..._,
         ...J,
-        ...ne,
-        ...L
+        ...T
       };
     },
-    getCollapseProps(C) {
-      const { style: b, refKey: $ } = { refKey: "ref", style: {}, ...C }, M = C == null ? void 0 : C[$ || "ref"];
+    getCollapseProps(y) {
+      const { style: b, refKey: N } = { refKey: "ref", style: {}, ...y }, M = y == null ? void 0 : y[N || "ref"];
       return {
-        id: `react-collapsed-panel-${u}`,
-        "aria-hidden": !f,
-        "aria-labelledby": `react-collapsed-toggle-${u}`,
+        id: `react-collapsed-panel-${d}`,
+        "aria-hidden": !u,
+        "aria-labelledby": `react-collapsed-toggle-${d}`,
         role: "region",
-        ...C,
-        [$ || "ref"]: jt(P, M),
+        ...y,
+        [N || "ref"]: Wn(C, M),
         style: {
           boxSizing: "border-box",
-          ...!p && !f ? {
+          ...!m && !u ? {
             // collapsed and not animating
-            display: U === "0px" ? "none" : "block",
-            height: U,
+            display: S === "0px" ? "none" : "block",
+            height: S,
             overflow: "hidden"
           } : {},
           // additional styles passed, e.g. getCollapseProps({style: {}})
@@ -4049,14 +3420,14 @@ function Px({
     }
   };
 }
-const Ex = ({ open: n, children: e }) => {
-  const [t, r] = R(n), { getCollapseProps: i } = Px({
+const CN = ({ open: n, children: e }) => {
+  const [t, i] = L(n), { getCollapseProps: r } = xN({
     isExpanded: t,
     duration: 500
   });
-  return oe(() => {
-    r(n);
-  }, [n, r]), /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: /* @__PURE__ */ s.jsxDEV("div", { ...i(), children: e }, void 0, !1, {
+  return X(() => {
+    i(n);
+  }, [n, i]), /* @__PURE__ */ l(fe, { children: /* @__PURE__ */ l("div", { ...r(), children: e }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Collapse/Collapse.jsx",
     lineNumber: 17,
     columnNumber: 7
@@ -4066,37 +3437,37 @@ const Ex = ({ open: n, children: e }) => {
     columnNumber: 5
   }, void 0);
 };
-function jx(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z" }, child: [] }] })(n);
+function wN(n) {
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z" }, child: [] }] })(n);
 }
-function Sx(n) {
-  return K({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z" }, child: [] }] })(n);
+function PN(n) {
+  return G({ attr: { viewBox: "0 0 384 512" }, child: [{ tag: "path", attr: { d: "M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z" }, child: [] }] })(n);
 }
-function St(n) {
-  return K({ attr: { viewBox: "0 0 576 512" }, child: [{ tag: "path", attr: { d: "M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z" }, child: [] }] })(n);
+function _n(n) {
+  return G({ attr: { viewBox: "0 0 576 512" }, child: [{ tag: "path", attr: { d: "M527.9 224H480v-48c0-26.5-21.5-48-48-48H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h400c16.5 0 31.9-8.5 40.7-22.6l79.9-128c20-31.9-3-73.4-40.7-73.4zM48 118c0-3.3 2.7-6 6-6h134.1l64 64H426c3.3 0 6 2.7 6 6v42H152c-16.8 0-32.4 8.8-41.1 23.2L48 351.4zm400 282H72l77.2-128H528z" }, child: [] }] })(n);
 }
-function Mt(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z" }, child: [] }] })(n);
+function Yn(n) {
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z" }, child: [] }] })(n);
 }
-const gr = ({ folder: n, onFileOpen: e }) => {
-  const [t, r] = R(!1), [i, o] = R(!1), { currentPath: a, setCurrentPath: l, onFolderChange: c } = we(), u = () => {
-    o(!0), e(n), l(n.path), c == null || c(n.path);
-  }, f = (m) => {
-    m.stopPropagation(), r((g) => !g);
+const jt = ({ folder: n, onFileOpen: e }) => {
+  const [t, i] = L(!1), [r, o] = L(!1), { currentPath: a, setCurrentPath: s, onFolderChange: c } = me(), d = () => {
+    o(!0), e(n), s(n.path), c == null || c(n.path);
+  }, u = (f) => {
+    f.stopPropagation(), i((h) => !h);
   };
-  return oe(() => {
+  return X(() => {
     o(a === n.path);
-    const m = a.split("/");
-    m.pop(), m.join("/") === n.path && r(!0);
-  }, [a]), n.subDirectories.length > 0 ? /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-    /* @__PURE__ */ s.jsxDEV(
+    const f = a.split("/");
+    f.pop(), f.join("/") === n.path && i(!0);
+  }, [a]), n.subDirectories.length > 0 ? /* @__PURE__ */ l(fe, { children: [
+    /* @__PURE__ */ l(
       "div",
       {
-        className: `sb-folders-list-item ${i ? "active-list-item" : ""}`,
-        onClick: u,
+        className: `sb-folders-list-item ${r ? "active-list-item" : ""}`,
+        onClick: d,
         children: [
-          /* @__PURE__ */ s.jsxDEV("span", { onClick: f, children: /* @__PURE__ */ s.jsxDEV(
-            oi,
+          /* @__PURE__ */ l("span", { onClick: u, children: /* @__PURE__ */ l(
+            ni,
             {
               size: 20,
               className: `folder-icon-default ${t ? "folder-rotate-down" : ""}`
@@ -4114,17 +3485,17 @@ const gr = ({ folder: n, onFileOpen: e }) => {
             lineNumber: 46,
             columnNumber: 11
           }, void 0),
-          /* @__PURE__ */ s.jsxDEV("div", { className: "sb-folder-details", children: [
-            t || i ? /* @__PURE__ */ s.jsxDEV(St, { size: 20, className: "folder-open-icon" }, void 0, !1, {
+          /* @__PURE__ */ l("div", { className: "sb-folder-details", children: [
+            t || r ? /* @__PURE__ */ l(_n, { size: 20, className: "folder-open-icon" }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
               lineNumber: 54,
               columnNumber: 15
-            }, void 0) : /* @__PURE__ */ s.jsxDEV(Mt, { size: 17, className: "folder-close-icon" }, void 0, !1, {
+            }, void 0) : /* @__PURE__ */ l(Yn, { size: 17, className: "folder-close-icon" }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
               lineNumber: 56,
               columnNumber: 15
             }, void 0),
-            /* @__PURE__ */ s.jsxDEV("span", { className: "sb-folder-name", title: n.name, children: n.name }, void 0, !1, {
+            /* @__PURE__ */ l("span", { className: "sb-folder-name", title: n.name, children: n.name }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
               lineNumber: 58,
               columnNumber: 13
@@ -4145,7 +3516,7 @@ const gr = ({ folder: n, onFileOpen: e }) => {
       },
       void 0
     ),
-    /* @__PURE__ */ s.jsxDEV(Ex, { open: t, children: /* @__PURE__ */ s.jsxDEV("div", { className: "folder-collapsible", children: n.subDirectories.map((m, g) => /* @__PURE__ */ s.jsxDEV(gr, { folder: m, onFileOpen: e }, g, !1, {
+    /* @__PURE__ */ l(CN, { open: t, children: /* @__PURE__ */ l("div", { className: "folder-collapsible", children: n.subDirectories.map((f, h) => /* @__PURE__ */ l(jt, { folder: f, onFileOpen: e }, h, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
       lineNumber: 66,
       columnNumber: 15
@@ -4162,28 +3533,28 @@ const gr = ({ folder: n, onFileOpen: e }) => {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
     lineNumber: 41,
     columnNumber: 7
-  }, void 0) : /* @__PURE__ */ s.jsxDEV(
+  }, void 0) : /* @__PURE__ */ l(
     "div",
     {
-      className: `sb-folders-list-item ${i ? "active-list-item" : ""}`,
-      onClick: u,
+      className: `sb-folders-list-item ${r ? "active-list-item" : ""}`,
+      onClick: d,
       children: [
-        /* @__PURE__ */ s.jsxDEV("span", { className: "non-expanable" }, void 0, !1, {
+        /* @__PURE__ */ l("span", { className: "non-expanable" }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
           lineNumber: 78,
           columnNumber: 9
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("div", { className: "sb-folder-details", children: [
-          i ? /* @__PURE__ */ s.jsxDEV(St, { size: 20, className: "folder-open-icon" }, void 0, !1, {
+        /* @__PURE__ */ l("div", { className: "sb-folder-details", children: [
+          r ? /* @__PURE__ */ l(_n, { size: 20, className: "folder-open-icon" }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
             lineNumber: 81,
             columnNumber: 13
-          }, void 0) : /* @__PURE__ */ s.jsxDEV(Mt, { size: 17, className: "folder-close-icon" }, void 0, !1, {
+          }, void 0) : /* @__PURE__ */ l(Yn, { size: 17, className: "folder-close-icon" }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
             lineNumber: 83,
             columnNumber: 13
           }, void 0),
-          /* @__PURE__ */ s.jsxDEV("span", { className: "sb-folder-name", title: n.name, children: n.name }, void 0, !1, {
+          /* @__PURE__ */ l("span", { className: "sb-folder-name", title: n.name, children: n.name }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/FolderTree.jsx",
             lineNumber: 85,
             columnNumber: 11
@@ -4204,20 +3575,20 @@ const gr = ({ folder: n, onFileOpen: e }) => {
     },
     void 0
   );
-}, Mx = (n) => n == null ? void 0 : n.split("/").slice(0, -1).join("/"), vr = ({ onFileOpen: n }) => {
-  const [e, t] = R([]), { files: r } = vn(), i = Ne(), o = (a, l) => {
+}, MN = (n) => n == null ? void 0 : n.split("/").slice(0, -1).join("/"), Lt = ({ onFileOpen: n }) => {
+  const [e, t] = L([]), { files: i } = qe(), r = se(), o = (a, s) => {
     var c;
-    return l[a] ? (c = l[a]) == null ? void 0 : c.map((u) => ({
-      ...u,
-      subDirectories: o(u.path, l)
+    return s[a] ? (c = s[a]) == null ? void 0 : c.map((d) => ({
+      ...d,
+      subDirectories: o(d.path, s)
     })) : [];
   };
-  return oe(() => {
-    if (Array.isArray(r)) {
-      const a = r.filter((c) => c.isDirectory), l = Object.groupBy(a, ({ path: c }) => Mx(c));
-      t(() => o("", l));
+  return X(() => {
+    if (Array.isArray(i)) {
+      const a = i.filter((c) => c.isDirectory), s = Object.groupBy(a, ({ path: c }) => MN(c));
+      t(() => o("", s));
     }
-  }, [r]), /* @__PURE__ */ s.jsxDEV("div", { className: "sb-folders-list", children: (e == null ? void 0 : e.length) > 0 ? /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: e == null ? void 0 : e.map((a, l) => /* @__PURE__ */ s.jsxDEV(gr, { folder: a, onFileOpen: n }, l, !1, {
+  }, [i]), /* @__PURE__ */ l("div", { className: "sb-folders-list", children: (e == null ? void 0 : e.length) > 0 ? /* @__PURE__ */ l(fe, { children: e == null ? void 0 : e.map((a, s) => /* @__PURE__ */ l(jt, { folder: a, onFileOpen: n }, s, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/NavigationPane.jsx",
     lineNumber: 41,
     columnNumber: 20
@@ -4225,7 +3596,7 @@ const gr = ({ folder: n, onFileOpen: e }) => {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/NavigationPane.jsx",
     lineNumber: 39,
     columnNumber: 9
-  }, void 0) : /* @__PURE__ */ s.jsxDEV("div", { className: "empty-nav-pane", children: i("nothingHereYet") }, void 0, !1, {
+  }, void 0) : /* @__PURE__ */ l("div", { className: "empty-nav-pane", children: r("nothingHereYet") }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/NavigationPane/NavigationPane.jsx",
     lineNumber: 45,
     columnNumber: 9
@@ -4235,8 +3606,11 @@ const gr = ({ folder: n, onFileOpen: e }) => {
     columnNumber: 5
   }, void 0);
 };
-vr.displayName = "NavigationPane";
-var rn = { exports: {} }, on = { exports: {} }, se = {};
+Lt.displayName = "NavigationPane";
+function UN(n) {
+  return n && n.__esModule && Object.prototype.hasOwnProperty.call(n, "default") ? n.default : n;
+}
+var Ae = { exports: {} }, ze = { exports: {} }, ee = {};
 /** @license React v16.13.1
  * react-is.production.min.js
  *
@@ -4245,73 +3619,73 @@ var rn = { exports: {} }, on = { exports: {} }, se = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var Tt;
-function Tx() {
-  if (Tt) return se;
-  Tt = 1;
-  var n = typeof Symbol == "function" && Symbol.for, e = n ? Symbol.for("react.element") : 60103, t = n ? Symbol.for("react.portal") : 60106, r = n ? Symbol.for("react.fragment") : 60107, i = n ? Symbol.for("react.strict_mode") : 60108, o = n ? Symbol.for("react.profiler") : 60114, a = n ? Symbol.for("react.provider") : 60109, l = n ? Symbol.for("react.context") : 60110, c = n ? Symbol.for("react.async_mode") : 60111, u = n ? Symbol.for("react.concurrent_mode") : 60111, f = n ? Symbol.for("react.forward_ref") : 60112, m = n ? Symbol.for("react.suspense") : 60113, g = n ? Symbol.for("react.suspense_list") : 60120, p = n ? Symbol.for("react.memo") : 60115, h = n ? Symbol.for("react.lazy") : 60116, N = n ? Symbol.for("react.block") : 60121, H = n ? Symbol.for("react.fundamental") : 60117, F = n ? Symbol.for("react.responder") : 60118, j = n ? Symbol.for("react.scope") : 60119;
-  function P(v) {
-    if (typeof v == "object" && v !== null) {
-      var U = v.$$typeof;
-      switch (U) {
+var Kn;
+function SN() {
+  if (Kn) return ee;
+  Kn = 1;
+  var n = typeof Symbol == "function" && Symbol.for, e = n ? Symbol.for("react.element") : 60103, t = n ? Symbol.for("react.portal") : 60106, i = n ? Symbol.for("react.fragment") : 60107, r = n ? Symbol.for("react.strict_mode") : 60108, o = n ? Symbol.for("react.profiler") : 60114, a = n ? Symbol.for("react.provider") : 60109, s = n ? Symbol.for("react.context") : 60110, c = n ? Symbol.for("react.async_mode") : 60111, d = n ? Symbol.for("react.concurrent_mode") : 60111, u = n ? Symbol.for("react.forward_ref") : 60112, f = n ? Symbol.for("react.suspense") : 60113, h = n ? Symbol.for("react.suspense_list") : 60120, m = n ? Symbol.for("react.memo") : 60115, p = n ? Symbol.for("react.lazy") : 60116, v = n ? Symbol.for("react.block") : 60121, j = n ? Symbol.for("react.fundamental") : 60117, w = n ? Symbol.for("react.responder") : 60118, H = n ? Symbol.for("react.scope") : 60119;
+  function C(g) {
+    if (typeof g == "object" && g !== null) {
+      var S = g.$$typeof;
+      switch (S) {
         case e:
-          switch (v = v.type, v) {
+          switch (g = g.type, g) {
             case c:
-            case u:
-            case r:
-            case o:
+            case d:
             case i:
-            case m:
-              return v;
+            case o:
+            case r:
+            case f:
+              return g;
             default:
-              switch (v = v && v.$$typeof, v) {
-                case l:
-                case f:
-                case h:
+              switch (g = g && g.$$typeof, g) {
+                case s:
+                case u:
                 case p:
+                case m:
                 case a:
-                  return v;
+                  return g;
                 default:
-                  return U;
+                  return S;
               }
           }
         case t:
-          return U;
+          return S;
       }
     }
   }
-  function S(v) {
-    return P(v) === u;
+  function P(g) {
+    return C(g) === d;
   }
-  return se.AsyncMode = c, se.ConcurrentMode = u, se.ContextConsumer = l, se.ContextProvider = a, se.Element = e, se.ForwardRef = f, se.Fragment = r, se.Lazy = h, se.Memo = p, se.Portal = t, se.Profiler = o, se.StrictMode = i, se.Suspense = m, se.isAsyncMode = function(v) {
-    return S(v) || P(v) === c;
-  }, se.isConcurrentMode = S, se.isContextConsumer = function(v) {
-    return P(v) === l;
-  }, se.isContextProvider = function(v) {
-    return P(v) === a;
-  }, se.isElement = function(v) {
-    return typeof v == "object" && v !== null && v.$$typeof === e;
-  }, se.isForwardRef = function(v) {
-    return P(v) === f;
-  }, se.isFragment = function(v) {
-    return P(v) === r;
-  }, se.isLazy = function(v) {
-    return P(v) === h;
-  }, se.isMemo = function(v) {
-    return P(v) === p;
-  }, se.isPortal = function(v) {
-    return P(v) === t;
-  }, se.isProfiler = function(v) {
-    return P(v) === o;
-  }, se.isStrictMode = function(v) {
-    return P(v) === i;
-  }, se.isSuspense = function(v) {
-    return P(v) === m;
-  }, se.isValidElementType = function(v) {
-    return typeof v == "string" || typeof v == "function" || v === r || v === u || v === o || v === i || v === m || v === g || typeof v == "object" && v !== null && (v.$$typeof === h || v.$$typeof === p || v.$$typeof === a || v.$$typeof === l || v.$$typeof === f || v.$$typeof === H || v.$$typeof === F || v.$$typeof === j || v.$$typeof === N);
-  }, se.typeOf = P, se;
+  return ee.AsyncMode = c, ee.ConcurrentMode = d, ee.ContextConsumer = s, ee.ContextProvider = a, ee.Element = e, ee.ForwardRef = u, ee.Fragment = i, ee.Lazy = p, ee.Memo = m, ee.Portal = t, ee.Profiler = o, ee.StrictMode = r, ee.Suspense = f, ee.isAsyncMode = function(g) {
+    return P(g) || C(g) === c;
+  }, ee.isConcurrentMode = P, ee.isContextConsumer = function(g) {
+    return C(g) === s;
+  }, ee.isContextProvider = function(g) {
+    return C(g) === a;
+  }, ee.isElement = function(g) {
+    return typeof g == "object" && g !== null && g.$$typeof === e;
+  }, ee.isForwardRef = function(g) {
+    return C(g) === u;
+  }, ee.isFragment = function(g) {
+    return C(g) === i;
+  }, ee.isLazy = function(g) {
+    return C(g) === p;
+  }, ee.isMemo = function(g) {
+    return C(g) === m;
+  }, ee.isPortal = function(g) {
+    return C(g) === t;
+  }, ee.isProfiler = function(g) {
+    return C(g) === o;
+  }, ee.isStrictMode = function(g) {
+    return C(g) === r;
+  }, ee.isSuspense = function(g) {
+    return C(g) === f;
+  }, ee.isValidElementType = function(g) {
+    return typeof g == "string" || typeof g == "function" || g === i || g === d || g === o || g === r || g === f || g === h || typeof g == "object" && g !== null && (g.$$typeof === p || g.$$typeof === m || g.$$typeof === a || g.$$typeof === s || g.$$typeof === u || g.$$typeof === j || g.$$typeof === w || g.$$typeof === H || g.$$typeof === v);
+  }, ee.typeOf = C, ee;
 }
-var le = {};
+var ne = {};
 /** @license React v16.13.1
  * react-is.development.js
  *
@@ -4320,163 +3694,163 @@ var le = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var Ut;
-function Ux() {
-  return Ut || (Ut = 1, process.env.NODE_ENV !== "production" && (function() {
-    var n = typeof Symbol == "function" && Symbol.for, e = n ? Symbol.for("react.element") : 60103, t = n ? Symbol.for("react.portal") : 60106, r = n ? Symbol.for("react.fragment") : 60107, i = n ? Symbol.for("react.strict_mode") : 60108, o = n ? Symbol.for("react.profiler") : 60114, a = n ? Symbol.for("react.provider") : 60109, l = n ? Symbol.for("react.context") : 60110, c = n ? Symbol.for("react.async_mode") : 60111, u = n ? Symbol.for("react.concurrent_mode") : 60111, f = n ? Symbol.for("react.forward_ref") : 60112, m = n ? Symbol.for("react.suspense") : 60113, g = n ? Symbol.for("react.suspense_list") : 60120, p = n ? Symbol.for("react.memo") : 60115, h = n ? Symbol.for("react.lazy") : 60116, N = n ? Symbol.for("react.block") : 60121, H = n ? Symbol.for("react.fundamental") : 60117, F = n ? Symbol.for("react.responder") : 60118, j = n ? Symbol.for("react.scope") : 60119;
-    function P(T) {
-      return typeof T == "string" || typeof T == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-      T === r || T === u || T === o || T === i || T === m || T === g || typeof T == "object" && T !== null && (T.$$typeof === h || T.$$typeof === p || T.$$typeof === a || T.$$typeof === l || T.$$typeof === f || T.$$typeof === H || T.$$typeof === F || T.$$typeof === j || T.$$typeof === N);
+var qn;
+function DN() {
+  return qn || (qn = 1, process.env.NODE_ENV !== "production" && (function() {
+    var n = typeof Symbol == "function" && Symbol.for, e = n ? Symbol.for("react.element") : 60103, t = n ? Symbol.for("react.portal") : 60106, i = n ? Symbol.for("react.fragment") : 60107, r = n ? Symbol.for("react.strict_mode") : 60108, o = n ? Symbol.for("react.profiler") : 60114, a = n ? Symbol.for("react.provider") : 60109, s = n ? Symbol.for("react.context") : 60110, c = n ? Symbol.for("react.async_mode") : 60111, d = n ? Symbol.for("react.concurrent_mode") : 60111, u = n ? Symbol.for("react.forward_ref") : 60112, f = n ? Symbol.for("react.suspense") : 60113, h = n ? Symbol.for("react.suspense_list") : 60120, m = n ? Symbol.for("react.memo") : 60115, p = n ? Symbol.for("react.lazy") : 60116, v = n ? Symbol.for("react.block") : 60121, j = n ? Symbol.for("react.fundamental") : 60117, w = n ? Symbol.for("react.responder") : 60118, H = n ? Symbol.for("react.scope") : 60119;
+    function C(U) {
+      return typeof U == "string" || typeof U == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+      U === i || U === d || U === o || U === r || U === f || U === h || typeof U == "object" && U !== null && (U.$$typeof === p || U.$$typeof === m || U.$$typeof === a || U.$$typeof === s || U.$$typeof === u || U.$$typeof === j || U.$$typeof === w || U.$$typeof === H || U.$$typeof === v);
     }
-    function S(T) {
-      if (typeof T == "object" && T !== null) {
-        var ge = T.$$typeof;
-        switch (ge) {
+    function P(U) {
+      if (typeof U == "object" && U !== null) {
+        var le = U.$$typeof;
+        switch (le) {
           case e:
-            var je = T.type;
-            switch (je) {
+            var Ne = U.type;
+            switch (Ne) {
               case c:
-              case u:
-              case r:
-              case o:
+              case d:
               case i:
-              case m:
-                return je;
+              case o:
+              case r:
+              case f:
+                return Ne;
               default:
-                var Pe = je && je.$$typeof;
-                switch (Pe) {
-                  case l:
-                  case f:
-                  case h:
+                var Ue = Ne && Ne.$$typeof;
+                switch (Ue) {
+                  case s:
+                  case u:
                   case p:
+                  case m:
                   case a:
-                    return Pe;
+                    return Ue;
                   default:
-                    return ge;
+                    return le;
                 }
             }
           case t:
-            return ge;
+            return le;
         }
       }
     }
-    var v = c, U = u, D = l, C = a, b = e, $ = f, M = r, L = h, E = p, A = t, Q = o, J = i, ne = m, de = !1;
-    function re(T) {
-      return de || (de = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), x(T) || S(T) === c;
+    var g = c, S = d, F = s, y = a, b = e, N = u, M = i, T = p, D = m, E = t, Z = o, _ = r, J = f, ie = !1;
+    function Q(U) {
+      return ie || (ie = !0, console.warn("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), $(U) || P(U) === c;
     }
-    function x(T) {
-      return S(T) === u;
+    function $(U) {
+      return P(U) === d;
     }
-    function w(T) {
-      return S(T) === l;
+    function x(U) {
+      return P(U) === s;
     }
-    function O(T) {
-      return S(T) === a;
+    function k(U) {
+      return P(U) === a;
     }
-    function G(T) {
-      return typeof T == "object" && T !== null && T.$$typeof === e;
+    function I(U) {
+      return typeof U == "object" && U !== null && U.$$typeof === e;
     }
-    function I(T) {
-      return S(T) === f;
+    function R(U) {
+      return P(U) === u;
     }
-    function X(T) {
-      return S(T) === r;
+    function W(U) {
+      return P(U) === i;
     }
-    function _(T) {
-      return S(T) === h;
+    function B(U) {
+      return P(U) === p;
     }
-    function B(T) {
-      return S(T) === p;
+    function V(U) {
+      return P(U) === m;
     }
-    function q(T) {
-      return S(T) === t;
+    function Y(U) {
+      return P(U) === t;
     }
-    function Z(T) {
-      return S(T) === o;
+    function K(U) {
+      return P(U) === o;
     }
-    function k(T) {
-      return S(T) === i;
+    function A(U) {
+      return P(U) === r;
     }
-    function ce(T) {
-      return S(T) === m;
+    function te(U) {
+      return P(U) === f;
     }
-    le.AsyncMode = v, le.ConcurrentMode = U, le.ContextConsumer = D, le.ContextProvider = C, le.Element = b, le.ForwardRef = $, le.Fragment = M, le.Lazy = L, le.Memo = E, le.Portal = A, le.Profiler = Q, le.StrictMode = J, le.Suspense = ne, le.isAsyncMode = re, le.isConcurrentMode = x, le.isContextConsumer = w, le.isContextProvider = O, le.isElement = G, le.isForwardRef = I, le.isFragment = X, le.isLazy = _, le.isMemo = B, le.isPortal = q, le.isProfiler = Z, le.isStrictMode = k, le.isSuspense = ce, le.isValidElementType = P, le.typeOf = S;
-  })()), le;
+    ne.AsyncMode = g, ne.ConcurrentMode = S, ne.ContextConsumer = F, ne.ContextProvider = y, ne.Element = b, ne.ForwardRef = N, ne.Fragment = M, ne.Lazy = T, ne.Memo = D, ne.Portal = E, ne.Profiler = Z, ne.StrictMode = _, ne.Suspense = J, ne.isAsyncMode = Q, ne.isConcurrentMode = $, ne.isContextConsumer = x, ne.isContextProvider = k, ne.isElement = I, ne.isForwardRef = R, ne.isFragment = W, ne.isLazy = B, ne.isMemo = V, ne.isPortal = Y, ne.isProfiler = K, ne.isStrictMode = A, ne.isSuspense = te, ne.isValidElementType = C, ne.typeOf = P;
+  })()), ne;
 }
-var Lt;
-function br() {
-  return Lt || (Lt = 1, process.env.NODE_ENV === "production" ? on.exports = Tx() : on.exports = Ux()), on.exports;
+var Jn;
+function Ht() {
+  return Jn || (Jn = 1, process.env.NODE_ENV === "production" ? ze.exports = SN() : ze.exports = DN()), ze.exports;
 }
 /*
 object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-var jn, Ht;
-function Lx() {
-  if (Ht) return jn;
-  Ht = 1;
+var nn, Zn;
+function TN() {
+  if (Zn) return nn;
+  Zn = 1;
   var n = Object.getOwnPropertySymbols, e = Object.prototype.hasOwnProperty, t = Object.prototype.propertyIsEnumerable;
-  function r(o) {
+  function i(o) {
     if (o == null)
       throw new TypeError("Object.assign cannot be called with null or undefined");
     return Object(o);
   }
-  function i() {
+  function r() {
     try {
       if (!Object.assign)
         return !1;
       var o = new String("abc");
       if (o[5] = "de", Object.getOwnPropertyNames(o)[0] === "5")
         return !1;
-      for (var a = {}, l = 0; l < 10; l++)
-        a["_" + String.fromCharCode(l)] = l;
-      var c = Object.getOwnPropertyNames(a).map(function(f) {
-        return a[f];
+      for (var a = {}, s = 0; s < 10; s++)
+        a["_" + String.fromCharCode(s)] = s;
+      var c = Object.getOwnPropertyNames(a).map(function(u) {
+        return a[u];
       });
       if (c.join("") !== "0123456789")
         return !1;
-      var u = {};
-      return "abcdefghijklmnopqrst".split("").forEach(function(f) {
-        u[f] = f;
-      }), Object.keys(Object.assign({}, u)).join("") === "abcdefghijklmnopqrst";
+      var d = {};
+      return "abcdefghijklmnopqrst".split("").forEach(function(u) {
+        d[u] = u;
+      }), Object.keys(Object.assign({}, d)).join("") === "abcdefghijklmnopqrst";
     } catch {
       return !1;
     }
   }
-  return jn = i() ? Object.assign : function(o, a) {
-    for (var l, c = r(o), u, f = 1; f < arguments.length; f++) {
-      l = Object(arguments[f]);
-      for (var m in l)
-        e.call(l, m) && (c[m] = l[m]);
+  return nn = r() ? Object.assign : function(o, a) {
+    for (var s, c = i(o), d, u = 1; u < arguments.length; u++) {
+      s = Object(arguments[u]);
+      for (var f in s)
+        e.call(s, f) && (c[f] = s[f]);
       if (n) {
-        u = n(l);
-        for (var g = 0; g < u.length; g++)
-          t.call(l, u[g]) && (c[u[g]] = l[u[g]]);
+        d = n(s);
+        for (var h = 0; h < d.length; h++)
+          t.call(s, d[h]) && (c[d[h]] = s[d[h]]);
       }
     }
     return c;
-  }, jn;
+  }, nn;
 }
-var Sn, Vt;
-function In() {
-  if (Vt) return Sn;
-  Vt = 1;
+var tn, Xn;
+function hn() {
+  if (Xn) return tn;
+  Xn = 1;
   var n = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-  return Sn = n, Sn;
+  return tn = n, tn;
 }
-var Mn, At;
-function Nr() {
-  return At || (At = 1, Mn = Function.call.bind(Object.prototype.hasOwnProperty)), Mn;
+var rn, Qn;
+function Et() {
+  return Qn || (Qn = 1, rn = Function.call.bind(Object.prototype.hasOwnProperty)), rn;
 }
-var Tn, Rt;
-function Hx() {
-  if (Rt) return Tn;
-  Rt = 1;
+var on, et;
+function jN() {
+  if (et) return on;
+  et = 1;
   var n = function() {
   };
   if (process.env.NODE_ENV !== "production") {
-    var e = /* @__PURE__ */ In(), t = {}, r = /* @__PURE__ */ Nr();
+    var e = /* @__PURE__ */ hn(), t = {}, i = /* @__PURE__ */ Et();
     n = function(o) {
       var a = "Warning: " + o;
       typeof console < "u" && console.error(a);
@@ -4486,46 +3860,46 @@ function Hx() {
       }
     };
   }
-  function i(o, a, l, c, u) {
+  function r(o, a, s, c, d) {
     if (process.env.NODE_ENV !== "production") {
-      for (var f in o)
-        if (r(o, f)) {
-          var m;
+      for (var u in o)
+        if (i(o, u)) {
+          var f;
           try {
-            if (typeof o[f] != "function") {
-              var g = Error(
-                (c || "React class") + ": " + l + " type `" + f + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof o[f] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+            if (typeof o[u] != "function") {
+              var h = Error(
+                (c || "React class") + ": " + s + " type `" + u + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof o[u] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
               );
-              throw g.name = "Invariant Violation", g;
+              throw h.name = "Invariant Violation", h;
             }
-            m = o[f](a, f, c, l, null, e);
-          } catch (h) {
-            m = h;
+            f = o[u](a, u, c, s, null, e);
+          } catch (p) {
+            f = p;
           }
-          if (m && !(m instanceof Error) && n(
-            (c || "React class") + ": type specification of " + l + " `" + f + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof m + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
-          ), m instanceof Error && !(m.message in t)) {
-            t[m.message] = !0;
-            var p = u ? u() : "";
+          if (f && !(f instanceof Error) && n(
+            (c || "React class") + ": type specification of " + s + " `" + u + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof f + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+          ), f instanceof Error && !(f.message in t)) {
+            t[f.message] = !0;
+            var m = d ? d() : "";
             n(
-              "Failed " + l + " type: " + m.message + (p ?? "")
+              "Failed " + s + " type: " + f.message + (m ?? "")
             );
           }
         }
     }
   }
-  return i.resetWarningCache = function() {
+  return r.resetWarningCache = function() {
     process.env.NODE_ENV !== "production" && (t = {});
-  }, Tn = i, Tn;
+  }, on = r, on;
 }
-var Un, kt;
-function Vx() {
-  if (kt) return Un;
-  kt = 1;
-  var n = br(), e = Lx(), t = /* @__PURE__ */ In(), r = /* @__PURE__ */ Nr(), i = /* @__PURE__ */ Hx(), o = function() {
+var an, nt;
+function LN() {
+  if (nt) return an;
+  nt = 1;
+  var n = Ht(), e = TN(), t = /* @__PURE__ */ hn(), i = /* @__PURE__ */ Et(), r = /* @__PURE__ */ jN(), o = function() {
   };
-  process.env.NODE_ENV !== "production" && (o = function(l) {
-    var c = "Warning: " + l;
+  process.env.NODE_ENV !== "production" && (o = function(s) {
+    var c = "Warning: " + s;
     typeof console < "u" && console.error(c);
     try {
       throw new Error(c);
@@ -4535,262 +3909,262 @@ function Vx() {
   function a() {
     return null;
   }
-  return Un = function(l, c) {
-    var u = typeof Symbol == "function" && Symbol.iterator, f = "@@iterator";
-    function m(x) {
-      var w = x && (u && x[u] || x[f]);
-      if (typeof w == "function")
-        return w;
+  return an = function(s, c) {
+    var d = typeof Symbol == "function" && Symbol.iterator, u = "@@iterator";
+    function f($) {
+      var x = $ && (d && $[d] || $[u]);
+      if (typeof x == "function")
+        return x;
     }
-    var g = "<<anonymous>>", p = {
-      array: F("array"),
-      bigint: F("bigint"),
-      bool: F("boolean"),
-      func: F("function"),
-      number: F("number"),
-      object: F("object"),
-      string: F("string"),
-      symbol: F("symbol"),
-      any: j(),
-      arrayOf: P,
-      element: S(),
-      elementType: v(),
-      instanceOf: U,
-      node: $(),
-      objectOf: C,
-      oneOf: D,
+    var h = "<<anonymous>>", m = {
+      array: w("array"),
+      bigint: w("bigint"),
+      bool: w("boolean"),
+      func: w("function"),
+      number: w("number"),
+      object: w("object"),
+      string: w("string"),
+      symbol: w("symbol"),
+      any: H(),
+      arrayOf: C,
+      element: P(),
+      elementType: g(),
+      instanceOf: S,
+      node: N(),
+      objectOf: y,
+      oneOf: F,
       oneOfType: b,
-      shape: L,
-      exact: E
+      shape: T,
+      exact: D
     };
-    function h(x, w) {
-      return x === w ? x !== 0 || 1 / x === 1 / w : x !== x && w !== w;
+    function p($, x) {
+      return $ === x ? $ !== 0 || 1 / $ === 1 / x : $ !== $ && x !== x;
     }
-    function N(x, w) {
-      this.message = x, this.data = w && typeof w == "object" ? w : {}, this.stack = "";
+    function v($, x) {
+      this.message = $, this.data = x && typeof x == "object" ? x : {}, this.stack = "";
     }
-    N.prototype = Error.prototype;
-    function H(x) {
+    v.prototype = Error.prototype;
+    function j($) {
       if (process.env.NODE_ENV !== "production")
-        var w = {}, O = 0;
-      function G(X, _, B, q, Z, k, ce) {
-        if (q = q || g, k = k || B, ce !== t) {
+        var x = {}, k = 0;
+      function I(W, B, V, Y, K, A, te) {
+        if (Y = Y || h, A = A || V, te !== t) {
           if (c) {
-            var T = new Error(
+            var U = new Error(
               "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
             );
-            throw T.name = "Invariant Violation", T;
+            throw U.name = "Invariant Violation", U;
           } else if (process.env.NODE_ENV !== "production" && typeof console < "u") {
-            var ge = q + ":" + B;
-            !w[ge] && // Avoid spamming the console because they are often not actionable except for lib authors
-            O < 3 && (o(
-              "You are manually calling a React.PropTypes validation function for the `" + k + "` prop on `" + q + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
-            ), w[ge] = !0, O++);
+            var le = Y + ":" + V;
+            !x[le] && // Avoid spamming the console because they are often not actionable except for lib authors
+            k < 3 && (o(
+              "You are manually calling a React.PropTypes validation function for the `" + A + "` prop on `" + Y + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
+            ), x[le] = !0, k++);
           }
         }
-        return _[B] == null ? X ? _[B] === null ? new N("The " + Z + " `" + k + "` is marked as required " + ("in `" + q + "`, but its value is `null`.")) : new N("The " + Z + " `" + k + "` is marked as required in " + ("`" + q + "`, but its value is `undefined`.")) : null : x(_, B, q, Z, k);
+        return B[V] == null ? W ? B[V] === null ? new v("The " + K + " `" + A + "` is marked as required " + ("in `" + Y + "`, but its value is `null`.")) : new v("The " + K + " `" + A + "` is marked as required in " + ("`" + Y + "`, but its value is `undefined`.")) : null : $(B, V, Y, K, A);
       }
-      var I = G.bind(null, !1);
-      return I.isRequired = G.bind(null, !0), I;
+      var R = I.bind(null, !1);
+      return R.isRequired = I.bind(null, !0), R;
     }
-    function F(x) {
-      function w(O, G, I, X, _, B) {
-        var q = O[G], Z = J(q);
-        if (Z !== x) {
-          var k = ne(q);
-          return new N(
-            "Invalid " + X + " `" + _ + "` of type " + ("`" + k + "` supplied to `" + I + "`, expected ") + ("`" + x + "`."),
-            { expectedType: x }
+    function w($) {
+      function x(k, I, R, W, B, V) {
+        var Y = k[I], K = _(Y);
+        if (K !== $) {
+          var A = J(Y);
+          return new v(
+            "Invalid " + W + " `" + B + "` of type " + ("`" + A + "` supplied to `" + R + "`, expected ") + ("`" + $ + "`."),
+            { expectedType: $ }
           );
         }
         return null;
       }
-      return H(w);
+      return j(x);
     }
-    function j() {
-      return H(a);
+    function H() {
+      return j(a);
     }
-    function P(x) {
-      function w(O, G, I, X, _) {
-        if (typeof x != "function")
-          return new N("Property `" + _ + "` of component `" + I + "` has invalid PropType notation inside arrayOf.");
-        var B = O[G];
-        if (!Array.isArray(B)) {
-          var q = J(B);
-          return new N("Invalid " + X + " `" + _ + "` of type " + ("`" + q + "` supplied to `" + I + "`, expected an array."));
+    function C($) {
+      function x(k, I, R, W, B) {
+        if (typeof $ != "function")
+          return new v("Property `" + B + "` of component `" + R + "` has invalid PropType notation inside arrayOf.");
+        var V = k[I];
+        if (!Array.isArray(V)) {
+          var Y = _(V);
+          return new v("Invalid " + W + " `" + B + "` of type " + ("`" + Y + "` supplied to `" + R + "`, expected an array."));
         }
-        for (var Z = 0; Z < B.length; Z++) {
-          var k = x(B, Z, I, X, _ + "[" + Z + "]", t);
-          if (k instanceof Error)
-            return k;
-        }
-        return null;
-      }
-      return H(w);
-    }
-    function S() {
-      function x(w, O, G, I, X) {
-        var _ = w[O];
-        if (!l(_)) {
-          var B = J(_);
-          return new N("Invalid " + I + " `" + X + "` of type " + ("`" + B + "` supplied to `" + G + "`, expected a single ReactElement."));
+        for (var K = 0; K < V.length; K++) {
+          var A = $(V, K, R, W, B + "[" + K + "]", t);
+          if (A instanceof Error)
+            return A;
         }
         return null;
       }
-      return H(x);
+      return j(x);
     }
-    function v() {
-      function x(w, O, G, I, X) {
-        var _ = w[O];
-        if (!n.isValidElementType(_)) {
-          var B = J(_);
-          return new N("Invalid " + I + " `" + X + "` of type " + ("`" + B + "` supplied to `" + G + "`, expected a single ReactElement type."));
+    function P() {
+      function $(x, k, I, R, W) {
+        var B = x[k];
+        if (!s(B)) {
+          var V = _(B);
+          return new v("Invalid " + R + " `" + W + "` of type " + ("`" + V + "` supplied to `" + I + "`, expected a single ReactElement."));
         }
         return null;
       }
-      return H(x);
+      return j($);
     }
-    function U(x) {
-      function w(O, G, I, X, _) {
-        if (!(O[G] instanceof x)) {
-          var B = x.name || g, q = re(O[G]);
-          return new N("Invalid " + X + " `" + _ + "` of type " + ("`" + q + "` supplied to `" + I + "`, expected ") + ("instance of `" + B + "`."));
+    function g() {
+      function $(x, k, I, R, W) {
+        var B = x[k];
+        if (!n.isValidElementType(B)) {
+          var V = _(B);
+          return new v("Invalid " + R + " `" + W + "` of type " + ("`" + V + "` supplied to `" + I + "`, expected a single ReactElement type."));
         }
         return null;
       }
-      return H(w);
+      return j($);
     }
-    function D(x) {
-      if (!Array.isArray(x))
+    function S($) {
+      function x(k, I, R, W, B) {
+        if (!(k[I] instanceof $)) {
+          var V = $.name || h, Y = Q(k[I]);
+          return new v("Invalid " + W + " `" + B + "` of type " + ("`" + Y + "` supplied to `" + R + "`, expected ") + ("instance of `" + V + "`."));
+        }
+        return null;
+      }
+      return j(x);
+    }
+    function F($) {
+      if (!Array.isArray($))
         return process.env.NODE_ENV !== "production" && (arguments.length > 1 ? o(
           "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
         ) : o("Invalid argument supplied to oneOf, expected an array.")), a;
-      function w(O, G, I, X, _) {
-        for (var B = O[G], q = 0; q < x.length; q++)
-          if (h(B, x[q]))
+      function x(k, I, R, W, B) {
+        for (var V = k[I], Y = 0; Y < $.length; Y++)
+          if (p(V, $[Y]))
             return null;
-        var Z = JSON.stringify(x, function(ce, T) {
-          var ge = ne(T);
-          return ge === "symbol" ? String(T) : T;
+        var K = JSON.stringify($, function(te, U) {
+          var le = J(U);
+          return le === "symbol" ? String(U) : U;
         });
-        return new N("Invalid " + X + " `" + _ + "` of value `" + String(B) + "` " + ("supplied to `" + I + "`, expected one of " + Z + "."));
+        return new v("Invalid " + W + " `" + B + "` of value `" + String(V) + "` " + ("supplied to `" + R + "`, expected one of " + K + "."));
       }
-      return H(w);
+      return j(x);
     }
-    function C(x) {
-      function w(O, G, I, X, _) {
-        if (typeof x != "function")
-          return new N("Property `" + _ + "` of component `" + I + "` has invalid PropType notation inside objectOf.");
-        var B = O[G], q = J(B);
-        if (q !== "object")
-          return new N("Invalid " + X + " `" + _ + "` of type " + ("`" + q + "` supplied to `" + I + "`, expected an object."));
-        for (var Z in B)
-          if (r(B, Z)) {
-            var k = x(B, Z, I, X, _ + "." + Z, t);
-            if (k instanceof Error)
-              return k;
+    function y($) {
+      function x(k, I, R, W, B) {
+        if (typeof $ != "function")
+          return new v("Property `" + B + "` of component `" + R + "` has invalid PropType notation inside objectOf.");
+        var V = k[I], Y = _(V);
+        if (Y !== "object")
+          return new v("Invalid " + W + " `" + B + "` of type " + ("`" + Y + "` supplied to `" + R + "`, expected an object."));
+        for (var K in V)
+          if (i(V, K)) {
+            var A = $(V, K, R, W, B + "." + K, t);
+            if (A instanceof Error)
+              return A;
           }
         return null;
       }
-      return H(w);
+      return j(x);
     }
-    function b(x) {
-      if (!Array.isArray(x))
+    function b($) {
+      if (!Array.isArray($))
         return process.env.NODE_ENV !== "production" && o("Invalid argument supplied to oneOfType, expected an instance of array."), a;
-      for (var w = 0; w < x.length; w++) {
-        var O = x[w];
-        if (typeof O != "function")
+      for (var x = 0; x < $.length; x++) {
+        var k = $[x];
+        if (typeof k != "function")
           return o(
-            "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + de(O) + " at index " + w + "."
+            "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + ie(k) + " at index " + x + "."
           ), a;
       }
-      function G(I, X, _, B, q) {
-        for (var Z = [], k = 0; k < x.length; k++) {
-          var ce = x[k], T = ce(I, X, _, B, q, t);
-          if (T == null)
+      function I(R, W, B, V, Y) {
+        for (var K = [], A = 0; A < $.length; A++) {
+          var te = $[A], U = te(R, W, B, V, Y, t);
+          if (U == null)
             return null;
-          T.data && r(T.data, "expectedType") && Z.push(T.data.expectedType);
+          U.data && i(U.data, "expectedType") && K.push(U.data.expectedType);
         }
-        var ge = Z.length > 0 ? ", expected one of type [" + Z.join(", ") + "]" : "";
-        return new N("Invalid " + B + " `" + q + "` supplied to " + ("`" + _ + "`" + ge + "."));
+        var le = K.length > 0 ? ", expected one of type [" + K.join(", ") + "]" : "";
+        return new v("Invalid " + V + " `" + Y + "` supplied to " + ("`" + B + "`" + le + "."));
       }
-      return H(G);
+      return j(I);
     }
-    function $() {
-      function x(w, O, G, I, X) {
-        return A(w[O]) ? null : new N("Invalid " + I + " `" + X + "` supplied to " + ("`" + G + "`, expected a ReactNode."));
+    function N() {
+      function $(x, k, I, R, W) {
+        return E(x[k]) ? null : new v("Invalid " + R + " `" + W + "` supplied to " + ("`" + I + "`, expected a ReactNode."));
       }
-      return H(x);
+      return j($);
     }
-    function M(x, w, O, G, I) {
-      return new N(
-        (x || "React class") + ": " + w + " type `" + O + "." + G + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + I + "`."
+    function M($, x, k, I, R) {
+      return new v(
+        ($ || "React class") + ": " + x + " type `" + k + "." + I + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + R + "`."
       );
     }
-    function L(x) {
-      function w(O, G, I, X, _) {
-        var B = O[G], q = J(B);
-        if (q !== "object")
-          return new N("Invalid " + X + " `" + _ + "` of type `" + q + "` " + ("supplied to `" + I + "`, expected `object`."));
-        for (var Z in x) {
-          var k = x[Z];
-          if (typeof k != "function")
-            return M(I, X, _, Z, ne(k));
-          var ce = k(B, Z, I, X, _ + "." + Z, t);
-          if (ce)
-            return ce;
+    function T($) {
+      function x(k, I, R, W, B) {
+        var V = k[I], Y = _(V);
+        if (Y !== "object")
+          return new v("Invalid " + W + " `" + B + "` of type `" + Y + "` " + ("supplied to `" + R + "`, expected `object`."));
+        for (var K in $) {
+          var A = $[K];
+          if (typeof A != "function")
+            return M(R, W, B, K, J(A));
+          var te = A(V, K, R, W, B + "." + K, t);
+          if (te)
+            return te;
         }
         return null;
       }
-      return H(w);
+      return j(x);
     }
-    function E(x) {
-      function w(O, G, I, X, _) {
-        var B = O[G], q = J(B);
-        if (q !== "object")
-          return new N("Invalid " + X + " `" + _ + "` of type `" + q + "` " + ("supplied to `" + I + "`, expected `object`."));
-        var Z = e({}, O[G], x);
-        for (var k in Z) {
-          var ce = x[k];
-          if (r(x, k) && typeof ce != "function")
-            return M(I, X, _, k, ne(ce));
-          if (!ce)
-            return new N(
-              "Invalid " + X + " `" + _ + "` key `" + k + "` supplied to `" + I + "`.\nBad object: " + JSON.stringify(O[G], null, "  ") + `
-Valid keys: ` + JSON.stringify(Object.keys(x), null, "  ")
+    function D($) {
+      function x(k, I, R, W, B) {
+        var V = k[I], Y = _(V);
+        if (Y !== "object")
+          return new v("Invalid " + W + " `" + B + "` of type `" + Y + "` " + ("supplied to `" + R + "`, expected `object`."));
+        var K = e({}, k[I], $);
+        for (var A in K) {
+          var te = $[A];
+          if (i($, A) && typeof te != "function")
+            return M(R, W, B, A, J(te));
+          if (!te)
+            return new v(
+              "Invalid " + W + " `" + B + "` key `" + A + "` supplied to `" + R + "`.\nBad object: " + JSON.stringify(k[I], null, "  ") + `
+Valid keys: ` + JSON.stringify(Object.keys($), null, "  ")
             );
-          var T = ce(B, k, I, X, _ + "." + k, t);
-          if (T)
-            return T;
+          var U = te(V, A, R, W, B + "." + A, t);
+          if (U)
+            return U;
         }
         return null;
       }
-      return H(w);
+      return j(x);
     }
-    function A(x) {
-      switch (typeof x) {
+    function E($) {
+      switch (typeof $) {
         case "number":
         case "string":
         case "undefined":
           return !0;
         case "boolean":
-          return !x;
+          return !$;
         case "object":
-          if (Array.isArray(x))
-            return x.every(A);
-          if (x === null || l(x))
+          if (Array.isArray($))
+            return $.every(E);
+          if ($ === null || s($))
             return !0;
-          var w = m(x);
-          if (w) {
-            var O = w.call(x), G;
-            if (w !== x.entries) {
-              for (; !(G = O.next()).done; )
-                if (!A(G.value))
+          var x = f($);
+          if (x) {
+            var k = x.call($), I;
+            if (x !== $.entries) {
+              for (; !(I = k.next()).done; )
+                if (!E(I.value))
                   return !1;
             } else
-              for (; !(G = O.next()).done; ) {
-                var I = G.value;
-                if (I && !A(I[1]))
+              for (; !(I = k.next()).done; ) {
+                var R = I.value;
+                if (R && !E(R[1]))
                   return !1;
               }
           } else
@@ -4800,163 +4174,163 @@ Valid keys: ` + JSON.stringify(Object.keys(x), null, "  ")
           return !1;
       }
     }
-    function Q(x, w) {
-      return x === "symbol" ? !0 : w ? w["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && w instanceof Symbol : !1;
+    function Z($, x) {
+      return $ === "symbol" ? !0 : x ? x["@@toStringTag"] === "Symbol" || typeof Symbol == "function" && x instanceof Symbol : !1;
     }
-    function J(x) {
-      var w = typeof x;
-      return Array.isArray(x) ? "array" : x instanceof RegExp ? "object" : Q(w, x) ? "symbol" : w;
+    function _($) {
+      var x = typeof $;
+      return Array.isArray($) ? "array" : $ instanceof RegExp ? "object" : Z(x, $) ? "symbol" : x;
     }
-    function ne(x) {
-      if (typeof x > "u" || x === null)
-        return "" + x;
-      var w = J(x);
-      if (w === "object") {
-        if (x instanceof Date)
+    function J($) {
+      if (typeof $ > "u" || $ === null)
+        return "" + $;
+      var x = _($);
+      if (x === "object") {
+        if ($ instanceof Date)
           return "date";
-        if (x instanceof RegExp)
+        if ($ instanceof RegExp)
           return "regexp";
       }
-      return w;
+      return x;
     }
-    function de(x) {
-      var w = ne(x);
-      switch (w) {
+    function ie($) {
+      var x = J($);
+      switch (x) {
         case "array":
         case "object":
-          return "an " + w;
+          return "an " + x;
         case "boolean":
         case "date":
         case "regexp":
-          return "a " + w;
+          return "a " + x;
         default:
-          return w;
+          return x;
       }
     }
-    function re(x) {
-      return !x.constructor || !x.constructor.name ? g : x.constructor.name;
+    function Q($) {
+      return !$.constructor || !$.constructor.name ? h : $.constructor.name;
     }
-    return p.checkPropTypes = i, p.resetWarningCache = i.resetWarningCache, p.PropTypes = p, p;
-  }, Un;
+    return m.checkPropTypes = r, m.resetWarningCache = r.resetWarningCache, m.PropTypes = m, m;
+  }, an;
 }
-var Ln, zt;
-function Ax() {
-  if (zt) return Ln;
-  zt = 1;
-  var n = /* @__PURE__ */ In();
+var sn, tt;
+function HN() {
+  if (tt) return sn;
+  tt = 1;
+  var n = /* @__PURE__ */ hn();
   function e() {
   }
   function t() {
   }
-  return t.resetWarningCache = e, Ln = function() {
-    function r(a, l, c, u, f, m) {
-      if (m !== n) {
-        var g = new Error(
+  return t.resetWarningCache = e, sn = function() {
+    function i(a, s, c, d, u, f) {
+      if (f !== n) {
+        var h = new Error(
           "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types"
         );
-        throw g.name = "Invariant Violation", g;
+        throw h.name = "Invariant Violation", h;
       }
     }
-    r.isRequired = r;
-    function i() {
-      return r;
+    i.isRequired = i;
+    function r() {
+      return i;
     }
     var o = {
-      array: r,
-      bigint: r,
-      bool: r,
-      func: r,
-      number: r,
-      object: r,
-      string: r,
-      symbol: r,
-      any: r,
-      arrayOf: i,
-      element: r,
-      elementType: r,
-      instanceOf: i,
-      node: r,
-      objectOf: i,
-      oneOf: i,
-      oneOfType: i,
-      shape: i,
-      exact: i,
+      array: i,
+      bigint: i,
+      bool: i,
+      func: i,
+      number: i,
+      object: i,
+      string: i,
+      symbol: i,
+      any: i,
+      arrayOf: r,
+      element: i,
+      elementType: i,
+      instanceOf: r,
+      node: i,
+      objectOf: r,
+      oneOf: r,
+      oneOfType: r,
+      shape: r,
+      exact: r,
       checkPropTypes: t,
       resetWarningCache: e
     };
     return o.PropTypes = o, o;
-  }, Ln;
+  }, sn;
 }
-var Ot;
-function Rx() {
-  if (Ot) return rn.exports;
-  if (Ot = 1, process.env.NODE_ENV !== "production") {
-    var n = br(), e = !0;
-    rn.exports = /* @__PURE__ */ Vx()(n.isElement, e);
+var it;
+function EN() {
+  if (it) return Ae.exports;
+  if (it = 1, process.env.NODE_ENV !== "production") {
+    var n = Ht(), e = !0;
+    Ae.exports = /* @__PURE__ */ LN()(n.isElement, e);
   } else
-    rn.exports = /* @__PURE__ */ Ax()();
-  return rn.exports;
+    Ae.exports = /* @__PURE__ */ HN()();
+  return Ae.exports;
 }
-var kx = /* @__PURE__ */ Rx();
-const z = /* @__PURE__ */ Br(kx);
-function zx(n) {
-  return K({ attr: { viewBox: "0 0 24 24", fill: "currentColor" }, child: [{ tag: "path", attr: { d: "M18 3a3 3 0 0 1 2.995 2.824l.005 .176v12a3 3 0 0 1 -2.824 2.995l-.176 .005h-12a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-12a3 3 0 0 1 2.824 -2.995l.176 -.005h12zm0 2h-9v14h9a1 1 0 0 0 .993 -.883l.007 -.117v-12a1 1 0 0 0 -.883 -.993l-.117 -.007zm-2.293 4.293a1 1 0 0 1 .083 1.32l-.083 .094l-1.292 1.293l1.292 1.293a1 1 0 0 1 .083 1.32l-.083 .094a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 -.083 -1.32l.083 -.094l2 -2a1 1 0 0 1 1.414 0z" }, child: [] }] })(n);
+var AN = /* @__PURE__ */ EN();
+const z = /* @__PURE__ */ UN(AN);
+function zN(n) {
+  return G({ attr: { viewBox: "0 0 24 24", fill: "currentColor" }, child: [{ tag: "path", attr: { d: "M18 3a3 3 0 0 1 2.995 2.824l.005 .176v12a3 3 0 0 1 -2.824 2.995l-.176 .005h-12a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-12a3 3 0 0 1 2.824 -2.995l.176 -.005h12zm0 2h-9v14h9a1 1 0 0 0 .993 -.883l.007 -.117v-12a1 1 0 0 0 -.883 -.993l-.117 -.007zm-2.293 4.293a1 1 0 0 1 .083 1.32l-.083 .094l-1.292 1.293l1.292 1.293a1 1 0 0 1 .083 1.32l-.083 .094a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 -.083 -1.32l.083 -.094l2 -2a1 1 0 0 1 1.414 0z" }, child: [] }] })(n);
 }
-function Ox(n) {
-  return K({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "path", attr: { d: "M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" }, child: [] }, { tag: "path", attr: { d: "M9 4v16" }, child: [] }, { tag: "path", attr: { d: "M14 10l2 2l-2 2" }, child: [] }] })(n);
+function kN(n) {
+  return G({ attr: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, child: [{ tag: "path", attr: { d: "M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" }, child: [] }, { tag: "path", attr: { d: "M9 4v16" }, child: [] }, { tag: "path", attr: { d: "M14 10l2 2l-2 2" }, child: [] }] })(n);
 }
-const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen: t }) => {
-  const [r, i] = R([]), [o, a] = R([]), [l, c] = R([]), [u, f] = R(!1), { currentPath: m, setCurrentPath: g, onFolderChange: p } = we(), h = pe(null), N = pe([]), H = pe(null), F = Ze(() => {
-    f(!1);
-  }), j = Ne(), P = pe(null);
-  oe(() => {
-    i(() => {
-      let C = "";
-      return m == null ? void 0 : m.split("/").map((b) => ({
-        name: b || j("home"),
-        path: b === "" ? b : C += `/${b}`
+const gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen: t }) => {
+  const [i, r] = L([]), [o, a] = L([]), [s, c] = L([]), [d, u] = L(!1), { currentPath: f, setCurrentPath: h, onFolderChange: m } = me(), p = oe(null), v = oe([]), j = oe(null), w = He(() => {
+    u(!1);
+  }), H = se(), C = oe(null);
+  X(() => {
+    r(() => {
+      let y = "";
+      return f == null ? void 0 : f.split("/").map((b) => ({
+        name: b || H("home"),
+        path: b === "" ? b : y += `/${b}`
       }));
     }), a([]), c([]);
-  }, [m, j]);
-  const S = (C) => {
-    g(C), p == null || p(C);
-  }, v = () => {
-    var J;
-    const C = h.current.clientWidth, b = getComputedStyle(h.current), $ = parseFloat(b.paddingLeft), M = n ? 2 : 0, E = n ? ((J = P.current) == null ? void 0 : J.clientWidth) + 1 : 0, A = o.length > 0 ? 1 : 0, Q = parseFloat(b.gap) * (r.length + A + M);
-    return C - ($ + Q + E);
-  }, U = () => {
+  }, [f, H]);
+  const P = (y) => {
+    h(y), m == null || m(y);
+  }, g = () => {
+    var _;
+    const y = p.current.clientWidth, b = getComputedStyle(p.current), N = parseFloat(b.paddingLeft), M = n ? 2 : 0, D = n ? ((_ = C.current) == null ? void 0 : _.clientWidth) + 1 : 0, E = o.length > 0 ? 1 : 0, Z = parseFloat(b.gap) * (i.length + E + M);
+    return y - (N + Z + D);
+  }, S = () => {
     var M;
-    const C = v(), b = N.current.reduce((L, E) => E ? L + E.clientWidth : L, 0), $ = ((M = H.current) == null ? void 0 : M.clientWidth) || 0;
-    return C - (b + $);
-  }, D = () => h.current.scrollWidth > h.current.clientWidth;
-  return oe(() => {
-    var C;
-    if (D()) {
-      const b = r[1], $ = (C = N.current[1]) == null ? void 0 : C.clientWidth;
-      c((M) => [...M, $]), a((M) => [...M, b]), i((M) => M.filter((L, E) => E !== 1));
-    } else if (o.length > 0 && U() > l.at(-1)) {
-      const b = [r[0], o.at(-1), ...r.slice(1)];
-      i(b), a(($) => $.slice(0, -1)), c(($) => $.slice(0, -1));
+    const y = g(), b = v.current.reduce((T, D) => D ? T + D.clientWidth : T, 0), N = ((M = j.current) == null ? void 0 : M.clientWidth) || 0;
+    return y - (b + N);
+  }, F = () => p.current.scrollWidth > p.current.clientWidth;
+  return X(() => {
+    var y;
+    if (F()) {
+      const b = i[1], N = (y = v.current[1]) == null ? void 0 : y.clientWidth;
+      c((M) => [...M, N]), a((M) => [...M, b]), r((M) => M.filter((T, D) => D !== 1));
+    } else if (o.length > 0 && S() > s.at(-1)) {
+      const b = [i[0], o.at(-1), ...i.slice(1)];
+      r(b), a((N) => N.slice(0, -1)), c((N) => N.slice(0, -1));
     }
-  }, [D]), /* @__PURE__ */ s.jsxDEV("div", { className: "bread-crumb-container", children: [
-    /* @__PURE__ */ s.jsxDEV("div", { className: "breadcrumb", ref: h, children: [
-      n && /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-        /* @__PURE__ */ s.jsxDEV(
+  }, [F]), /* @__PURE__ */ l("div", { className: "bread-crumb-container", children: [
+    /* @__PURE__ */ l("div", { className: "breadcrumb", ref: p, children: [
+      n && /* @__PURE__ */ l(fe, { children: [
+        /* @__PURE__ */ l(
           "div",
           {
-            ref: P,
+            ref: C,
             className: "nav-toggler",
-            title: `${j(e ? "collapseNavigationPane" : "expandNavigationPane")}`,
-            children: /* @__PURE__ */ s.jsxDEV(
+            title: `${H(e ? "collapseNavigationPane" : "expandNavigationPane")}`,
+            children: /* @__PURE__ */ l(
               "span",
               {
                 className: "folder-name folder-name-btn",
-                onClick: () => t((C) => !C),
-                children: e ? /* @__PURE__ */ s.jsxDEV(zx, {}, void 0, !1, {
+                onClick: () => t((y) => !y),
+                children: e ? /* @__PURE__ */ l(zN, {}, void 0, !1, {
                   fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/BreadCrumb/BreadCrumb.jsx",
                   lineNumber: 105,
                   columnNumber: 19
-                }, void 0) : /* @__PURE__ */ s.jsxDEV(Ox, {}, void 0, !1, {
+                }, void 0) : /* @__PURE__ */ l(kN, {}, void 0, !1, {
                   fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/BreadCrumb/BreadCrumb.jsx",
                   lineNumber: 107,
                   columnNumber: 19
@@ -4981,7 +4355,7 @@ const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen:
           },
           void 0
         ),
-        /* @__PURE__ */ s.jsxDEV("div", { className: "divider" }, void 0, !1, {
+        /* @__PURE__ */ l("div", { className: "divider" }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/BreadCrumb/BreadCrumb.jsx",
           lineNumber: 111,
           columnNumber: 13
@@ -4991,24 +4365,24 @@ const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen:
         lineNumber: 92,
         columnNumber: 11
       }, void 0),
-      r.map((C, b) => /* @__PURE__ */ s.jsxDEV("div", { style: { display: "contents" }, children: [
-        /* @__PURE__ */ s.jsxDEV(
+      i.map((y, b) => /* @__PURE__ */ l("div", { style: { display: "contents" }, children: [
+        /* @__PURE__ */ l(
           "span",
           {
             className: "folder-name",
-            onClick: () => S(C.path),
-            ref: ($) => N.current[b] = $,
+            onClick: () => P(y.path),
+            ref: (N) => v.current[b] = N,
             children: [
-              b === 0 ? /* @__PURE__ */ s.jsxDEV(ri, {}, void 0, !1, {
+              b === 0 ? /* @__PURE__ */ l(Qt, {}, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/BreadCrumb/BreadCrumb.jsx",
                 lineNumber: 121,
                 columnNumber: 30
-              }, void 0) : /* @__PURE__ */ s.jsxDEV(li, {}, void 0, !1, {
+              }, void 0) : /* @__PURE__ */ l(ri, {}, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/BreadCrumb/BreadCrumb.jsx",
                 lineNumber: 121,
                 columnNumber: 43
               }, void 0),
-              C.name
+              y.name
             ]
           },
           void 0,
@@ -5020,14 +4394,14 @@ const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen:
           },
           void 0
         ),
-        (o == null ? void 0 : o.length) > 0 && b === 0 && /* @__PURE__ */ s.jsxDEV(
+        (o == null ? void 0 : o.length) > 0 && b === 0 && /* @__PURE__ */ l(
           "button",
           {
             className: "folder-name folder-name-btn",
-            onClick: () => f(!0),
-            ref: H,
-            title: j("showMoreFolder"),
-            children: /* @__PURE__ */ s.jsxDEV(si, { size: 22, className: "hidden-folders" }, void 0, !1, {
+            onClick: () => u(!0),
+            ref: j,
+            title: H("showMoreFolder"),
+            children: /* @__PURE__ */ l(ii, { size: 22, className: "hidden-folders" }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/BreadCrumb/BreadCrumb.jsx",
               lineNumber: 131,
               columnNumber: 17
@@ -5052,13 +4426,13 @@ const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen:
       lineNumber: 90,
       columnNumber: 7
     }, void 0),
-    u && /* @__PURE__ */ s.jsxDEV("ul", { ref: F.ref, className: "hidden-folders-container", children: o.map((C, b) => /* @__PURE__ */ s.jsxDEV(
+    d && /* @__PURE__ */ l("ul", { ref: w.ref, className: "hidden-folders-container", children: o.map((y, b) => /* @__PURE__ */ l(
       "li",
       {
         onClick: () => {
-          S(C.path), f(!1);
+          P(y.path), u(!1);
         },
-        children: C.name
+        children: y.name
       },
       b,
       !1,
@@ -5079,210 +4453,210 @@ const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen:
     columnNumber: 5
   }, void 0);
 };
-Gn.displayName = "BreadCrumb";
-Gn.propTypes = {
+gn.displayName = "BreadCrumb";
+gn.propTypes = {
   isNavigationPaneOpen: z.bool.isRequired,
   setNavigationPaneOpen: z.func.isRequired
 };
-const pn = (n) => ({
-  pdf: /* @__PURE__ */ s.jsxDEV(mi, { size: n }, void 0, !1, {
+const _e = (n) => ({
+  pdf: /* @__PURE__ */ l(ci, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 17,
     columnNumber: 10
   }, void 0),
-  jpg: /* @__PURE__ */ s.jsxDEV(wn, { size: n }, void 0, !1, {
+  jpg: /* @__PURE__ */ l(Xe, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 18,
     columnNumber: 10
   }, void 0),
-  jpeg: /* @__PURE__ */ s.jsxDEV(wn, { size: n }, void 0, !1, {
+  jpeg: /* @__PURE__ */ l(Xe, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 19,
     columnNumber: 11
   }, void 0),
-  png: /* @__PURE__ */ s.jsxDEV(wn, { size: n }, void 0, !1, {
+  png: /* @__PURE__ */ l(Xe, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 20,
     columnNumber: 10
   }, void 0),
-  txt: /* @__PURE__ */ s.jsxDEV(fi, { size: n }, void 0, !1, {
+  txt: /* @__PURE__ */ l(li, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 21,
     columnNumber: 10
   }, void 0),
-  doc: /* @__PURE__ */ s.jsxDEV(ut, { size: n }, void 0, !1, {
+  doc: /* @__PURE__ */ l(Pn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 22,
     columnNumber: 10
   }, void 0),
-  docx: /* @__PURE__ */ s.jsxDEV(ut, { size: n }, void 0, !1, {
+  docx: /* @__PURE__ */ l(Pn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 23,
     columnNumber: 11
   }, void 0),
-  mp4: /* @__PURE__ */ s.jsxDEV(ct, { size: n }, void 0, !1, {
+  mp4: /* @__PURE__ */ l(wn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 24,
     columnNumber: 10
   }, void 0),
-  webm: /* @__PURE__ */ s.jsxDEV(ct, { size: n }, void 0, !1, {
+  webm: /* @__PURE__ */ l(wn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 25,
     columnNumber: 11
   }, void 0),
-  mp3: /* @__PURE__ */ s.jsxDEV(at, { size: n }, void 0, !1, {
+  mp3: /* @__PURE__ */ l(Fn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 26,
     columnNumber: 10
   }, void 0),
-  m4a: /* @__PURE__ */ s.jsxDEV(at, { size: n }, void 0, !1, {
+  m4a: /* @__PURE__ */ l(Fn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 27,
     columnNumber: 10
   }, void 0),
-  zip: /* @__PURE__ */ s.jsxDEV(pi, { size: n }, void 0, !1, {
+  zip: /* @__PURE__ */ l(di, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 28,
     columnNumber: 10
   }, void 0),
-  ppt: /* @__PURE__ */ s.jsxDEV(lt, { size: n }, void 0, !1, {
+  ppt: /* @__PURE__ */ l(Cn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 29,
     columnNumber: 10
   }, void 0),
-  pptx: /* @__PURE__ */ s.jsxDEV(lt, { size: n }, void 0, !1, {
+  pptx: /* @__PURE__ */ l(Cn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 30,
     columnNumber: 11
   }, void 0),
-  xls: /* @__PURE__ */ s.jsxDEV(st, { size: n }, void 0, !1, {
+  xls: /* @__PURE__ */ l(xn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 31,
     columnNumber: 10
   }, void 0),
-  xlsx: /* @__PURE__ */ s.jsxDEV(st, { size: n }, void 0, !1, {
+  xlsx: /* @__PURE__ */ l(xn, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 32,
     columnNumber: 11
   }, void 0),
-  exe: /* @__PURE__ */ s.jsxDEV(di, { size: n }, void 0, !1, {
+  exe: /* @__PURE__ */ l(si, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 33,
     columnNumber: 10
   }, void 0),
-  html: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  html: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 34,
     columnNumber: 11
   }, void 0),
-  css: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  css: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 35,
     columnNumber: 10
   }, void 0),
-  js: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  js: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 36,
     columnNumber: 9
   }, void 0),
-  php: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  php: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 37,
     columnNumber: 10
   }, void 0),
-  py: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  py: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 38,
     columnNumber: 9
   }, void 0),
-  java: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  java: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 39,
     columnNumber: 11
   }, void 0),
-  cpp: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  cpp: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 40,
     columnNumber: 10
   }, void 0),
-  c: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  c: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 41,
     columnNumber: 8
   }, void 0),
-  ts: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  ts: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 42,
     columnNumber: 9
   }, void 0),
-  jsx: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  jsx: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 43,
     columnNumber: 10
   }, void 0),
-  tsx: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  tsx: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 44,
     columnNumber: 10
   }, void 0),
-  json: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  json: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 45,
     columnNumber: 11
   }, void 0),
-  xml: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  xml: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 46,
     columnNumber: 10
   }, void 0),
-  sql: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  sql: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 47,
     columnNumber: 10
   }, void 0),
-  csv: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  csv: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 48,
     columnNumber: 10
   }, void 0),
-  md: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  md: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 49,
     columnNumber: 9
   }, void 0),
-  svg: /* @__PURE__ */ s.jsxDEV(be, { size: n }, void 0, !1, {
+  svg: /* @__PURE__ */ l(ae, { size: n }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/hooks/useFileIcons.jsx",
     lineNumber: 50,
     columnNumber: 10
   }, void 0)
-}), xr = (n, e, t) => {
-  if (t.find((r) => r.name === n)) {
-    const i = n;
+}), At = (n, e, t) => {
+  if (t.find((i) => i.name === n)) {
+    const r = n;
     let o = 0;
-    const a = new RegExp(`${i} \\(\\d+\\)`);
-    t.forEach((u) => {
-      const f = u.isDirectory ? u.name : u.name.split(".").slice(0, -1).join(".");
-      if (a.test(f)) {
-        const m = f.split(`${i} (`).pop().slice(0, -1), g = parseInt(m);
-        !isNaN(g) && g > o && (o = g);
+    const a = new RegExp(`${r} \\(\\d+\\)`);
+    t.forEach((d) => {
+      const u = d.isDirectory ? d.name : d.name.split(".").slice(0, -1).join(".");
+      if (a.test(u)) {
+        const f = u.split(`${r} (`).pop().slice(0, -1), h = parseInt(f);
+        !isNaN(h) && h > o && (o = h);
       }
     });
-    const l = ` (${++o})`;
-    return i + l + "";
+    const s = ` (${++o})`;
+    return r + s + "";
   } else
     return n;
-}, $r = ({ nameInputRef: n, id: e, maxLength: t, value: r, onChange: i, onKeyDown: o, onClick: a, rows: l }) => /* @__PURE__ */ s.jsxDEV(
+}, zt = ({ nameInputRef: n, id: e, maxLength: t, value: i, onChange: r, onKeyDown: o, onClick: a, rows: s }) => /* @__PURE__ */ l(
   "textarea",
   {
     ref: n,
     id: e,
     className: "rename-file",
     maxLength: t,
-    value: r,
-    onChange: i,
+    value: i,
+    onChange: r,
     onKeyDown: o,
     onClick: a,
-    rows: l
+    rows: s
   },
   void 0,
   !1,
@@ -5292,64 +4666,64 @@ const pn = (n) => ({
     columnNumber: 5
   },
   void 0
-), yr = ({ message: n, xPlacement: e, yPlacement: t }) => /* @__PURE__ */ s.jsxDEV("p", { className: `error-tooltip ${e} ${t}`, children: n }, void 0, !1, {
+), kt = ({ message: n, xPlacement: e, yPlacement: t }) => /* @__PURE__ */ l("p", { className: `error-tooltip ${e} ${t}`, children: n }, void 0, !1, {
   fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ErrorTooltip/ErrorTooltip.jsx",
   lineNumber: 4,
   columnNumber: 10
-}, void 0), Ix = 220, Gx = ({ filesViewRef: n, file: e, onCreateFolder: t, triggerAction: r }) => {
-  const [i, o] = R(e.name), [a, l] = R(!1), [c, u] = R(""), [f, m] = R("right"), [g, p] = R("bottom"), h = Ze((D) => {
-    D.preventDefault(), D.stopPropagation();
-  }), { currentFolder: N, currentPathFiles: H, setCurrentPathFiles: F } = we(), { activeLayout: j } = He(), P = Ne(), S = (D) => {
-    o(D.target.value), l(!1);
-  }, v = (D) => {
-    if (D.stopPropagation(), D.key === "Enter") {
-      D.preventDefault(), U();
+}, void 0), RN = 220, IN = ({ filesViewRef: n, file: e, onCreateFolder: t, triggerAction: i }) => {
+  const [r, o] = L(e.name), [a, s] = L(!1), [c, d] = L(""), [u, f] = L("right"), [h, m] = L("bottom"), p = He((F) => {
+    F.preventDefault(), F.stopPropagation();
+  }), { currentFolder: v, currentPathFiles: j, setCurrentPathFiles: w } = me(), { activeLayout: H } = ve(), C = se(), P = (F) => {
+    o(F.target.value), s(!1);
+  }, g = (F) => {
+    if (F.stopPropagation(), F.key === "Enter") {
+      F.preventDefault(), S();
       return;
     }
-    if (D.key === "Escape") {
-      D.preventDefault(), r.close(), F((b) => b.filter(($) => $.key !== e.key));
+    if (F.key === "Escape") {
+      F.preventDefault(), i.close(), w((b) => b.filter((N) => N.key !== e.key));
       return;
     }
-    /[\\/:*?"<>|]/.test(D.key) ? (D.preventDefault(), u(P("invalidFileName")), l(!0)) : (l(!1), u(""));
+    /[\\/:*?"<>|]/.test(F.key) ? (F.preventDefault(), d(C("invalidFileName")), s(!0)) : (s(!1), d(""));
   };
-  oe(() => {
+  X(() => {
     if (a) {
-      const D = setTimeout(() => {
-        l(!1), u("");
+      const F = setTimeout(() => {
+        s(!1), d("");
       }, 7e3);
-      return () => clearTimeout(D);
+      return () => clearTimeout(F);
     }
   }, [a]);
-  function U() {
-    var $, M;
-    let D = i.trim();
-    const C = H.filter((L) => !(L.key && L.key === e.key));
-    if (C.find((L) => L.name.toLowerCase() === D.toLowerCase())) {
-      u(P("folderExists", { renameFile: D })), l(!0), ($ = h.ref.current) == null || $.focus(), (M = h.ref.current) == null || M.select(), h.setIsClicked(!1);
+  function S() {
+    var N, M;
+    let F = r.trim();
+    const y = j.filter((T) => !(T.key && T.key === e.key));
+    if (y.find((T) => T.name.toLowerCase() === F.toLowerCase())) {
+      d(C("folderExists", { renameFile: F })), s(!0), (N = p.ref.current) == null || N.focus(), (M = p.ref.current) == null || M.select(), p.setIsClicked(!1);
       return;
     }
-    D === "" && (D = xr("New Folder", !0, C)), Ae(t, "onCreateFolder", D, N), F((L) => L.filter((E) => E.key !== e.key)), r.close();
+    F === "" && (F = At("New Folder", !0, y)), ye(t, "onCreateFolder", F, v), w((T) => T.filter((D) => D.key !== e.key)), i.close();
   }
-  return oe(() => {
-    var D, C, b;
-    if ((D = h.ref.current) == null || D.focus(), (C = h.ref.current) == null || C.select(), (b = h.ref) != null && b.current) {
-      const E = n.current.getBoundingClientRect(), A = h.ref.current, Q = A.getBoundingClientRect();
-      E.right - Q.left > 313 ? m("right") : m("left"), E.bottom - (Q.top + A.clientHeight) > 88 ? p("bottom") : p("top");
+  return X(() => {
+    var F, y, b;
+    if ((F = p.ref.current) == null || F.focus(), (y = p.ref.current) == null || y.select(), (b = p.ref) != null && b.current) {
+      const D = n.current.getBoundingClientRect(), E = p.ref.current, Z = E.getBoundingClientRect();
+      D.right - Z.left > 313 ? f("right") : f("left"), D.bottom - (Z.top + E.clientHeight) > 88 ? m("bottom") : m("top");
     }
-  }, []), oe(() => {
-    h.isClicked && U();
-  }, [h.isClicked]), /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-    /* @__PURE__ */ s.jsxDEV(
-      $r,
+  }, []), X(() => {
+    p.isClicked && S();
+  }, [p.isClicked]), /* @__PURE__ */ l(fe, { children: [
+    /* @__PURE__ */ l(
+      zt,
       {
         id: "newFolder",
-        nameInputRef: h.ref,
-        maxLength: Ix,
-        value: i,
-        onChange: S,
-        onKeyDown: v,
-        onClick: (D) => D.stopPropagation(),
-        ...j === "list" && { rows: 1 }
+        nameInputRef: p.ref,
+        maxLength: RN,
+        value: r,
+        onChange: P,
+        onKeyDown: g,
+        onClick: (F) => F.stopPropagation(),
+        ...H === "list" && { rows: 1 }
       },
       void 0,
       !1,
@@ -5360,12 +4734,12 @@ const pn = (n) => ({
       },
       void 0
     ),
-    a && /* @__PURE__ */ s.jsxDEV(
-      yr,
+    a && /* @__PURE__ */ l(
+      kt,
       {
         message: c,
-        xPlacement: f,
-        yPlacement: g
+        xPlacement: u,
+        yPlacement: h
       },
       void 0,
       !1,
@@ -5381,14 +4755,14 @@ const pn = (n) => ({
     lineNumber: 136,
     columnNumber: 5
   }, void 0);
-}, Ge = ({ onClick: n, onKeyDown: e, type: t = "primary", padding: r = "0.4rem 0.8rem", children: i }) => /* @__PURE__ */ s.jsxDEV(
+}, we = ({ onClick: n, onKeyDown: e, type: t = "primary", padding: i = "0.4rem 0.8rem", children: r }) => /* @__PURE__ */ l(
   "button",
   {
     onClick: n,
     onKeyDown: e,
     className: `fm-button fm-button-${t}`,
-    style: { padding: r },
-    children: i
+    style: { padding: i },
+    children: r
   },
   void 0,
   !1,
@@ -5399,39 +4773,39 @@ const pn = (n) => ({
   },
   void 0
 );
-function _x(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32", d: "M85.57 446.25h340.86a32 32 0 0 0 28.17-47.17L284.18 82.58c-12.09-22.44-44.27-22.44-56.36 0L57.4 399.08a32 32 0 0 0 28.17 47.17z" }, child: [] }, { tag: "path", attr: { fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32", d: "m250.26 195.39 5.74 122 5.73-121.95a5.74 5.74 0 0 0-5.79-6h0a5.74 5.74 0 0 0-5.68 5.95z" }, child: [] }, { tag: "path", attr: { d: "M256 397.25a20 20 0 1 1 20-20 20 20 0 0 1-20 20z" }, child: [] }] })(n);
+function ON(n) {
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32", d: "M85.57 446.25h340.86a32 32 0 0 0 28.17-47.17L284.18 82.58c-12.09-22.44-44.27-22.44-56.36 0L57.4 399.08a32 32 0 0 0 28.17 47.17z" }, child: [] }, { tag: "path", attr: { fill: "none", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32", d: "m250.26 195.39 5.74 122 5.73-121.95a5.74 5.74 0 0 0-5.79-6h0a5.74 5.74 0 0 0-5.68 5.95z" }, child: [] }, { tag: "path", attr: { d: "M256 397.25a20 20 0 1 1 20-20 20 20 0 0 1-20 20z" }, child: [] }] })(n);
 }
-const Fr = ({
+const Rt = ({
   children: n,
   show: e,
   setShow: t,
-  heading: r,
-  dialogWidth: i = "25%",
+  heading: i,
+  dialogWidth: r = "25%",
   contentClassName: o = "",
   closeButton: a = !0
 }) => {
-  const l = pe(null), c = Ne(), u = (f) => {
-    f.key === "Escape" && t(!1);
+  const s = oe(null), c = se(), d = (u) => {
+    u.key === "Escape" && t(!1);
   };
-  return oe(() => {
-    e ? l.current.showModal() : l.current.close();
-  }, [e]), /* @__PURE__ */ s.jsxDEV(
+  return X(() => {
+    e ? s.current.showModal() : s.current.close();
+  }, [e]), /* @__PURE__ */ l(
     "dialog",
     {
-      ref: l,
+      ref: s,
       className: "fm-modal dialog",
-      style: { width: i },
-      onKeyDown: u,
+      style: { width: r },
+      onKeyDown: d,
       children: [
-        /* @__PURE__ */ s.jsxDEV("div", { className: "fm-modal-header", children: [
-          /* @__PURE__ */ s.jsxDEV("span", { className: "fm-modal-heading", children: r }, void 0, !1, {
+        /* @__PURE__ */ l("div", { className: "fm-modal-header", children: [
+          /* @__PURE__ */ l("span", { className: "fm-modal-heading", children: i }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Modal/Modal.jsx",
             lineNumber: 40,
             columnNumber: 9
           }, void 0),
-          a && /* @__PURE__ */ s.jsxDEV(
-            ai,
+          a && /* @__PURE__ */ l(
+            ti,
             {
               size: 18,
               onClick: () => t(!1),
@@ -5464,80 +4838,80 @@ const Fr = ({
     },
     void 0
   );
-}, Ie = (n) => n.split(".").pop(), Bx = 220, Wx = ({ filesViewRef: n, file: e, onRename: t, triggerAction: r }) => {
-  const [i, o] = R(e == null ? void 0 : e.name), [a, l] = R(!1), [c, u] = R(!1), [f, m] = R(""), [g, p] = R("right"), [h, N] = R("bottom"), { currentPathFiles: H, setCurrentPathFiles: F } = we(), { activeLayout: j } = He(), P = Ne(), S = pe(null), v = Ze((b) => {
-    var $;
-    ($ = S.current) != null && $.contains(b.target) || (b.preventDefault(), b.stopPropagation());
-  }), U = (b) => {
+}, Ce = (n) => n.split(".").pop(), GN = 220, BN = ({ filesViewRef: n, file: e, onRename: t, triggerAction: i }) => {
+  const [r, o] = L(e == null ? void 0 : e.name), [a, s] = L(!1), [c, d] = L(!1), [u, f] = L(""), [h, m] = L("right"), [p, v] = L("bottom"), { currentPathFiles: j, setCurrentPathFiles: w } = me(), { activeLayout: H } = ve(), C = se(), P = oe(null), g = He((b) => {
+    var N;
+    (N = P.current) != null && N.contains(b.target) || (b.preventDefault(), b.stopPropagation());
+  }), S = (b) => {
     if (b.stopPropagation(), b.key === "Enter") {
-      b.preventDefault(), v.setIsClicked(!0);
+      b.preventDefault(), g.setIsClicked(!0);
       return;
     }
     if (b.key === "Escape") {
-      b.preventDefault(), F(
-        (M) => M.map((L) => (L.key === e.key && (L.isEditing = !1), L))
-      ), r.close();
+      b.preventDefault(), w(
+        (M) => M.map((T) => (T.key === e.key && (T.isEditing = !1), T))
+      ), i.close();
       return;
     }
-    /[\\/:*?"<>|]/.test(b.key) ? (b.preventDefault(), m(P("invalidFileName")), u(!0)) : u(!1);
+    /[\\/:*?"<>|]/.test(b.key) ? (b.preventDefault(), f(C("invalidFileName")), d(!0)) : d(!1);
   };
-  oe(() => {
+  X(() => {
     if (c) {
       const b = setTimeout(() => {
-        u(!1), m("");
+        d(!1), f("");
       }, 7e3);
       return () => clearTimeout(b);
     }
   }, [c]);
-  function D(b) {
-    if (i === "" || i === e.name) {
-      F(
-        ($) => $.map((M) => (M.key === e.key && (M.isEditing = !1), M))
-      ), r.close();
+  function F(b) {
+    if (r === "" || r === e.name) {
+      w(
+        (N) => N.map((M) => (M.key === e.key && (M.isEditing = !1), M))
+      ), i.close();
       return;
-    } else if (H.some(($) => $.name === i)) {
-      u(!0), m(P("folderExists", { renameFile: i })), v.setIsClicked(!1);
+    } else if (j.some((N) => N.name === r)) {
+      d(!0), f(C("folderExists", { renameFile: r })), g.setIsClicked(!1);
       return;
     } else if (!e.isDirectory && !b) {
-      const $ = Ie(e.name), M = Ie(i);
-      if ($ !== M) {
-        l(!0);
+      const N = Ce(e.name), M = Ce(r);
+      if (N !== M) {
+        s(!0);
         return;
       }
     }
-    u(!1), Ae(t, "onRename", e, i), F(($) => $.filter((M) => M.key !== e.key)), r.close();
+    d(!1), ye(t, "onRename", e, r), w((N) => N.filter((M) => M.key !== e.key)), i.close();
   }
-  const C = () => {
-    var b, $, M, L, E, A;
-    if (($ = (b = v.ref) == null ? void 0 : b.current) == null || $.focus(), e.isDirectory)
-      (L = (M = v.ref) == null ? void 0 : M.current) == null || L.select();
+  const y = () => {
+    var b, N, M, T, D, E;
+    if ((N = (b = g.ref) == null ? void 0 : b.current) == null || N.focus(), e.isDirectory)
+      (T = (M = g.ref) == null ? void 0 : M.current) == null || T.select();
     else {
-      const Q = Ie(e.name), J = e.name.length - Q.length - 1;
-      (A = (E = v.ref) == null ? void 0 : E.current) == null || A.setSelectionRange(0, J);
+      const Z = Ce(e.name), _ = e.name.length - Z.length - 1;
+      (E = (D = g.ref) == null ? void 0 : D.current) == null || E.setSelectionRange(0, _);
     }
   };
-  return oe(() => {
+  return X(() => {
     var b;
-    if (C(), (b = v.ref) != null && b.current) {
-      const E = n.current.getBoundingClientRect(), A = v.ref.current, Q = A.getBoundingClientRect();
-      E.right - Q.left > 313 ? p("right") : p("left"), E.bottom - (Q.top + A.clientHeight) > 88 ? N("bottom") : N("top");
+    if (y(), (b = g.ref) != null && b.current) {
+      const D = n.current.getBoundingClientRect(), E = g.ref.current, Z = E.getBoundingClientRect();
+      D.right - Z.left > 313 ? m("right") : m("left"), D.bottom - (Z.top + E.clientHeight) > 88 ? v("bottom") : v("top");
     }
-  }, []), oe(() => {
-    v.isClicked && D(!1), C();
-  }, [v.isClicked]), /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-    /* @__PURE__ */ s.jsxDEV(
-      $r,
+  }, []), X(() => {
+    g.isClicked && F(!1), y();
+  }, [g.isClicked]), /* @__PURE__ */ l(fe, { children: [
+    /* @__PURE__ */ l(
+      zt,
       {
         id: e.name,
-        nameInputRef: v.ref,
-        maxLength: Bx,
-        value: i,
+        nameInputRef: g.ref,
+        maxLength: GN,
+        value: r,
         onChange: (b) => {
-          o(b.target.value), u(!1);
+          o(b.target.value), d(!1);
         },
-        onKeyDown: U,
+        onKeyDown: S,
         onClick: (b) => b.stopPropagation(),
-        ...j === "list" && { rows: 1 }
+        ...H === "list" && { rows: 1 }
       },
       void 0,
       !1,
@@ -5548,12 +4922,12 @@ const Fr = ({
       },
       void 0
     ),
-    c && /* @__PURE__ */ s.jsxDEV(
-      yr,
+    c && /* @__PURE__ */ l(
+      kt,
       {
-        message: f,
-        xPlacement: g,
-        yPlacement: h
+        message: u,
+        xPlacement: h,
+        yPlacement: p
       },
       void 0,
       !1,
@@ -5564,22 +4938,22 @@ const Fr = ({
       },
       void 0
     ),
-    /* @__PURE__ */ s.jsxDEV(
-      Fr,
+    /* @__PURE__ */ l(
+      Rt,
       {
-        heading: P("rename"),
+        heading: C("rename"),
         show: a,
-        setShow: l,
+        setShow: s,
         dialogWidth: "25vw",
         closeButton: !1,
-        children: /* @__PURE__ */ s.jsxDEV("div", { className: "fm-rename-folder-container", ref: S, children: [
-          /* @__PURE__ */ s.jsxDEV("div", { className: "fm-rename-folder-input", children: /* @__PURE__ */ s.jsxDEV("div", { className: "fm-rename-warning", children: [
-            /* @__PURE__ */ s.jsxDEV(_x, { size: 70, color: "orange" }, void 0, !1, {
+        children: /* @__PURE__ */ l("div", { className: "fm-rename-folder-container", ref: P, children: [
+          /* @__PURE__ */ l("div", { className: "fm-rename-folder-input", children: /* @__PURE__ */ l("div", { className: "fm-rename-warning", children: [
+            /* @__PURE__ */ l(ON, { size: 70, color: "orange" }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/Rename/Rename.action.jsx",
               lineNumber: 189,
               columnNumber: 15
             }, void 0),
-            /* @__PURE__ */ s.jsxDEV("div", { children: P("fileNameChangeWarning") }, void 0, !1, {
+            /* @__PURE__ */ l("div", { children: C("fileNameChangeWarning") }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/Rename/Rename.action.jsx",
               lineNumber: 190,
               columnNumber: 15
@@ -5593,17 +4967,17 @@ const Fr = ({
             lineNumber: 187,
             columnNumber: 11
           }, void 0),
-          /* @__PURE__ */ s.jsxDEV("div", { className: "fm-rename-folder-action", children: [
-            /* @__PURE__ */ s.jsxDEV(
-              Ge,
+          /* @__PURE__ */ l("div", { className: "fm-rename-folder-action", children: [
+            /* @__PURE__ */ l(
+              we,
               {
                 type: "secondary",
                 onClick: () => {
-                  F(
-                    (b) => b.map(($) => ($.key === e.key && ($.isEditing = !1), $))
-                  ), l(!1), r.close();
+                  w(
+                    (b) => b.map((N) => (N.key === e.key && (N.isEditing = !1), N))
+                  ), s(!1), i.close();
                 },
-                children: P("no")
+                children: C("no")
               },
               void 0,
               !1,
@@ -5614,14 +4988,14 @@ const Fr = ({
               },
               void 0
             ),
-            /* @__PURE__ */ s.jsxDEV(
-              Ge,
+            /* @__PURE__ */ l(
+              we,
               {
                 type: "danger",
                 onClick: () => {
-                  l(!1), D(!0);
+                  s(!1), F(!0);
                 },
-                children: P("yes")
+                children: C("yes")
               },
               void 0,
               !1,
@@ -5657,24 +5031,24 @@ const Fr = ({
     lineNumber: 157,
     columnNumber: 5
   }, void 0);
-}, Nn = (n, e = 2) => {
+}, Ze = (n, e = 2) => {
   if (isNaN(n)) return "";
-  const t = n / 1024, r = t / 1024, i = r / 1024;
+  const t = n / 1024, i = t / 1024, r = i / 1024;
   if (t < 1024)
     return `${t.toFixed(e)} KB`;
-  if (r < 1024)
-    return `${r.toFixed(e)} MB`;
-  if (r >= 1024)
-    return `${i.toFixed(e)} GB`;
-}, Yx = (n) => {
+  if (i < 1024)
+    return `${i.toFixed(e)} MB`;
+  if (i >= 1024)
+    return `${r.toFixed(e)} GB`;
+}, VN = (n) => {
   if (!n || isNaN(Date.parse(n))) return "";
   n = new Date(n);
   let e = n.getHours();
-  const t = n.getMinutes(), r = e >= 12 ? "PM" : "AM";
+  const t = n.getMinutes(), i = e >= 12 ? "PM" : "AM";
   e = e % 12, e = e || 12;
-  const i = n.getMonth() + 1, o = n.getDate(), a = n.getFullYear();
-  return `${i}/${o}/${a} ${e}:${t < 10 ? "0" + t : t} ${r}`;
-}, Cr = ({ name: n, id: e, checked: t, onClick: r, onChange: i, className: o = "", title: a, disabled: l = !1 }) => /* @__PURE__ */ s.jsxDEV(
+  const r = n.getMonth() + 1, o = n.getDate(), a = n.getFullYear();
+  return `${r}/${o}/${a} ${e}:${t < 10 ? "0" + t : t} ${i}`;
+}, It = ({ name: n, id: e, checked: t, onClick: i, onChange: r, className: o = "", title: a, disabled: s = !1 }) => /* @__PURE__ */ l(
   "input",
   {
     className: `fm-checkbox ${o}`,
@@ -5682,10 +5056,10 @@ const Fr = ({
     name: n,
     id: e,
     checked: t,
-    onClick: r,
-    onChange: i,
+    onClick: i,
+    onChange: r,
     title: a,
-    disabled: l
+    disabled: s
   },
   void 0,
   !1,
@@ -5695,95 +5069,95 @@ const Fr = ({
     columnNumber: 5
   },
   void 0
-), Hn = 50, Kx = ({
+), ln = 50, WN = ({
   index: n,
   file: e,
   onCreateFolder: t,
-  onRename: r,
-  enableFilePreview: i,
+  onRename: i,
+  enableFilePreview: r,
   onFileOpen: o,
   filesViewRef: a,
-  selectedFileIndexes: l,
+  selectedFileIndexes: s,
   triggerAction: c,
-  handleContextMenu: u,
-  setLastSelectedFile: f,
-  draggable: m
+  handleContextMenu: d,
+  setLastSelectedFile: u,
+  draggable: f
 }) => {
-  var ge, je, Pe, Ue;
-  const [g, p] = R(!1), [h, N] = R(0), [H, F] = R("hidden"), [j, P] = R(""), [S, v] = R(null), { activeLayout: U } = He(), D = U === "grid" ? 48 : 20, C = pn(D), { setCurrentPath: b, currentPathFiles: $, onFolderChange: M } = we(), { setSelectedFiles: L } = Te(), { clipBoard: E, handleCutCopy: A, setClipBoard: Q, handlePasting: J } = bn(), ne = pe(null), de = pn(Hn), re = (E == null ? void 0 : E.isMoving) && E.files.find((ee) => ee.name === e.name && ee.path === e.path), x = () => {
-    o(e), e.isDirectory ? (b(e.path), M == null || M(e.path), L([])) : i && c.show("previewFile");
-  }, w = (ee, ve) => {
-    if (l.length > 0 && ee) {
-      let Fe = !1, Se = l[0], Le = n;
-      if (Se >= Le) {
-        const xn = Se;
-        Se = Le, Le = xn, Fe = !0;
+  var le, Ne, Ue, bn;
+  const [h, m] = L(!1), [p, v] = L(0), [j, w] = L("hidden"), [H, C] = L(""), [P, g] = L(null), { activeLayout: S } = ve(), F = S === "grid" ? 48 : 20, y = _e(F), { setCurrentPath: b, currentPathFiles: N, onFolderChange: M } = me(), { setSelectedFiles: T } = ge(), { clipBoard: D, handleCutCopy: E, setClipBoard: Z, handlePasting: _ } = Je(), J = oe(null), ie = _e(ln), Q = (D == null ? void 0 : D.isMoving) && D.files.find((q) => q.name === e.name && q.path === e.path), $ = () => {
+    o(e), e.isDirectory ? (b(e.path), M == null || M(e.path), T([])) : r && c.show("previewFile");
+  }, x = (q, ue) => {
+    if (s.length > 0 && q) {
+      let he = !1, $e = s[0], Fe = n;
+      if ($e >= Fe) {
+        const Bt = $e;
+        $e = Fe, Fe = Bt, he = !0;
       }
-      const Re = $.slice(Se, Le + 1);
-      L(Fe ? Re.reverse() : Re);
-    } else l.length > 0 && ve ? L((Fe) => {
-      const Se = Fe.filter((Le) => Le.path !== e.path);
-      return Fe.length === Se.length ? [...Fe, e] : Se;
-    }) : L([e]);
-  }, O = (ee) => {
-    if (ee.stopPropagation(), e.isEditing) return;
-    w(ee.shiftKey, ee.ctrlKey);
-    const ve = (/* @__PURE__ */ new Date()).getTime();
-    if (ve - h < 300) {
-      x();
+      const vn = N.slice($e, Fe + 1);
+      T(he ? vn.reverse() : vn);
+    } else s.length > 0 && ue ? T((he) => {
+      const $e = he.filter((Fe) => Fe.path !== e.path);
+      return he.length === $e.length ? [...he, e] : $e;
+    }) : T([e]);
+  }, k = (q) => {
+    if (q.stopPropagation(), e.isEditing) return;
+    x(q.shiftKey, q.ctrlKey);
+    const ue = (/* @__PURE__ */ new Date()).getTime();
+    if (ue - p < 300) {
+      $();
       return;
     }
-    N(ve);
-  }, G = (ee) => {
-    ee.key === "Enter" && (ee.stopPropagation(), L([e]), x());
-  }, I = (ee) => {
-    ee.stopPropagation(), ee.preventDefault(), !e.isEditing && (g || L([e]), f(e), u(ee, !0));
-  }, X = () => {
-    F("visible");
-  }, _ = () => {
-    !g && F("hidden");
-  }, B = (ee) => {
-    ee.target.checked ? L((ve) => [...ve, e]) : L((ve) => ve.filter((Fe) => Fe.name !== e.name && Fe.path !== e.path)), p(ee.target.checked);
-  }, q = (ee) => {
-    ee.dataTransfer.setDragImage(ne.current, 30, 50), ee.dataTransfer.effectAllowed = "copy", A(!0);
-  }, Z = () => Q(null), k = (ee) => {
-    ee.preventDefault(), g || !e.isDirectory ? ee.dataTransfer.dropEffect = "none" : (v({ x: ee.clientX, y: ee.clientY + 12 }), ee.dataTransfer.dropEffect = "copy", P("file-drop-zone"));
-  }, ce = (ee) => {
-    ee.currentTarget.contains(ee.relatedTarget) || (P((ve) => ve && ""), v(null));
-  }, T = (ee) => {
-    ee.preventDefault(), !(g || !e.isDirectory) && (J(e), P((ve) => ve && ""), v(null));
+    v(ue);
+  }, I = (q) => {
+    q.key === "Enter" && (q.stopPropagation(), T([e]), $());
+  }, R = (q) => {
+    q.stopPropagation(), q.preventDefault(), !e.isEditing && (h || T([e]), u(e), d(q, !0));
+  }, W = () => {
+    w("visible");
+  }, B = () => {
+    !h && w("hidden");
+  }, V = (q) => {
+    q.target.checked ? T((ue) => [...ue, e]) : T((ue) => ue.filter((he) => he.name !== e.name && he.path !== e.path)), m(q.target.checked);
+  }, Y = (q) => {
+    q.dataTransfer.setDragImage(J.current, 30, 50), q.dataTransfer.effectAllowed = "copy", E(!0);
+  }, K = () => Z(null), A = (q) => {
+    q.preventDefault(), h || !e.isDirectory ? q.dataTransfer.dropEffect = "none" : (g({ x: q.clientX, y: q.clientY + 12 }), q.dataTransfer.dropEffect = "copy", C("file-drop-zone"));
+  }, te = (q) => {
+    q.currentTarget.contains(q.relatedTarget) || (C((ue) => ue && ""), g(null));
+  }, U = (q) => {
+    q.preventDefault(), !(h || !e.isDirectory) && (_(e), C((ue) => ue && ""), g(null));
   };
-  return oe(() => {
-    p(l.includes(n)), F(l.includes(n) ? "visible" : "hidden");
-  }, [l]), /* @__PURE__ */ s.jsxDEV(
+  return X(() => {
+    m(s.includes(n)), w(s.includes(n) ? "visible" : "hidden");
+  }, [s]), /* @__PURE__ */ l(
     "div",
     {
-      className: `file-item-container ${j} ${g || e.isEditing ? "file-selected" : ""} ${re ? "file-moving" : ""}`,
+      className: `file-item-container ${H} ${h || e.isEditing ? "file-selected" : ""} ${Q ? "file-moving" : ""}`,
       tabIndex: 0,
       title: e.name,
-      onClick: O,
-      onKeyDown: G,
-      onContextMenu: I,
-      onMouseOver: X,
-      onMouseLeave: _,
-      draggable: g && m,
-      onDragStart: q,
-      onDragEnd: Z,
-      onDragEnter: k,
-      onDragOver: k,
-      onDragLeave: ce,
-      onDrop: T,
+      onClick: k,
+      onKeyDown: I,
+      onContextMenu: R,
+      onMouseOver: W,
+      onMouseLeave: B,
+      draggable: h && f,
+      onDragStart: Y,
+      onDragEnd: K,
+      onDragEnter: A,
+      onDragOver: A,
+      onDragLeave: te,
+      onDrop: U,
       children: [
-        /* @__PURE__ */ s.jsxDEV("div", { className: "file-item", children: [
-          !e.isEditing && /* @__PURE__ */ s.jsxDEV(
-            Cr,
+        /* @__PURE__ */ l("div", { className: "file-item", children: [
+          !e.isEditing && /* @__PURE__ */ l(
+            It,
             {
               name: e.name,
               id: e.name,
-              checked: g,
-              className: `selection-checkbox ${H}`,
-              onChange: B,
-              onClick: (ee) => ee.stopPropagation()
+              checked: h,
+              className: `selection-checkbox ${j}`,
+              onChange: V,
+              onClick: (q) => q.stopPropagation()
             },
             void 0,
             !1,
@@ -5794,11 +5168,11 @@ const Fr = ({
             },
             void 0
           ),
-          e.isDirectory ? /* @__PURE__ */ s.jsxDEV(dt, { size: D }, void 0, !1, {
+          e.isDirectory ? /* @__PURE__ */ l(Mn, { size: F }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
             lineNumber: 219,
             columnNumber: 11
-          }, void 0) : /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: C[(je = (ge = e.name) == null ? void 0 : ge.split(".").pop()) == null ? void 0 : je.toLowerCase()] ?? /* @__PURE__ */ s.jsxDEV(cn, { size: D }, void 0, !1, {
+          }, void 0) : /* @__PURE__ */ l(fe, { children: y[(Ne = (le = e.name) == null ? void 0 : le.split(".").pop()) == null ? void 0 : Ne.toLowerCase()] ?? /* @__PURE__ */ l(Oe, { size: F }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
             lineNumber: 222,
             columnNumber: 71
@@ -5807,8 +5181,8 @@ const Fr = ({
             lineNumber: 221,
             columnNumber: 11
           }, void 0),
-          e.isEditing ? /* @__PURE__ */ s.jsxDEV("div", { className: `rename-file-container ${U}`, children: c.actionType === "createFolder" ? /* @__PURE__ */ s.jsxDEV(
-            Gx,
+          e.isEditing ? /* @__PURE__ */ l("div", { className: `rename-file-container ${S}`, children: c.actionType === "createFolder" ? /* @__PURE__ */ l(
+            IN,
             {
               filesViewRef: a,
               file: e,
@@ -5823,12 +5197,12 @@ const Fr = ({
               columnNumber: 15
             },
             void 0
-          ) : /* @__PURE__ */ s.jsxDEV(
-            Wx,
+          ) : /* @__PURE__ */ l(
+            BN,
             {
               filesViewRef: a,
               file: e,
-              onRename: r,
+              onRename: i,
               triggerAction: c
             },
             void 0,
@@ -5843,7 +5217,7 @@ const Fr = ({
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
             lineNumber: 227,
             columnNumber: 11
-          }, void 0) : /* @__PURE__ */ s.jsxDEV("span", { className: "text-truncate file-name", children: e.name }, void 0, !1, {
+          }, void 0) : /* @__PURE__ */ l("span", { className: "text-truncate file-name", children: e.name }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
             lineNumber: 245,
             columnNumber: 11
@@ -5853,13 +5227,13 @@ const Fr = ({
           lineNumber: 207,
           columnNumber: 7
         }, void 0),
-        U === "list" && /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-          /* @__PURE__ */ s.jsxDEV("div", { className: "modified-date", children: Yx(e.updatedAt) }, void 0, !1, {
+        S === "list" && /* @__PURE__ */ l(fe, { children: [
+          /* @__PURE__ */ l("div", { className: "modified-date", children: VN(e.updatedAt) }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
             lineNumber: 251,
             columnNumber: 11
           }, void 0),
-          /* @__PURE__ */ s.jsxDEV("div", { className: "size", children: (e == null ? void 0 : e.size) > 0 ? Nn(e == null ? void 0 : e.size) : "" }, void 0, !1, {
+          /* @__PURE__ */ l("div", { className: "size", children: (e == null ? void 0 : e.size) > 0 ? Ze(e == null ? void 0 : e.size) : "" }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
             lineNumber: 252,
             columnNumber: 11
@@ -5869,17 +5243,17 @@ const Fr = ({
           lineNumber: 250,
           columnNumber: 9
         }, void 0),
-        S && /* @__PURE__ */ s.jsxDEV(
+        P && /* @__PURE__ */ l(
           "div",
           {
             style: {
-              top: `${S.y}px`,
-              left: `${S.x}px`
+              top: `${P.y}px`,
+              left: `${P.x}px`
             },
             className: "drag-move-tooltip",
             children: [
               "Move to ",
-              /* @__PURE__ */ s.jsxDEV("span", { className: "drop-zone-file-name", children: e.name }, void 0, !1, {
+              /* @__PURE__ */ l("span", { className: "drop-zone-file-name", children: e.name }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
                 lineNumber: 265,
                 columnNumber: 19
@@ -5895,11 +5269,11 @@ const Fr = ({
           },
           void 0
         ),
-        /* @__PURE__ */ s.jsxDEV("div", { ref: ne, className: "drag-icon", children: e.isDirectory ? /* @__PURE__ */ s.jsxDEV(dt, { size: Hn }, void 0, !1, {
+        /* @__PURE__ */ l("div", { ref: J, className: "drag-icon", children: e.isDirectory ? /* @__PURE__ */ l(Mn, { size: ln }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
           lineNumber: 271,
           columnNumber: 11
-        }, void 0) : /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: de[(Ue = (Pe = e.name) == null ? void 0 : Pe.split(".").pop()) == null ? void 0 : Ue.toLowerCase()] ?? /* @__PURE__ */ s.jsxDEV(cn, { size: Hn }, void 0, !1, {
+        }, void 0) : /* @__PURE__ */ l(fe, { children: ie[(bn = (Ue = e.name) == null ? void 0 : Ue.split(".").pop()) == null ? void 0 : bn.toLowerCase()] ?? /* @__PURE__ */ l(Oe, { size: ln }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileItem.jsx",
           lineNumber: 275,
           columnNumber: 15
@@ -5923,8 +5297,8 @@ const Fr = ({
     },
     void 0
   );
-}, qx = ({ subMenuRef: n, list: e, position: t = "right" }) => /* @__PURE__ */ s.jsxDEV("ul", { ref: n, className: `sub-menu ${t}`, children: e == null ? void 0 : e.map((r) => /* @__PURE__ */ s.jsxDEV("li", { onClick: r.onClick, children: [
-  /* @__PURE__ */ s.jsxDEV("span", { className: "item-selected", children: r.selected && /* @__PURE__ */ s.jsxDEV(ir, { size: 13 }, void 0, !1, {
+}, _N = ({ subMenuRef: n, list: e, position: t = "right" }) => /* @__PURE__ */ l("ul", { ref: n, className: `sub-menu ${t}`, children: e == null ? void 0 : e.map((i) => /* @__PURE__ */ l("li", { onClick: i.onClick, children: [
+  /* @__PURE__ */ l("span", { className: "item-selected", children: i.selected && /* @__PURE__ */ l($t, { size: 13 }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/SubMenu.jsx",
     lineNumber: 8,
     columnNumber: 61
@@ -5933,13 +5307,13 @@ const Fr = ({
     lineNumber: 8,
     columnNumber: 11
   }, void 0),
-  r.icon,
-  /* @__PURE__ */ s.jsxDEV("span", { children: r.title }, void 0, !1, {
+  i.icon,
+  /* @__PURE__ */ l("span", { children: i.title }, void 0, !1, {
     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/SubMenu.jsx",
     lineNumber: 10,
     columnNumber: 11
   }, void 0)
-] }, r.title, !0, {
+] }, i.title, !0, {
   fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/SubMenu.jsx",
   lineNumber: 7,
   columnNumber: 9
@@ -5947,57 +5321,57 @@ const Fr = ({
   fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/SubMenu.jsx",
   lineNumber: 5,
   columnNumber: 5
-}, void 0), Jx = ({ filesViewRef: n, contextMenuRef: e, menuItems: t, visible: r, clickPosition: i }) => {
-  const [o, a] = R(0), [l, c] = R(0), [u, f] = R(null), [m, g] = R("right"), p = pe(null), h = () => {
-    const { clickX: F, clickY: j } = i, P = n.current, S = P.getBoundingClientRect(), v = P.offsetWidth - P.clientWidth, U = e.current.getBoundingClientRect(), D = U.width, C = U.height, b = F - S.left, $ = S.width - (b + v) > D, M = !$, L = j - S.top, E = S.height - L > C, A = !E;
-    $ ? (a(`${b}px`), g("right")) : M && (a(`${b - D}px`), g("left")), E ? c(`${L + P.scrollTop}px`) : A && c(`${L + P.scrollTop - C}px`);
-  }, N = (F) => {
-    F.preventDefault(), F.stopPropagation();
-  }, H = (F) => {
-    f(F);
+}, void 0), YN = ({ filesViewRef: n, contextMenuRef: e, menuItems: t, visible: i, clickPosition: r }) => {
+  const [o, a] = L(0), [s, c] = L(0), [d, u] = L(null), [f, h] = L("right"), m = oe(null), p = () => {
+    const { clickX: w, clickY: H } = r, C = n.current, P = C.getBoundingClientRect(), g = C.offsetWidth - C.clientWidth, S = e.current.getBoundingClientRect(), F = S.width, y = S.height, b = w - P.left, N = P.width - (b + g) > F, M = !N, T = H - P.top, D = P.height - T > y, E = !D;
+    N ? (a(`${b}px`), h("right")) : M && (a(`${b - F}px`), h("left")), D ? c(`${T + C.scrollTop}px`) : E && c(`${T + C.scrollTop - y}px`);
+  }, v = (w) => {
+    w.preventDefault(), w.stopPropagation();
+  }, j = (w) => {
+    u(w);
   };
-  if (oe(() => {
-    r && e.current ? h() : (c(0), a(0), f(null));
-  }, [r]), r)
-    return /* @__PURE__ */ s.jsxDEV(
+  if (X(() => {
+    i && e.current ? p() : (c(0), a(0), u(null));
+  }, [i]), i)
+    return /* @__PURE__ */ l(
       "div",
       {
         ref: e,
-        onContextMenu: N,
-        onClick: (F) => F.stopPropagation(),
-        className: `fm-context-menu ${l ? "visible" : "hidden"}`,
+        onContextMenu: v,
+        onClick: (w) => w.stopPropagation(),
+        className: `fm-context-menu ${s ? "visible" : "hidden"}`,
         style: {
-          top: l,
+          top: s,
           left: o
         },
-        children: /* @__PURE__ */ s.jsxDEV("div", { className: "file-context-menu-list", children: /* @__PURE__ */ s.jsxDEV("ul", { children: t.filter((F) => !F.hidden).map((F, j) => {
-          const P = F.hasOwnProperty("children"), S = u === j && P;
-          return /* @__PURE__ */ s.jsxDEV("div", { children: [
-            /* @__PURE__ */ s.jsxDEV(
+        children: /* @__PURE__ */ l("div", { className: "file-context-menu-list", children: /* @__PURE__ */ l("ul", { children: t.filter((w) => !w.hidden).map((w, H) => {
+          const C = w.hasOwnProperty("children"), P = d === H && C;
+          return /* @__PURE__ */ l("div", { children: [
+            /* @__PURE__ */ l(
               "li",
               {
-                onClick: F.onClick,
-                className: `${F.className ?? ""} ${S ? "active" : ""}`,
-                onMouseOver: () => H(j),
+                onClick: w.onClick,
+                className: `${w.className ?? ""} ${P ? "active" : ""}`,
+                onMouseOver: () => j(H),
                 children: [
-                  F.icon,
-                  /* @__PURE__ */ s.jsxDEV("span", { children: F.title }, void 0, !1, {
+                  w.icon,
+                  /* @__PURE__ */ l("span", { children: w.title }, void 0, !1, {
                     fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/ContextMenu.jsx",
                     lineNumber: 97,
                     columnNumber: 23
                   }, void 0),
-                  P && /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-                    /* @__PURE__ */ s.jsxDEV(ui, { size: 14, className: "list-expand-icon" }, void 0, !1, {
+                  C && /* @__PURE__ */ l(fe, { children: [
+                    /* @__PURE__ */ l(ai, { size: 14, className: "list-expand-icon" }, void 0, !1, {
                       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/ContextMenu.jsx",
                       lineNumber: 100,
                       columnNumber: 27
                     }, void 0),
-                    S && /* @__PURE__ */ s.jsxDEV(
-                      qx,
+                    P && /* @__PURE__ */ l(
+                      _N,
                       {
-                        subMenuRef: p,
-                        list: F.children,
-                        position: m
+                        subMenuRef: m,
+                        list: w.children,
+                        position: f
                       },
                       void 0,
                       !1,
@@ -6024,12 +5398,12 @@ const Fr = ({
               },
               void 0
             ),
-            F.divider && j !== t.filter((v) => !v.hidden).length - 1 && /* @__PURE__ */ s.jsxDEV("div", { className: "divider" }, void 0, !1, {
+            w.divider && H !== t.filter((g) => !g.hidden).length - 1 && /* @__PURE__ */ l("div", { className: "divider" }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/ContextMenu.jsx",
               lineNumber: 113,
               columnNumber: 25
             }, void 0)
-          ] }, F.title, !0, {
+          ] }, w.title, !0, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/ContextMenu/ContextMenu.jsx",
             lineNumber: 90,
             columnNumber: 19
@@ -6054,38 +5428,38 @@ const Fr = ({
       void 0
     );
 };
-function Xx(n) {
-  return K({ attr: { viewBox: "0 0 256 256", fill: "currentColor" }, child: [{ tag: "path", attr: { d: "M245,110.64A16,16,0,0,0,232,104H216V88a16,16,0,0,0-16-16H130.67L102.94,51.2a16.14,16.14,0,0,0-9.6-3.2H40A16,16,0,0,0,24,64V208h0a8,8,0,0,0,8,8H211.1a8,8,0,0,0,7.59-5.47l28.49-85.47A16.05,16.05,0,0,0,245,110.64ZM93.34,64,123.2,86.4A8,8,0,0,0,128,88h72v16H69.77a16,16,0,0,0-15.18,10.94L40,158.7V64Zm112,136H43.1l26.67-80H232Z" }, child: [] }] })(n);
+function KN(n) {
+  return G({ attr: { viewBox: "0 0 256 256", fill: "currentColor" }, child: [{ tag: "path", attr: { d: "M245,110.64A16,16,0,0,0,232,104H216V88a16,16,0,0,0-16-16H130.67L102.94,51.2a16.14,16.14,0,0,0-9.6-3.2H40A16,16,0,0,0,24,64V208h0a8,8,0,0,0,8,8H211.1a8,8,0,0,0,7.59-5.47l28.49-85.47A16.05,16.05,0,0,0,245,110.64ZM93.34,64,123.2,86.4A8,8,0,0,0,128,88h72v16H69.77a16,16,0,0,0-15.18,10.94L40,158.7V64Zm112,136H43.1l26.67-80H232Z" }, child: [] }] })(n);
 }
-const Zx = (n, e, t, r, i) => {
-  const [o, a] = R([]), [l, c] = R(!1), [u, f] = R(!1), [m, g] = R({ clickX: 0, clickY: 0 }), [p, h] = R(null), { clipBoard: N, setClipBoard: H, handleCutCopy: F, handlePasting: j } = bn(), { selectedFiles: P, setSelectedFiles: S, handleDownload: v } = Te(), { currentPath: U, setCurrentPath: D, currentPathFiles: C, setCurrentPathFiles: b, onFolderChange: $ } = we(), { activeLayout: M, setActiveLayout: L } = He(), E = Ne(), A = () => {
-    i(p), p.isDirectory ? (D(p.path), $ == null || $(p.path), a([]), S([])) : e && t.show("previewFile"), c(!1);
-  }, Q = (k) => {
-    F(k), c(!1);
+const qN = (n, e, t, i, r) => {
+  const [o, a] = L([]), [s, c] = L(!1), [d, u] = L(!1), [f, h] = L({ clickX: 0, clickY: 0 }), [m, p] = L(null), { clipBoard: v, setClipBoard: j, handleCutCopy: w, handlePasting: H } = Je(), { selectedFiles: C, setSelectedFiles: P, handleDownload: g } = ge(), { currentPath: S, setCurrentPath: F, currentPathFiles: y, setCurrentPathFiles: b, onFolderChange: N } = me(), { activeLayout: M, setActiveLayout: T } = ve(), D = se(), E = () => {
+    r(m), m.isDirectory ? (F(m.path), N == null || N(m.path), a([]), P([])) : e && t.show("previewFile"), c(!1);
+  }, Z = (A) => {
+    w(A), c(!1);
+  }, _ = () => {
+    H(m), c(!1);
   }, J = () => {
-    j(p), c(!1);
-  }, ne = () => {
     c(!1), t.show("rename");
-  }, de = () => {
-    v(), c(!1);
-  }, re = () => {
+  }, ie = () => {
+    g(), c(!1);
+  }, Q = () => {
     c(!1), t.show("delete");
+  }, $ = () => {
+    c(!1), ye(n, "onRefresh"), j(null);
   }, x = () => {
-    c(!1), Ae(n, "onRefresh"), H(null);
-  }, w = () => {
     t.show("createFolder"), c(!1);
-  }, O = () => {
+  }, k = () => {
     c(!1), t.show("uploadFile");
-  }, G = () => {
-    S(C), c(!1);
-  }, I = [
+  }, I = () => {
+    P(y), c(!1);
+  }, R = [
     {
-      title: E("view"),
-      icon: M === "grid" ? /* @__PURE__ */ s.jsxDEV(ot, { size: 18 }, void 0, !1, {
+      title: D("view"),
+      icon: M === "grid" ? /* @__PURE__ */ l(yn, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 93,
         columnNumber: 39
-      }, void 0) : /* @__PURE__ */ s.jsxDEV(ln, { size: 18 }, void 0, !1, {
+      }, void 0) : /* @__PURE__ */ l(Ie, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 93,
         columnNumber: 62
@@ -6094,221 +5468,221 @@ const Zx = (n, e, t, r, i) => {
       },
       children: [
         {
-          title: E("grid"),
-          icon: /* @__PURE__ */ s.jsxDEV(ot, { size: 18 }, void 0, !1, {
+          title: D("grid"),
+          icon: /* @__PURE__ */ l(yn, { size: 18 }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
             lineNumber: 98,
             columnNumber: 17
           }, void 0),
           selected: M === "grid",
           onClick: () => {
-            L("grid"), c(!1);
+            T("grid"), c(!1);
           }
         },
         {
-          title: E("list"),
-          icon: /* @__PURE__ */ s.jsxDEV(ln, { size: 18 }, void 0, !1, {
+          title: D("list"),
+          icon: /* @__PURE__ */ l(Ie, { size: 18 }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
             lineNumber: 107,
             columnNumber: 17
           }, void 0),
           selected: M === "list",
           onClick: () => {
-            L("list"), c(!1);
+            T("list"), c(!1);
           }
         }
       ]
     },
     {
-      title: E("refresh"),
-      icon: /* @__PURE__ */ s.jsxDEV(er, { size: 18 }, void 0, !1, {
+      title: D("refresh"),
+      icon: /* @__PURE__ */ l(gt, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 118,
         columnNumber: 13
       }, void 0),
-      onClick: x,
+      onClick: $,
       divider: !0
     },
     {
-      title: E("newFolder"),
-      icon: /* @__PURE__ */ s.jsxDEV(Xt, { size: 18 }, void 0, !1, {
+      title: D("newFolder"),
+      icon: /* @__PURE__ */ l(mt, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 124,
         columnNumber: 13
       }, void 0),
-      onClick: w,
-      hidden: !r.create,
-      divider: !r.upload
+      onClick: x,
+      hidden: !i.create,
+      divider: !i.upload
     },
     {
-      title: E("upload"),
-      icon: /* @__PURE__ */ s.jsxDEV(tr, { size: 18 }, void 0, !1, {
+      title: D("upload"),
+      icon: /* @__PURE__ */ l(vt, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 131,
         columnNumber: 13
       }, void 0),
-      onClick: O,
+      onClick: k,
       divider: !0,
-      hidden: !r.upload
+      hidden: !i.upload
     },
     {
-      title: E("selectAll"),
-      icon: /* @__PURE__ */ s.jsxDEV(ci, { size: 18 }, void 0, !1, {
+      title: D("selectAll"),
+      icon: /* @__PURE__ */ l(oi, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 138,
         columnNumber: 13
       }, void 0),
-      onClick: G
+      onClick: I
     }
-  ], X = [
+  ], W = [
     {
-      title: E("open"),
-      icon: p != null && p.isDirectory ? /* @__PURE__ */ s.jsxDEV(Xx, { size: 20 }, void 0, !1, {
+      title: D("open"),
+      icon: m != null && m.isDirectory ? /* @__PURE__ */ l(KN, { size: 20 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 146,
         columnNumber: 45
-      }, void 0) : /* @__PURE__ */ s.jsxDEV(cn, { size: 16 }, void 0, !1, {
+      }, void 0) : /* @__PURE__ */ l(Oe, { size: 16 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 146,
         columnNumber: 74
       }, void 0),
-      onClick: A,
+      onClick: E,
       divider: !0
     },
     {
-      title: E("cut"),
-      icon: /* @__PURE__ */ s.jsxDEV(Qt, { size: 19 }, void 0, !1, {
+      title: D("cut"),
+      icon: /* @__PURE__ */ l(ht, { size: 19 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 152,
         columnNumber: 13
       }, void 0),
-      onClick: () => Q(!0),
-      divider: !(p != null && p.isDirectory) && !r.copy,
-      hidden: !r.move
+      onClick: () => Z(!0),
+      divider: !(m != null && m.isDirectory) && !i.copy,
+      hidden: !i.move
     },
     {
-      title: E("copy"),
-      icon: /* @__PURE__ */ s.jsxDEV(Jt, { strokeWidth: 0.1, size: 17 }, void 0, !1, {
+      title: D("copy"),
+      icon: /* @__PURE__ */ l(ft, { strokeWidth: 0.1, size: 17 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 159,
         columnNumber: 13
       }, void 0),
-      onClick: () => Q(!1),
-      divider: !(p != null && p.isDirectory),
-      hidden: !r.copy
+      onClick: () => Z(!1),
+      divider: !(m != null && m.isDirectory),
+      hidden: !i.copy
     },
     {
-      title: E("paste"),
-      icon: /* @__PURE__ */ s.jsxDEV(An, { size: 18 }, void 0, !1, {
+      title: D("paste"),
+      icon: /* @__PURE__ */ l(dn, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 166,
         columnNumber: 13
       }, void 0),
-      onClick: J,
-      className: `${N ? "" : "disable-paste"}`,
-      hidden: !(p != null && p.isDirectory) || !r.move && !r.copy,
+      onClick: _,
+      className: `${v ? "" : "disable-paste"}`,
+      hidden: !(m != null && m.isDirectory) || !i.move && !i.copy,
       divider: !0
     },
     {
-      title: E("rename"),
-      icon: /* @__PURE__ */ s.jsxDEV(rr, { size: 19 }, void 0, !1, {
+      title: D("rename"),
+      icon: /* @__PURE__ */ l(Nt, { size: 19 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 174,
         columnNumber: 13
       }, void 0),
-      onClick: ne,
-      hidden: P.length > 1,
-      hidden: !r.rename
+      onClick: J,
+      hidden: C.length > 1,
+      hidden: !i.rename
     },
     {
-      title: E("download"),
-      icon: /* @__PURE__ */ s.jsxDEV(On, { size: 18 }, void 0, !1, {
+      title: D("download"),
+      icon: /* @__PURE__ */ l(pn, { size: 18 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 181,
         columnNumber: 13
       }, void 0),
-      onClick: de,
-      hidden: !r.download
+      onClick: ie,
+      hidden: !i.download
     },
     {
-      title: E("delete"),
-      icon: /* @__PURE__ */ s.jsxDEV(nr, { size: 19 }, void 0, !1, {
+      title: D("delete"),
+      icon: /* @__PURE__ */ l(bt, { size: 19 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/useFileList.jsx",
         lineNumber: 187,
         columnNumber: 13
       }, void 0),
-      onClick: re,
-      hidden: !r.delete
+      onClick: Q,
+      hidden: !i.delete
     }
-  ], _ = () => {
-    b((k) => [
-      ...k,
+  ], B = () => {
+    b((A) => [
+      ...A,
       {
-        name: xr("New Folder", !0, k),
+        name: At("New Folder", !0, A),
         isDirectory: !0,
-        path: U,
+        path: S,
         isEditing: !0,
         key: (/* @__PURE__ */ new Date()).valueOf()
       }
     ]);
-  }, B = () => {
-    b((k) => {
-      const ce = o.at(-1);
-      return k[ce] ? k.map((T, ge) => ge === ce ? {
-        ...T,
+  }, V = () => {
+    b((A) => {
+      const te = o.at(-1);
+      return A[te] ? A.map((U, le) => le === te ? {
+        ...U,
         isEditing: !0
-      } : T) : (t.close(), k);
-    }), a([]), S([]);
-  }, q = () => {
-    a([]), S((k) => k.length > 0 ? [] : k);
-  }, Z = (k, ce = !1) => {
-    k.preventDefault(), g({ clickX: k.clientX, clickY: k.clientY }), f(ce), !ce && q(), c(!0);
+      } : U) : (t.close(), A);
+    }), a([]), P([]);
+  }, Y = () => {
+    a([]), P((A) => A.length > 0 ? [] : A);
+  }, K = (A, te = !1) => {
+    A.preventDefault(), h({ clickX: A.clientX, clickY: A.clientY }), u(te), !te && Y(), c(!0);
   };
-  return oe(() => {
+  return X(() => {
     if (t.isActive)
       switch (t.actionType) {
         case "createFolder":
-          _();
-          break;
-        case "rename":
           B();
           break;
+        case "rename":
+          V();
+          break;
       }
-  }, [t.isActive]), oe(() => {
-    a([]), S([]);
-  }, [U]), oe(() => {
-    P.length > 0 ? a(() => P.map((k) => C.findIndex((ce) => ce.path === k.path))) : a([]);
-  }, [P, C]), {
-    emptySelecCtxItems: I,
-    selecCtxItems: X,
-    handleContextMenu: Z,
-    unselectFiles: q,
-    visible: l,
+  }, [t.isActive]), X(() => {
+    a([]), P([]);
+  }, [S]), X(() => {
+    C.length > 0 ? a(() => C.map((A) => y.findIndex((te) => te.path === A.path))) : a([]);
+  }, [C, y]), {
+    emptySelecCtxItems: R,
+    selecCtxItems: W,
+    handleContextMenu: K,
+    unselectFiles: Y,
+    visible: s,
     setVisible: c,
-    setLastSelectedFile: h,
+    setLastSelectedFile: p,
     selectedFileIndexes: o,
-    clickPosition: m,
-    isSelectionCtx: u
+    clickPosition: f,
+    isSelectionCtx: d
   };
-}, Qx = ({ unselectFiles: n, onSort: e, sortConfig: t }) => {
-  const r = Ne(), [i, o] = R(!1), { selectedFiles: a, setSelectedFiles: l } = Te(), { currentPathFiles: c } = we(), u = hn(() => c.length > 0 && a.length === c.length, [a, c]), f = (g) => {
-    g.target.checked ? (l(c), o(!0)) : n();
-  }, m = (g) => {
-    e && e(g);
+}, JN = ({ unselectFiles: n, onSort: e, sortConfig: t }) => {
+  const i = se(), [r, o] = L(!1), { selectedFiles: a, setSelectedFiles: s } = ge(), { currentPathFiles: c } = me(), d = Ye(() => c.length > 0 && a.length === c.length, [a, c]), u = (h) => {
+    h.target.checked ? (s(c), o(!0)) : n();
+  }, f = (h) => {
+    e && e(h);
   };
-  return /* @__PURE__ */ s.jsxDEV(
+  return /* @__PURE__ */ l(
     "div",
     {
       className: "files-header",
       onMouseOver: () => o(!0),
       onMouseLeave: () => o(!1),
       children: [
-        /* @__PURE__ */ s.jsxDEV("div", { className: "file-select-all", children: (i || u) && /* @__PURE__ */ s.jsxDEV(
-          Cr,
+        /* @__PURE__ */ l("div", { className: "file-select-all", children: (r || d) && /* @__PURE__ */ l(
+          It,
           {
             id: "selectAll",
-            checked: u,
-            onChange: f,
+            checked: d,
+            onChange: u,
             title: "Select all",
             disabled: c.length === 0
           },
@@ -6325,14 +5699,14 @@ const Zx = (n, e, t, r, i) => {
           lineNumber: 40,
           columnNumber: 7
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV(
+        /* @__PURE__ */ l(
           "div",
           {
             className: `file-name ${(t == null ? void 0 : t.key) === "name" ? "active" : ""}`,
-            onClick: () => m("name"),
+            onClick: () => f("name"),
             children: [
-              r("name"),
-              (t == null ? void 0 : t.key) === "name" && /* @__PURE__ */ s.jsxDEV("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
+              i("name"),
+              (t == null ? void 0 : t.key) === "name" && /* @__PURE__ */ l("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
                 lineNumber: 57,
                 columnNumber: 11
@@ -6348,14 +5722,14 @@ const Zx = (n, e, t, r, i) => {
           },
           void 0
         ),
-        /* @__PURE__ */ s.jsxDEV(
+        /* @__PURE__ */ l(
           "div",
           {
             className: `file-date ${(t == null ? void 0 : t.key) === "modified" ? "active" : ""}`,
-            onClick: () => m("modified"),
+            onClick: () => f("modified"),
             children: [
-              r("modified"),
-              (t == null ? void 0 : t.key) === "modified" && /* @__PURE__ */ s.jsxDEV("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
+              i("modified"),
+              (t == null ? void 0 : t.key) === "modified" && /* @__PURE__ */ l("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
                 lineNumber: 66,
                 columnNumber: 11
@@ -6371,14 +5745,14 @@ const Zx = (n, e, t, r, i) => {
           },
           void 0
         ),
-        /* @__PURE__ */ s.jsxDEV(
+        /* @__PURE__ */ l(
           "div",
           {
             className: `file-size ${(t == null ? void 0 : t.key) === "size" ? "active" : ""}`,
-            onClick: () => m("size"),
+            onClick: () => f("size"),
             children: [
-              r("size"),
-              (t == null ? void 0 : t.key) === "size" && /* @__PURE__ */ s.jsxDEV("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
+              i("size"),
+              (t == null ? void 0 : t.key) === "size" && /* @__PURE__ */ l("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
                 lineNumber: 75,
                 columnNumber: 11
@@ -6405,61 +5779,61 @@ const Zx = (n, e, t, r, i) => {
     },
     void 0
   );
-}, Dr = ({
+}, Ot = ({
   onCreateFolder: n,
   onRename: e,
   onFileOpen: t,
-  onRefresh: r,
-  enableFilePreview: i,
+  onRefresh: i,
+  enableFilePreview: r,
   triggerAction: o,
   permissions: a
 }) => {
-  const { currentPathFiles: l, sortConfig: c, setSortConfig: u } = we(), f = pe(null), { activeLayout: m } = He(), g = Ne(), {
-    emptySelecCtxItems: p,
-    selecCtxItems: h,
-    handleContextMenu: N,
-    unselectFiles: H,
-    visible: F,
-    setVisible: j,
-    setLastSelectedFile: P,
-    selectedFileIndexes: S,
-    clickPosition: v,
-    isSelectionCtx: U
-  } = Zx(r, i, o, a, t), D = Ze(() => j(!1)), C = (b) => {
-    let $ = "asc";
-    c.key === b && c.direction === "asc" && ($ = "desc"), u({ key: b, direction: $ });
+  const { currentPathFiles: s, sortConfig: c, setSortConfig: d } = me(), u = oe(null), { activeLayout: f } = ve(), h = se(), {
+    emptySelecCtxItems: m,
+    selecCtxItems: p,
+    handleContextMenu: v,
+    unselectFiles: j,
+    visible: w,
+    setVisible: H,
+    setLastSelectedFile: C,
+    selectedFileIndexes: P,
+    clickPosition: g,
+    isSelectionCtx: S
+  } = qN(i, r, o, a, t), F = He(() => H(!1)), y = (b) => {
+    let N = "asc";
+    c.key === b && c.direction === "asc" && (N = "desc"), d({ key: b, direction: N });
   };
-  return /* @__PURE__ */ s.jsxDEV(
+  return /* @__PURE__ */ l(
     "div",
     {
-      ref: f,
-      className: `files ${m}`,
-      onContextMenu: N,
-      onClick: H,
+      ref: u,
+      className: `files ${f}`,
+      onContextMenu: v,
+      onClick: j,
       children: [
-        m === "list" && /* @__PURE__ */ s.jsxDEV(Qx, { unselectFiles: H, onSort: C, sortConfig: c }, void 0, !1, {
+        f === "list" && /* @__PURE__ */ l(JN, { unselectFiles: j, onSort: y, sortConfig: c }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileList.jsx",
           lineNumber: 57,
           columnNumber: 9
         }, void 0),
-        (l == null ? void 0 : l.length) > 0 ? /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: l.map((b, $) => /* @__PURE__ */ s.jsxDEV(
-          Kx,
+        (s == null ? void 0 : s.length) > 0 ? /* @__PURE__ */ l(fe, { children: s.map((b, N) => /* @__PURE__ */ l(
+          WN,
           {
-            index: $,
+            index: N,
             file: b,
             onCreateFolder: n,
             onRename: e,
             onFileOpen: t,
-            enableFilePreview: i,
+            enableFilePreview: r,
             triggerAction: o,
-            filesViewRef: f,
-            selectedFileIndexes: S,
-            handleContextMenu: N,
-            setVisible: j,
-            setLastSelectedFile: P,
+            filesViewRef: u,
+            selectedFileIndexes: P,
+            handleContextMenu: v,
+            setVisible: H,
+            setLastSelectedFile: C,
             draggable: a.move
           },
-          $,
+          N,
           !1,
           {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileList.jsx",
@@ -6471,20 +5845,20 @@ const Zx = (n, e, t, r, i) => {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileList.jsx",
           lineNumber: 61,
           columnNumber: 9
-        }, void 0) : /* @__PURE__ */ s.jsxDEV("div", { className: "empty-folder", children: g("folderEmpty") }, void 0, !1, {
+        }, void 0) : /* @__PURE__ */ l("div", { className: "empty-folder", children: h("folderEmpty") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FileList.jsx",
           lineNumber: 82,
           columnNumber: 9
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV(
-          Jx,
+        /* @__PURE__ */ l(
+          YN,
           {
-            filesViewRef: f,
-            contextMenuRef: D.ref,
-            menuItems: U ? h : p,
-            visible: F,
-            setVisible: j,
-            clickPosition: v
+            filesViewRef: u,
+            contextMenuRef: F.ref,
+            menuItems: S ? p : m,
+            visible: w,
+            setVisible: H,
+            clickPosition: g
           },
           void 0,
           !1,
@@ -6507,33 +5881,33 @@ const Zx = (n, e, t, r, i) => {
     void 0
   );
 };
-Dr.displayName = "FileList";
-const e4 = ({ triggerAction: n, onDelete: e }) => {
-  const [t, r] = R(""), { selectedFiles: i, setSelectedFiles: o } = Te(), a = Ne();
-  oe(() => {
-    r(() => {
-      if (i.length === 1)
-        return a("deleteItemConfirm", { fileName: i[0].name });
-      if (i.length > 1)
-        return a("deleteItemsConfirm", { count: i.length });
+Ot.displayName = "FileList";
+const ZN = ({ triggerAction: n, onDelete: e }) => {
+  const [t, i] = L(""), { selectedFiles: r, setSelectedFiles: o } = ge(), a = se();
+  X(() => {
+    i(() => {
+      if (r.length === 1)
+        return a("deleteItemConfirm", { fileName: r[0].name });
+      if (r.length > 1)
+        return a("deleteItemsConfirm", { count: r.length });
     });
   }, [a]);
-  const l = () => {
-    e(i), o([]), n.close();
+  const s = () => {
+    e(r), o([]), n.close();
   };
-  return /* @__PURE__ */ s.jsxDEV("div", { className: "file-delete-confirm", children: [
-    /* @__PURE__ */ s.jsxDEV("p", { className: "file-delete-confirm-text", children: t }, void 0, !1, {
+  return /* @__PURE__ */ l("div", { className: "file-delete-confirm", children: [
+    /* @__PURE__ */ l("p", { className: "file-delete-confirm-text", children: t }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/Delete/Delete.action.jsx",
       lineNumber: 30,
       columnNumber: 7
     }, void 0),
-    /* @__PURE__ */ s.jsxDEV("div", { className: "file-delete-confirm-actions", children: [
-      /* @__PURE__ */ s.jsxDEV(Ge, { type: "secondary", onClick: () => n.close(), children: a("cancel") }, void 0, !1, {
+    /* @__PURE__ */ l("div", { className: "file-delete-confirm-actions", children: [
+      /* @__PURE__ */ l(we, { type: "secondary", onClick: () => n.close(), children: a("cancel") }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/Delete/Delete.action.jsx",
         lineNumber: 32,
         columnNumber: 9
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV(Ge, { type: "danger", onClick: l, children: a("delete") }, void 0, !1, {
+      /* @__PURE__ */ l(we, { type: "danger", onClick: s, children: a("delete") }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/Delete/Delete.action.jsx",
         lineNumber: 35,
         columnNumber: 9
@@ -6549,16 +5923,16 @@ const e4 = ({ triggerAction: n, onDelete: e }) => {
     columnNumber: 5
   }, void 0);
 };
-function n4(n) {
-  return K({ attr: { viewBox: "0 0 1024 1024", fill: "currentColor", fillRule: "evenodd" }, child: [{ tag: "path", attr: { d: "M799.855 166.312c.023.007.043.018.084.059l57.69 57.69c.041.041.052.06.059.084a.118.118 0 0 1 0 .069c-.007.023-.018.042-.059.083L569.926 512l287.703 287.703c.041.04.052.06.059.083a.118.118 0 0 1 0 .07c-.007.022-.018.042-.059.083l-57.69 57.69c-.041.041-.06.052-.084.059a.118.118 0 0 1-.069 0c-.023-.007-.042-.018-.083-.059L512 569.926 224.297 857.629c-.04.041-.06.052-.083.059a.118.118 0 0 1-.07 0c-.022-.007-.042-.018-.083-.059l-57.69-57.69c-.041-.041-.052-.06-.059-.084a.118.118 0 0 1 0-.069c.007-.023.018-.042.059-.083L454.073 512 166.371 224.297c-.041-.04-.052-.06-.059-.083a.118.118 0 0 1 0-.07c.007-.022.018-.042.059-.083l57.69-57.69c.041-.041.06-.052.084-.059a.118.118 0 0 1 .069 0c.023.007.042.018.083.059L512 454.073l287.703-287.702c.04-.041.06-.052.083-.059a.118.118 0 0 1 .07 0Z" }, child: [] }] })(n);
+function XN(n) {
+  return G({ attr: { viewBox: "0 0 1024 1024", fill: "currentColor", fillRule: "evenodd" }, child: [{ tag: "path", attr: { d: "M799.855 166.312c.023.007.043.018.084.059l57.69 57.69c.041.041.052.06.059.084a.118.118 0 0 1 0 .069c-.007.023-.018.042-.059.083L569.926 512l287.703 287.703c.041.04.052.06.059.083a.118.118 0 0 1 0 .07c-.007.022-.018.042-.059.083l-57.69 57.69c-.041.041-.06.052-.084.059a.118.118 0 0 1-.069 0c-.023-.007-.042-.018-.083-.059L512 569.926 224.297 857.629c-.04.041-.06.052-.083.059a.118.118 0 0 1-.07 0c-.022-.007-.042-.018-.083-.059l-57.69-57.69c-.041-.041-.052-.06-.059-.084a.118.118 0 0 1 0-.069c.007-.023.018-.042.059-.083L454.073 512 166.371 224.297c-.041-.04-.052-.06-.059-.083a.118.118 0 0 1 0-.07c.007-.022.018-.042.059-.083l57.69-57.69c.041-.041.06-.052.084-.059a.118.118 0 0 1 .069 0c.023.007.042.018.083.059L512 454.073l287.703-287.702c.04-.041.06-.052.083-.059a.118.118 0 0 1 .07 0Z" }, child: [] }] })(n);
 }
-function t4(n) {
-  return K({ attr: { viewBox: "0 0 1024 1024" }, child: [{ tag: "path", attr: { d: "M518.3 459a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V856c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V613.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 459z" }, child: [] }, { tag: "path", attr: { d: "M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7a123.07 123.07 0 0 1-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z" }, child: [] }] })(n);
+function QN(n) {
+  return G({ attr: { viewBox: "0 0 1024 1024" }, child: [{ tag: "path", attr: { d: "M518.3 459a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V856c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V613.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 459z" }, child: [] }, { tag: "path", attr: { d: "M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7a123.07 123.07 0 0 1-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z" }, child: [] }] })(n);
 }
-const r4 = ({ percent: n = 0, isCanceled: e = !1, isCompleted: t = !1, error: r }) => {
-  const i = Ne();
-  return /* @__PURE__ */ s.jsxDEV("div", { role: "progressbar", className: "fm-progress", children: [
-    !r && /* @__PURE__ */ s.jsxDEV("div", { className: "fm-progress-bar", children: /* @__PURE__ */ s.jsxDEV("div", { className: "fm-progress-bar-fill", style: { width: `${n}%` } }, void 0, !1, {
+const e4 = ({ percent: n = 0, isCanceled: e = !1, isCompleted: t = !1, error: i }) => {
+  const r = se();
+  return /* @__PURE__ */ l("div", { role: "progressbar", className: "fm-progress", children: [
+    !i && /* @__PURE__ */ l("div", { className: "fm-progress-bar", children: /* @__PURE__ */ l("div", { className: "fm-progress-bar-fill", style: { width: `${n}%` } }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Progress/Progress.jsx",
       lineNumber: 11,
       columnNumber: 11
@@ -6567,15 +5941,15 @@ const r4 = ({ percent: n = 0, isCanceled: e = !1, isCompleted: t = !1, error: r 
       lineNumber: 10,
       columnNumber: 9
     }, void 0),
-    e ? /* @__PURE__ */ s.jsxDEV("span", { className: "fm-upload-canceled", children: i("canceled") }, void 0, !1, {
+    e ? /* @__PURE__ */ l("span", { className: "fm-upload-canceled", children: r("canceled") }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Progress/Progress.jsx",
       lineNumber: 15,
       columnNumber: 9
-    }, void 0) : r ? /* @__PURE__ */ s.jsxDEV("span", { className: "fm-upload-canceled", children: r }, void 0, !1, {
+    }, void 0) : i ? /* @__PURE__ */ l("span", { className: "fm-upload-canceled", children: i }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Progress/Progress.jsx",
       lineNumber: 17,
       columnNumber: 9
-    }, void 0) : /* @__PURE__ */ s.jsxDEV("div", { className: "fm-progress-status", children: /* @__PURE__ */ s.jsxDEV("span", { children: t ? i("completed") : i("percentDone", { percent: n }) }, void 0, !1, {
+    }, void 0) : /* @__PURE__ */ l("div", { className: "fm-progress-status", children: /* @__PURE__ */ l("span", { children: t ? r("completed") : r("percentDone", { percent: n }) }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Progress/Progress.jsx",
       lineNumber: 20,
       columnNumber: 11
@@ -6590,27 +5964,27 @@ const r4 = ({ percent: n = 0, isCanceled: e = !1, isCompleted: t = !1, error: r 
     columnNumber: 5
   }, void 0);
 };
-function i4(n) {
-  return K({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M256 388c-72.597 0-132-59.405-132-132 0-72.601 59.403-132 132-132 36.3 0 69.299 15.4 92.406 39.601L278 234h154V80l-51.698 51.702C348.406 99.798 304.406 80 256 80c-96.797 0-176 79.203-176 176s78.094 176 176 176c81.045 0 148.287-54.134 169.401-128H378.85c-18.745 49.561-67.138 84-122.85 84z" }, child: [] }] })(n);
+function n4(n) {
+  return G({ attr: { viewBox: "0 0 512 512" }, child: [{ tag: "path", attr: { d: "M256 388c-72.597 0-132-59.405-132-132 0-72.601 59.403-132 132-132 36.3 0 69.299 15.4 92.406 39.601L278 234h154V80l-51.698 51.702C348.406 99.798 304.406 80 256 80c-96.797 0-176 79.203-176 176s78.094 176 176 176c81.045 0 148.287-54.134 169.401-128H378.85c-18.745 49.561-67.138 84-122.85 84z" }, child: [] }] })(n);
 }
-const o4 = ({
+const t4 = ({
   index: n,
   fileData: e,
   setFiles: t,
-  setIsUploading: r,
-  fileUploadConfig: i,
+  setIsUploading: i,
+  fileUploadConfig: r,
   onFileUploaded: o,
   handleFileRemove: a
 }) => {
-  var D, C, b, $;
-  const [l, c] = R(0), [u, f] = R(!1), [m, g] = R(!1), [p, h] = R(!1), N = pn(33), H = pe(), { onError: F } = vn(), j = Ne(), P = (M) => {
-    c(0), r((E) => ({
-      ...E,
+  var F, y, b, N;
+  const [s, c] = L(0), [d, u] = L(!1), [f, h] = L(!1), [m, p] = L(!1), v = _e(33), j = oe(), { onError: w } = qe(), H = se(), C = (M) => {
+    c(0), i((D) => ({
+      ...D,
       [n]: !1
     }));
-    const L = {
+    const T = {
       type: "upload",
-      message: j("uploadFail"),
+      message: H("uploadFail"),
       response: {
         status: M.status,
         statusText: M.statusText,
@@ -6618,60 +5992,60 @@ const o4 = ({
       }
     };
     t(
-      (E) => E.map((A, Q) => n === Q ? {
-        ...A,
-        error: L.message
-      } : A)
-    ), h(!0), F(L, e.file);
-  }, S = (M) => {
+      (D) => D.map((E, Z) => n === Z ? {
+        ...E,
+        error: T.message
+      } : E)
+    ), p(!0), w(T, e.file);
+  }, P = (M) => {
     if (!M.error)
-      return new Promise((L, E) => {
-        const A = new XMLHttpRequest();
-        H.current = A, r((re) => ({
-          ...re,
+      return new Promise((T, D) => {
+        const E = new XMLHttpRequest();
+        j.current = E, i((Q) => ({
+          ...Q,
           [n]: !0
-        })), A.upload.onprogress = (re) => {
-          if (re.lengthComputable) {
-            const x = Math.round(re.loaded / re.total * 100);
-            c(x);
+        })), E.upload.onprogress = (Q) => {
+          if (Q.lengthComputable) {
+            const $ = Math.round(Q.loaded / Q.total * 100);
+            c($);
           }
-        }, A.onload = () => {
-          r((re) => ({
-            ...re,
+        }, E.onload = () => {
+          i((Q) => ({
+            ...Q,
             [n]: !1
-          })), A.status === 200 || A.status === 201 ? (f(!0), o(A.response), L(A.response)) : (E(A.statusText), P(A));
-        }, A.onerror = () => {
-          E(A.statusText), P(A);
+          })), E.status === 200 || E.status === 201 ? (u(!0), o(E.response), T(E.response)) : (D(E.statusText), C(E));
+        }, E.onerror = () => {
+          D(E.statusText), C(E);
         };
-        const Q = (i == null ? void 0 : i.method) || "POST";
-        A.open(Q, i == null ? void 0 : i.url, !0);
-        const J = i == null ? void 0 : i.headers;
-        for (let re in J)
-          A.setRequestHeader(re, J[re]);
-        const ne = new FormData(), de = M == null ? void 0 : M.appendData;
-        for (let re in de)
-          de[re] && ne.append(re, de[re]);
-        ne.append("file", M.file), A.send(ne);
+        const Z = (r == null ? void 0 : r.method) || "POST";
+        E.open(Z, r == null ? void 0 : r.url, !0);
+        const _ = r == null ? void 0 : r.headers;
+        for (let Q in _)
+          E.setRequestHeader(Q, _[Q]);
+        const J = new FormData(), ie = M == null ? void 0 : M.appendData;
+        for (let Q in ie)
+          ie[Q] && J.append(Q, ie[Q]);
+        J.append("file", M.file), E.send(J);
       });
   };
-  oe(() => {
-    H.current || S(e);
+  X(() => {
+    j.current || P(e);
   }, []);
-  const v = () => {
-    H.current && (H.current.abort(), r((M) => ({
+  const g = () => {
+    j.current && (j.current.abort(), i((M) => ({
       ...M,
       [n]: !1
-    })), g(!0), c(0));
-  }, U = () => {
+    })), h(!0), c(0));
+  }, S = () => {
     e != null && e.file && (t(
-      (M) => M.map((L, E) => n === E ? {
-        ...L,
+      (M) => M.map((T, D) => n === D ? {
+        ...T,
         error: !1
-      } : L)
-    ), S({ ...e, error: !1 }), g(!1), h(!1));
+      } : T)
+    ), P({ ...e, error: !1 }), h(!1), p(!1));
   };
-  return e.removed ? null : /* @__PURE__ */ s.jsxDEV("li", { children: [
-    /* @__PURE__ */ s.jsxDEV("div", { className: "file-icon", children: N[Ie((D = e.file) == null ? void 0 : D.name)] ?? /* @__PURE__ */ s.jsxDEV(cn, { size: 33 }, void 0, !1, {
+  return e.removed ? null : /* @__PURE__ */ l("li", { children: [
+    /* @__PURE__ */ l("div", { className: "file-icon", children: v[Ce((F = e.file) == null ? void 0 : F.name)] ?? /* @__PURE__ */ l(Oe, { size: 33 }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadItem.jsx",
       lineNumber: 167,
       columnNumber: 62
@@ -6680,15 +6054,15 @@ const o4 = ({
       lineNumber: 166,
       columnNumber: 7
     }, void 0),
-    /* @__PURE__ */ s.jsxDEV("div", { className: "file", children: [
-      /* @__PURE__ */ s.jsxDEV("div", { className: "file-details", children: [
-        /* @__PURE__ */ s.jsxDEV("div", { className: "file-info", children: [
-          /* @__PURE__ */ s.jsxDEV("span", { className: "file-name text-truncate", title: (C = e.file) == null ? void 0 : C.name, children: (b = e.file) == null ? void 0 : b.name }, void 0, !1, {
+    /* @__PURE__ */ l("div", { className: "file", children: [
+      /* @__PURE__ */ l("div", { className: "file-details", children: [
+        /* @__PURE__ */ l("div", { className: "file-info", children: [
+          /* @__PURE__ */ l("span", { className: "file-name text-truncate", title: (y = e.file) == null ? void 0 : y.name, children: (b = e.file) == null ? void 0 : b.name }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadItem.jsx",
             lineNumber: 172,
             columnNumber: 13
           }, void 0),
-          /* @__PURE__ */ s.jsxDEV("span", { className: "file-size", children: Nn(($ = e.file) == null ? void 0 : $.size) }, void 0, !1, {
+          /* @__PURE__ */ l("span", { className: "file-size", children: Ze((N = e.file) == null ? void 0 : N.size) }, void 0, !1, {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadItem.jsx",
             lineNumber: 175,
             columnNumber: 13
@@ -6698,21 +6072,21 @@ const o4 = ({
           lineNumber: 171,
           columnNumber: 11
         }, void 0),
-        u ? /* @__PURE__ */ s.jsxDEV(jx, { title: j("uploaded"), className: "upload-success" }, void 0, !1, {
+        d ? /* @__PURE__ */ l(wN, { title: H("uploaded"), className: "upload-success" }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadItem.jsx",
           lineNumber: 178,
           columnNumber: 13
-        }, void 0) : m || p ? /* @__PURE__ */ s.jsxDEV(i4, { className: "retry-upload", title: "Retry", onClick: U }, void 0, !1, {
+        }, void 0) : f || m ? /* @__PURE__ */ l(n4, { className: "retry-upload", title: "Retry", onClick: S }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadItem.jsx",
           lineNumber: 180,
           columnNumber: 13
-        }, void 0) : /* @__PURE__ */ s.jsxDEV(
+        }, void 0) : /* @__PURE__ */ l(
           "div",
           {
             className: "rm-file",
-            title: `${e.error ? j("Remove") : j("abortUpload")}`,
-            onClick: e.error ? () => a(n) : v,
-            children: /* @__PURE__ */ s.jsxDEV(n4, {}, void 0, !1, {
+            title: `${e.error ? H("Remove") : H("abortUpload")}`,
+            onClick: e.error ? () => a(n) : g,
+            children: /* @__PURE__ */ l(XN, {}, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadItem.jsx",
               lineNumber: 187,
               columnNumber: 15
@@ -6732,12 +6106,12 @@ const o4 = ({
         lineNumber: 170,
         columnNumber: 9
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV(
-        r4,
+      /* @__PURE__ */ l(
+        e4,
         {
-          percent: l,
-          isCanceled: m,
-          isCompleted: u,
+          percent: s,
+          isCanceled: f,
+          isCompleted: d,
           error: e.error
         },
         void 0,
@@ -6759,69 +6133,69 @@ const o4 = ({
     lineNumber: 165,
     columnNumber: 5
   }, void 0);
-}, a4 = ({
+}, i4 = ({
   fileUploadConfig: n,
   maxFileSize: e,
   acceptedFileTypes: t,
-  onFileUploading: r,
-  onFileUploaded: i
+  onFileUploading: i,
+  onFileUploaded: r
 }) => {
-  const [o, a] = R([]), [l, c] = R(!1), [u, f] = R({}), { currentFolder: m, currentPathFiles: g } = we(), { onError: p } = vn(), h = pe(null), N = Ne(), H = (U) => {
-    U.key === "Enter" && h.current.click();
-  }, F = (U) => {
-    if (t && !t.includes(Ie(U.name)))
-      return N("fileTypeNotAllowed");
-    if (g.some(
-      (b) => b.name.toLowerCase() === U.name.toLowerCase() && !b.isDirectory
-    )) return N("fileAlreadyExist");
-    if (e && U.size > e) return `${N("maxUploadSize")} ${Nn(e, 0)}.`;
-  }, j = (U) => {
-    if (U = U.filter(
-      (D) => !o.some((C) => C.file.name.toLowerCase() === D.name.toLowerCase())
-    ), U.length > 0) {
-      const D = U.map((C) => {
-        const b = r(C, m), $ = F(C);
-        return $ && p({ type: "upload", message: $ }, C), {
-          file: C,
+  const [o, a] = L([]), [s, c] = L(!1), [d, u] = L({}), { currentFolder: f, currentPathFiles: h } = me(), { onError: m } = qe(), p = oe(null), v = se(), j = (S) => {
+    S.key === "Enter" && p.current.click();
+  }, w = (S) => {
+    if (t && !t.includes(Ce(S.name)))
+      return v("fileTypeNotAllowed");
+    if (h.some(
+      (b) => b.name.toLowerCase() === S.name.toLowerCase() && !b.isDirectory
+    )) return v("fileAlreadyExist");
+    if (e && S.size > e) return `${v("maxUploadSize")} ${Ze(e, 0)}.`;
+  }, H = (S) => {
+    if (S = S.filter(
+      (F) => !o.some((y) => y.file.name.toLowerCase() === F.name.toLowerCase())
+    ), S.length > 0) {
+      const F = S.map((y) => {
+        const b = i(y, f), N = w(y);
+        return N && m({ type: "upload", message: N }, y), {
+          file: y,
           appendData: b,
-          ...$ && { error: $ }
+          ...N && { error: N }
         };
       });
-      a((C) => [...C, ...D]);
+      a((y) => [...y, ...F]);
     }
-  }, P = (U) => {
-    U.preventDefault(), c(!1);
-    const D = Array.from(U.dataTransfer.files);
-    j(D);
-  }, S = (U) => {
-    const D = Array.from(U.target.files);
-    j(D);
-  }, v = (U) => {
-    a((D) => {
-      const C = D.map((b, $) => U === $ ? {
+  }, C = (S) => {
+    S.preventDefault(), c(!1);
+    const F = Array.from(S.dataTransfer.files);
+    H(F);
+  }, P = (S) => {
+    const F = Array.from(S.target.files);
+    H(F);
+  }, g = (S) => {
+    a((F) => {
+      const y = F.map((b, N) => S === N ? {
         ...b,
         removed: !0
       } : b);
-      return C.every((b) => !!b.removed) ? [] : C;
+      return y.every((b) => !!b.removed) ? [] : y;
     });
   };
-  return /* @__PURE__ */ s.jsxDEV("div", { className: `fm-upload-file ${o.length > 0 ? "file-selcted" : ""}`, children: [
-    /* @__PURE__ */ s.jsxDEV("div", { className: "select-files", children: [
-      /* @__PURE__ */ s.jsxDEV(
+  return /* @__PURE__ */ l("div", { className: `fm-upload-file ${o.length > 0 ? "file-selcted" : ""}`, children: [
+    /* @__PURE__ */ l("div", { className: "select-files", children: [
+      /* @__PURE__ */ l(
         "div",
         {
-          className: `draggable-file-input ${l ? "dragging" : ""}`,
-          onDrop: P,
-          onDragOver: (U) => U.preventDefault(),
+          className: `draggable-file-input ${s ? "dragging" : ""}`,
+          onDrop: C,
+          onDragOver: (S) => S.preventDefault(),
           onDragEnter: () => c(!0),
           onDragLeave: () => c(!1),
-          children: /* @__PURE__ */ s.jsxDEV("div", { className: "input-text", children: [
-            /* @__PURE__ */ s.jsxDEV(t4, { size: 30 }, void 0, !1, {
+          children: /* @__PURE__ */ l("div", { className: "input-text", children: [
+            /* @__PURE__ */ l(QN, { size: 30 }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
               lineNumber: 114,
               columnNumber: 13
             }, void 0),
-            /* @__PURE__ */ s.jsxDEV("span", { children: N("dragFileToUpload") }, void 0, !1, {
+            /* @__PURE__ */ l("span", { children: v("dragFileToUpload") }, void 0, !1, {
               fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
               lineNumber: 115,
               columnNumber: 13
@@ -6841,20 +6215,20 @@ const o4 = ({
         },
         void 0
       ),
-      /* @__PURE__ */ s.jsxDEV("div", { className: "btn-choose-file", children: /* @__PURE__ */ s.jsxDEV(Ge, { padding: "0", onKeyDown: H, children: [
-        /* @__PURE__ */ s.jsxDEV("label", { htmlFor: "chooseFile", children: N("chooseFile") }, void 0, !1, {
+      /* @__PURE__ */ l("div", { className: "btn-choose-file", children: /* @__PURE__ */ l(we, { padding: "0", onKeyDown: j, children: [
+        /* @__PURE__ */ l("label", { htmlFor: "chooseFile", children: v("chooseFile") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
           lineNumber: 120,
           columnNumber: 13
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV(
+        /* @__PURE__ */ l(
           "input",
           {
-            ref: h,
+            ref: p,
             type: "file",
             id: "chooseFile",
             className: "choose-file-input",
-            onChange: S,
+            onChange: P,
             multiple: !0,
             accept: t
           },
@@ -6881,14 +6255,14 @@ const o4 = ({
       lineNumber: 105,
       columnNumber: 7
     }, void 0),
-    o.length > 0 && /* @__PURE__ */ s.jsxDEV("div", { className: "files-progress", children: [
-      /* @__PURE__ */ s.jsxDEV("div", { className: "heading", children: Object.values(u).some((U) => U) ? /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-        /* @__PURE__ */ s.jsxDEV("h2", { children: N("uploading") }, void 0, !1, {
+    o.length > 0 && /* @__PURE__ */ l("div", { className: "files-progress", children: [
+      /* @__PURE__ */ l("div", { className: "heading", children: Object.values(d).some((S) => S) ? /* @__PURE__ */ l(fe, { children: [
+        /* @__PURE__ */ l("h2", { children: v("uploading") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
           lineNumber: 138,
           columnNumber: 17
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV(zn, { loading: !0, className: "upload-loading" }, void 0, !1, {
+        /* @__PURE__ */ l(mn, { loading: !0, className: "upload-loading" }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
           lineNumber: 139,
           columnNumber: 17
@@ -6897,7 +6271,7 @@ const o4 = ({
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
         lineNumber: 137,
         columnNumber: 15
-      }, void 0) : /* @__PURE__ */ s.jsxDEV("h2", { children: N("completed") }, void 0, !1, {
+      }, void 0) : /* @__PURE__ */ l("h2", { children: v("completed") }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
         lineNumber: 142,
         columnNumber: 15
@@ -6906,18 +6280,18 @@ const o4 = ({
         lineNumber: 135,
         columnNumber: 11
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV("ul", { children: o.map((U, D) => /* @__PURE__ */ s.jsxDEV(
-        o4,
+      /* @__PURE__ */ l("ul", { children: o.map((S, F) => /* @__PURE__ */ l(
+        t4,
         {
-          index: D,
-          fileData: U,
+          index: F,
+          fileData: S,
           setFiles: a,
           fileUploadConfig: n,
-          setIsUploading: f,
-          onFileUploaded: i,
-          handleFileRemove: v
+          setIsUploading: u,
+          onFileUploaded: r,
+          handleFileRemove: g
         },
-        D,
+        F,
         !1,
         {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/UploadFile/UploadFile.action.jsx",
@@ -6940,26 +6314,26 @@ const o4 = ({
     lineNumber: 104,
     columnNumber: 5
   }, void 0);
-}, It = ["jpg", "jpeg", "png"], Gt = ["mp4", "mov", "avi"], _t = ["mp3", "wav", "m4a"], Bt = ["txt", "pdf"], s4 = ({ filePreviewPath: n, filePreviewComponent: e }) => {
-  var N;
-  const [t, r] = R(!0), [i, o] = R(!1), { selectedFiles: a } = Te(), l = pn(73), c = (N = Ie(a[0].name)) == null ? void 0 : N.toLowerCase(), u = `${n}${a[0].path}`, f = Ne(), m = hn(
+}, rt = ["jpg", "jpeg", "png"], ot = ["mp4", "mov", "avi"], at = ["mp3", "wav", "m4a"], st = ["txt", "pdf"], r4 = ({ filePreviewPath: n, filePreviewComponent: e }) => {
+  var v;
+  const [t, i] = L(!0), [r, o] = L(!1), { selectedFiles: a } = ge(), s = _e(73), c = (v = Ce(a[0].name)) == null ? void 0 : v.toLowerCase(), d = `${n}${a[0].path}`, u = se(), f = Ye(
     () => e == null ? void 0 : e(a[0]),
     [e]
-  ), g = () => {
-    r(!1), o(!1);
+  ), h = () => {
+    i(!1), o(!1);
+  }, m = () => {
+    i(!1), o(!0);
   }, p = () => {
-    r(!1), o(!0);
-  }, h = () => {
-    window.location.href = u;
+    window.location.href = d;
   };
-  return Me.isValidElement(m) ? m : /* @__PURE__ */ s.jsxDEV("section", { className: `file-previewer ${c === "pdf" ? "pdf-previewer" : ""}`, children: [
-    i || ![
-      ...It,
-      ...Gt,
-      ..._t,
-      ...Bt
-    ].includes(c) && /* @__PURE__ */ s.jsxDEV("div", { className: "preview-error", children: [
-      /* @__PURE__ */ s.jsxDEV("span", { className: "error-icon", children: l[c] ?? /* @__PURE__ */ s.jsxDEV(Sx, { size: 73 }, void 0, !1, {
+  return be.isValidElement(f) ? f : /* @__PURE__ */ l("section", { className: `file-previewer ${c === "pdf" ? "pdf-previewer" : ""}`, children: [
+    r || ![
+      ...rt,
+      ...ot,
+      ...at,
+      ...st
+    ].includes(c) && /* @__PURE__ */ l("div", { className: "preview-error", children: [
+      /* @__PURE__ */ l("span", { className: "error-icon", children: s[c] ?? /* @__PURE__ */ l(PN, { size: 73 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
         lineNumber: 61,
         columnNumber: 67
@@ -6968,23 +6342,23 @@ const o4 = ({
         lineNumber: 61,
         columnNumber: 13
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV("span", { className: "error-msg", children: f("previewUnavailable") }, void 0, !1, {
+      /* @__PURE__ */ l("span", { className: "error-msg", children: u("previewUnavailable") }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
         lineNumber: 62,
         columnNumber: 13
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV("div", { className: "file-info", children: [
-        /* @__PURE__ */ s.jsxDEV("span", { className: "file-name", children: a[0].name }, void 0, !1, {
+      /* @__PURE__ */ l("div", { className: "file-info", children: [
+        /* @__PURE__ */ l("span", { className: "file-name", children: a[0].name }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
           lineNumber: 64,
           columnNumber: 15
         }, void 0),
-        a[0].size && /* @__PURE__ */ s.jsxDEV("span", { children: "-" }, void 0, !1, {
+        a[0].size && /* @__PURE__ */ l("span", { children: "-" }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
           lineNumber: 65,
           columnNumber: 41
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { className: "file-size", children: Nn(a[0].size) }, void 0, !1, {
+        /* @__PURE__ */ l("span", { className: "file-size", children: Ze(a[0].size) }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
           lineNumber: 66,
           columnNumber: 15
@@ -6994,13 +6368,13 @@ const o4 = ({
         lineNumber: 63,
         columnNumber: 13
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV(Ge, { onClick: h, padding: "0.45rem .9rem", children: /* @__PURE__ */ s.jsxDEV("div", { className: "download-btn", children: [
-        /* @__PURE__ */ s.jsxDEV(On, { size: 18 }, void 0, !1, {
+      /* @__PURE__ */ l(we, { onClick: p, padding: "0.45rem .9rem", children: /* @__PURE__ */ l("div", { className: "download-btn", children: [
+        /* @__PURE__ */ l(pn, { size: 18 }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
           lineNumber: 70,
           columnNumber: 17
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV("span", { children: f("download") }, void 0, !1, {
+        /* @__PURE__ */ l("span", { children: u("download") }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
           lineNumber: 71,
           columnNumber: 17
@@ -7019,20 +6393,20 @@ const o4 = ({
       lineNumber: 60,
       columnNumber: 11
     }, void 0),
-    It.includes(c) && /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: [
-      /* @__PURE__ */ s.jsxDEV(zn, { isLoading: t }, void 0, !1, {
+    rt.includes(c) && /* @__PURE__ */ l(fe, { children: [
+      /* @__PURE__ */ l(mn, { isLoading: t }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
         lineNumber: 78,
         columnNumber: 11
       }, void 0),
-      /* @__PURE__ */ s.jsxDEV(
+      /* @__PURE__ */ l(
         "img",
         {
-          src: u,
+          src: d,
           alt: "Preview Unavailable",
           className: `photo-popup-image ${t ? "img-loading" : ""}`,
-          onLoad: g,
-          onError: p,
+          onLoad: h,
+          onError: m,
           loading: "lazy"
         },
         void 0,
@@ -7049,22 +6423,22 @@ const o4 = ({
       lineNumber: 77,
       columnNumber: 9
     }, void 0),
-    Gt.includes(c) && /* @__PURE__ */ s.jsxDEV("video", { src: u, className: "video-preview", controls: !0, autoPlay: !0 }, void 0, !1, {
+    ot.includes(c) && /* @__PURE__ */ l("video", { src: d, className: "video-preview", controls: !0, autoPlay: !0 }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
       lineNumber: 90,
       columnNumber: 9
     }, void 0),
-    _t.includes(c) && /* @__PURE__ */ s.jsxDEV("audio", { src: u, controls: !0, autoPlay: !0, className: "audio-preview" }, void 0, !1, {
+    at.includes(c) && /* @__PURE__ */ l("audio", { src: d, controls: !0, autoPlay: !0, className: "audio-preview" }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/PreviewFile/PreviewFile.action.jsx",
       lineNumber: 93,
       columnNumber: 9
     }, void 0),
-    Bt.includes(c) && /* @__PURE__ */ s.jsxDEV(s.Fragment, { children: /* @__PURE__ */ s.jsxDEV(
+    st.includes(c) && /* @__PURE__ */ l(fe, { children: /* @__PURE__ */ l(
       "iframe",
       {
-        src: u,
-        onLoad: g,
-        onError: p,
+        src: d,
+        onLoad: h,
+        onError: m,
         frameBorder: "0",
         className: `photo-popup-iframe ${t ? "img-loading" : ""}`
       },
@@ -7086,21 +6460,21 @@ const o4 = ({
     lineNumber: 52,
     columnNumber: 5
   }, void 0);
-}, Vn = (n) => n.toLowerCase(), $e = (n, e, t = !1) => {
-  const r = pe(/* @__PURE__ */ new Set([])), i = hn(() => new Set(n.map((c) => Vn(c))), [n]), o = (c) => {
-    if (!c.repeat && (r.current.add(Vn(c.key)), i.isSubsetOf(r.current) && !t)) {
+}, cn = (n) => n.toLowerCase(), ce = (n, e, t = !1) => {
+  const i = oe(/* @__PURE__ */ new Set([])), r = Ye(() => new Set(n.map((c) => cn(c))), [n]), o = (c) => {
+    if (!c.repeat && (i.current.add(cn(c.key)), r.isSubsetOf(i.current) && !t)) {
       c.preventDefault(), e(c);
       return;
     }
   }, a = (c) => {
-    r.current.delete(Vn(c.key));
-  }, l = () => {
-    r.current.clear();
+    i.current.delete(cn(c.key));
+  }, s = () => {
+    i.current.clear();
   };
-  oe(() => (window.addEventListener("keydown", o), window.addEventListener("keyup", a), window.addEventListener("blur", l), () => {
-    window.removeEventListener("keydown", o), window.removeEventListener("keyup", a), window.removeEventListener("blur", l);
-  }), [i, e, t]);
-}, ye = {
+  X(() => (window.addEventListener("keydown", o), window.addEventListener("keyup", a), window.addEventListener("blur", s), () => {
+    window.removeEventListener("keydown", o), window.removeEventListener("keyup", a), window.removeEventListener("blur", s);
+  }), [r, e, t]);
+}, de = {
   createFolder: ["Alt", "Shift", "N"],
   uploadFiles: ["Control", "U"],
   cut: ["Control", "X"],
@@ -7118,59 +6492,59 @@ const o4 = ({
   // Act as Ctrl + Shift + 2 but could cause problems for QWERTZ or DVORAK etc. keyborad layouts.
   refresh: ["F5"],
   clearSelection: ["Escape"]
-}, l4 = (n, e, t) => {
-  const { setClipBoard: r, handleCutCopy: i, handlePasting: o } = bn(), { currentFolder: a, currentPathFiles: l } = we(), { selectedFiles: c, setSelectedFiles: u, handleDownload: f } = Te(), { setActiveLayout: m } = He(), g = () => {
+}, o4 = (n, e, t) => {
+  const { setClipBoard: i, handleCutCopy: r, handlePasting: o } = Je(), { currentFolder: a, currentPathFiles: s } = me(), { selectedFiles: c, setSelectedFiles: d, handleDownload: u } = ge(), { setActiveLayout: f } = ve(), h = () => {
     t.create && n.show("createFolder");
-  }, p = () => {
+  }, m = () => {
     t.upload && n.show("uploadFile");
-  }, h = () => {
-    t.move && i(!0);
-  }, N = () => {
-    t.copy && i(!1);
-  }, H = () => {
-    o(a);
-  }, F = () => {
-    t.rename && n.show("rename");
-  }, j = () => {
-    t.download && f();
-  }, P = () => {
-    t.delete && c.length && n.show("delete");
-  }, S = () => {
-    l.length > 0 && u([l[0]]);
+  }, p = () => {
+    t.move && r(!0);
   }, v = () => {
-    l.length > 0 && u([l.at(-1)]);
-  }, U = () => {
-    u(l);
-  }, D = () => {
-    u((M) => M.length > 0 ? [] : M);
+    t.copy && r(!1);
+  }, j = () => {
+    o(a);
+  }, w = () => {
+    t.rename && n.show("rename");
+  }, H = () => {
+    t.download && u();
   }, C = () => {
-    Ae(e, "onRefresh"), r(null);
+    t.delete && c.length && n.show("delete");
+  }, P = () => {
+    s.length > 0 && d([s[0]]);
+  }, g = () => {
+    s.length > 0 && d([s.at(-1)]);
+  }, S = () => {
+    d(s);
+  }, F = () => {
+    d((M) => M.length > 0 ? [] : M);
+  }, y = () => {
+    ye(e, "onRefresh"), i(null);
   }, b = () => {
-    m("grid");
-  }, $ = () => {
-    m("list");
+    f("grid");
+  }, N = () => {
+    f("list");
   };
-  $e(ye.createFolder, g, n.isActive), $e(ye.uploadFiles, p, n.isActive), $e(ye.cut, h, n.isActive), $e(ye.copy, N, n.isActive), $e(ye.paste, H, n.isActive), $e(ye.rename, F, n.isActive), $e(ye.download, j, n.isActive), $e(ye.delete, P, n.isActive), $e(ye.jumpToFirst, S, n.isActive), $e(ye.jumpToLast, v, n.isActive), $e(ye.selectAll, U, n.isActive), $e(ye.clearSelection, D, n.isActive), $e(ye.refresh, C, n.isActive), $e(ye.gridLayout, b, n.isActive), $e(ye.listLayout, $, n.isActive);
-}, c4 = ({
+  ce(de.createFolder, h, n.isActive), ce(de.uploadFiles, m, n.isActive), ce(de.cut, p, n.isActive), ce(de.copy, v, n.isActive), ce(de.paste, j, n.isActive), ce(de.rename, w, n.isActive), ce(de.download, H, n.isActive), ce(de.delete, C, n.isActive), ce(de.jumpToFirst, P, n.isActive), ce(de.jumpToLast, g, n.isActive), ce(de.selectAll, S, n.isActive), ce(de.clearSelection, F, n.isActive), ce(de.refresh, y, n.isActive), ce(de.gridLayout, b, n.isActive), ce(de.listLayout, N, n.isActive);
+}, a4 = ({
   fileUploadConfig: n,
   onFileUploading: e,
   onFileUploaded: t,
-  onDelete: r,
-  onRefresh: i,
+  onDelete: i,
+  onRefresh: r,
   maxFileSize: o,
   filePreviewPath: a,
-  filePreviewComponent: l,
+  filePreviewComponent: s,
   acceptedFileTypes: c,
-  triggerAction: u,
-  permissions: f
+  triggerAction: d,
+  permissions: u
 }) => {
-  const [m, g] = R(null), { selectedFiles: p } = Te(), h = Ne();
-  l4(u, i, f);
-  const N = {
+  const [f, h] = L(null), { selectedFiles: m } = ge(), p = se();
+  o4(d, r, u);
+  const v = {
     uploadFile: {
-      title: h("upload"),
-      component: /* @__PURE__ */ s.jsxDEV(
-        a4,
+      title: p("upload"),
+      component: /* @__PURE__ */ l(
+        i4,
         {
           fileUploadConfig: n,
           maxFileSize: o,
@@ -7190,8 +6564,8 @@ const o4 = ({
       width: "35%"
     },
     delete: {
-      title: h("delete"),
-      component: /* @__PURE__ */ s.jsxDEV(e4, { triggerAction: u, onDelete: r }, void 0, !1, {
+      title: p("delete"),
+      component: /* @__PURE__ */ l(ZN, { triggerAction: d, onDelete: i }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Actions/Actions.jsx",
         lineNumber: 46,
         columnNumber: 18
@@ -7199,12 +6573,12 @@ const o4 = ({
       width: "25%"
     },
     previewFile: {
-      title: h("preview"),
-      component: /* @__PURE__ */ s.jsxDEV(
-        s4,
+      title: p("preview"),
+      component: /* @__PURE__ */ l(
+        r4,
         {
           filePreviewPath: a,
-          filePreviewComponent: l
+          filePreviewComponent: s
         },
         void 0,
         !1,
@@ -7218,21 +6592,21 @@ const o4 = ({
       width: "50%"
     }
   };
-  if (oe(() => {
-    if (u.isActive) {
-      const H = u.actionType;
-      H === "previewFile" && (N[H].title = (p == null ? void 0 : p.name) ?? h("preview")), g(N[H]);
+  if (X(() => {
+    if (d.isActive) {
+      const j = d.actionType;
+      j === "previewFile" && (v[j].title = (m == null ? void 0 : m.name) ?? p("preview")), h(v[j]);
     } else
-      g(null);
-  }, [u.isActive]), m)
-    return /* @__PURE__ */ s.jsxDEV(
-      Fr,
+      h(null);
+  }, [d.isActive]), f)
+    return /* @__PURE__ */ l(
+      Rt,
       {
-        heading: m.title,
-        show: u.isActive,
-        setShow: u.close,
-        dialogWidth: m.width,
-        children: m == null ? void 0 : m.component
+        heading: f.title,
+        show: d.isActive,
+        setShow: d.close,
+        dialogWidth: f.width,
+        children: f == null ? void 0 : f.component
       },
       void 0,
       !1,
@@ -7243,55 +6617,55 @@ const o4 = ({
       },
       void 0
     );
-}, u4 = () => {
-  const [n, e] = R(!1), [t, r] = R(null);
+}, s4 = () => {
+  const [n, e] = L(!1), [t, i] = L(null);
   return {
     isActive: n,
     actionType: t,
     show: (a) => {
-      e(!0), r(a);
+      e(!0), i(a);
     },
     close: () => {
-      e(!1), r(null);
+      e(!1), i(null);
     }
   };
-}, d4 = (n, e) => {
-  const [t, r] = R({ col1: n, col2: e }), [i, o] = R(!1), a = pe(null);
+}, l4 = (n, e) => {
+  const [t, i] = L({ col1: n, col2: e }), [r, o] = L(!1), a = oe(null);
   return {
     containerRef: a,
     colSizes: t,
-    setColSizes: r,
-    isDragging: i,
+    setColSizes: i,
+    isDragging: r,
     handleMouseDown: () => {
       o(!0);
     },
     handleMouseUp: () => {
       o(!1);
     },
-    handleMouseMove: (f) => {
-      if (!i) return;
-      f.preventDefault();
-      const g = a.current.getBoundingClientRect(), p = (f.clientX - g.left) / g.width * 100;
-      p >= 15 && p <= 60 && r({ col1: p, col2: 100 - p });
+    handleMouseMove: (u) => {
+      if (!r) return;
+      u.preventDefault();
+      const h = a.current.getBoundingClientRect(), m = (u.clientX - h.left) / h.width * 100;
+      m >= 15 && m <= 60 && i({ col1: m, col2: 100 - m });
     }
   };
-}, f4 = (n, e, t) => {
-  const r = n[e];
-  if (r && isNaN(Date.parse(r)))
+}, c4 = (n, e, t) => {
+  const i = n[e];
+  if (i && isNaN(Date.parse(i)))
     return new Error(
-      `Invalid prop \`${e}\` supplied to \`${t}\`. Expected a valid date string (ISO 8601) but received \`${r}\`.`
+      `Invalid prop \`${e}\` supplied to \`${t}\`. Expected a valid date string (ISO 8601) but received \`${i}\`.`
     );
-}, Wt = (n, e, t) => {
-  const r = n[e];
+}, lt = (n, e, t) => {
+  const i = n[e];
   try {
-    new URL(r);
+    new URL(i);
     return;
   } catch {
     return new Error(
-      `Invalid prop \`${e}\` supplied to \`${t}\`. Expected a valid URL but received \`${r}\`.`
+      `Invalid prop \`${e}\` supplied to \`${t}\`. Expected a valid URL but received \`${i}\`.`
     );
   }
-}, m4 = {
+}, d4 = {
   create: !0,
   upload: !0,
   move: !0,
@@ -7299,85 +6673,85 @@ const o4 = ({
   rename: !0,
   download: !0,
   delete: !0
-}, wr = ({
+}, Gt = ({
   files: n,
   fileUploadConfig: e,
   isLoading: t,
-  onCreateFolder: r,
-  onFileUploading: i = () => {
+  onCreateFolder: i,
+  onFileUploading: r = () => {
   },
   onFileUploaded: o = () => {
   },
   onCut: a,
-  onCopy: l,
+  onCopy: s,
   onPaste: c,
-  onRename: u,
-  onDownload: f,
-  onDelete: m = () => null,
-  onLayoutChange: g = () => {
+  onRename: d,
+  onDownload: u,
+  onDelete: f = () => null,
+  onLayoutChange: h = () => {
   },
-  onRefresh: p,
-  onFileOpen: h = () => {
+  onRefresh: m,
+  onFileOpen: p = () => {
   },
-  onFolderChange: N = () => {
+  onFolderChange: v = () => {
   },
-  onSelect: H,
-  onSelectionChange: F,
-  onError: j = () => {
+  onSelect: j,
+  onSelectionChange: w,
+  onError: H = () => {
   },
-  layout: P = "grid",
-  enableFilePreview: S = !0,
-  maxFileSize: v,
-  filePreviewPath: U,
-  acceptedFileTypes: D,
-  height: C = "600px",
+  layout: C = "grid",
+  enableFilePreview: P = !0,
+  maxFileSize: g,
+  filePreviewPath: S,
+  acceptedFileTypes: F,
+  height: y = "600px",
   width: b = "100%",
-  initialPath: $ = "",
+  initialPath: N = "",
   filePreviewComponent: M,
-  primaryColor: L = "#6155b4",
-  fontFamily: E = "Nunito Sans, sans-serif",
-  language: A = "en",
-  permissions: Q = {},
-  collapsibleNav: J = !1,
-  defaultNavExpanded: ne = !0,
-  className: de = "",
-  style: re = {}
+  primaryColor: T = "#6155b4",
+  fontFamily: D = "Nunito Sans, sans-serif",
+  language: E = "en",
+  permissions: Z = {},
+  collapsibleNav: _ = !1,
+  defaultNavExpanded: J = !0,
+  className: ie = "",
+  style: Q = {}
 }) => {
-  const [x, w] = R(ne), O = u4(), { containerRef: G, colSizes: I, isDragging: X, handleMouseMove: _, handleMouseUp: B, handleMouseDown: q } = d4(20, 80), Z = {
-    "--file-manager-font-family": E,
-    "--file-manager-primary-color": L,
-    height: C,
+  const [$, x] = L(J), k = s4(), { containerRef: I, colSizes: R, isDragging: W, handleMouseMove: B, handleMouseUp: V, handleMouseDown: Y } = l4(20, 80), K = {
+    "--file-manager-font-family": D,
+    "--file-manager-primary-color": T,
+    height: y,
     width: b
-  }, k = hn(
-    () => ({ ...m4, ...Q }),
-    [Q]
+  }, A = Ye(
+    () => ({ ...d4, ...Z }),
+    [Z]
   );
-  return /* @__PURE__ */ s.jsxDEV(
+  return /* @__PURE__ */ l(
     "main",
     {
-      className: `file-explorer ${de}`,
-      onContextMenu: (ce) => ce.preventDefault(),
-      style: { ...Z, ...re },
+      className: `file-explorer ${ie}`,
+      onContextMenu: (te) => te.preventDefault(),
+      style: { ...K, ...Q },
       children: [
-        /* @__PURE__ */ s.jsxDEV(zn, { loading: t }, void 0, !1, {
+        /* @__PURE__ */ l(mn, { loading: t }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileManager.jsx",
           lineNumber: 81,
           columnNumber: 7
         }, void 0),
-        /* @__PURE__ */ s.jsxDEV(rx, { language: A, children: /* @__PURE__ */ s.jsxDEV(ox, { filesData: n, onError: j, children: /* @__PURE__ */ s.jsxDEV(sx, { initialPath: $, onFolderChange: N, children: /* @__PURE__ */ s.jsxDEV(
-          lx,
+        /* @__PURE__ */ l(Qv, { language: E, children: /* @__PURE__ */ l(nN, { filesData: n, onError: H, children: /* @__PURE__ */ l(iN, { initialPath: N, onFolderChange: v, children: /* @__PURE__ */ l(
+          rN,
           {
-            onDownload: f,
-            onSelect: H,
-            onSelectionChange: F,
-            children: /* @__PURE__ */ s.jsxDEV(cx, { onPaste: c, onCut: a, onCopy: l, children: /* @__PURE__ */ s.jsxDEV(hi, { layout: P, children: [
-              /* @__PURE__ */ s.jsxDEV(
-                pr,
+            onDownload: u,
+            onSelect: j,
+            onSelectionChange: w,
+            children: /* @__PURE__ */ l(oN, { onPaste: c, onCut: a, onCopy: s, children: /* @__PURE__ */ l(ui, { layout: C, children: [
+              /* @__PURE__ */ l(
+                Dt,
                 {
-                  onLayoutChange: g,
-                  onRefresh: p,
-                  triggerAction: O,
-                  permissions: k
+                  onLayoutChange: h,
+                  onRefresh: m,
+                  triggerAction: k,
+                  permissions: A
                 },
                 void 0,
                 !1,
@@ -7388,32 +6762,32 @@ const o4 = ({
                 },
                 void 0
               ),
-              /* @__PURE__ */ s.jsxDEV(
+              /* @__PURE__ */ l(
                 "section",
                 {
-                  ref: G,
-                  onMouseMove: _,
-                  onMouseUp: B,
+                  ref: I,
+                  onMouseMove: B,
+                  onMouseUp: V,
                   className: "files-container",
                   children: [
-                    /* @__PURE__ */ s.jsxDEV(
+                    /* @__PURE__ */ l(
                       "div",
                       {
-                        className: `navigation-pane ${x ? "open" : "closed"}`,
+                        className: `navigation-pane ${$ ? "open" : "closed"}`,
                         style: {
-                          width: I.col1 + "%"
+                          width: R.col1 + "%"
                         },
                         children: [
-                          /* @__PURE__ */ s.jsxDEV(vr, { onFileOpen: h }, void 0, !1, {
+                          /* @__PURE__ */ l(Lt, { onFileOpen: p }, void 0, !1, {
                             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileManager.jsx",
                             lineNumber: 110,
                             columnNumber: 23
                           }, void 0),
-                          /* @__PURE__ */ s.jsxDEV(
+                          /* @__PURE__ */ l(
                             "div",
                             {
-                              className: `sidebar-resize ${X ? "sidebar-dragging" : ""}`,
-                              onMouseDown: q
+                              className: `sidebar-resize ${W ? "sidebar-dragging" : ""}`,
+                              onMouseDown: Y
                             },
                             void 0,
                             !1,
@@ -7435,18 +6809,18 @@ const o4 = ({
                       },
                       void 0
                     ),
-                    /* @__PURE__ */ s.jsxDEV(
+                    /* @__PURE__ */ l(
                       "div",
                       {
                         className: "folders-preview",
-                        style: { width: (x ? I.col2 : 100) + "%" },
+                        style: { width: ($ ? R.col2 : 100) + "%" },
                         children: [
-                          /* @__PURE__ */ s.jsxDEV(
-                            Gn,
+                          /* @__PURE__ */ l(
+                            gn,
                             {
-                              collapsibleNav: J,
-                              isNavigationPaneOpen: x,
-                              setNavigationPaneOpen: w
+                              collapsibleNav: _,
+                              isNavigationPaneOpen: $,
+                              setNavigationPaneOpen: x
                             },
                             void 0,
                             !1,
@@ -7457,16 +6831,16 @@ const o4 = ({
                             },
                             void 0
                           ),
-                          /* @__PURE__ */ s.jsxDEV(
-                            Dr,
+                          /* @__PURE__ */ l(
+                            Ot,
                             {
-                              onCreateFolder: r,
-                              onRename: u,
-                              onFileOpen: h,
-                              onRefresh: p,
-                              enableFilePreview: S,
-                              triggerAction: O,
-                              permissions: k
+                              onCreateFolder: i,
+                              onRename: d,
+                              onFileOpen: p,
+                              onRefresh: m,
+                              enableFilePreview: P,
+                              triggerAction: k,
+                              permissions: A
                             },
                             void 0,
                             !1,
@@ -7499,20 +6873,20 @@ const o4 = ({
                 },
                 void 0
               ),
-              /* @__PURE__ */ s.jsxDEV(
-                c4,
+              /* @__PURE__ */ l(
+                a4,
                 {
                   fileUploadConfig: e,
-                  onFileUploading: i,
+                  onFileUploading: r,
                   onFileUploaded: o,
-                  onDelete: m,
-                  onRefresh: p,
-                  maxFileSize: v,
-                  filePreviewPath: U,
+                  onDelete: f,
+                  onRefresh: m,
+                  maxFileSize: g,
+                  filePreviewPath: S,
                   filePreviewComponent: M,
-                  acceptedFileTypes: D,
-                  triggerAction: O,
-                  permissions: k
+                  acceptedFileTypes: F,
+                  triggerAction: k,
+                  permissions: A
                 },
                 void 0,
                 !1,
@@ -7566,19 +6940,19 @@ const o4 = ({
     void 0
   );
 };
-wr.displayName = "FileManager";
-wr.propTypes = {
+Gt.displayName = "FileManager";
+Gt.propTypes = {
   files: z.arrayOf(
     z.shape({
       name: z.string.isRequired,
       isDirectory: z.bool.isRequired,
       path: z.string.isRequired,
-      updatedAt: f4,
+      updatedAt: c4,
       size: z.number
     })
   ).isRequired,
   fileUploadConfig: z.shape({
-    url: Wt,
+    url: lt,
     headers: z.objectOf(z.string),
     method: z.oneOf(["POST", "PUT"])
   }),
@@ -7602,7 +6976,7 @@ wr.propTypes = {
   layout: z.oneOf(["grid", "list"]),
   maxFileSize: z.number,
   enableFilePreview: z.bool,
-  filePreviewPath: Wt,
+  filePreviewPath: lt,
   acceptedFileTypes: z.string,
   height: z.oneOfType([z.string, z.number]),
   width: z.oneOfType([z.string, z.number]),
@@ -7626,5 +7000,5 @@ wr.propTypes = {
   style: z.object
 };
 export {
-  wr as FileManager
+  Gt as FileManager
 };

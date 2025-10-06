@@ -2,13 +2,25 @@
   "name": "@cubone/react-file-manager",
   "version": "1.29.0",
   "private": false,
+  "type": "module",
   "main": "frontend/dist/react-file-manager.es.js",
   "module": "frontend/dist/react-file-manager.es.js",
+  "exports": {
+    ".": {
+      "import": "./frontend/dist/react-file-manager.es.js",
+      "default": "./frontend/dist/react-file-manager.es.js"
+    },
+    "./style.css": "./frontend/dist/style.css"
+  },
   "style": "frontend/dist/style.css",
-  "files": [
-    "frontend/dist"
-  ],
+  "files": ["frontend/dist"],
   "scripts": {
-    "build": "cd frontend && npm install && npm run build"
+    "build": "npm -C frontend ci && npm -C frontend run build",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   }
 }
