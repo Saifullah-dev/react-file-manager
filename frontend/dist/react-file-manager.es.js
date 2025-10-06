@@ -252,14 +252,14 @@ function Yr() {
       } catch (Ce) {
         if (Ce && W && typeof Ce.stack == "string") {
           for (var te = Ce.stack.split(`
-`), Ne = W.stack.split(`
-`), me = te.length - 1, he = Ne.length - 1; me >= 1 && he >= 0 && te[me] !== Ne[he]; )
+`), xe = W.stack.split(`
+`), me = te.length - 1, he = xe.length - 1; me >= 1 && he >= 0 && te[me] !== xe[he]; )
             he--;
           for (; me >= 1 && he >= 0; me--, he--)
-            if (te[me] !== Ne[he]) {
+            if (te[me] !== xe[he]) {
               if (me !== 1 || he !== 1)
                 do
-                  if (me--, he--, he < 0 || te[me] !== Ne[he]) {
+                  if (me--, he--, he < 0 || te[me] !== xe[he]) {
                     var De = `
 ` + te[me].replace(" at new ", " at ");
                     return d.displayName && De.includes("<anonymous>") && (De = De.replace("<anonymous>", d.displayName)), typeof d == "function" && k.set(d, De), De;
@@ -326,8 +326,8 @@ function Yr() {
             var te = void 0;
             try {
               if (typeof d[ie] != "function") {
-                var Ne = Error((W || "React class") + ": " + V + " type `" + ie + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof d[ie] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
-                throw Ne.name = "Invariant Violation", Ne;
+                var xe = Error((W || "React class") + ": " + V + " type `" + ie + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof d[ie] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                throw xe.name = "Invariant Violation", xe;
               }
               te = d[ie](y, ie, W, V, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
             } catch (me) {
@@ -443,8 +443,8 @@ function Yr() {
     };
     function Hr(d, y, V, W, ae) {
       {
-        var ue, ie = {}, te = null, Ne = null;
-        V !== void 0 && (Bn(V), te = "" + V), Sr(y) && (Bn(y.key), te = "" + y.key), jr(y) && (Ne = y.ref, Mr(y, ae));
+        var ue, ie = {}, te = null, xe = null;
+        V !== void 0 && (Bn(V), te = "" + V), Sr(y) && (Bn(y.key), te = "" + y.key), jr(y) && (xe = y.ref, Mr(y, ae));
         for (ue in y)
           Ue.call(y, ue) && !Er.hasOwnProperty(ue) && (ie[ue] = y[ue]);
         if (d && d.defaultProps) {
@@ -452,11 +452,11 @@ function Yr() {
           for (ue in me)
             ie[ue] === void 0 && (ie[ue] = me[ue]);
         }
-        if (te || Ne) {
+        if (te || xe) {
           var he = typeof d == "function" ? d.displayName || d.name || "Unknown" : d;
-          te && Tr(ie, he), Ne && Ur(ie, he);
+          te && Tr(ie, he), xe && Ur(ie, he);
         }
-        return Lr(d, te, Ne, ae, W, We.current, ie);
+        return Lr(d, te, xe, ae, W, We.current, ie);
       }
     }
     var yn = F.ReactCurrentOwner, Kn = F.ReactDebugCurrentFrame;
@@ -584,8 +584,8 @@ Check the top-level render call using <` + V + ">.");
         if (!ie) {
           var te = "";
           (d === void 0 || typeof d == "object" && d !== null && Object.keys(d).length === 0) && (te += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
-          var Ne = Vr(ae);
-          Ne ? te += Ne : te += qn();
+          var xe = Vr(ae);
+          xe ? te += xe : te += qn();
           var me;
           d === null ? me = "null" : Re(d) ? me = "array" : d !== void 0 && d.$$typeof === e ? (me = "<" + (E(d.type) || "Unknown") + " />", te = " Did you accidentally export a JSX literal instead of a component?") : me = typeof d, j("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", me, te);
         }
@@ -3271,10 +3271,10 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
     lineNumber: 14,
     columnNumber: 10
   }, void 0);
-}, ye = () => Be(cr), ix = ({ setShowToggleViewMenu: n, onLayoutChange: e }) => {
+}, Ne = () => Be(cr), ix = ({ setShowToggleViewMenu: n, onLayoutChange: e }) => {
   const t = Ze(() => {
     n(!1);
-  }), { activeLayout: r, setActiveLayout: i } = He(), o = ye(), a = [
+  }), { activeLayout: r, setActiveLayout: i } = He(), o = Ne(), a = [
     {
       key: "grid",
       name: o("grid"),
@@ -3452,7 +3452,7 @@ const Vi = "مجلد جديد", Ai = "رفع", Ri = "لصق", ki = "تغيير �
   }, void 0);
 }, bn = () => Be(mr), pr = ({ onLayoutChange: n, onRefresh: e, triggerAction: t, permissions: r }) => {
   var S;
-  const [i, o] = R(!1), { currentFolder: a } = we(), { selectedFiles: l, setSelectedFiles: c, handleDownload: u } = Te(), { clipBoard: f, setClipBoard: m, handleCutCopy: g, handlePasting: p } = bn(), { activeLayout: h } = He(), N = ye(), H = [
+  const [i, o] = R(!1), { currentFolder: a } = we(), { selectedFiles: l, setSelectedFiles: c, handleDownload: u } = Te(), { clipBoard: f, setClipBoard: m, handleCutCopy: g, handlePasting: p } = bn(), { activeLayout: h } = He(), N = Ne(), H = [
     {
       icon: /* @__PURE__ */ s.jsxDEV(Xt, { size: 17, strokeWidth: 0.3 }, void 0, !1, {
         fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/Toolbar/Toolbar.jsx",
@@ -4205,7 +4205,7 @@ const gr = ({ folder: n, onFileOpen: e }) => {
     void 0
   );
 }, Mx = (n) => n == null ? void 0 : n.split("/").slice(0, -1).join("/"), vr = ({ onFileOpen: n }) => {
-  const [e, t] = R([]), { files: r } = vn(), i = ye(), o = (a, l) => {
+  const [e, t] = R([]), { files: r } = vn(), i = Ne(), o = (a, l) => {
     var c;
     return l[a] ? (c = l[a]) == null ? void 0 : c.map((u) => ({
       ...u,
@@ -4908,7 +4908,7 @@ function Ox(n) {
 const Gn = ({ collapsibleNav: n, isNavigationPaneOpen: e, setNavigationPaneOpen: t }) => {
   const [r, i] = R([]), [o, a] = R([]), [l, c] = R([]), [u, f] = R(!1), { currentPath: m, setCurrentPath: g, onFolderChange: p } = we(), h = pe(null), N = pe([]), H = pe(null), F = Ze(() => {
     f(!1);
-  }), j = ye(), P = pe(null);
+  }), j = Ne(), P = pe(null);
   oe(() => {
     i(() => {
       let C = "";
@@ -5299,7 +5299,7 @@ const pn = (n) => ({
 }, void 0), Ix = 220, Gx = ({ filesViewRef: n, file: e, onCreateFolder: t, triggerAction: r }) => {
   const [i, o] = R(e.name), [a, l] = R(!1), [c, u] = R(""), [f, m] = R("right"), [g, p] = R("bottom"), h = Ze((D) => {
     D.preventDefault(), D.stopPropagation();
-  }), { currentFolder: N, currentPathFiles: H, setCurrentPathFiles: F } = we(), { activeLayout: j } = He(), P = ye(), S = (D) => {
+  }), { currentFolder: N, currentPathFiles: H, setCurrentPathFiles: F } = we(), { activeLayout: j } = He(), P = Ne(), S = (D) => {
     o(D.target.value), l(!1);
   }, v = (D) => {
     if (D.stopPropagation(), D.key === "Enter") {
@@ -5411,7 +5411,7 @@ const Fr = ({
   contentClassName: o = "",
   closeButton: a = !0
 }) => {
-  const l = pe(null), c = ye(), u = (f) => {
+  const l = pe(null), c = Ne(), u = (f) => {
     f.key === "Escape" && t(!1);
   };
   return oe(() => {
@@ -5465,7 +5465,7 @@ const Fr = ({
     void 0
   );
 }, Ie = (n) => n.split(".").pop(), Bx = 220, Wx = ({ filesViewRef: n, file: e, onRename: t, triggerAction: r }) => {
-  const [i, o] = R(e == null ? void 0 : e.name), [a, l] = R(!1), [c, u] = R(!1), [f, m] = R(""), [g, p] = R("right"), [h, N] = R("bottom"), { currentPathFiles: H, setCurrentPathFiles: F } = we(), { activeLayout: j } = He(), P = ye(), S = pe(null), v = Ze((b) => {
+  const [i, o] = R(e == null ? void 0 : e.name), [a, l] = R(!1), [c, u] = R(!1), [f, m] = R(""), [g, p] = R("right"), [h, N] = R("bottom"), { currentPathFiles: H, setCurrentPathFiles: F } = we(), { activeLayout: j } = He(), P = Ne(), S = pe(null), v = Ze((b) => {
     var $;
     ($ = S.current) != null && $.contains(b.target) || (b.preventDefault(), b.stopPropagation());
   }), U = (b) => {
@@ -6058,7 +6058,7 @@ function Xx(n) {
   return K({ attr: { viewBox: "0 0 256 256", fill: "currentColor" }, child: [{ tag: "path", attr: { d: "M245,110.64A16,16,0,0,0,232,104H216V88a16,16,0,0,0-16-16H130.67L102.94,51.2a16.14,16.14,0,0,0-9.6-3.2H40A16,16,0,0,0,24,64V208h0a8,8,0,0,0,8,8H211.1a8,8,0,0,0,7.59-5.47l28.49-85.47A16.05,16.05,0,0,0,245,110.64ZM93.34,64,123.2,86.4A8,8,0,0,0,128,88h72v16H69.77a16,16,0,0,0-15.18,10.94L40,158.7V64Zm112,136H43.1l26.67-80H232Z" }, child: [] }] })(n);
 }
 const Zx = (n, e, t, r, i) => {
-  const [o, a] = R([]), [l, c] = R(!1), [u, f] = R(!1), [m, g] = R({ clickX: 0, clickY: 0 }), [p, h] = R(null), { clipBoard: N, setClipBoard: H, handleCutCopy: F, handlePasting: j } = bn(), { selectedFiles: P, setSelectedFiles: S, handleDownload: v } = Te(), { currentPath: U, setCurrentPath: D, currentPathFiles: C, setCurrentPathFiles: b, onFolderChange: $ } = we(), { activeLayout: M, setActiveLayout: L } = He(), E = ye(), A = () => {
+  const [o, a] = R([]), [l, c] = R(!1), [u, f] = R(!1), [m, g] = R({ clickX: 0, clickY: 0 }), [p, h] = R(null), { clipBoard: N, setClipBoard: H, handleCutCopy: F, handlePasting: j } = bn(), { selectedFiles: P, setSelectedFiles: S, handleDownload: v } = Te(), { currentPath: U, setCurrentPath: D, currentPathFiles: C, setCurrentPathFiles: b, onFolderChange: $ } = we(), { activeLayout: M, setActiveLayout: L } = He(), E = Ne(), A = () => {
     i(p), p.isDirectory ? (D(p.path), $ == null || $(p.path), a([]), S([])) : e && t.show("previewFile"), c(!1);
   }, Q = (k) => {
     F(k), c(!1);
@@ -6291,50 +6291,50 @@ const Zx = (n, e, t, r, i) => {
     isSelectionCtx: u
   };
 }, Qx = ({ unselectFiles: n, onSort: e, sortConfig: t }) => {
-  const [r, i] = R(!1), { selectedFiles: o, setSelectedFiles: a } = Te(), { currentPathFiles: l } = we(), c = hn(() => l.length > 0 && o.length === l.length, [o, l]), u = (m) => {
-    m.target.checked ? (a(l), i(!0)) : n();
-  }, f = (m) => {
-    e && e(m);
+  const r = Ne(), [i, o] = R(!1), { selectedFiles: a, setSelectedFiles: l } = Te(), { currentPathFiles: c } = we(), u = hn(() => c.length > 0 && a.length === c.length, [a, c]), f = (g) => {
+    g.target.checked ? (l(c), o(!0)) : n();
+  }, m = (g) => {
+    e && e(g);
   };
   return /* @__PURE__ */ s.jsxDEV(
     "div",
     {
       className: "files-header",
-      onMouseOver: () => i(!0),
-      onMouseLeave: () => i(!1),
+      onMouseOver: () => o(!0),
+      onMouseLeave: () => o(!1),
       children: [
-        /* @__PURE__ */ s.jsxDEV("div", { className: "file-select-all", children: (r || c) && /* @__PURE__ */ s.jsxDEV(
+        /* @__PURE__ */ s.jsxDEV("div", { className: "file-select-all", children: (i || u) && /* @__PURE__ */ s.jsxDEV(
           Cr,
           {
             id: "selectAll",
-            checked: c,
-            onChange: u,
+            checked: u,
+            onChange: f,
             title: "Select all",
-            disabled: l.length === 0
+            disabled: c.length === 0
           },
           void 0,
           !1,
           {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-            lineNumber: 39,
+            lineNumber: 42,
             columnNumber: 11
           },
           void 0
         ) }, void 0, !1, {
           fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-          lineNumber: 37,
+          lineNumber: 40,
           columnNumber: 7
         }, void 0),
         /* @__PURE__ */ s.jsxDEV(
           "div",
           {
             className: `file-name ${(t == null ? void 0 : t.key) === "name" ? "active" : ""}`,
-            onClick: () => f("name"),
+            onClick: () => m("name"),
             children: [
-              "Name",
+              r("name"),
               (t == null ? void 0 : t.key) === "name" && /* @__PURE__ */ s.jsxDEV("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-                lineNumber: 54,
+                lineNumber: 57,
                 columnNumber: 11
               }, void 0)
             ]
@@ -6343,7 +6343,7 @@ const Zx = (n, e, t, r, i) => {
           !0,
           {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-            lineNumber: 48,
+            lineNumber: 51,
             columnNumber: 7
           },
           void 0
@@ -6352,12 +6352,12 @@ const Zx = (n, e, t, r, i) => {
           "div",
           {
             className: `file-date ${(t == null ? void 0 : t.key) === "modified" ? "active" : ""}`,
-            onClick: () => f("modified"),
+            onClick: () => m("modified"),
             children: [
-              "Modified",
+              r("modified"),
               (t == null ? void 0 : t.key) === "modified" && /* @__PURE__ */ s.jsxDEV("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-                lineNumber: 63,
+                lineNumber: 66,
                 columnNumber: 11
               }, void 0)
             ]
@@ -6366,7 +6366,7 @@ const Zx = (n, e, t, r, i) => {
           !0,
           {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-            lineNumber: 57,
+            lineNumber: 60,
             columnNumber: 7
           },
           void 0
@@ -6375,12 +6375,12 @@ const Zx = (n, e, t, r, i) => {
           "div",
           {
             className: `file-size ${(t == null ? void 0 : t.key) === "size" ? "active" : ""}`,
-            onClick: () => f("size"),
+            onClick: () => m("size"),
             children: [
-              "Size",
+              r("size"),
               (t == null ? void 0 : t.key) === "size" && /* @__PURE__ */ s.jsxDEV("span", { className: "sort-indicator", children: t.direction === "asc" ? " ▲" : " ▼" }, void 0, !1, {
                 fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-                lineNumber: 72,
+                lineNumber: 75,
                 columnNumber: 11
               }, void 0)
             ]
@@ -6389,7 +6389,7 @@ const Zx = (n, e, t, r, i) => {
           !0,
           {
             fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-            lineNumber: 66,
+            lineNumber: 69,
             columnNumber: 7
           },
           void 0
@@ -6400,7 +6400,7 @@ const Zx = (n, e, t, r, i) => {
     !0,
     {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/FileManager/FileList/FilesHeader.jsx",
-      lineNumber: 32,
+      lineNumber: 35,
       columnNumber: 5
     },
     void 0
@@ -6414,7 +6414,7 @@ const Zx = (n, e, t, r, i) => {
   triggerAction: o,
   permissions: a
 }) => {
-  const { currentPathFiles: l, sortConfig: c, setSortConfig: u } = we(), f = pe(null), { activeLayout: m } = He(), g = ye(), {
+  const { currentPathFiles: l, sortConfig: c, setSortConfig: u } = we(), f = pe(null), { activeLayout: m } = He(), g = Ne(), {
     emptySelecCtxItems: p,
     selecCtxItems: h,
     handleContextMenu: N,
@@ -6509,7 +6509,7 @@ const Zx = (n, e, t, r, i) => {
 };
 Dr.displayName = "FileList";
 const e4 = ({ triggerAction: n, onDelete: e }) => {
-  const [t, r] = R(""), { selectedFiles: i, setSelectedFiles: o } = Te(), a = ye();
+  const [t, r] = R(""), { selectedFiles: i, setSelectedFiles: o } = Te(), a = Ne();
   oe(() => {
     r(() => {
       if (i.length === 1)
@@ -6556,7 +6556,7 @@ function t4(n) {
   return K({ attr: { viewBox: "0 0 1024 1024" }, child: [{ tag: "path", attr: { d: "M518.3 459a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V856c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V613.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 459z" }, child: [] }, { tag: "path", attr: { d: "M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7a123.07 123.07 0 0 1-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z" }, child: [] }] })(n);
 }
 const r4 = ({ percent: n = 0, isCanceled: e = !1, isCompleted: t = !1, error: r }) => {
-  const i = ye();
+  const i = Ne();
   return /* @__PURE__ */ s.jsxDEV("div", { role: "progressbar", className: "fm-progress", children: [
     !r && /* @__PURE__ */ s.jsxDEV("div", { className: "fm-progress-bar", children: /* @__PURE__ */ s.jsxDEV("div", { className: "fm-progress-bar-fill", style: { width: `${n}%` } }, void 0, !1, {
       fileName: "C:/Users/P/Documents/GitHub/react-file-manager/frontend/src/components/Progress/Progress.jsx",
@@ -6603,7 +6603,7 @@ const o4 = ({
   handleFileRemove: a
 }) => {
   var D, C, b, $;
-  const [l, c] = R(0), [u, f] = R(!1), [m, g] = R(!1), [p, h] = R(!1), N = pn(33), H = pe(), { onError: F } = vn(), j = ye(), P = (M) => {
+  const [l, c] = R(0), [u, f] = R(!1), [m, g] = R(!1), [p, h] = R(!1), N = pn(33), H = pe(), { onError: F } = vn(), j = Ne(), P = (M) => {
     c(0), r((E) => ({
       ...E,
       [n]: !1
@@ -6766,7 +6766,7 @@ const o4 = ({
   onFileUploading: r,
   onFileUploaded: i
 }) => {
-  const [o, a] = R([]), [l, c] = R(!1), [u, f] = R({}), { currentFolder: m, currentPathFiles: g } = we(), { onError: p } = vn(), h = pe(null), N = ye(), H = (U) => {
+  const [o, a] = R([]), [l, c] = R(!1), [u, f] = R({}), { currentFolder: m, currentPathFiles: g } = we(), { onError: p } = vn(), h = pe(null), N = Ne(), H = (U) => {
     U.key === "Enter" && h.current.click();
   }, F = (U) => {
     if (t && !t.includes(Ie(U.name)))
@@ -6942,7 +6942,7 @@ const o4 = ({
   }, void 0);
 }, It = ["jpg", "jpeg", "png"], Gt = ["mp4", "mov", "avi"], _t = ["mp3", "wav", "m4a"], Bt = ["txt", "pdf"], s4 = ({ filePreviewPath: n, filePreviewComponent: e }) => {
   var N;
-  const [t, r] = R(!0), [i, o] = R(!1), { selectedFiles: a } = Te(), l = pn(73), c = (N = Ie(a[0].name)) == null ? void 0 : N.toLowerCase(), u = `${n}${a[0].path}`, f = ye(), m = hn(
+  const [t, r] = R(!0), [i, o] = R(!1), { selectedFiles: a } = Te(), l = pn(73), c = (N = Ie(a[0].name)) == null ? void 0 : N.toLowerCase(), u = `${n}${a[0].path}`, f = Ne(), m = hn(
     () => e == null ? void 0 : e(a[0]),
     [e]
   ), g = () => {
@@ -7086,7 +7086,7 @@ const o4 = ({
     lineNumber: 52,
     columnNumber: 5
   }, void 0);
-}, Vn = (n) => n.toLowerCase(), xe = (n, e, t = !1) => {
+}, Vn = (n) => n.toLowerCase(), $e = (n, e, t = !1) => {
   const r = pe(/* @__PURE__ */ new Set([])), i = hn(() => new Set(n.map((c) => Vn(c))), [n]), o = (c) => {
     if (!c.repeat && (r.current.add(Vn(c.key)), i.isSubsetOf(r.current) && !t)) {
       c.preventDefault(), e(c);
@@ -7100,7 +7100,7 @@ const o4 = ({
   oe(() => (window.addEventListener("keydown", o), window.addEventListener("keyup", a), window.addEventListener("blur", l), () => {
     window.removeEventListener("keydown", o), window.removeEventListener("keyup", a), window.removeEventListener("blur", l);
   }), [i, e, t]);
-}, $e = {
+}, ye = {
   createFolder: ["Alt", "Shift", "N"],
   uploadFiles: ["Control", "U"],
   cut: ["Control", "X"],
@@ -7150,7 +7150,7 @@ const o4 = ({
   }, $ = () => {
     m("list");
   };
-  xe($e.createFolder, g, n.isActive), xe($e.uploadFiles, p, n.isActive), xe($e.cut, h, n.isActive), xe($e.copy, N, n.isActive), xe($e.paste, H, n.isActive), xe($e.rename, F, n.isActive), xe($e.download, j, n.isActive), xe($e.delete, P, n.isActive), xe($e.jumpToFirst, S, n.isActive), xe($e.jumpToLast, v, n.isActive), xe($e.selectAll, U, n.isActive), xe($e.clearSelection, D, n.isActive), xe($e.refresh, C, n.isActive), xe($e.gridLayout, b, n.isActive), xe($e.listLayout, $, n.isActive);
+  $e(ye.createFolder, g, n.isActive), $e(ye.uploadFiles, p, n.isActive), $e(ye.cut, h, n.isActive), $e(ye.copy, N, n.isActive), $e(ye.paste, H, n.isActive), $e(ye.rename, F, n.isActive), $e(ye.download, j, n.isActive), $e(ye.delete, P, n.isActive), $e(ye.jumpToFirst, S, n.isActive), $e(ye.jumpToLast, v, n.isActive), $e(ye.selectAll, U, n.isActive), $e(ye.clearSelection, D, n.isActive), $e(ye.refresh, C, n.isActive), $e(ye.gridLayout, b, n.isActive), $e(ye.listLayout, $, n.isActive);
 }, c4 = ({
   fileUploadConfig: n,
   onFileUploading: e,
@@ -7164,7 +7164,7 @@ const o4 = ({
   triggerAction: u,
   permissions: f
 }) => {
-  const [m, g] = R(null), { selectedFiles: p } = Te(), h = ye();
+  const [m, g] = R(null), { selectedFiles: p } = Te(), h = Ne();
   l4(u, i, f);
   const N = {
     uploadFile: {
