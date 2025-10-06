@@ -4,6 +4,6 @@
   "private": false,
   "main": "frontend/dist/react-file-manager.es.js",
   "module": "frontend/dist/react-file-manager.es.js",
-  "style": "frontend/dist/index.css",
+  "style": "frontend/dist/style.css",
   "files": ["frontend/dist"]
 }
