@@ -10,6 +10,7 @@ import it from "./locales/it-IT.json";
 import ja from "./locales/ja-JP.json";
 import ko from "./locales/ko-KR.json";
 import pt from "./locales/pt-BR.json";
+import ptpt from "./locales/pt-PT.json";
 import ru from "./locales/ru-RU.json";
 import tr from "./locales/tr-TR.json";
 import uk from "./locales/uk-UA.json";
@@ -30,6 +31,7 @@ const resources = {
   ja: { translation: ja },
   ko: { translation: ko },
   pt: { translation: pt },
+  ptpt: { translation: ptpt },
   ru: { translation: ru },
   tr: { translation: tr },
   uk: { translation: uk },
