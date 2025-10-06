@@ -2,8 +2,11 @@ import { useMemo, useState } from "react";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
+import { useTranslation } from "../../contexts/TranslationProvider";
 
 const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
+  const t = useTranslation();
+
   const [showSelectAll, setShowSelectAll] = useState(false);
 
   const { selectedFiles, setSelectedFiles } = useSelection();
@@ -49,7 +52,7 @@ const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
         className={`file-name ${sortConfig?.key === "name" ? "active" : ""}`}
         onClick={() => handleSort("name")}
       >
-        Name
+        {t("name")}
         {sortConfig?.key === "name" && (
           <span className="sort-indicator">{sortConfig.direction === "asc" ? " ▲" : " ▼"}</span>
         )}
@@ -58,7 +61,7 @@ const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
         className={`file-date ${sortConfig?.key === "modified" ? "active" : ""}`}
         onClick={() => handleSort("modified")}
       >
-        Modified
+        {t("modified")}
         {sortConfig?.key === "modified" && (
           <span className="sort-indicator">{sortConfig.direction === "asc" ? " ▲" : " ▼"}</span>
         )}
@@ -67,7 +70,7 @@ const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
         className={`file-size ${sortConfig?.key === "size" ? "active" : ""}`}
         onClick={() => handleSort("size")}
       >
-        Size
+        {t("size")}
         {sortConfig?.key === "size" && (
           <span className="sort-indicator">{sortConfig.direction === "asc" ? " ▲" : " ▼"}</span>
         )}
