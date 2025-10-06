@@ -1,0 +1,9 @@
+{
+  "name": "@cubone/react-file-manager",
+  "version": "1.29.0",
+  "private": false,
+  "main": "frontend/dist/index.js",
+  "module": "frontend/dist/index.esm.js",
+  "style": "frontend/dist/index.css",
+  "files": ["frontend/dist"]
+}
