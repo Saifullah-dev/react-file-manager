@@ -49,7 +49,7 @@ const FileManager = ({
   filePreviewComponent,
   primaryColor = "#6155b4",
   fontFamily = "Nunito Sans, sans-serif",
-  language = "en",
+  language = "en-US",
   permissions: userPermissions = {},
   collapsibleNav = false,
   defaultNavExpanded = true,
