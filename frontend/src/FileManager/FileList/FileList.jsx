@@ -17,6 +17,7 @@ const FileList = ({
   enableFilePreview,
   triggerAction,
   permissions,
+  formatDate,
 }) => {
   const { currentPathFiles, sortConfig, setSortConfig } = useFileNavigation();
   const filesViewRef = useRef(null);
@@ -75,6 +76,7 @@ const FileList = ({
               setVisible={setVisible}
               setLastSelectedFile={setLastSelectedFile}
               draggable={permissions.move}
+              formatDate={formatDate}
             />
           ))}
         </>

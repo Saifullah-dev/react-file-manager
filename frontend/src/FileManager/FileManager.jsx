@@ -16,6 +16,7 @@ import { dateStringValidator, urlValidator } from "../validators/propValidators"
 import { TranslationProvider } from "../contexts/TranslationProvider";
 import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
+import { formatDate as defaultFormatDate } from "../utils/formatDate";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -55,6 +56,7 @@ const FileManager = ({
   defaultNavExpanded = true,
   className = "",
   style = {},
+  formatDate = defaultFormatDate,
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
@@ -131,6 +133,7 @@ const FileManager = ({
                         enableFilePreview={enableFilePreview}
                         triggerAction={triggerAction}
                         permissions={permissions}
+                        formatDate={formatDate}
                       />
                     </div>
                   </section>
@@ -217,6 +220,7 @@ FileManager.propTypes = {
   defaultNavExpanded: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
+  formatDate: PropTypes.func,
 };
 
 export default FileManager;
