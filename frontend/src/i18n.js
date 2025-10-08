@@ -1,50 +1,52 @@
 import i18n from "i18next";
-import ar from "./locales/ar-SA.json";
-import de from "./locales/de-DE.json";
-import en from "./locales/en-US.json";
-import es from "./locales/es-ES.json";
-import fr from "./locales/fr-FR.json";
-import he from "./locales/he-IL.json";
-import hi from "./locales/hi-IN.json";
-import it from "./locales/it-IT.json";
-import ja from "./locales/ja-JP.json";
-import ko from "./locales/ko-KR.json";
-import pt from "./locales/pt-BR.json";
-import ru from "./locales/ru-RU.json";
-import tr from "./locales/tr-TR.json";
-import uk from "./locales/uk-UA.json";
-import ur from "./locales/ur-UR.json";
-import vi from "./locales/vi-VN.json";
-import zh from "./locales/zh-CN.json";
-import pl from "./locales/pl-PL.json";
+import arSA from "./locales/ar-SA.json";
+import deDE from "./locales/de-DE.json";
+import enUS from "./locales/en-US.json";
+import esES from "./locales/es-ES.json";
+import frFR from "./locales/fr-FR.json";
+import heIL from "./locales/he-IL.json";
+import hiIN from "./locales/hi-IN.json";
+import itIT from "./locales/it-IT.json";
+import jaJP from "./locales/ja-JP.json";
+import koKR from "./locales/ko-KR.json";
+import ptBR from "./locales/pt-BR.json";
+import ptPT from "./locales/pt-PT.json";
+import ruRU from "./locales/ru-RU.json";
+import trTR from "./locales/tr-TR.json";
+import ukUA from "./locales/uk-UA.json";
+import urUR from "./locales/ur-UR.json";
+import viVN from "./locales/vi-VN.json";
+import zhCN from "./locales/zh-CN.json";
+import plPL from "./locales/pl-PL.json";
 
 const resources = {
-  ar: { translation: ar },
-  de: { translation: de },
-  en: { translation: en },
-  es: { translation: es },
-  fr: { translation: fr },
-  he: { translation: he },
-  hi: { translation: hi },
-  it: { translation: it },
-  ja: { translation: ja },
-  ko: { translation: ko },
-  pt: { translation: pt },
-  ru: { translation: ru },
-  tr: { translation: tr },
-  uk: { translation: uk },
-  ur: { translation: ur },
-  vi: { translation: vi },
-  zh: { translation: zh },
-  pl: { translation: pl },
+  "ar-SA": { translation: arSA },
+  "de-DE": { translation: deDE },
+  "en-US": { translation: enUS },
+  "es-ES": { translation: esES },
+  "fr-FR": { translation: frFR },
+  "he-IL": { translation: heIL },
+  "hi-IN": { translation: hiIN },
+  "it-IT": { translation: itIT },
+  "ja-JP": { translation: jaJP },
+  "ko-KR": { translation: koKR },
+  "pt-BR": { translation: ptBR },
+  "pt-PT": { translation: ptPT },
+  "ru-RU": { translation: ruRU },
+  "tr-TR": { translation: trTR },
+  "uk-UA": { translation: ukUA },
+  "ur-UR": { translation: urUR },
+  "vi-VN": { translation: viVN },
+  "zh-CN": { translation: zhCN },
+  "pl-PL": { translation: plPL },
 };
 
-export const initI18n = (lng = "en") => {
+export const initI18n = (lng = "en-US") => {
   if (!i18n.isInitialized) {
     i18n.init({
       resources,
       lng,
-      fallbackLng: "en",
+      fallbackLng: "en-US",
       interpolation: {
         escapeValue: false,
       },
