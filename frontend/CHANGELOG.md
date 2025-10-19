@@ -1,3 +1,9 @@
+# [1.32.0](https://github.com/Saifullah-dev/react-file-manager/compare/v1.31.0...v1.32.0) (2025-10-19)
+
+### 🧩 Internationalization (i18n)
+
+- **Added:** Persian (Iran) locale support (`fa-IR`)
+
 # [1.30.0](https://github.com/Saifullah-dev/react-file-manager/compare/v1.27.0...v1.30.0) (2025-10-07)
 
 ### 🧩 Internationalization (i18n)

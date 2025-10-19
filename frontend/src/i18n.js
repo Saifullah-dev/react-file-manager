@@ -3,6 +3,7 @@ import arSA from "./locales/ar-SA.json";
 import deDE from "./locales/de-DE.json";
 import enUS from "./locales/en-US.json";
 import esES from "./locales/es-ES.json";
+import faIR from "./locales/fa-IR.json";
 import frFR from "./locales/fr-FR.json";
 import heIL from "./locales/he-IL.json";
 import hiIN from "./locales/hi-IN.json";
@@ -24,6 +25,7 @@ const resources = {
   "de-DE": { translation: deDE },
   "en-US": { translation: enUS },
   "es-ES": { translation: esES },
+  "fa-IR": { translation: faIR },
   "fr-FR": { translation: frFR },
   "he-IL": { translation: heIL },
   "hi-IN": { translation: hiIN },
