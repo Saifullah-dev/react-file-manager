@@ -1,7 +1,12 @@
 import { ImSpinner2 } from "react-icons/im";
 import "./Loader.scss";
 
-const Loader = ({ loading = false, className }) => {
+interface LoaderProps {
+  loading?: boolean;
+  className?: string;
+}
+
+const Loader = ({ loading = false, className } : LoaderProps) => {
   if (!loading) return null;
 
   return (

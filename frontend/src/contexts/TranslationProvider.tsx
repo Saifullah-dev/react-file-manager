@@ -1,9 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import i18n, { initI18n } from "../i18n";
+import { Language } from "../types/Language";
 
-const I18nContext = createContext(() => (key) => key);
+const I18nContext = createContext((key : string) => key);
 
-export const TranslationProvider = ({ children, language }) => {
+export const TranslationProvider = ({ children, language } : { children : ReactNode, language: Language }) => {
   const [t, setT] = useState(() => i18n.t.bind(i18n));
 
   useEffect(() => {

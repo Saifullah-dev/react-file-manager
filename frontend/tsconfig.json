@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2015",                          // Modern browsers support, good balance
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],   // Include DOM types for React
+    "jsx": "react-jsx",                          // Modern JSX transform (React 17+)
+    
+    /* Modules */
+    "module": "ESNext",                          // Modern module system
+    "moduleResolution": "node",                  // Node-style module resolution
+    "resolveJsonModule": true,                   // Allow importing JSON files
+    "allowSyntheticDefaultImports": true,        // Better import compatibility
+    "esModuleInterop": true,                     // Better CommonJS/ESM interop
+    
+    /* Emit */
+    "declaration": true,                         // Generate .d.ts files (CRITICAL for TS users)
+    "declarationMap": true,                      // Generate source maps for .d.ts files
+    "sourceMap": true,                           // Generate source maps for debugging
+    "outDir": "./dist",                          // Output directory (changed from ./built)
+    "removeComments": false,                     // Keep JSDoc comments for IDE hints
+    "noEmit": false,                             // Allow emitting files
+    
+    /* Interop Constraints */
+    "isolatedModules": true,                     // Ensure each file can be transpiled independently
+    "allowJs": true,                             // Allow JS files during migration
+    "checkJs": false,                            // Don't type-check JS files (gradual migration)
+    
+    /* Type Checking */
+    "strict": true,                              // Enable all strict type checking
+    "noUnusedLocals": true,                      // Error on unused local variables
+    "noUnusedParameters": true,                  // Error on unused parameters
+    "noFallthroughCasesInSwitch": true,         // Error on switch fallthrough
+    "noImplicitReturns": true,                   // Error when not all code paths return
+    
+    /* Completeness */
+    "skipLibCheck": true,                        // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true    // Enforce consistent casing in imports
+  },
+  "include": [
+    "src/**/*"                                   // Include all files in src
+  ],
+  "exclude": [
+    "node_modules",                              // Exclude dependencies
+    "dist",                                      // Exclude build output
+    "**/*.spec.ts",                              // Exclude test files
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx"
+  ]
+}
