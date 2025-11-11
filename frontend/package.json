@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "i18next": "^25.0.0",
-    "prop-types": "^15.8.1",
     "react-collapsed": "^4.2.0",
     "react-icons": "^5.4.0"
   },
