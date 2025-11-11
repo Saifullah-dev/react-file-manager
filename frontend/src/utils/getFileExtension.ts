@@ -1,3 +1,3 @@
-export const getFileExtension = (fileName) => {
+export const getFileExtension = (fileName : string) => {
   return fileName.split(".").pop();
 };

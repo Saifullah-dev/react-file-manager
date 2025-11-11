@@ -1,4 +1,6 @@
-export const duplicateNameHandler = (originalFileName, isDirectory, files) => {
+import { File } from "../types/File";
+
+export const duplicateNameHandler = (originalFileName : string, isDirectory : boolean, files : File[]) => {
   if (files.find((f) => f.name === originalFileName)) {
     const fileExtension = isDirectory ? "" : "." + originalFileName.split(".").pop();
     const fileName = isDirectory
@@ -13,7 +15,7 @@ export const duplicateNameHandler = (originalFileName, isDirectory, files) => {
     files.forEach((f) => {
       const fName = f.isDirectory ? f.name : f.name.split(".").slice(0, -1).join(".");
       if (fileNameRegex.test(fName)) {
-        const fileNumStr = fName.split(`${fileName} (`).pop().slice(0, -1);
+        const fileNumStr = fName.split(`${fileName} (`).pop()!.slice(0, -1);
         const fileNum = parseInt(fileNumStr);
         if (!isNaN(fileNum) && fileNum > maxFileNum) {
           maxFileNum = fileNum;
