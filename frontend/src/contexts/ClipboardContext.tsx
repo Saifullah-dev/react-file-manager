@@ -4,14 +4,17 @@ import { OnPaste, OnCut, OnCopy } from "../types/FileManagerFunctions";
 import { File } from "../types/File";
 
 export interface ClipBoardContextType {
-
+  clipBoard?: ClipBoard;
+  setClipBoard: (clipboard? : ClipBoard) => void;
+  handleCutCopy: (isMoving: boolean) => void;
+  handlePasting: (destinationFolder: File) => void;
 }
 
 export interface ClipBoardProviderProps {
   children: ReactNode;
-  onPaste: OnPaste;
-  onCut: OnCut;
-  onCopy: OnCopy;
+  onPaste?: OnPaste;
+  onCut?: OnCut;
+  onCopy?: OnCopy;
 }
 
 interface ClipBoard {
@@ -34,9 +37,9 @@ export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy } : ClipBoa
     });
 
     if (isMoving) {
-      !!onCut && onCut(selectedFiles ?? []);
+      onCut?.(selectedFiles ?? []);
     } else {
-      !!onCopy && onCopy(selectedFiles ?? []);
+      onCopy?.(selectedFiles ?? []);
     }
   };
 
