@@ -1,4 +1,4 @@
-export type TriggerActionType = "createFolder" | "uploadFile" | "rename" | "delete"
+export type TriggerActionType = "createFolder" | "uploadFile" | "rename" | "delete" | "previewFile"
 
 export interface TriggerAction {
   isActive: boolean;
