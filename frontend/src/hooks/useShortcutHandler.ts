@@ -4,11 +4,11 @@ import { useClipBoard } from "../contexts/ClipboardContext";
 import { useFileNavigation } from "../contexts/FileNavigationContext";
 import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
-import { TriggerAction } from "./useTriggerAction";
 import { OnRefresh } from "../types/FileManagerFunctions";
 import { Permissions } from "../types/Permissions";
+import { TriggerAction } from "../types/TriggerAction";
 
-export const useShortcutHandler = (triggerAction : TriggerAction, onRefresh : OnRefresh, permissions : Permissions) => {
+export const useShortcutHandler = (triggerAction : TriggerAction, onRefresh : OnRefresh | undefined, permissions : Permissions) => {
   const { setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
