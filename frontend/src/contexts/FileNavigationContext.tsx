@@ -1,9 +1,9 @@
 import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { useFiles } from "./FilesContext";
 import sortFiles from "../utils/sortFiles";
-import { OnFolderChange } from "../types/functions/OnFolderChange";
 import { File } from "../types/File";
 import { SortConfiguration } from "../types/SortConfiguration";
+import { OnFolderChange } from "../types/FileManagerFunctions";
 
 export interface FileNavigationContextType {
   currentPath?: string;
