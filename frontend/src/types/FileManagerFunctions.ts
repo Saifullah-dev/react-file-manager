@@ -35,3 +35,5 @@ export type OnSelectionChange = (files: File[]) => void;
 export type OnSortChange = (sortConfig: SortConfiguration) => void;
 
 export type FilePreviewComponent = (file: File) => React.ReactNode;
+
+export type OnRefresh = () => void;
