@@ -7,13 +7,31 @@ import { getAllFilesAPI } from "./api/getAllFilesAPI";
 import { renameAPI } from "./api/renameAPI";
 import "./App.scss";
 import FileManager from "./FileManager/FileManager";
+import { Layout } from "./types/Layout";
+import { 
+  OnCopy,
+  OnCreateFolder,
+  OnCut,
+  OnDelete,
+  OnDownload,
+  OnError,
+  OnFileOpen,
+  OnFileUploaded,
+  OnFileUploading,
+  OnLayoutChange,
+  OnPaste,
+  OnRefresh,
+  OnRename,
+  OnSelectionChange 
+} from "./types/FileManagerFunctions";
+import { File } from "./types/File";
 
 function App() {
   const fileUploadConfig = {
     url: import.meta.env.VITE_API_BASE_URL + "/upload",
   };
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [currentPath, setCurrentPath] = useState("");
   const isMountRef = useRef(false);
 
@@ -21,7 +39,9 @@ function App() {
   const getFiles = async () => {
     setIsLoading(true);
     const response = await getAllFilesAPI();
+    
     if (response.status === 200 && response.data) {
+      response.data.forEach((f, i) => f.id  = i);
       setFiles(response.data);
     } else {
       console.error(response);
@@ -38,9 +58,9 @@ function App() {
   //
 
   // Create Folder
-  const handleCreateFolder = async (name, parentFolder) => {
+  const handleCreateFolder : OnCreateFolder = async (name, parentFolder) => {
     setIsLoading(true);
-    const response = await createFolderAPI(name, parentFolder?._id);
+    const response = await createFolderAPI(name, parentFolder?._id as string);
     if (response.status === 200 || response.status === 201) {
       setFiles((prev) => [...prev, response.data]);
     } else {
@@ -51,20 +71,20 @@ function App() {
   //
 
   // File Upload Handlers
-  const handleFileUploading = (file, parentFolder) => {
+  const handleFileUploading : OnFileUploading = (file, parentFolder) => {
     return { parentId: parentFolder?._id };
   };
 
-  const handleFileUploaded = (response) => {
-    const uploadedFile = JSON.parse(response);
+  const handleFileUploaded : OnFileUploaded = (response) => {
+    const uploadedFile = response as File;
     setFiles((prev) => [...prev, uploadedFile]);
   };
   //
 
   // Rename File/Folder
-  const handleRename = async (file, newName) => {
+  const handleRename : OnRename = async (file, newName) => {
     setIsLoading(true);
-    const response = await renameAPI(file._id, newName);
+    const response = await renameAPI(file._id as string, newName);
     if (response.status === 200) {
       getFiles();
     } else {
@@ -75,9 +95,9 @@ function App() {
   //
 
   // Delete File/Folder
-  const handleDelete = async (files) => {
+  const handleDelete : OnDelete = async (files) => {
     setIsLoading(true);
-    const idsToDelete = files.map((file) => file._id);
+    const idsToDelete = files.map((file) => file._id as string);
     const response = await deleteAPI(idsToDelete);
     if (response.status === 200) {
       getFiles();
@@ -89,49 +109,49 @@ function App() {
   //
 
   // Paste File/Folder
-  const handlePaste = async (copiedItems, destinationFolder, operationType) => {
+  const handlePaste : OnPaste = async (copiedItems, destinationFolder, operationType) => {
     setIsLoading(true);
-    const copiedItemIds = copiedItems.map((item) => item._id);
+    const copiedItemIds = copiedItems.map((item) => item._id as string);
     if (operationType === "copy") {
-      const response = await copyItemAPI(copiedItemIds, destinationFolder?._id);
+      const response = await copyItemAPI(copiedItemIds, destinationFolder?._id as string);
     } else {
-      const response = await moveItemAPI(copiedItemIds, destinationFolder?._id);
+      const response = await moveItemAPI(copiedItemIds, destinationFolder?._id as string);
     }
     await getFiles();
   };
   //
 
-  const handleLayoutChange = (layout) => {
+  const handleLayoutChange : OnLayoutChange = (layout : Layout) => {
     console.log(layout);
   };
 
   // Refresh Files
-  const handleRefresh = () => {
+  const handleRefresh : OnRefresh = () => {
     getFiles();
   };
   //
 
-  const handleFileOpen = (file) => {
-    console.log(`Opening file: ${file.name}`);
+  const handleFileOpen : OnFileOpen = (file) => {
+    console.log(`Opening file: ${file.name} ${file.id}`);
   };
 
-  const handleError = (error, file) => {
+  const handleError : OnError = (error, file) => {
     console.error(error);
   };
 
-  const handleDownload = async (files) => {
+  const handleDownload : OnDownload = async (files) => {
     await downloadFile(files);
   };
 
-  const handleCut = (files) => {
+  const handleCut : OnCut = (files) => {
     console.log("Moving Files", files);
   };
 
-  const handleCopy = (files) => {
+  const handleCopy : OnCopy = (files) => {
     console.log("Copied Files", files);
   };
 
-  const handleSelectionChange = (files) => {
+  const handleSelectionChange : OnSelectionChange = (files) => {
     console.log("Selected Files", files);
   };
 
