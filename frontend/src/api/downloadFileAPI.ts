@@ -1,4 +1,7 @@
-export const downloadFile = async (files) => {
+import { AxiosResponse } from "axios";
+import { File } from "../types/File";
+
+export const downloadFile = async (files : File[]) => {
   if (files.length === 0) return;
 
   try {
@@ -12,6 +15,6 @@ export const downloadFile = async (files) => {
     link.click();
     document.body.removeChild(link);
   } catch (error) {
-    return error;
+    return error as AxiosResponse;
   }
 };
