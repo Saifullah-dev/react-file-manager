@@ -5,21 +5,22 @@ import "./ContextMenu.scss";
 import { ClickPosition } from "../../FileManager/FileList/useFileList";
 
 export interface MenuItem {
-  title: string;
-  selected: boolean;
-  icon: ReactNode;
+  title?: string;
+  selected?: boolean;
+  icon?: ReactNode;
   className?: string;
-  hidden: boolean;
-  children: SubMenuItem[];
-  divider: boolean;
-  onClick: (event : MouseEvent<HTMLLIElement>) => void;
+  hidden?: boolean;
+  children?: SubMenuItem[];
+  divider?: boolean;
+  onClick?: (event : MouseEvent<HTMLLIElement>) => void;
 }
 
 export interface ContextMenuProps {
-  filesViewRef: RefObject<HTMLDivElement>;
-  contextMenuRef: RefObject<HTMLDivElement>;
+  filesViewRef: RefObject<HTMLDivElement | null>;
+  contextMenuRef: RefObject<HTMLDivElement | null>;
   menuItems: MenuItem[];
   visible: boolean;
+  setVisible?: (visible : boolean) => void; 
   clickPosition: ClickPosition
 }
 
@@ -35,11 +36,11 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
     const { clickX, clickY } = clickPosition;
 
     const container = filesViewRef.current;
-    const containerRect = container.getBoundingClientRect();
-    const scrollBarWidth = container.offsetWidth - container.clientWidth;
+    const containerRect = container!.getBoundingClientRect();
+    const scrollBarWidth = container!.offsetWidth - container!.clientWidth;
 
     // Context menu size
-    const contextMenuContainer = contextMenuRef.current.getBoundingClientRect();
+    const contextMenuContainer = contextMenuRef.current!.getBoundingClientRect();
     const menuWidth = contextMenuContainer.width;
     const menuHeight = contextMenuContainer.height;
 
@@ -62,9 +63,9 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
     }
 
     if (top) {
-      setTop(`${topToCursor + container.scrollTop}px`);
+      setTop(`${topToCursor + container!.scrollTop}px`);
     } else if (bottom) {
-      setTop(`${topToCursor + container.scrollTop - menuHeight}px`);
+      setTop(`${topToCursor + container!.scrollTop - menuHeight}px`);
     }
   };
 
@@ -121,7 +122,7 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
                           {activeSubMenu && (
                             <SubMenu
                               subMenuRef={subMenuRef}
-                              list={item.children}
+                              list={item.children ?? []}
                               position={subMenuPosition}
                             />
                           )}
