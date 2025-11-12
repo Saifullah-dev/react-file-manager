@@ -2,10 +2,12 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import i18n, { initI18n } from "../i18n";
 import { Language } from "../types/Language";
 
-const I18nContext = createContext((key : string) => key);
+const I18nContext = createContext<TranslationFunction>((key : string) => key);
+
+export type TranslationFunction = (key: string, params?: Record<string, string | number>) => string;
 
 export const TranslationProvider = ({ children, language } : { children : ReactNode, language: Language }) => {
-  const [t, setT] = useState(() => i18n.t.bind(i18n));
+  const [t, setT] = useState<TranslationFunction>(() => i18n.t.bind(i18n));
 
   useEffect(() => {
     initI18n(language);
