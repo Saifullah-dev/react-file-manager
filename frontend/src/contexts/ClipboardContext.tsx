@@ -18,7 +18,7 @@ export interface ClipBoardProviderProps {
 }
 
 interface ClipBoard {
-  files?: File[];
+  files: File[];
   isMoving: boolean;
 }
 
