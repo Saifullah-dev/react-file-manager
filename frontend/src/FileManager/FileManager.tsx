@@ -16,7 +16,7 @@ import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
 import { formatDate as defaultFormatDate } from "../utils/formatDate";
 import "./FileManager.scss";
-import { File } from "../types/File";
+import { File, FileExtended } from "../types/File";
 import { FileUploadConfiguration } from "../types/FileUploadConfiguration";
 import { Layout } from "../types/Layout";
 import { Language } from "../types/Language";
@@ -37,7 +37,8 @@ import {
     OnSelect,
     OnSelectionChange,
     OnSortChange,
-    FilePreviewComponent
+    FilePreviewComponent,
+    OnRefresh
   } from "../types/FileManagerFunctions";
 
 export interface FileManagerProps {
@@ -54,7 +55,7 @@ export interface FileManagerProps {
   onDownload?: OnDownload; // x
   onDelete?: OnDelete // x
   onLayoutChange?: OnLayoutChange // x
-  onRefresh?: () => void; // x
+  onRefresh?: OnRefresh; // x
   onFileOpen?: OnFileOpen; // x
   onFolderChange?: OnFolderChange; // x
   onSelect?: OnSelect; // x (deprecated)
@@ -101,7 +102,6 @@ const FileManager = ({
   onSelect, // x
   onSelectionChange, // x
   onError = () => {}, // x
-  onSortChange, // x 
   layout = "grid", // x
   enableFilePreview = true, // x
   maxFileSize, // x
@@ -114,7 +114,7 @@ const FileManager = ({
   primaryColor = "#6155b4", // x
   fontFamily = "Nunito Sans, sans-serif", // x
   language = "en-US", // x
-  permissions: userPermissions = {}, // x
+  permissions: userPermissions, // x
   collapsibleNav = false, // x
   defaultNavExpanded = true, // x
   className = "", // x
@@ -145,7 +145,7 @@ const FileManager = ({
     >
       <Loader loading={isLoading} />
       <TranslationProvider language={language}>
-        <FilesProvider filesData={files} onError={onError}>
+        <FilesProvider filesData={files as FileExtended[]} onError={onError}>
           <FileNavigationProvider initialPath={initialPath} onFolderChange={onFolderChange}>
             <SelectionProvider    
               onDownload={onDownload}

@@ -5,33 +5,41 @@ import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineDelete, MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
 import { PiFolderOpen } from "react-icons/pi";
 import { useClipBoard } from "../../contexts/ClipboardContext";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
-import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
+import { OnFileOpen, OnRefresh } from "../../types/FileManagerFunctions";
+import { TriggerAction } from "../../types/TriggerAction";
+import { Permissions } from "../../types/Permissions";
+import { FileExtended } from "../../types/File";
+import { MenuItem } from "../../components/ContextMenu/ContextMenu";
 
-const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, onFileOpen) => {
-  const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
+export interface ClickPosition {
+    clickX: number;
+    clickY: number;
+}
+
+const useFileList = (onRefresh: OnRefresh | undefined, enableFilePreview : boolean, triggerAction : TriggerAction, permissions : Permissions, onFileOpen : OnFileOpen) => {
+  const [selectedFileIndexes, setSelectedFileIndexes] = useState<number[]>([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
   const [clickPosition, setClickPosition] = useState({ clickX: 0, clickY: 0 });
-  const [lastSelectedFile, setLastSelectedFile] = useState(null);
+  const [lastSelectedFile, setLastSelectedFile] = useState<FileExtended | null>(null);
 
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
-  const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles, onFolderChange } =
-    useFileNavigation();
+  const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles, onFolderChange } = useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
   const t = useTranslation();
 
   // Context Menu
   const handleFileOpen = () => {
-    onFileOpen(lastSelectedFile);
-    if (lastSelectedFile.isDirectory) {
-      setCurrentPath(lastSelectedFile.path);
+    onFileOpen(lastSelectedFile!);
+    if (lastSelectedFile?.isDirectory) {
+      setCurrentPath?.(lastSelectedFile.path);
       onFolderChange?.(lastSelectedFile.path);
       setSelectedFileIndexes([]);
       setSelectedFiles([]);
@@ -41,13 +49,13 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     setVisible(false);
   };
 
-  const handleMoveOrCopyItems = (isMoving) => {
+  const handleMoveOrCopyItems = (isMoving : boolean) => {
     handleCutCopy(isMoving);
     setVisible(false);
   };
 
   const handleFilePasting = () => {
-    handlePasting(lastSelectedFile);
+    handlePasting(lastSelectedFile!);
     setVisible(false);
   };
 
@@ -68,7 +76,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
 
   const handleRefresh = () => {
     setVisible(false);
-    validateApiCallback(onRefresh, "onRefresh");
+    onRefresh?.();
     setClipBoard(null);
   };
 
@@ -87,7 +95,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     setVisible(false);
   };
 
-  const emptySelecCtxItems = [
+  const emptySelecCtxItems : MenuItem[] = [
     {
       title: t("view"),
       icon: activeLayout === "grid" ? <BsGrid size={18} /> : <FaListUl size={18} />,
@@ -140,7 +148,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     },
   ];
 
-  const selecCtxItems = [
+  const selecCtxItems : MenuItem[] = [
     {
       title: t("open"),
       icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
@@ -173,8 +181,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
       title: t("rename"),
       icon: <BiRename size={19} />,
       onClick: handleRenaming,
-      hidden: selectedFiles.length > 1,
-      hidden: !permissions.rename,
+      hidden: selectedFiles.length > 1 || !permissions.rename,
     },
     {
       title: t("download"),
@@ -198,7 +205,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
         {
           name: duplicateNameHandler("New Folder", true, prev),
           isDirectory: true,
-          path: currentPath,
+          path: currentPath!,
           isEditing: true,
           key: new Date().valueOf(),
         },
@@ -208,7 +215,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
 
   const handleItemRenaming = () => {
     setCurrentPathFiles((prev) => {
-      const lastFileIndex = selectedFileIndexes.at(-1);
+      const lastFileIndex = selectedFileIndexes.at(-1)!;
 
       if (!prev[lastFileIndex]) {
         triggerAction.close();
@@ -236,7 +243,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     setSelectedFiles((prev) => (prev.length > 0 ? [] : prev));
   };
 
-  const handleContextMenu = (e, isSelection = false) => {
+  const handleContextMenu = (e : MouseEvent, isSelection = false) => {
     e.preventDefault();
     setClickPosition({ clickX: e.clientX, clickY: e.clientY });
     setIsSelectionCtx(isSelection);

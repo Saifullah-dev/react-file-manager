@@ -8,6 +8,22 @@ import useFileList from "./useFileList";
 import FilesHeader from "./FilesHeader";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./FileList.scss";
+import { OnCreateFolder, OnFileOpen, OnRefresh, OnRename } from "../../types/FileManagerFunctions";
+import { Permissions } from "../../types/Permissions";
+import { TriggerAction } from "../../types/TriggerAction";
+import { SortDirection, SortKey } from "../../types/SortConfiguration";
+import { FileExtended } from "../../types/File";
+
+export interface FileListProps {
+  onCreateFolder?: OnCreateFolder;
+  onRename?: OnRename;
+  onFileOpen: OnFileOpen;
+  onRefresh?: OnRefresh;
+  enableFilePreview: boolean;
+  triggerAction: TriggerAction;
+  permissions: Permissions;
+  formatDate: (date: string) => string;
+}
 
 const FileList = ({
   onCreateFolder,
@@ -18,9 +34,9 @@ const FileList = ({
   triggerAction,
   permissions,
   formatDate,
-}) => {
+} : FileListProps) => {
   const { currentPathFiles, sortConfig, setSortConfig } = useFileNavigation();
-  const filesViewRef = useRef(null);
+  const filesViewRef = useRef<HTMLDivElement>(null);
   const { activeLayout } = useLayout();
   const t = useTranslation();
 
@@ -37,10 +53,10 @@ const FileList = ({
     isSelectionCtx,
   } = useFileList(onRefresh, enableFilePreview, triggerAction, permissions, onFileOpen);
 
-  const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
+  const contextMenuRef = useDetectOutsideClick<HTMLDivElement>(() => setVisible(false));
 
-  const handleSort = (key) => {
-    let direction = "asc";
+  const handleSort = (key : SortKey) => {
+    let direction : SortDirection = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
       direction = "desc";
     }
@@ -64,7 +80,7 @@ const FileList = ({
             <FileItem
               key={index}
               index={index}
-              file={file}
+              file={file as FileExtended}
               onCreateFolder={onCreateFolder}
               onRename={onRename}
               onFileOpen={onFileOpen}

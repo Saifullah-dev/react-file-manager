@@ -3,9 +3,16 @@ import { FaCheck, FaListUl } from "react-icons/fa6";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { useLayout } from "../../contexts/LayoutContext";
 import { useTranslation } from "../../contexts/TranslationProvider";
+import { OnLayoutChange } from "../../types/FileManagerFunctions";
+import { Layout } from "../../types/Layout";
 
-const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
-  const toggleViewRef = useDetectOutsideClick(() => {
+export interface LayoutTogglerProps {
+  setShowToggleViewMenu: (value : boolean) => void;
+  onLayoutChange: OnLayoutChange;
+}
+
+const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange } : LayoutTogglerProps) => {
+  const toggleViewRef = useDetectOutsideClick<HTMLDivElement>(() => {
     setShowToggleViewMenu(false);
   });
   const { activeLayout, setActiveLayout } = useLayout();
@@ -24,7 +31,7 @@ const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
     },
   ];
 
-  const handleSelection = (key) => {
+  const handleSelection = (key : Layout) => {
     setActiveLayout(key);
     onLayoutChange(key);
     setShowToggleViewMenu(false);
@@ -37,8 +44,8 @@ const LayoutToggler = ({ setShowToggleViewMenu, onLayoutChange }) => {
           <li
             role="menuitem"
             key={option.key}
-            onClick={() => handleSelection(option.key)}
-            onKeyDown={() => handleSelection(option.key)}
+            onClick={() => handleSelection(option.key as Layout)}
+            onKeyDown={() => handleSelection(option.key as Layout)}
           >
             <span>{option.key === activeLayout && <FaCheck size={13} />}</span>
             <span>{option.icon}</span>

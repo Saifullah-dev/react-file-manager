@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, DragEvent, KeyboardEvent, MouseEvent, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
@@ -9,6 +9,31 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import { File, FileExtended } from "../../types/File";
+import { OnCreateFolder, OnFileOpen, OnRename } from "../../types/FileManagerFunctions";
+import { TriggerAction } from "../../types/TriggerAction";
+
+export interface TooltipPosition {
+    x: number;
+    y: number;
+}
+
+export interface FileItemProps {
+  index: number;
+  file: FileExtended;
+  onCreateFolder?: OnCreateFolder;
+  onRename?: OnRename;
+  enableFilePreview: boolean;
+  onFileOpen: OnFileOpen;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  filesViewRef: RefObject<HTMLDivElement | null>;
+  selectedFileIndexes: number[];
+  triggerAction: TriggerAction;
+  handleContextMenu: (e: MouseEvent, isSelection?: boolean) => void;
+  setLastSelectedFile: (file : File) => void;
+  draggable?: boolean;
+  formatDate: (date : string) => string;
+}
 
 const dragIconSize = 50;
 
@@ -26,12 +51,12 @@ const FileItem = ({
   setLastSelectedFile,
   draggable,
   formatDate,
-}) => {
+} :FileItemProps) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [checkboxClassName, setCheckboxClassName] = useState("hidden");
   const [dropZoneClass, setDropZoneClass] = useState("");
-  const [tooltipPosition, setTooltipPosition] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition | null>(null);
 
   const { activeLayout } = useLayout();
   const iconSize = activeLayout === "grid" ? 48 : 20;
@@ -39,7 +64,7 @@ const FileItem = ({
   const { setCurrentPath, currentPathFiles, onFolderChange } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
   const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
-  const dragIconRef = useRef(null);
+  const dragIconRef = useRef<HTMLDivElement>(null);
   const dragIcons = useFileIcons(dragIconSize);
 
   const isFileMoving =
@@ -49,7 +74,7 @@ const FileItem = ({
   const handleFileAccess = () => {
     onFileOpen(file);
     if (file.isDirectory) {
-      setCurrentPath(file.path);
+      setCurrentPath?.(file.path);
       onFolderChange?.(file.path);
       setSelectedFiles([]);
     } else {
@@ -57,7 +82,7 @@ const FileItem = ({
     }
   };
 
-  const handleFileRangeSelection = (shiftKey, ctrlKey) => {
+  const handleFileRangeSelection = (shiftKey : boolean, ctrlKey : boolean) => {
     if (selectedFileIndexes.length > 0 && shiftKey) {
       let reverseSelection = false;
       let startRange = selectedFileIndexes[0];
@@ -87,7 +112,7 @@ const FileItem = ({
     }
   };
 
-  const handleFileSelection = (e) => {
+  const handleFileSelection = (e : MouseEvent) => {
     e.stopPropagation();
     if (file.isEditing) return;
 
@@ -101,7 +126,7 @@ const FileItem = ({
     setLastClickTime(currentTime);
   };
 
-  const handleOnKeyDown = (e) => {
+  const handleOnKeyDown = (e : KeyboardEvent) => {
     if (e.key === "Enter") {
       e.stopPropagation();
       setSelectedFiles([file]);
@@ -109,7 +134,7 @@ const FileItem = ({
     }
   };
 
-  const handleItemContextMenu = (e) => {
+  const handleItemContextMenu = (e : MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -132,7 +157,7 @@ const FileItem = ({
     !fileSelected && setCheckboxClassName("hidden");
   };
 
-  const handleCheckboxChange = (e) => {
+  const handleCheckboxChange = (e : ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedFiles((prev) => [...prev, file]);
     } else {
@@ -143,15 +168,15 @@ const FileItem = ({
   };
   //
 
-  const handleDragStart = (e) => {
-    e.dataTransfer.setDragImage(dragIconRef.current, 30, 50);
+  const handleDragStart = (e : DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setDragImage(dragIconRef.current!, 30, 50);
     e.dataTransfer.effectAllowed = "copy";
     handleCutCopy(true);
   };
 
   const handleDragEnd = () => setClipBoard(null);
 
-  const handleDragEnterOver = (e) => {
+  const handleDragEnterOver = (e : DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (fileSelected || !file.isDirectory) {
       e.dataTransfer.dropEffect = "none";
@@ -162,15 +187,15 @@ const FileItem = ({
     }
   };
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e : DragEvent<HTMLDivElement>) => {
     // To stay in dragging state for the child elements of the target drop-zone
-    if (!e.currentTarget.contains(e.relatedTarget)) {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       setDropZoneClass((prev) => (prev ? "" : prev));
       setTooltipPosition(null);
     }
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e : DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (fileSelected || !file.isDirectory) return;
 
@@ -219,7 +244,7 @@ const FileItem = ({
           <FaRegFolderOpen size={iconSize} />
         ) : (
           <>
-            {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={iconSize} />}
+            {fileIcons[file.name?.split(".").pop()?.toLowerCase() as keyof typeof fileIcons] ?? <FaRegFile size={iconSize} />}
           </>
         )}
 
@@ -248,8 +273,8 @@ const FileItem = ({
 
       {activeLayout === "list" && (
         <>
-          <div className="modified-date">{formatDate(file.updatedAt)}</div>
-          <div className="size">{file?.size > 0 ? getDataSize(file?.size) : ""}</div>
+          <div className="modified-date">{formatDate(file.updatedAt ?? "")}</div>
+          <div className="size">{file?.size && file.size > 0 ? getDataSize(file.size) : ""}</div>
         </>
       )}
 
@@ -271,7 +296,7 @@ const FileItem = ({
           <FaRegFolderOpen size={dragIconSize} />
         ) : (
           <>
-            {dragIcons[file.name?.split(".").pop()?.toLowerCase()] ?? (
+            {dragIcons[file.name?.split(".").pop()?.toLowerCase() as keyof typeof dragIcons] ?? (
               <FaRegFile size={dragIconSize} />
             )}
           </>

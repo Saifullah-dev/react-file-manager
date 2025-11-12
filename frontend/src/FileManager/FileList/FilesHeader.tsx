@@ -1,10 +1,16 @@
-import { useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useTranslation } from "../../contexts/TranslationProvider";
+import { SortConfiguration, SortKey } from "../../types/SortConfiguration";
 
-const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
+export interface FilesHeaderProps {
+  unselectFiles: () => void;
+  onSort: (key: SortKey) => void;
+  sortConfig: SortConfiguration;
+}
+const FilesHeader = ({ unselectFiles, onSort, sortConfig } : FilesHeaderProps) => {
   const t = useTranslation();
 
   const [showSelectAll, setShowSelectAll] = useState(false);
@@ -16,7 +22,7 @@ const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
     return currentPathFiles.length > 0 && selectedFiles.length === currentPathFiles.length;
   }, [selectedFiles, currentPathFiles]);
 
-  const handleSelectAll = (e) => {
+  const handleSelectAll = (e : ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedFiles(currentPathFiles);
       setShowSelectAll(true);
@@ -25,7 +31,7 @@ const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
     }
   };
 
-  const handleSort = (key) => {
+  const handleSort = (key : SortKey) => {
     if (onSort) {
       onSort(key);
     }

@@ -14,11 +14,20 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
-import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Toolbar.scss";
+import { OnLayoutChange, OnRefresh } from "../../types/FileManagerFunctions";
+import { TriggerAction } from "../../types/TriggerAction";
+import { Permissions } from "../../types/Permissions";
 
-const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
+export interface ToolbarProps {
+  onLayoutChange: OnLayoutChange;
+  onRefresh?: OnRefresh;
+  triggerAction: TriggerAction;
+  permissions: Permissions;
+}
+
+const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions } : ToolbarProps) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -58,14 +67,14 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
       icon: <FiRefreshCw size={16} />,
       title: t("refresh"),
       onClick: () => {
-        validateApiCallback(onRefresh, "onRefresh");
+        onRefresh?.();
         setClipBoard(null);
       },
     },
   ];
 
   function handleFilePasting() {
-    handlePasting(currentFolder);
+    handlePasting(currentFolder!);
   }
 
   const handleDownloadItems = () => {
@@ -91,7 +100,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
                 <span>{t("copy")}</span>
               </button>
             )}
-            {clipBoard?.files?.length > 0 && (
+            {clipBoard?.files?.length && clipBoard?.files?.length > 0 && (
               <button
                 className="item-action file-action"
                 onClick={handleFilePasting}

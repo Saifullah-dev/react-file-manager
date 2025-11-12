@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Collapse from "../../components/Collapse/Collapse";
 import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { FileExtended } from "../../types/File";
+import { OnFileOpen } from "../../types/FileManagerFunctions";
 
-const FolderTree = ({ folder, onFileOpen }) => {
+export interface FolderTreeProps {
+  folder: FileExtended;
+  onFileOpen: OnFileOpen;
+}
+
+const FolderTree = ({ folder, onFileOpen } : FolderTreeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const { currentPath, setCurrentPath, onFolderChange } = useFileNavigation();
@@ -12,11 +19,11 @@ const FolderTree = ({ folder, onFileOpen }) => {
   const handleFolderSwitch = () => {
     setIsActive(true);
     onFileOpen(folder);
-    setCurrentPath(folder.path);
+    setCurrentPath?.(folder.path);
     onFolderChange?.(folder.path);
   };
 
-  const handleCollapseChange = (e) => {
+  const handleCollapseChange = (e : MouseEvent) => {
     e.stopPropagation();
     setIsOpen((prev) => !prev);
   };
@@ -27,7 +34,7 @@ const FolderTree = ({ folder, onFileOpen }) => {
     // Auto expand parent folder if its child is accessed via file navigation
     // Explanation: Checks if the current folder's parent path matches with any folder path i.e. Folder's parent
     // then expand that parent.
-    const currentPathArray = currentPath.split("/");
+    const currentPathArray = currentPath!.split("/");
     currentPathArray.pop(); //splits with '/' and pops to remove last element to get current folder's parent path
     const currentFolderParentPath = currentPathArray.join("/");
     if (currentFolderParentPath === folder.path) {
@@ -36,7 +43,7 @@ const FolderTree = ({ folder, onFileOpen }) => {
     //
   }, [currentPath]);
 
-  if (folder.subDirectories.length > 0) {
+  if (folder.subDirectories && folder.subDirectories.length > 0) {
     return (
       <>
         <div

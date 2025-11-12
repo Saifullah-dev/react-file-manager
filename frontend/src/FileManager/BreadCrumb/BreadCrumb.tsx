@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { MdHome, MdMoreHoriz, MdOutlineNavigateNext } from "react-icons/md";
 import { TbLayoutSidebarLeftExpand, TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
@@ -7,21 +6,32 @@ import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./BreadCrumb.scss";
 
-const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpen }) => {
-  const [folders, setFolders] = useState([]);
-  const [hiddenFolders, setHiddenFolders] = useState([]);
-  const [hiddenFoldersWidth, setHiddenFoldersWidth] = useState([]);
+export interface FolderCrumb {
+  name: string;
+  path: string;
+}
+
+export interface BreadCrumbProps {
+  collapsibleNav: boolean;
+  isNavigationPaneOpen: boolean;
+  setNavigationPaneOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpen }: BreadCrumbProps) => {
+  const [folders, setFolders] = useState<FolderCrumb[]>([]);
+  const [hiddenFolders, setHiddenFolders] = useState<FolderCrumb[]>([]);
+  const [hiddenFoldersWidth, setHiddenFoldersWidth] = useState<number[]>([]); // Changed type
   const [showHiddenFolders, setShowHiddenFolders] = useState(false);
 
   const { currentPath, setCurrentPath, onFolderChange } = useFileNavigation();
-  const breadCrumbRef = useRef(null);
-  const foldersRef = useRef([]);
-  const moreBtnRef = useRef(null);
-  const popoverRef = useDetectOutsideClick(() => {
+  const breadCrumbRef = useRef<HTMLDivElement>(null);
+  const foldersRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const moreBtnRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useDetectOutsideClick<HTMLUListElement>(() => {
     setShowHiddenFolders(false);
   });
   const t = useTranslation();
-  const navTogglerRef = useRef(null);
+  const navTogglerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setFolders(() => {
@@ -31,25 +41,27 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
           name: item || t("home"),
           path: item === "" ? item : (path += `/${item}`),
         };
-      });
+      }) ?? [];
     });
     setHiddenFolders([]);
     setHiddenFoldersWidth([]);
   }, [currentPath, t]);
 
-  const switchPath = (path) => {
-    setCurrentPath(path);
+  const switchPath = (path: string) => {
+    setCurrentPath?.(path);
     onFolderChange?.(path);
   };
 
   const getBreadCrumbWidth = () => {
+    if (!breadCrumbRef.current) return 0;
+    
     const containerWidth = breadCrumbRef.current.clientWidth;
     const containerStyles = getComputedStyle(breadCrumbRef.current);
     const paddingLeft = parseFloat(containerStyles.paddingLeft);
     const navTogglerGap = collapsibleNav ? 2 : 0;
     const navTogglerDividerWidth = 1;
     const navTogglerWidth = collapsibleNav
-      ? navTogglerRef.current?.clientWidth + navTogglerDividerWidth
+      ? (navTogglerRef.current?.clientWidth ?? 0) + navTogglerDividerWidth
       : 0;
     const moreBtnGap = hiddenFolders.length > 0 ? 1 : 0;
     const flexGap = parseFloat(containerStyles.gap) * (folders.length + moreBtnGap + navTogglerGap);
@@ -66,24 +78,33 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
     return availableSpace - (remainingFoldersWidth + moreBtnWidth);
   };
 
-  const isBreadCrumbOverflowing = () => {
+  const isBreadCrumbOverflowing = useCallback(() => {
+    if (!breadCrumbRef.current) return false;
     return breadCrumbRef.current.scrollWidth > breadCrumbRef.current.clientWidth;
-  };
+  }, []);
 
   useEffect(() => {
     if (isBreadCrumbOverflowing()) {
       const hiddenFolder = folders[1];
       const hiddenFolderWidth = foldersRef.current[1]?.clientWidth;
-      setHiddenFoldersWidth((prev) => [...prev, hiddenFolderWidth]);
-      setHiddenFolders((prev) => [...prev, hiddenFolder]);
-      setFolders((prev) => prev.filter((_, index) => index !== 1));
-    } else if (hiddenFolders.length > 0 && checkAvailableSpace() > hiddenFoldersWidth.at(-1)) {
-      const newFolders = [folders[0], hiddenFolders.at(-1), ...folders.slice(1)];
-      setFolders(newFolders);
-      setHiddenFolders((prev) => prev.slice(0, -1));
-      setHiddenFoldersWidth((prev) => prev.slice(0, -1));
+      
+      if (hiddenFolder && hiddenFolderWidth) {
+        setHiddenFoldersWidth((prev) => [...prev, hiddenFolderWidth]);
+        setHiddenFolders((prev) => [...prev, hiddenFolder]);
+        setFolders((prev) => prev.filter((_, index) => index !== 1));
+      }
+    } else if (hiddenFolders.length > 0) {
+      const lastHiddenWidth = hiddenFoldersWidth.at(-1);
+      const lastHiddenFolder = hiddenFolders.at(-1);
+      
+      if (lastHiddenWidth !== undefined && lastHiddenFolder && checkAvailableSpace() > lastHiddenWidth) {
+        const newFolders = [folders[0], lastHiddenFolder, ...folders.slice(1)];
+        setFolders(newFolders);
+        setHiddenFolders((prev) => prev.slice(0, -1));
+        setHiddenFoldersWidth((prev) => prev.slice(0, -1));
+      }
     }
-  }, [isBreadCrumbOverflowing]);
+  }, [folders, hiddenFolders, hiddenFoldersWidth, isBreadCrumbOverflowing]);
 
   return (
     <div className="bread-crumb-container">
@@ -116,7 +137,9 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
             <span
               className="folder-name"
               onClick={() => switchPath(folder.path)}
-              ref={(el) => (foldersRef.current[index] = el)}
+              ref={(el) => {
+                foldersRef.current[index] = el;
+              }}
             >
               {index === 0 ? <MdHome /> : <MdOutlineNavigateNext />}
               {folder.name}
@@ -155,10 +178,5 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
 };
 
 BreadCrumb.displayName = "BreadCrumb";
-
-BreadCrumb.propTypes = {
-  isNavigationPaneOpen: PropTypes.bool.isRequired,
-  setNavigationPaneOpen: PropTypes.func.isRequired,
-};
 
 export default BreadCrumb;
