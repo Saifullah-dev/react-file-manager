@@ -4,8 +4,8 @@ import { OnPaste, OnCut, OnCopy } from "../types/FileManagerFunctions";
 import { File } from "../types/File";
 
 export interface ClipBoardContextType {
-  clipBoard?: ClipBoard;
-  setClipBoard: (clipboard? : ClipBoard) => void;
+  clipBoard: ClipBoard | null;
+  setClipBoard: (clipboard : ClipBoard | null) => void;
   handleCutCopy: (isMoving: boolean) => void;
   handlePasting: (destinationFolder: File) => void;
 }
@@ -25,7 +25,7 @@ interface ClipBoard {
 const ClipBoardContext = createContext<ClipBoardContextType | undefined>(undefined);
 
 export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy } : ClipBoardProviderProps) => {
-  const [clipBoard, setClipBoard] = useState<ClipBoard | undefined>(undefined);
+  const [clipBoard, setClipBoard] = useState<ClipBoard | null>(null);
   const selectionContext = useSelection();
   const selectedFiles = selectionContext?.selectedFiles; 
   const setSelectedFiles = selectionContext?.setSelectedFiles;
@@ -52,7 +52,7 @@ export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy } : ClipBoa
 
     onPaste?.(copiedFiles ?? [], destinationFolder, operationType);
 
-    clipBoard?.isMoving && setClipBoard(undefined);
+    clipBoard?.isMoving && setClipBoard(null);
     
     setSelectedFiles?.([]);
   };

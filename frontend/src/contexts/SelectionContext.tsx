@@ -1,10 +1,10 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import { File } from "../types/File";
 import { OnDownload, OnSelect, OnSelectionChange } from "../types/FileManagerFunctions";
 
 interface SelectionContextType {
   selectedFiles: File[];
-  setSelectedFiles: (files: File[]) => void;
+  setSelectedFiles: Dispatch<SetStateAction<File[]>>;
   handleDownload: () => void;
 }
 
