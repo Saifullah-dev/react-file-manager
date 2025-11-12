@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { File } from "../types/File";
 
-export const downloadFile = async (files : File[]) => {
+export const downloadFile = async (files : File[]) : Promise<AxiosResponse | void> => {
   if (files.length === 0) return;
 
   try {
@@ -13,7 +13,7 @@ export const downloadFile = async (files : File[]) => {
 
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    document.body.removeChild(link);    
   } catch (error) {
     return error as AxiosResponse;
   }

@@ -72,6 +72,7 @@ function App() {
 
   // File Upload Handlers
   const handleFileUploading : OnFileUploading = (file, parentFolder) => {
+    console.log(`Uploading file with name ${file.name}`)
     return { parentId: parentFolder?._id };
   };
 
@@ -113,9 +114,9 @@ function App() {
     setIsLoading(true);
     const copiedItemIds = copiedItems.map((item) => item._id as string);
     if (operationType === "copy") {
-      const response = await copyItemAPI(copiedItemIds, destinationFolder?._id as string);
+      await copyItemAPI(copiedItemIds, destinationFolder?._id as string);
     } else {
-      const response = await moveItemAPI(copiedItemIds, destinationFolder?._id as string);
+      await moveItemAPI(copiedItemIds, destinationFolder?._id as string);
     }
     await getFiles();
   };
@@ -136,7 +137,7 @@ function App() {
   };
 
   const handleError : OnError = (error, file) => {
-    console.error(error);
+    console.error(`An error occured for file ${file.name}`, error);
   };
 
   const handleDownload : OnDownload = async (files) => {
