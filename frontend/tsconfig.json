@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES2015",                          // Modern browsers support, good balance
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],   // Include DOM types for React
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],   // Include DOM types for React
     "jsx": "react-jsx",                          // Modern JSX transform (React 17+)
     
     /* Modules */
