@@ -4,9 +4,11 @@ import { useClipBoard } from "../contexts/ClipboardContext";
 import { useFileNavigation } from "../contexts/FileNavigationContext";
 import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
-import { validateApiCallback } from "../utils/validateApiCallback";
+import { TriggerAction } from "./useTriggerAction";
+import { OnRefresh } from "../types/FileManagerFunctions";
+import { Permissions } from "../types/Permissions";
 
-export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
+export const useShortcutHandler = (triggerAction : TriggerAction, onRefresh : OnRefresh, permissions : Permissions) => {
   const { setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -29,7 +31,9 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   };
 
   const triggerPasteItems = () => {
-    handlePasting(currentFolder);
+    if (currentFolder) {
+      handlePasting(currentFolder);
+    }
   };
 
   const triggerRename = () => {
@@ -54,7 +58,7 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
 
   const triggerSelectLast = () => {
     if (currentPathFiles.length > 0) {
-      setSelectedFiles([currentPathFiles.at(-1)]);
+      setSelectedFiles([currentPathFiles.at(-1)!]);
     }
   };
 
@@ -67,7 +71,7 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   };
 
   const triggerRefresh = () => {
-    validateApiCallback(onRefresh, "onRefresh");
+    onRefresh?.();
     setClipBoard(null);
   };
 

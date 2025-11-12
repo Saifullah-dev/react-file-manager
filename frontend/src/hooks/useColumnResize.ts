@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 
-export const useColumnResize = (col1Size, col2Size) => {
+export const useColumnResize = (col1Size : number, col2Size : number) => {
   const [colSizes, setColSizes] = useState({ col1: col1Size, col2: col2Size });
   const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   const handleMouseDown = () => {
     setIsDragging(true);
@@ -13,14 +13,14 @@ export const useColumnResize = (col1Size, col2Size) => {
     setIsDragging(false);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e : MouseEvent) => {
     if (!isDragging) return;
     // Prevent text selection during drag
     e.preventDefault();
 
     // Calculate new sizes based on mouse movement
     const container = containerRef.current;
-    const containerRect = container.getBoundingClientRect();
+    const containerRect = container!.getBoundingClientRect();
     const newCol1Size = ((e.clientX - containerRect.left) / containerRect.width) * 100;
 
     // Limiting the resizing to 15% to 60% for better UX

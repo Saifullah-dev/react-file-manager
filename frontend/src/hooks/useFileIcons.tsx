@@ -12,7 +12,7 @@ import {
   FaRegFileZipper,
 } from "react-icons/fa6";
 
-export const useFileIcons = (size) => {
+export const useFileIcons = (size?: number) => {
   const fileIcons = {
     pdf: <FaRegFilePdf size={size} />,
     jpg: <FaRegFileImage size={size} />,

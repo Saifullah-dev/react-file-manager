@@ -1,17 +1,26 @@
 import { useState } from "react";
 
-export const useTriggerAction = () => {
-  const [isActive, setIsActive] = useState(false);
-  const [actionType, setActionType] = useState(null);
+export type TriggerActionType = "createFolder" | "uploadFile" | "rename" | "delete"
 
-  const show = (type) => {
+export interface TriggerAction {
+  isActive: boolean;
+  actionType?: TriggerActionType;
+  show: (type: TriggerActionType) => void;
+  close: () => void;
+}
+
+export const useTriggerAction = () : TriggerAction => {
+  const [isActive, setIsActive] = useState(false);
+  const [actionType, setActionType] = useState<TriggerActionType | undefined>(undefined);
+
+  const show = (type : TriggerActionType) => {
     setIsActive(true);
     setActionType(type);
   };
 
   const close = () => {
     setIsActive(false);
-    setActionType(null);
+    setActionType(undefined);
   };
 
   return {

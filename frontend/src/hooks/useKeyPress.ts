@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useRef } from "react";
 
-const normalizeKey = (key) => {
+const normalizeKey = (key : string) => {
   return key.toLowerCase();
 };
 
-export const useKeyPress = (keys, callback, disable = false) => {
-  const lastKeyPressed = useRef(new Set([]));
+export const useKeyPress = (keys : string[], callback: (event : KeyboardEvent) => void, disable = false) => {
+  const lastKeyPressed = useRef<Set<string>>(new Set([]));
   const keysSet = useMemo(() => {
     return new Set(keys.map((key) => normalizeKey(key)));
   }, [keys]);
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e : KeyboardEvent) => {
     if (e.repeat) return; // To prevent this function from triggering on key hold e.g. Ctrl hold
 
     lastKeyPressed.current.add(normalizeKey(e.key));
@@ -22,7 +22,7 @@ export const useKeyPress = (keys, callback, disable = false) => {
     }
   };
 
-  const handleKeyUp = (e) => {
+  const handleKeyUp = (e : KeyboardEvent) => {
     lastKeyPressed.current.delete(normalizeKey(e.key));
   };
 
