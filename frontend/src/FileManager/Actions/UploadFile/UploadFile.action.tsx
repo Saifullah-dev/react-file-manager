@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { ChangeEvent, DragEvent, KeyboardEvent, useRef, useState } from "react";
 import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import UploadItem from "./UploadItem";
+import UploadItem, { UploadFileData } from "./UploadItem";
 import Loader from "../../../components/Loader/Loader";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { getFileExtension } from "../../../utils/getFileExtension";
@@ -9,6 +9,16 @@ import { getDataSize } from "../../../utils/getDataSize";
 import { useFiles } from "../../../contexts/FilesContext";
 import { useTranslation } from "../../../contexts/TranslationProvider";
 import "./UploadFile.action.scss";
+import { FileUploadConfiguration } from "../../../types/FileUploadConfiguration";
+import { OnFileUploaded, OnFileUploading } from "../../../types/FileManagerFunctions";
+
+export interface UploadFileActionProps {
+  fileUploadConfig?: FileUploadConfiguration;
+  maxFileSize?: number;
+  acceptedFileTypes?: string;
+  onFileUploading?: OnFileUploading;
+  onFileUploaded?: OnFileUploaded;
+}
 
 const UploadFileAction = ({
   fileUploadConfig,
@@ -16,28 +26,28 @@ const UploadFileAction = ({
   acceptedFileTypes,
   onFileUploading,
   onFileUploaded,
-}) => {
-  const [files, setFiles] = useState([]);
+} : UploadFileActionProps) => {
+  const [files, setFiles] = useState<UploadFileData[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [isUploading, setIsUploading] = useState({});
+  const [isUploading, setIsUploading] = useState<Record<number, boolean>>({});
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { onError } = useFiles();
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const t = useTranslation();
 
   // To open choose file if the "Choose File" button is focused and Enter key is pressed
-  const handleChooseFileKeyDown = (e) => {
+  const handleChooseFileKeyDown = (e : KeyboardEvent) => {
     if (e.key === "Enter") {
-      fileInputRef.current.click();
+      fileInputRef.current?.click();
     }
   };
 
-  const checkFileError = (file) => {
+  const checkFileError = (file : File) => {
     if (acceptedFileTypes) {
       const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
       if (extError) return t("fileTypeNotAllowed");
     }
-
+    
     const fileExists = currentPathFiles.some(
       (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
     );
@@ -45,9 +55,11 @@ const UploadFileAction = ({
 
     const sizeError = maxFileSize && file.size > maxFileSize;
     if (sizeError) return `${t("maxUploadSize")} ${getDataSize(maxFileSize, 0)}.`;
+
+    return undefined;
   };
 
-  const setSelectedFiles = (selectedFiles) => {
+  const setSelectedFiles = (selectedFiles : File[]) => {
     selectedFiles = selectedFiles.filter(
       (item) =>
         !files.some((fileData) => fileData.file.name.toLowerCase() === item.name.toLowerCase())
@@ -55,7 +67,7 @@ const UploadFileAction = ({
 
     if (selectedFiles.length > 0) {
       const newFiles = selectedFiles.map((file) => {
-        const appendData = onFileUploading(file, currentFolder);
+        const appendData = onFileUploading?.(file, currentFolder!);
         const error = checkFileError(file);
         error && onError({ type: "upload", message: error }, file);
         return {
@@ -68,20 +80,19 @@ const UploadFileAction = ({
     }
   };
 
-  // Todo: Also validate allowed file extensions on drop
-  const handleDrop = (e) => {
+  const handleDrop = (e : DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
     setSelectedFiles(droppedFiles);
   };
 
-  const handleChooseFile = (e) => {
-    const choosenFiles = Array.from(e.target.files);
+  const handleChooseFile = (e : ChangeEvent<HTMLInputElement>) => {
+    const choosenFiles = Array.from(e.target.files ?? []);
     setSelectedFiles(choosenFiles);
   };
 
-  const handleFileRemove = (index) => {
+  const handleFileRemove = (index : number) => {
     setFiles((prev) => {
       const newFiles = prev.map((file, i) => {
         if (index === i) {

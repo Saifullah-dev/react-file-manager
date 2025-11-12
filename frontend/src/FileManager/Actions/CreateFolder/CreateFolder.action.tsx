@@ -1,22 +1,31 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, KeyboardEvent, RefObject, useEffect, useState } from "react";
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 import { duplicateNameHandler } from "../../../utils/duplicateNameHandler";
 import NameInput from "../../../components/NameInput/NameInput";
-import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
+import ErrorTooltip, { ErrorTooltipXPlacement, ErrorTooltipYPlacement } from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
-import { validateApiCallback } from "../../../utils/validateApiCallback";
 import { useTranslation } from "../../../contexts/TranslationProvider";
+import { FileExtended } from "../../../types/File";
+import { OnCreateFolder } from "../../../types/FileManagerFunctions";
+import { TriggerAction } from "../../../types/TriggerAction";
+
+export interface CreateFolderActionProps {
+  filesViewRef: RefObject<HTMLDivElement | null>;
+  file: FileExtended;
+  onCreateFolder?: OnCreateFolder;
+  triggerAction: TriggerAction;
+}
 
 const maxNameLength = 220;
 
-const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction }) => {
+const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction } : CreateFolderActionProps) => {
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
-  const [errorXPlacement, setErrorXPlacement] = useState("right");
-  const [errorYPlacement, setErrorYPlacement] = useState("bottom");
-  const outsideClick = useDetectOutsideClick((e) => {
+  const [errorXPlacement, setErrorXPlacement] = useState<ErrorTooltipXPlacement>("right");
+  const [errorYPlacement, setErrorYPlacement] = useState<ErrorTooltipYPlacement>("bottom");
+  const outsideClick = useDetectOutsideClick<HTMLTextAreaElement>((e) => {
     e.preventDefault();
     e.stopPropagation();
   });
@@ -25,14 +34,14 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
   const t = useTranslation();
 
   // Folder name change handler function
-  const handleFolderNameChange = (e) => {
+  const handleFolderNameChange = (e : ChangeEvent<HTMLTextAreaElement>) => {
     setFolderName(e.target.value);
     setFolderNameError(false);
   };
   //
 
   // Validate folder name and call "onCreateFolder" function
-  const handleValidateFolderName = (e) => {
+  const handleValidateFolderName = (e : KeyboardEvent<HTMLTextAreaElement>) => {
     e.stopPropagation();
     if (e.key === "Enter") {
       e.preventDefault();
@@ -68,6 +77,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
 
       return () => clearTimeout(autoHideError);
     }
+    return;
   }, [folderNameError]);
   //
 
@@ -92,7 +102,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
       newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
     }
 
-    validateApiCallback(onCreateFolder, "onCreateFolder", newFolderName, currentFolder);
+    onCreateFolder?.(newFolderName, currentFolder!);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     triggerAction.close();
   }
@@ -108,7 +118,7 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
       const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
       const errorMessageHeight = 56 + 20 + 10 + 2; // 20px :before height
       const filesContainer = filesViewRef.current;
-      const filesContainerRect = filesContainer.getBoundingClientRect();
+      const filesContainerRect = filesContainer!.getBoundingClientRect();
       const nameInputContainer = outsideClick.ref.current;
       const nameInputContainerRect = nameInputContainer.getBoundingClientRect();
 

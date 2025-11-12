@@ -9,13 +9,19 @@ import { useFileIcons } from "../../../hooks/useFileIcons";
 import { FaRegFileAlt } from "react-icons/fa";
 import { useTranslation } from "../../../contexts/TranslationProvider";
 import "./PreviewFile.action.scss";
+import { FilePreviewComponent } from "../../../types/FileManagerFunctions";
+
+export interface PreviewFileActionProps {
+  filePreviewPath?: string;
+  filePreviewComponent?: FilePreviewComponent;
+}
 
 const imageExtensions = ["jpg", "jpeg", "png"];
 const videoExtensions = ["mp4", "mov", "avi"];
 const audioExtensions = ["mp3", "wav", "m4a"];
 const iFrameExtensions = ["txt", "pdf"];
 
-const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
+const PreviewFileAction = ({ filePreviewPath, filePreviewComponent } : PreviewFileActionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const { selectedFiles } = useSelection();
@@ -58,7 +64,7 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
           ...iFrameExtensions,
         ].includes(extension) && (
           <div className="preview-error">
-            <span className="error-icon">{fileIcons[extension] ?? <FaRegFileAlt size={73} />}</span>
+            <span className="error-icon">{fileIcons[extension as keyof typeof fileIcons] ?? <FaRegFileAlt size={73} />}</span>
             <span className="error-msg">{t("previewUnavailable")}</span>
             <div className="file-info">
               <span className="file-name">{selectedFiles[0].name}</span>
@@ -75,7 +81,7 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
         ))}
       {imageExtensions.includes(extension) && (
         <>
-          <Loader isLoading={isLoading} />
+          <Loader loading={isLoading} />
           <img
             src={filePath}
             alt="Preview Unavailable"

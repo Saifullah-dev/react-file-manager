@@ -1,38 +1,47 @@
-import React, { useEffect, useRef, useState } from "react";
+import { KeyboardEvent, RefObject, useEffect, useRef, useState } from "react";
 import Button from "../../../components/Button/Button";
 import { IoWarningOutline } from "react-icons/io5";
 import { useDetectOutsideClick } from "../../../hooks/useDetectOutsideClick";
 import Modal from "../../../components/Modal/Modal";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import NameInput from "../../../components/NameInput/NameInput";
-import ErrorTooltip from "../../../components/ErrorTooltip/ErrorTooltip";
+import ErrorTooltip, { ErrorTooltipXPlacement, ErrorTooltipYPlacement } from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
-import { validateApiCallback } from "../../../utils/validateApiCallback";
 import { useTranslation } from "../../../contexts/TranslationProvider";
+import { OnRename } from "../../../types/FileManagerFunctions";
+import { TriggerAction } from "../../../types/TriggerAction";
+import { FileExtended } from "../../../types/File";
+
+export interface RenameActionProps {
+  filesViewRef: RefObject<HTMLDivElement | null>;
+  file: FileExtended;
+  onRename?: OnRename;
+  triggerAction: TriggerAction;
+}
 
 const maxNameLength = 220;
 
-const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
+const RenameAction = ({ filesViewRef, file, onRename, triggerAction } : RenameActionProps) => {
   const [renameFile, setRenameFile] = useState(file?.name);
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
-  const [errorXPlacement, setErrorXPlacement] = useState("right");
-  const [errorYPlacement, setErrorYPlacement] = useState("bottom");
+  const [errorXPlacement, setErrorXPlacement] = useState<ErrorTooltipXPlacement>("right");
+  const [errorYPlacement, setErrorYPlacement] = useState<ErrorTooltipYPlacement>("bottom");
   const { currentPathFiles, setCurrentPathFiles } = useFileNavigation();
   const { activeLayout } = useLayout();
   const t = useTranslation();
 
-  const warningModalRef = useRef(null);
-  const outsideClick = useDetectOutsideClick((e) => {
-    if (!warningModalRef.current?.contains(e.target)) {
+  const warningModalRef = useRef<HTMLDivElement>(null);
+  const outsideClick = useDetectOutsideClick<HTMLTextAreaElement>((e) => {
+    if (!warningModalRef.current?.contains(e.target as Node)) {
       e.preventDefault();
       e.stopPropagation();
     }
   });
 
-  const handleValidateFolderRename = (e) => {
+  const handleValidateFolderRename = (e : KeyboardEvent) => {
     e.stopPropagation();
     if (e.key === "Enter") {
       e.preventDefault();
@@ -74,10 +83,11 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
 
       return () => clearTimeout(autoHideError);
     }
+    return;
   }, [fileRenameError]);
   //
 
-  function handleFileRenaming(isConfirmed) {
+  function handleFileRenaming(isConfirmed : boolean) {
     if (renameFile === "" || renameFile === file.name) {
       setCurrentPathFiles((prev) =>
         prev.map((f) => {
@@ -103,7 +113,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       }
     }
     setFileRenameError(false);
-    validateApiCallback(onRename, "onRename", file, renameFile);
+    onRename?.(file, renameFile);
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
     triggerAction.close();
   }
@@ -124,7 +134,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
     focusName();
 
     // Dynamic Error Message Placement based on available space
-    if (outsideClick.ref?.current) {
+    if (outsideClick.ref?.current && filesViewRef.current) {
       const errorMessageWidth = 292 + 8 + 8 + 5; // 8px padding on left and right + additional 5px for gap
       const errorMessageHeight = 56 + 20 + 10 + 2; // 20px :before height
       const filesContainer = filesViewRef.current;

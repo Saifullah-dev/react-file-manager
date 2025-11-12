@@ -3,12 +3,32 @@ import Progress from "../../../components/Progress/Progress";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import { useFileIcons } from "../../../hooks/useFileIcons";
 import { FaRegFile } from "react-icons/fa6";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { getDataSize } from "../../../utils/getDataSize";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { useFiles } from "../../../contexts/FilesContext";
 import { useTranslation } from "../../../contexts/TranslationProvider";
+import { FileUploadConfiguration } from "../../../types/FileUploadConfiguration";
+import { OnFileUploaded, OnFileUploading } from "../../../types/FileManagerFunctions";
+
+export interface UploadFileData {
+  file: File;
+  appendData?: { [key: string]: any }; 
+  error?: string;
+  removed?: boolean;
+}
+
+export interface UploadItemProps {
+  index: number;
+  fileData: UploadFileData;
+  setFiles: Dispatch<SetStateAction<UploadFileData[]>>;
+  fileUploadConfig?: FileUploadConfiguration;
+  setIsUploading: Dispatch<SetStateAction<Record<number, boolean>>>;
+  onFileUploading?: OnFileUploading;
+  onFileUploaded?: OnFileUploaded;
+  handleFileRemove: (index : number) => void;
+}
 
 const UploadItem = ({
   index,
@@ -18,17 +38,17 @@ const UploadItem = ({
   fileUploadConfig,
   onFileUploaded,
   handleFileRemove,
-}) => {
+} : UploadItemProps) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
   const [uploadFailed, setUploadFailed] = useState(false);
   const fileIcons = useFileIcons(33);
-  const xhrRef = useRef();
+  const xhrRef = useRef<XMLHttpRequest | null>(null);
   const { onError } = useFiles();
   const t = useTranslation();
 
-  const handleUploadError = (xhr) => {
+  const handleUploadError = (xhr : XMLHttpRequest) => {
     setUploadProgress(0);
     setIsUploading((prev) => ({
       ...prev,
@@ -61,7 +81,7 @@ const UploadItem = ({
     onError(error, fileData.file);
   };
 
-  const fileUpload = (fileData) => {
+  const fileUpload = (fileData : UploadFileData) => {
     if (!!fileData.error) return;
 
     return new Promise((resolve, reject) => {
@@ -86,7 +106,7 @@ const UploadItem = ({
         }));
         if (xhr.status === 200 || xhr.status === 201) {
           setIsUploaded(true);
-          onFileUploaded(xhr.response);
+          onFileUploaded?.(xhr.response);
           resolve(xhr.response);
         } else {
           reject(xhr.statusText);
@@ -100,7 +120,7 @@ const UploadItem = ({
       };
 
       const method = fileUploadConfig?.method || "POST";
-      xhr.open(method, fileUploadConfig?.url, true);
+      xhr.open(method, fileUploadConfig?.url ?? "", true);
       const headers = fileUploadConfig?.headers;
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
@@ -143,13 +163,13 @@ const UploadItem = ({
           if (index === i) {
             return {
               ...file,
-              error: false,
+              error: undefined,
             };
           }
           return file;
         })
       );
-      fileUpload({ ...fileData, error: false });
+      fileUpload({ ...fileData, error: undefined });
       setIsCanceled(false);
       setUploadFailed(false);
     }
@@ -164,7 +184,7 @@ const UploadItem = ({
   return (
     <li>
       <div className="file-icon">
-        {fileIcons[getFileExtension(fileData.file?.name)] ?? <FaRegFile size={33} />}
+        {fileIcons[getFileExtension(fileData.file?.name) as keyof typeof fileIcons] ?? <FaRegFile size={33} />}
       </div>
       <div className="file">
         <div className="file-details">
