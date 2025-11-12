@@ -5,8 +5,8 @@ export interface CheckboxProps {
   id?: string;
   name?: string
   checked?: boolean;
-  onClick?: (event : MouseEvent) => void;
-  onChange?: (event : ChangeEvent) => void;
+  onClick?: (event : MouseEvent<HTMLInputElement>) => void;
+  onChange?: (event : ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   title?: string;
   disabled?: boolean;
