@@ -1,6 +1,17 @@
+import { ChangeEvent, MouseEvent } from "react";
 import "./Checkbox.scss";
 
-const Checkbox = ({ name, id, checked, onClick, onChange, className = "", title, disabled = false }) => {
+export interface CheckboxProps {
+  id?: string;
+  name?: string
+  checked?: boolean;
+  onClick?: (event : MouseEvent) => void;
+  onChange?: (event : ChangeEvent) => void;
+  className?: string;
+  title?: string;
+  disabled?: boolean;
+}
+const Checkbox = ({ name, id, checked, onClick, onChange, className = "", title, disabled = false } : CheckboxProps) => {
   return (
     <input
       className={`fm-checkbox ${className}`}

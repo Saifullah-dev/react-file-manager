@@ -1,7 +1,13 @@
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Progress.scss";
 
-const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, error }) => {
+export interface ProgressProps {
+  percent?: number;
+  isCanceled?: boolean;
+  isCompleted?: boolean;
+  error?: string;
+}
+const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, error } : ProgressProps) => {
   const t = useTranslation();
 
   return (

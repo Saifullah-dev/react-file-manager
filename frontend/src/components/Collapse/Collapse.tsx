@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { useCollapse } from "react-collapsed";
 
-const Collapse = ({ open, children }) => {
+export interface CollapseProps {
+  open: boolean;
+  children: ReactNode
+}
+
+const Collapse = ({ open, children } : CollapseProps) => {
   const [isExpanded, setExpanded] = useState(open);
   const { getCollapseProps } = useCollapse({
     isExpanded,

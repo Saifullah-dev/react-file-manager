@@ -1,7 +1,16 @@
 import { MdClose } from "react-icons/md";
-import { useEffect, useRef } from "react";
+import { KeyboardEvent, ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./Modal.scss";
+
+export interface ModalProps {
+  children: ReactNode;
+  show: boolean;
+  setShow: (show : boolean) => void;
+  heading: string;
+  dialogWidth?: string;
+  closeButton?: boolean;
+}
 
 const Modal = ({
   children,
@@ -9,13 +18,12 @@ const Modal = ({
   setShow,
   heading,
   dialogWidth = "25%",
-  contentClassName = "",
   closeButton = true,
-}) => {
-  const modalRef = useRef(null);
+} : ModalProps) => {
+  const modalRef = useRef<HTMLDialogElement>(null);
   const t = useTranslation();
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e : KeyboardEvent<HTMLDialogElement>) => {
     if (e.key === "Escape") {
       setShow(false);
     }
@@ -23,9 +31,9 @@ const Modal = ({
 
   useEffect(() => {
     if (show) {
-      modalRef.current.showModal();
+      modalRef.current?.showModal();
     } else {
-      modalRef.current.close();
+      modalRef.current?.close();
     }
   }, [show]);
 

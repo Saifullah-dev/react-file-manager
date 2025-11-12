@@ -1,15 +1,35 @@
-import { useEffect, useRef, useState } from "react";
+import { MouseEvent, ReactNode, RefObject, useEffect, useRef, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
-import SubMenu from "./SubMenu";
+import SubMenu, { SubMenuItem, SubMenuPosition } from "./SubMenu";
 import "./ContextMenu.scss";
+import { ClickPosition } from "../../FileManager/FileList/useFileList";
 
-const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPosition }) => {
-  const [left, setLeft] = useState(0);
-  const [top, setTop] = useState(0);
-  const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(null);
-  const [subMenuPosition, setSubMenuPosition] = useState("right");
+export interface MenuItem {
+  title: string;
+  selected: boolean;
+  icon: ReactNode;
+  className?: string;
+  hidden: boolean;
+  children: SubMenuItem[];
+  divider: boolean;
+  onClick: (event : MouseEvent<HTMLLIElement>) => void;
+}
 
-  const subMenuRef = useRef(null);
+export interface ContextMenuProps {
+  filesViewRef: RefObject<HTMLDivElement>;
+  contextMenuRef: RefObject<HTMLDivElement>;
+  menuItems: MenuItem[];
+  visible: boolean;
+  clickPosition: ClickPosition
+}
+
+const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPosition } : ContextMenuProps) => {
+  const [left, setLeft] = useState<string>("0");
+  const [top, setTop] = useState<string>("0");
+  const [activeSubMenuIndex, setActiveSubMenuIndex] = useState<number | null>(null);
+  const [subMenuPosition, setSubMenuPosition] = useState<SubMenuPosition>("right");
+
+  const subMenuRef = useRef<HTMLUListElement>(null);
 
   const contextMenuPosition = () => {
     const { clickX, clickY } = clickPosition;
@@ -48,12 +68,12 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
     }
   };
 
-  const handleContextMenu = (e) => {
+  const handleContextMenu = (e : MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
-  const handleMouseOver = (index) => {
+  const handleMouseOver = (index : number) => {
     setActiveSubMenuIndex(index);
   };
 
@@ -61,8 +81,8 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
     if (visible && contextMenuRef.current) {
       contextMenuPosition();
     } else {
-      setTop(0);
-      setLeft(0);
+      setTop("0");
+      setLeft("0");
       setActiveSubMenuIndex(null);
     }
   }, [visible]);
@@ -120,6 +140,8 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
       </div>
     );
   }
+  
+  return null;
 };
 
 export default ContextMenu;
