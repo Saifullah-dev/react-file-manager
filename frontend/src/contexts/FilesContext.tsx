@@ -1,24 +1,24 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { File } from "../types/File";
+import { File, FileExtended } from "../types/File";
 import { OnError } from "../types/FileManagerFunctions";
 
 interface FilesContextType {
-  files: File[],
-  setFiles: (files : File[]) => void;
-  getChildren: (file: File) => File[];
+  files: FileExtended[],
+  setFiles: (files : FileExtended[]) => void;
+  getChildren: (file: FileExtended) => FileExtended[];
   onError: OnError;
 }
 
 interface FilesProviderProps {
   children: ReactNode;
-  filesData: File[];
+  filesData: FileExtended[];
   onError: OnError;
 }
 
 const FilesContext = createContext<FilesContextType | undefined>(undefined);
 
 export const FilesProvider = ({ children, filesData, onError } : FilesProviderProps) => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileExtended[]>([]);
 
   useEffect(() => {
     setFiles(filesData);
