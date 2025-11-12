@@ -26,8 +26,7 @@ export interface FileNavigationProviderProps {
 const FileNavigationContext = createContext<FileNavigationContextType | undefined>(undefined);
 
 export const FileNavigationProvider = ({ children, initialPath, onFolderChange } : FileNavigationProviderProps) => {
-  const fileContext = useFiles();
-  const files = fileContext?.files;
+  const { files } = useFiles();
   const isMountRef = useRef(false);
   const [currentPath, setCurrentPath] = useState<string>("");
   const [currentFolder, setCurrentFolder] = useState<File | undefined>(undefined);
@@ -79,4 +78,12 @@ export const FileNavigationProvider = ({ children, initialPath, onFolderChange }
   );
 };
 
-export const useFileNavigation = () => useContext(FileNavigationContext);
+export const useFileNavigation = () => {
+  const context = useContext(FileNavigationContext);
+
+  if (context === undefined) {
+    throw new Error("useFileNavigation must be used within a FileNavigationContext");
+  }
+
+  return context;
+}

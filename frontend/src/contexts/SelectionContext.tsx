@@ -36,4 +36,12 @@ export const SelectionProvider = ({ children, onDownload, onSelect, onSelectionC
   );
 };
 
-export const useSelection = () => useContext(SelectionContext);
+export const useSelection = () => {
+  const context = useContext(SelectionContext);
+
+  if (context === undefined) {
+    throw new Error("useSelection must be used within a SelectionContext");
+  }
+
+  return context;
+} 

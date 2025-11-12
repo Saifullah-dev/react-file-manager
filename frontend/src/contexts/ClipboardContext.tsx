@@ -64,4 +64,12 @@ export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy } : ClipBoa
   );
 };
 
-export const useClipBoard = () => useContext(ClipBoardContext);
+export const useClipBoard = () => {
+  const context = useContext(ClipBoardContext);
+  
+  if (context === undefined) {
+    throw new Error("useClipBoard must be used within a ClipBoardProvider");
+  }
+  
+  return context;
+} 

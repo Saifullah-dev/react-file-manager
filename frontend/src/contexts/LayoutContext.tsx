@@ -23,4 +23,12 @@ export const LayoutProvider = ({ children, layout } : LayoutProviderProps) => {
   );
 };
 
-export const useLayout = () => useContext(LayoutContext);
+export const useLayout = () => {
+  const context = useContext(LayoutContext);
+
+  if (context === undefined) {
+    throw new Error("useLayout must be used within a LayoutContext");
+  }
+
+  return context;
+} 

@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { File } from "../types/File";
-import { OnError } from "../types/functions/OnError";
+import { OnError } from "../types/FileManagerFunctions";
 
 interface FilesContextType {
   files: File[],
@@ -37,4 +37,12 @@ export const FilesProvider = ({ children, filesData, onError } : FilesProviderPr
   );
 };
 
-export const useFiles = () => useContext(FilesContext);
+export const useFiles = () => {
+  const context = useContext(FilesContext);
+  
+  if (context === undefined) {
+    throw new Error("useFiles must be used within a FilesContext");
+  }
+
+  return context;
+}
