@@ -1,6 +1,6 @@
 import { File } from "../types/File";
 
-type FileTree = File & {
+export type FileTree = File & {
   children: FileTree[];
 };
 
