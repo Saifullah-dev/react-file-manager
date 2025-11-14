@@ -9,7 +9,7 @@
 </div>
 
 <p>
-An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
+An open-source React.js package with TypeScript suppor for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
 </p>
 
 ## ✨ Features
