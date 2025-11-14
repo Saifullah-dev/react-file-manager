@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import FileItem from "./FileItem";
+import FileItem from "./FileListItem";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import ContextMenu from "../../components/ContextMenu/ContextMenu";
@@ -13,6 +13,7 @@ import { Permissions } from "../../types/Permissions";
 import { TriggerAction } from "../../types/TriggerAction";
 import { SortDirection, SortKey } from "../../types/SortConfiguration";
 import { ExtendedFileItem } from "../../types/File";
+import FileListItem from "./FileListItem";
 
 export interface FileListProps {
   onCreateFolder?: OnCreateFolder;
@@ -77,7 +78,7 @@ const FileList = ({
       {currentPathFiles?.length > 0 ? (
         <>
           {currentPathFiles.map((file, index) => (
-            <FileItem
+            <FileListItem
               key={index}
               index={index}
               file={file as ExtendedFileItem}

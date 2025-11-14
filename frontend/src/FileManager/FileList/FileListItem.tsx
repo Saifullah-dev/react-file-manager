@@ -18,7 +18,7 @@ export interface TooltipPosition {
     y: number;
 }
 
-export interface FileItemProps {
+export interface FileListItemProps {
   index: number;
   file: ExtendedFileItem;
   onCreateFolder?: OnCreateFolder;
@@ -37,7 +37,7 @@ export interface FileItemProps {
 
 const dragIconSize = 50;
 
-const FileItem = ({
+const FileListItem = ({
   index,
   file,
   onCreateFolder,
@@ -51,7 +51,7 @@ const FileItem = ({
   setLastSelectedFile,
   draggable,
   formatDate,
-} :FileItemProps) => {
+} :FileListItemProps) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [checkboxClassName, setCheckboxClassName] = useState("hidden");
@@ -307,4 +307,4 @@ const FileItem = ({
   );
 };
 
-export default FileItem;
+export default FileListItem;
