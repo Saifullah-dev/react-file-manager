@@ -43,7 +43,47 @@ npm i @cubone/react-file-manager
 
 ## 💻 Usage
 
-Here’s a basic example of how to use the File Manager Component in your React application:
+**TypeScript:** Here’s a basic example of how to use the File Manager Component in your React application:
+
+```tsx
+import { useState } from "react";
+import { FileItem, FileManager } from "@cubone/react-file-manager";
+import "@cubone/react-file-manager/dist/style.css";
+
+function App() {
+  const [files, setFiles] = useState<FileItem[]>([
+    {
+      name: "Documents",
+      isDirectory: true, // Folder
+      path: "/Documents", // Located in Root directory
+      updatedAt: "2024-09-09T10:30:00Z", // Last updated time
+    },
+    {
+      name: "Pictures",
+      isDirectory: true,
+      path: "/Pictures", // Located in Root directory as well
+      updatedAt: "2024-09-09T11:00:00Z",
+    },
+    {
+      name: "Pic.png",
+      isDirectory: false, // File
+      path: "/Pictures/Pic.png", // Located inside the "Pictures" folder
+      updatedAt: "2024-09-08T16:45:00Z",
+      size: 2048, // File size in bytes (example: 2 KB)
+    },
+  ]);
+
+  return (
+    <>
+      <FileManager files={files} />
+    </>
+  );
+}
+
+export default App;
+``` 
+
+**JavaScript:** Here’s a basic example of how to use the File Manager Component in your React application:
 
 ```jsx
 import { useState } from "react";
@@ -82,6 +122,8 @@ function App() {
 
 export default App;
 ```
+
+More detailed samples can be found in the [samples folder](tree/main/frontend).
 
 ## 📂 File Structure
 
