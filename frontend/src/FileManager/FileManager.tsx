@@ -16,7 +16,7 @@ import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
 import { formatDate as defaultFormatDate } from "../utils/formatDate";
 import "./FileManager.scss";
-import { FileItem, ExtendedFileItem } from "../types/File";
+import { ExtendedFileItem, FileItem } from "../types/File";
 import { FileUploadConfiguration } from "../types/FileUploadConfiguration";
 import { Layout } from "../types/Layout";
 import { Language } from "../types/Language";
