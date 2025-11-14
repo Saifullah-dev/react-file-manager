@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import FileItem from "./FileListItem";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import ContextMenu from "../../components/ContextMenu/ContextMenu";
