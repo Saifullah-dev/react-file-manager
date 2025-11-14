@@ -6,13 +6,13 @@ import ErrorTooltip, { ErrorTooltipXPlacement, ErrorTooltipYPlacement } from "..
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { useLayout } from "../../../contexts/LayoutContext";
 import { useTranslation } from "../../../contexts/TranslationProvider";
-import { FileExtended } from "../../../types/File";
+import { ExtendedFileItem } from "../../../types/File";
 import { OnCreateFolder } from "../../../types/FileManagerFunctions";
 import { TriggerAction } from "../../../types/TriggerAction";
 
 export interface CreateFolderActionProps {
   filesViewRef: RefObject<HTMLDivElement | null>;
-  file: FileExtended;
+  file: ExtendedFileItem;
   onCreateFolder?: OnCreateFolder;
   triggerAction: TriggerAction;
 }

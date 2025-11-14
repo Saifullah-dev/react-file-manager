@@ -11,11 +11,11 @@ import { useLayout } from "../../../contexts/LayoutContext";
 import { useTranslation } from "../../../contexts/TranslationProvider";
 import { OnRename } from "../../../types/FileManagerFunctions";
 import { TriggerAction } from "../../../types/TriggerAction";
-import { FileExtended } from "../../../types/File";
+import { ExtendedFileItem } from "../../../types/File";
 
 export interface RenameActionProps {
   filesViewRef: RefObject<HTMLDivElement | null>;
-  file: FileExtended;
+  file: ExtendedFileItem;
   onRename?: OnRename;
   triggerAction: TriggerAction;
 }

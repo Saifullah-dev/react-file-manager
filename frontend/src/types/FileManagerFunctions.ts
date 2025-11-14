@@ -1,4 +1,4 @@
-import { File as IFile } from "./File";
+import { FileItem as IFile } from "./File";
 import { Layout } from "./Layout";
 import { SortConfiguration } from "./SortConfiguration";
 

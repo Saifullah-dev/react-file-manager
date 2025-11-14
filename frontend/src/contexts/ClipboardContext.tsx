@@ -1,13 +1,13 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useSelection } from "./SelectionContext";
 import { OnPaste, OnCut, OnCopy } from "../types/FileManagerFunctions";
-import { File } from "../types/File";
+import { FileItem } from "../types/File";
 
 export interface ClipBoardContextType {
   clipBoard: ClipBoard | null;
   setClipBoard: (clipboard : ClipBoard | null) => void;
   handleCutCopy: (isMoving: boolean) => void;
-  handlePasting: (destinationFolder: File) => void;
+  handlePasting: (destinationFolder: FileItem) => void;
 }
 
 export interface ClipBoardProviderProps {
@@ -18,7 +18,7 @@ export interface ClipBoardProviderProps {
 }
 
 interface ClipBoard {
-  files: File[];
+  files: FileItem[];
   isMoving: boolean;
 }
 
@@ -44,7 +44,7 @@ export const ClipBoardProvider = ({ children, onPaste, onCut, onCopy } : ClipBoa
   };
 
   // Todo: Show error if destination folder already has file(s) with the same name
-  const handlePasting = (destinationFolder : File) => {
+  const handlePasting = (destinationFolder : FileItem) => {
     if (destinationFolder && !destinationFolder.isDirectory) return;
 
     const copiedFiles = clipBoard?.files;

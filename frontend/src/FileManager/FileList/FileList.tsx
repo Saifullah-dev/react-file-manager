@@ -12,7 +12,7 @@ import { OnCreateFolder, OnFileOpen, OnRefresh, OnRename } from "../../types/Fil
 import { Permissions } from "../../types/Permissions";
 import { TriggerAction } from "../../types/TriggerAction";
 import { SortDirection, SortKey } from "../../types/SortConfiguration";
-import { FileExtended } from "../../types/File";
+import { ExtendedFileItem } from "../../types/File";
 
 export interface FileListProps {
   onCreateFolder?: OnCreateFolder;
@@ -80,7 +80,7 @@ const FileList = ({
             <FileItem
               key={index}
               index={index}
-              file={file as FileExtended}
+              file={file as ExtendedFileItem}
               onCreateFolder={onCreateFolder}
               onRename={onRename}
               onFileOpen={onFileOpen}

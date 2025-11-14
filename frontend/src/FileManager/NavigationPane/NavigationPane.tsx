@@ -5,21 +5,21 @@ import { useFiles } from "../../contexts/FilesContext";
 import { useTranslation } from "../../contexts/TranslationProvider";
 import "./NavigationPane.scss";
 import { OnFileOpen } from "../../types/FileManagerFunctions";
-import { FileExtended } from "../../types/File";
+import { ExtendedFileItem } from "../../types/File";
 
 export interface NavigationPaneProps {
   onFileOpen: OnFileOpen;
 }
 
 const NavigationPane = ({ onFileOpen } : NavigationPaneProps) => {
-  const [foldersTree, setFoldersTree] = useState<FileExtended[]>([]);
+  const [foldersTree, setFoldersTree] = useState<ExtendedFileItem[]>([]);
   const { files } = useFiles();
   const t = useTranslation();
 
   const createChildRecursive = (
     path: string, 
-    foldersStruct: Partial<Record<string, FileExtended[]>>
-  ): FileExtended[] => {
+    foldersStruct: Partial<Record<string, ExtendedFileItem[]>>
+  ): ExtendedFileItem[] => {
     if (!foldersStruct[path]) return []; // No children for this path (folder)
 
     return foldersStruct[path]!.map((folder) => {
@@ -37,7 +37,7 @@ const NavigationPane = ({ onFileOpen } : NavigationPaneProps) => {
       const foldersStruct = Object.groupBy(folders, ({ path }) => getParentPath(path));
       setFoldersTree(() => {
         const rootPath = "";
-        return createChildRecursive(rootPath, foldersStruct as Record<string, FileExtended[]>);
+        return createChildRecursive(rootPath, foldersStruct as Record<string, ExtendedFileItem[]>);
       });
     }
   }, [files]);

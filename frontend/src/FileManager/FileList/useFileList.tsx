@@ -14,7 +14,7 @@ import { useTranslation } from "../../contexts/TranslationProvider";
 import { OnFileOpen, OnRefresh } from "../../types/FileManagerFunctions";
 import { TriggerAction } from "../../types/TriggerAction";
 import { Permissions } from "../../types/Permissions";
-import { FileExtended } from "../../types/File";
+import { ExtendedFileItem } from "../../types/File";
 import { MenuItem } from "../../components/ContextMenu/ContextMenu";
 
 export interface ClickPosition {
@@ -27,7 +27,7 @@ const useFileList = (onRefresh: OnRefresh | undefined, enableFilePreview : boole
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
   const [clickPosition, setClickPosition] = useState({ clickX: 0, clickY: 0 });
-  const [lastSelectedFile, setLastSelectedFile] = useState<FileExtended | null>(null);
+  const [lastSelectedFile, setLastSelectedFile] = useState<ExtendedFileItem | null>(null);
 
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();

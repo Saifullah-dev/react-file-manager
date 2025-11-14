@@ -9,7 +9,7 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
-import { File, FileExtended } from "../../types/File";
+import { FileItem, ExtendedFileItem } from "../../types/File";
 import { OnCreateFolder, OnFileOpen, OnRename } from "../../types/FileManagerFunctions";
 import { TriggerAction } from "../../types/TriggerAction";
 
@@ -20,7 +20,7 @@ export interface TooltipPosition {
 
 export interface FileItemProps {
   index: number;
-  file: FileExtended;
+  file: ExtendedFileItem;
   onCreateFolder?: OnCreateFolder;
   onRename?: OnRename;
   enableFilePreview: boolean;
@@ -30,7 +30,7 @@ export interface FileItemProps {
   selectedFileIndexes: number[];
   triggerAction: TriggerAction;
   handleContextMenu: (e: MouseEvent, isSelection?: boolean) => void;
-  setLastSelectedFile: (file : File) => void;
+  setLastSelectedFile: (file : FileItem) => void;
   draggable?: boolean;
   formatDate: (date : string) => string;
 }

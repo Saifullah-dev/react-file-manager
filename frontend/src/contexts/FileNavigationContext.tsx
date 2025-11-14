@@ -1,17 +1,17 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useFiles } from "./FilesContext";
 import sortFiles from "../utils/sortFiles";
-import { FileExtended } from "../types/File";
+import { ExtendedFileItem } from "../types/File";
 import { SortConfiguration } from "../types/SortConfiguration";
 import { OnFolderChange } from "../types/FileManagerFunctions";
 
 export interface FileNavigationContextType {
   currentPath?: string;
   setCurrentPath?: (path: string) => void;
-  currentFolder?: FileExtended;
-  setCurrentFolder: (file : FileExtended | undefined) => void;
-  currentPathFiles: FileExtended[];
-  setCurrentPathFiles: Dispatch<SetStateAction<FileExtended[]>>;
+  currentFolder?: ExtendedFileItem;
+  setCurrentFolder: (file : ExtendedFileItem | undefined) => void;
+  currentPathFiles: ExtendedFileItem[];
+  setCurrentPathFiles: Dispatch<SetStateAction<ExtendedFileItem[]>>;
   sortConfig: SortConfiguration;
   setSortConfig: (config : SortConfiguration) => void;
   onFolderChange: OnFolderChange;
@@ -29,8 +29,8 @@ export const FileNavigationProvider = ({ children, initialPath, onFolderChange }
   const { files } = useFiles();
   const isMountRef = useRef(false);
   const [currentPath, setCurrentPath] = useState<string>("");
-  const [currentFolder, setCurrentFolder] = useState<FileExtended | undefined>(undefined);
-  const [currentPathFiles, setCurrentPathFiles] = useState<FileExtended[]>([]);
+  const [currentFolder, setCurrentFolder] = useState<ExtendedFileItem | undefined>(undefined);
+  const [currentPathFiles, setCurrentPathFiles] = useState<ExtendedFileItem[]>([]);
   const [sortConfig, setSortConfig] = useState<SortConfiguration>({ key: "name", direction: "asc" });
 
   useEffect(() => {

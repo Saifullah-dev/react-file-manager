@@ -1,12 +1,12 @@
-import { File } from "../types/File";
+import { FileItem } from "../types/File";
 
-const sortFiles = (items : File[], sortKey = 'name', direction = 'asc') => {
+const sortFiles = (items : FileItem[], sortKey = 'name', direction = 'asc') => {
   // Separate folders and files
   const folders = items.filter((file) => file.isDirectory);
   const files = items.filter((file) => !file.isDirectory);
 
   // Sort function based on key and direction
-  const sortFunction = (a : File, b : File) => {
+  const sortFunction = (a : FileItem, b : FileItem) => {
     let comparison = 0;
 
     switch (sortKey) {

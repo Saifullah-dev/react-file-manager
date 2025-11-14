@@ -1,10 +1,10 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { File } from "../types/File";
+import { FileItem } from "../types/File";
 import { OnDownload, OnSelect, OnSelectionChange } from "../types/FileManagerFunctions";
 
 interface SelectionContextType {
-  selectedFiles: File[];
-  setSelectedFiles: Dispatch<SetStateAction<File[]>>;
+  selectedFiles: FileItem[];
+  setSelectedFiles: Dispatch<SetStateAction<FileItem[]>>;
   handleDownload: () => void;
 }
 
@@ -18,7 +18,7 @@ interface SelectionProviderProps {
 const SelectionContext = createContext<SelectionContextType | undefined>(undefined);
 
 export const SelectionProvider = ({ children, onDownload, onSelect, onSelectionChange } : SelectionProviderProps) => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<FileItem[]>([]);
 
   useEffect(() => {
     onSelect?.(selectedFiles);

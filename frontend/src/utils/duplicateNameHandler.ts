@@ -1,6 +1,6 @@
-import { File } from "../types/File";
+import { FileItem } from "../types/File";
 
-export const duplicateNameHandler = (originalFileName : string, isDirectory : boolean, files : File[]) => {
+export const duplicateNameHandler = (originalFileName : string, isDirectory : boolean, files : FileItem[]) => {
   if (files.find((f) => f.name === originalFileName)) {
     const fileExtension = isDirectory ? "" : "." + originalFileName.split(".").pop();
     const fileName = isDirectory

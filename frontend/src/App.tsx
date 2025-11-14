@@ -24,14 +24,14 @@ import {
   OnRename,
   OnSelectionChange 
 } from "./types/FileManagerFunctions";
-import { File } from "./types/File";
+import { FileItem } from "./types/File";
 
 function App() {
   const fileUploadConfig = {
     url: import.meta.env.VITE_API_BASE_URL + "/upload",
   };
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileItem[]>([]);
   const [currentPath, setCurrentPath] = useState("");
   const isMountRef = useRef(false);
 
@@ -77,7 +77,7 @@ function App() {
   };
 
   const handleFileUploaded : OnFileUploaded = (response) => {
-    const uploadedFile = response as File;
+    const uploadedFile = response as FileItem;
     setFiles((prev) => [...prev, uploadedFile]);
   };
   //

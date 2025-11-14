@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
-import { File } from "../types/File";
+import { FileItem } from "../types/File";
 
-export const downloadFile = async (files : File[]) : Promise<AxiosResponse | void> => {
+export const downloadFile = async (files : FileItem[]) : Promise<AxiosResponse | void> => {
   if (files.length === 0) return;
 
   try {

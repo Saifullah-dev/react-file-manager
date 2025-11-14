@@ -16,7 +16,7 @@ import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
 import { formatDate as defaultFormatDate } from "../utils/formatDate";
 import "./FileManager.scss";
-import { File, FileExtended } from "../types/File";
+import { FileItem, ExtendedFileItem } from "../types/File";
 import { FileUploadConfiguration } from "../types/FileUploadConfiguration";
 import { Layout } from "../types/Layout";
 import { Language } from "../types/Language";
@@ -42,7 +42,7 @@ import {
   } from "../types/FileManagerFunctions";
 
 export interface FileManagerProps {
-  files?: File[]; // x
+  files?: FileItem[]; // x
   fileUploadConfig?: FileUploadConfiguration; // x
   isLoading?: boolean; // x
   onCreateFolder?: OnCreateFolder; // x
@@ -145,7 +145,7 @@ const FileManager = ({
     >
       <Loader loading={isLoading} />
       <TranslationProvider language={language}>
-        <FilesProvider filesData={files as FileExtended[]} onError={onError}>
+        <FilesProvider filesData={files as ExtendedFileItem[]} onError={onError}>
           <FileNavigationProvider initialPath={initialPath} onFolderChange={onFolderChange}>
             <SelectionProvider    
               onDownload={onDownload}

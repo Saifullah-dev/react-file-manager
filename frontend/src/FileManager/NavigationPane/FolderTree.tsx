@@ -3,11 +3,11 @@ import Collapse from "../../components/Collapse/Collapse";
 import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
-import { FileExtended } from "../../types/File";
+import { ExtendedFileItem } from "../../types/File";
 import { OnFileOpen } from "../../types/FileManagerFunctions";
 
 export interface FolderTreeProps {
-  folder: FileExtended;
+  folder: ExtendedFileItem;
   onFileOpen: OnFileOpen;
 }
 

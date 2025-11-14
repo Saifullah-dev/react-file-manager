@@ -1,4 +1,4 @@
-export interface File {
+export interface FileItem {
   name: string;
   isDirectory: boolean;
   path: string;
@@ -7,8 +7,8 @@ export interface File {
   [key: string]: any; // For JS-Compatability
 }
 
-export interface FileExtended extends File {
+export interface ExtendedFileItem extends FileItem {
   isEditing?: boolean;
   key?: string | number;
-  subDirectories?: FileExtended[];
+  subDirectories?: ExtendedFileItem[];
 }
