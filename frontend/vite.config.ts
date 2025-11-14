@@ -29,6 +29,7 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        exports: "named",
         assetFileNames: (assetInfo) => {
           if (assetInfo.names && assetInfo.names.length && assetInfo.names[0].endsWith(".css")) {
             return "style.css";

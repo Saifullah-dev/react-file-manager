@@ -3,13 +3,15 @@
   "private": false,
   "version": "1.10.5",
   "type": "module",
-  "module": "dist/react-file-manager.es.js",
-  "main": "./dist/react-file-manager.es.js",
+  "main": "./dist/react-file-manager.cjs.js",
+  "module": "./dist/react-file-manager.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/react-file-manager.es.js"
+      "import": "./dist/react-file-manager.es.js",
+      "require": "./dist/react-file-manager.cjs.js",
+      "default": "./dist/react-file-manager.es.js"
     },
     "./style.css": "./dist/style.css",
     "./dist/style.css": "./dist/style.css"
