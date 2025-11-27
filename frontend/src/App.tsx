@@ -41,7 +41,6 @@ function App() {
     const response = await getAllFilesAPI();
     
     if (response.status === 200 && response.data) {
-      response.data.forEach((f, i) => f.id  = i);
       setFiles(response.data);
     } else {
       console.error(response);
