@@ -16,7 +16,7 @@ export type OnError = (error: { type: string; message: string }, file: IFile | F
 
 export type OnFileOpen = (file: IFile) => void;
 
-export type OnFileUploaded = (response: { [key: string]: any }) => void;
+export type OnFileUploaded = (response: { [key: string]: any } | any) => void;
 
 export type OnFileUploading = (file: File, parentFolder: IFile) => { [key: string]: any };
 
