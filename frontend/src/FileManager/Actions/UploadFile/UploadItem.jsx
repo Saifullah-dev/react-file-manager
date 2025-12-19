@@ -101,6 +101,7 @@ const UploadItem = ({
 
       const method = fileUploadConfig?.method || "POST";
       xhr.open(method, fileUploadConfig?.url, true);
+      xhr.withCredentials = fileUploadConfig?.withCredentials || false;
       const headers = fileUploadConfig?.headers;
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
