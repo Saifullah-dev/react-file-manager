@@ -173,8 +173,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
       title: t("rename"),
       icon: <BiRename size={19} />,
       onClick: handleRenaming,
-      hidden: selectedFiles.length > 1,
-      hidden: !permissions.rename,
+      hidden: selectedFiles.length > 1 || !permissions.rename,
     },
     {
       title: t("download"),
