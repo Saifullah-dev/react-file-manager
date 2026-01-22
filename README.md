@@ -96,6 +96,7 @@ type File = {
   path: string;
   updatedAt?: string; // Optional: Last update timestamp in ISO 8601 format
   size?: number; // Optional: File size in bytes (only applicable for files)
+  customActions?: object // Optional: used to add custom buttons on the file. See `Custom File actions` part
 };
 ```
 
@@ -200,6 +201,45 @@ const CustomImagePreviewer = ({ file }) => {
   // Other props...
   filePreviewComponent={(file) => <CustomImagePreviewer file={file} />}
 />;
+```
+## Custom File actions
+
+A file can specify custom actions that can be displayed in the context menu and the toolbar menu.
+
+```jsx
+const customButtonExample = {
+  inContextMenu     : true, // true to display in the context menu
+  inToolbarMenu     : true, // true to display in the toolbar when the file is selected
+  enableMultiItems  : true, // true to display the button when multiple files are selected, and all of them use the same button
+  hideContextMenuOnClick : false, // true to hide on click in the context menu
+  title : "customButton", // text displayed
+  icon : <BiAperture />,  // icon of the button
+  onClick : (selectedFiles) => {console.log("click on custom button, with selected files : ", selectedFiles)}
+}
+
+const files = [
+  {
+    name: "Documents",
+    isDirectory: true, // Folder
+    path: "/Documents", // Located in Root directory
+    updatedAt: "2024-09-09T10:30:00Z", // Last updated time
+    customActions : [customButtonExample]
+  },
+  {
+    name: "Pictures",
+    isDirectory: true,
+    path: "/Pictures", // Located in Root directory as well
+    updatedAt: "2024-09-09T11:00:00Z",
+    customActions : [customButtonExample]
+  },
+  {
+    name: "Pic.png",
+    isDirectory: false, // File
+    path: "/Pictures/Pic.png", // Located inside the "Pictures" folder
+    updatedAt: "2024-09-08T16:45:00Z",
+    size: 2048, // File size in bytes (example: 2 KB)
+  },
+]
 ```
 
 ## 🧭 Handling Current Path
