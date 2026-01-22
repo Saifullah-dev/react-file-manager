@@ -14,9 +14,9 @@ const customButtonExample = {
   inToolbarMenu     : true,
   enableMultiItems  : true,
   hideContextMenuOnClick : false,
-  title : "sync",
+  title : "customButton",
   icon : <BiAperture />,
-  onClick : (a) => {console.log("click on custom button", a)}
+  onClick : (selectedFiles) => {console.log("click on custom button, with selected files : ", selectedFiles)}
 }
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
     const response = await getAllFilesAPI();
     if (response.status === 200 && response.data) {
       response.data.forEach(x=> {
-        if(x.name.startsWith("custom button")) {
+        if(x.name.startsWith("_custom")) {
           x.customActions = [customButtonExample];
         }
       })
