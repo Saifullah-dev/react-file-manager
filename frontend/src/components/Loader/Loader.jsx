@@ -5,7 +5,7 @@ const Loader = ({ loading = false, className }) => {
   if (!loading) return null;
 
   return (
-    <div className={`loader-container ${className}`}>
+    <div className={`loader-container ${className}`} role="status" aria-label="Loading" aria-live="polite">
       <ImSpinner2 className="spinner" />
     </div>
   );

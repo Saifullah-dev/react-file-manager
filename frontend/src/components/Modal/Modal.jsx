@@ -35,9 +35,11 @@ const Modal = ({
       className={`fm-modal dialog`}
       style={{ width: dialogWidth }}
       onKeyDown={handleKeyDown}
+      aria-modal="true"
+      aria-labelledby="fm-modal-heading-id"
     >
       <div className="fm-modal-header">
-        <span className="fm-modal-heading">{heading}</span>
+        <span className="fm-modal-heading" id="fm-modal-heading-id">{heading}</span>
         {closeButton && (
           <MdClose
             size={18}

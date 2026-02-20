@@ -34,7 +34,7 @@ const NavigationPane = ({ onFileOpen }) => {
   }, [files]);
 
   return (
-    <div className="sb-folders-list">
+    <div className="sb-folders-list" role="tree" aria-label="Folder navigation">
       {foldersTree?.length > 0 ? (
         <>
           {foldersTree?.map((folder, index) => {

@@ -18,6 +18,7 @@ const FileList = ({
   triggerAction,
   permissions,
   formatDate,
+  isLoading,
 }) => {
   const { currentPathFiles, sortConfig, setSortConfig } = useFileNavigation();
   const filesViewRef = useRef(null);
@@ -51,6 +52,10 @@ const FileList = ({
     <div
       ref={filesViewRef}
       className={`files ${activeLayout}`}
+      role={activeLayout === "list" ? "grid" : "listbox"}
+      aria-label="File list"
+      aria-multiselectable="true"
+      aria-busy={isLoading}
       onContextMenu={handleContextMenu}
       onClick={unselectFiles}
     >

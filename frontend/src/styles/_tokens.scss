@@ -1,0 +1,264 @@
+// =============================================================
+// DESIGN TOKENS - React File Manager
+// =============================================================
+// All design decisions expressed as CSS custom properties.
+// These tokens form the foundation for theming support.
+// =============================================================
+
+:root,
+.fm-theme-light {
+  // ─── Color Tokens ───────────────────────────────────────
+  // Primary
+  --fm-color-primary: var(--file-manager-primary-color, #6155b4);
+  --fm-color-primary-hover: #5248a0;
+  --fm-color-primary-active: #453d8c;
+  --fm-color-primary-light: rgba(97, 85, 180, 0.1);
+  --fm-color-primary-text: #ffffff;
+
+  // Surface & Background
+  --fm-color-bg: #ffffff;
+  --fm-color-bg-secondary: #f8f9fa;
+  --fm-color-bg-tertiary: #f0f1f3;
+  --fm-color-surface: #ffffff;
+  --fm-color-surface-hover: rgba(0, 0, 0, 0.04);
+  --fm-color-surface-active: rgba(0, 0, 0, 0.08);
+  --fm-color-surface-selected: rgba(97, 85, 180, 0.08);
+  --fm-color-surface-selected-hover: rgba(97, 85, 180, 0.12);
+
+  // Text
+  --fm-color-text-primary: #1a1a2e;
+  --fm-color-text-secondary: #5a5a7a;
+  --fm-color-text-tertiary: #8a8aa0;
+  --fm-color-text-disabled: #b0b0c0;
+  --fm-color-text-inverse: #ffffff;
+  --fm-color-text-link: var(--fm-color-primary);
+
+  // Border
+  --fm-color-border: #e0e0e8;
+  --fm-color-border-hover: #c0c0d0;
+  --fm-color-border-focus: var(--fm-color-primary);
+  --fm-color-border-selected: var(--fm-color-primary);
+
+  // Semantic Colors
+  --fm-color-success: #22c55e;
+  --fm-color-success-bg: rgba(34, 197, 94, 0.1);
+  --fm-color-warning: #f59e0b;
+  --fm-color-warning-bg: rgba(245, 158, 11, 0.1);
+  --fm-color-error: #ef4444;
+  --fm-color-error-bg: rgba(239, 68, 68, 0.1);
+  --fm-color-info: #3b82f6;
+  --fm-color-info-bg: rgba(59, 130, 246, 0.1);
+
+  // File Type Icon Colors
+  --fm-color-file-pdf: #e74c3c;
+  --fm-color-file-doc: #2b579a;
+  --fm-color-file-xls: #217346;
+  --fm-color-file-ppt: #d24726;
+  --fm-color-file-image: #8e44ad;
+  --fm-color-file-video: #e67e22;
+  --fm-color-file-audio: #1abc9c;
+  --fm-color-file-code: #3498db;
+  --fm-color-file-archive: #95a5a6;
+  --fm-color-file-default: #7f8c8d;
+
+  // ─── Spacing Tokens ────────────────────────────────────
+  --fm-space-1: 4px;
+  --fm-space-2: 8px;
+  --fm-space-3: 12px;
+  --fm-space-4: 16px;
+  --fm-space-5: 20px;
+  --fm-space-6: 24px;
+  --fm-space-8: 32px;
+  --fm-space-10: 40px;
+  --fm-space-12: 48px;
+  --fm-space-16: 64px;
+
+  // ─── Typography Tokens ──────────────────────────────────
+  --fm-font-family: var(--file-manager-font-family, 'Nunito Sans', sans-serif);
+  --fm-font-size-xs: 11px;
+  --fm-font-size-sm: 12px;
+  --fm-font-size-md: 13px;
+  --fm-font-size-base: 14px;
+  --fm-font-size-lg: 16px;
+  --fm-font-size-xl: 18px;
+  --fm-font-size-2xl: 20px;
+  --fm-font-size-3xl: 24px;
+
+  --fm-font-weight-normal: 400;
+  --fm-font-weight-medium: 500;
+  --fm-font-weight-semibold: 600;
+  --fm-font-weight-bold: 700;
+
+  --fm-line-height-tight: 1.25;
+  --fm-line-height-normal: 1.5;
+  --fm-line-height-relaxed: 1.75;
+
+  // ─── Border Radius Tokens ──────────────────────────────
+  --fm-radius-sm: 4px;
+  --fm-radius-md: 6px;
+  --fm-radius-lg: 8px;
+  --fm-radius-xl: 12px;
+  --fm-radius-full: 9999px;
+
+  // ─── Shadow / Elevation Tokens ─────────────────────────
+  --fm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --fm-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --fm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --fm-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  // ─── Transition / Animation Tokens ─────────────────────
+  --fm-transition-fast: 100ms ease-in-out;
+  --fm-transition-normal: 200ms ease-in-out;
+  --fm-transition-slow: 300ms ease-in-out;
+  --fm-transition-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --fm-duration-fast: 100ms;
+  --fm-duration-normal: 200ms;
+  --fm-duration-slow: 300ms;
+
+  // ─── Z-Index Tokens ────────────────────────────────────
+  --fm-z-dropdown: 100;
+  --fm-z-sticky: 200;
+  --fm-z-modal-backdrop: 300;
+  --fm-z-modal: 400;
+  --fm-z-popover: 500;
+  --fm-z-tooltip: 600;
+  --fm-z-toast: 700;
+
+  // ─── Sizing Tokens ─────────────────────────────────────
+  --fm-toolbar-height: 44px;
+  --fm-breadcrumb-height: 40px;
+  --fm-statusbar-height: 28px;
+  --fm-file-item-height-list: 36px;
+  --fm-file-item-height-grid: 110px;
+  --fm-icon-size-sm: 16px;
+  --fm-icon-size-md: 20px;
+  --fm-icon-size-lg: 24px;
+  --fm-icon-size-xl: 48px;
+  --fm-touch-target-min: 44px;
+
+  // ─── Scrollbar Tokens ──────────────────────────────────
+  --fm-scrollbar-width: 5px;
+  --fm-scrollbar-color: var(--fm-color-primary);
+  --fm-scrollbar-track: transparent;
+  --fm-scrollbar-radius: 8px;
+}
+
+// =============================================================
+// DARK THEME TOKENS
+// =============================================================
+.fm-theme-dark {
+  // Primary
+  --fm-color-primary: var(--file-manager-primary-color, #8578d8);
+  --fm-color-primary-hover: #9a8ee5;
+  --fm-color-primary-active: #7468c4;
+  --fm-color-primary-light: rgba(133, 120, 216, 0.15);
+  --fm-color-primary-text: #ffffff;
+
+  // Surface & Background
+  --fm-color-bg: #1a1a2e;
+  --fm-color-bg-secondary: #222240;
+  --fm-color-bg-tertiary: #2a2a4a;
+  --fm-color-surface: #222240;
+  --fm-color-surface-hover: rgba(255, 255, 255, 0.06);
+  --fm-color-surface-active: rgba(255, 255, 255, 0.1);
+  --fm-color-surface-selected: rgba(133, 120, 216, 0.15);
+  --fm-color-surface-selected-hover: rgba(133, 120, 216, 0.22);
+
+  // Text
+  --fm-color-text-primary: #e8e8f0;
+  --fm-color-text-secondary: #a0a0b8;
+  --fm-color-text-tertiary: #707088;
+  --fm-color-text-disabled: #505068;
+  --fm-color-text-inverse: #1a1a2e;
+  --fm-color-text-link: var(--fm-color-primary);
+
+  // Border
+  --fm-color-border: #383858;
+  --fm-color-border-hover: #484870;
+  --fm-color-border-focus: var(--fm-color-primary);
+  --fm-color-border-selected: var(--fm-color-primary);
+
+  // Semantic Colors
+  --fm-color-success: #4ade80;
+  --fm-color-success-bg: rgba(74, 222, 128, 0.12);
+  --fm-color-warning: #fbbf24;
+  --fm-color-warning-bg: rgba(251, 191, 36, 0.12);
+  --fm-color-error: #f87171;
+  --fm-color-error-bg: rgba(248, 113, 113, 0.12);
+  --fm-color-info: #60a5fa;
+  --fm-color-info-bg: rgba(96, 165, 250, 0.12);
+
+  // Shadows (subtle on dark backgrounds)
+  --fm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --fm-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --fm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
+  --fm-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+}
+
+// System theme: follow OS preference
+@media (prefers-color-scheme: dark) {
+  .fm-theme-system {
+    // Primary
+    --fm-color-primary: var(--file-manager-primary-color, #8578d8);
+    --fm-color-primary-hover: #9a8ee5;
+    --fm-color-primary-active: #7468c4;
+    --fm-color-primary-light: rgba(133, 120, 216, 0.15);
+    --fm-color-primary-text: #ffffff;
+
+    // Surface & Background
+    --fm-color-bg: #1a1a2e;
+    --fm-color-bg-secondary: #222240;
+    --fm-color-bg-tertiary: #2a2a4a;
+    --fm-color-surface: #222240;
+    --fm-color-surface-hover: rgba(255, 255, 255, 0.06);
+    --fm-color-surface-active: rgba(255, 255, 255, 0.1);
+    --fm-color-surface-selected: rgba(133, 120, 216, 0.15);
+    --fm-color-surface-selected-hover: rgba(133, 120, 216, 0.22);
+
+    // Text
+    --fm-color-text-primary: #e8e8f0;
+    --fm-color-text-secondary: #a0a0b8;
+    --fm-color-text-tertiary: #707088;
+    --fm-color-text-disabled: #505068;
+    --fm-color-text-inverse: #1a1a2e;
+    --fm-color-text-link: var(--fm-color-primary);
+
+    // Border
+    --fm-color-border: #383858;
+    --fm-color-border-hover: #484870;
+    --fm-color-border-focus: var(--fm-color-primary);
+    --fm-color-border-selected: var(--fm-color-primary);
+
+    // Semantic
+    --fm-color-success: #4ade80;
+    --fm-color-success-bg: rgba(74, 222, 128, 0.12);
+    --fm-color-warning: #fbbf24;
+    --fm-color-warning-bg: rgba(251, 191, 36, 0.12);
+    --fm-color-error: #f87171;
+    --fm-color-error-bg: rgba(248, 113, 113, 0.12);
+    --fm-color-info: #60a5fa;
+    --fm-color-info-bg: rgba(96, 165, 250, 0.12);
+
+    // Shadows
+    --fm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --fm-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --fm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
+    --fm-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  }
+}
+
+// =============================================================
+// Reduced Motion Support
+// =============================================================
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fm-transition-fast: 0ms;
+    --fm-transition-normal: 0ms;
+    --fm-transition-slow: 0ms;
+    --fm-transition-spring: 0ms;
+    --fm-duration-fast: 0ms;
+    --fm-duration-normal: 0ms;
+    --fm-duration-slow: 0ms;
+  }
+}

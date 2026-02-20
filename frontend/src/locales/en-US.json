@@ -50,5 +50,10 @@
   "invalidFileName": "A file name can't contain any of the following characters: \\ / : * ? \" < > |",
   "folderExists": "This destination already contains a folder named \"{{renameFile}}\".",
   "collapseNavigationPane": "Collapse Navigation Pane",
-  "expandNavigationPane": "Expand Navigation Pane"
+  "expandNavigationPane": "Expand Navigation Pane",
+  "folder": "folder",
+  "folders": "folders",
+  "file": "file",
+  "files": "files",
+  "sortedBy": "Sorted by"
 }

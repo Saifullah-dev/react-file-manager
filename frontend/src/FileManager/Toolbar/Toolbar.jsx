@@ -76,17 +76,17 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
   // Selected File/Folder Actions
   if (selectedFiles.length > 0) {
     return (
-      <div className="toolbar file-selected">
+      <div className="toolbar file-selected" role="toolbar" aria-label="File manager toolbar">
         <div className="file-action-container">
           <div>
             {permissions.move && (
-              <button className="item-action file-action" onClick={() => handleCutCopy(true)}>
+              <button className="item-action file-action" aria-label={t("cut")} onClick={() => handleCutCopy(true)}>
                 <BsScissors size={18} />
                 <span>{t("cut")}</span>
               </button>
             )}
             {permissions.copy && (
-              <button className="item-action file-action" onClick={() => handleCutCopy(false)}>
+              <button className="item-action file-action" aria-label={t("copy")} onClick={() => handleCutCopy(false)}>
                 <BsCopy strokeWidth={0.1} size={17} />
                 <span>{t("copy")}</span>
               </button>
@@ -94,6 +94,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
             {clipBoard?.files?.length > 0 && (
               <button
                 className="item-action file-action"
+                aria-label={t("paste")}
                 onClick={handleFilePasting}
                 // disabled={!clipBoard}
               >
@@ -104,6 +105,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
             {selectedFiles.length === 1 && permissions.rename && (
               <button
                 className="item-action file-action"
+                aria-label={t("rename")}
                 onClick={() => triggerAction.show("rename")}
               >
                 <BiRename size={19} />
@@ -111,7 +113,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
               </button>
             )}
             {permissions.download && (
-              <button className="item-action file-action" onClick={handleDownloadItems}>
+              <button className="item-action file-action" aria-label={t("download")} onClick={handleDownloadItems}>
                 <MdOutlineFileDownload size={19} />
                 <span>{t("download")}</span>
               </button>
@@ -119,6 +121,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
             {permissions.delete && (
               <button
                 className="item-action file-action"
+                aria-label={t("delete")}
                 onClick={() => triggerAction.show("delete")}
               >
                 <MdOutlineDelete size={19} />
@@ -129,6 +132,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
           <button
             className="item-action file-action"
             title={t("clearSelection")}
+            aria-label={t("clearSelection")}
             onClick={() => setSelectedFiles([])}
           >
             <span>
@@ -144,13 +148,13 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
   //
 
   return (
-    <div className="toolbar">
+    <div className="toolbar" role="toolbar" aria-label="File manager toolbar">
       <div className="fm-toolbar">
         <div>
           {toolbarLeftItems
             .filter((item) => item.permission)
             .map((item, index) => (
-              <button className="item-action" key={index} onClick={item.onClick}>
+              <button className="item-action" key={index} aria-label={item.text} onClick={item.onClick}>
                 {item.icon}
                 <span>{item.text}</span>
               </button>
@@ -159,7 +163,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
         <div>
           {toolbarRightItems.map((item, index) => (
             <div key={index} className="toolbar-left-items">
-              <button className="item-action icon-only" title={item.title} onClick={item.onClick}>
+              <button className="item-action icon-only" title={item.title} aria-label={item.title} onClick={item.onClick}>
                 {item.icon}
               </button>
               {index !== toolbarRightItems.length - 1 && <div className="item-separator"></div>}

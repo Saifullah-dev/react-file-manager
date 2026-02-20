@@ -5,7 +5,7 @@ const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, error 
   const t = useTranslation();
 
   return (
-    <div role="progressbar" className="fm-progress">
+    <div role="progressbar" className="fm-progress" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100} aria-label="Upload progress">
       {!error && (
         <div className="fm-progress-bar">
           <div className="fm-progress-bar-fill" style={{ width: `${percent}%` }}></div>

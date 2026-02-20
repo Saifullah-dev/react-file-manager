@@ -5,7 +5,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineDelete, MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
 import { PiFolderOpen } from "react-icons/pi";
 import { useClipBoard } from "../../contexts/ClipboardContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
@@ -230,10 +230,10 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     setSelectedFiles([]);
   };
 
-  const unselectFiles = () => {
+  const unselectFiles = useCallback(() => {
     setSelectedFileIndexes([]);
     setSelectedFiles((prev) => (prev.length > 0 ? [] : prev));
-  };
+  }, []);
 
   const handleContextMenu = (e, isSelection = false) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
@@ -45,6 +45,12 @@ const FileItem = ({
   const isFileMoving =
     clipBoard?.isMoving &&
     clipBoard.files.find((f) => f.name === file.name && f.path === file.path);
+
+  const fileAriaLabel = useMemo(() => {
+    const type = file.isDirectory ? "Folder" : "File";
+    const size = file?.size > 0 ? `, Size: ${getDataSize(file.size)}` : "";
+    return `${file.name}, ${type}${size}`;
+  }, [file.name, file.isDirectory, file.size]);
 
   const handleFileAccess = () => {
     onFileOpen(file);
@@ -190,6 +196,9 @@ const FileItem = ({
         fileSelected || !!file.isEditing ? "file-selected" : ""
       } ${isFileMoving ? "file-moving" : ""}`}
       tabIndex={0}
+      role={activeLayout === "list" ? "row" : "option"}
+      aria-selected={fileSelected}
+      aria-label={fileAriaLabel}
       title={file.name}
       onClick={handleFileSelection}
       onKeyDown={handleOnKeyDown}
@@ -282,4 +291,12 @@ const FileItem = ({
   );
 };
 
-export default FileItem;
+export default memo(FileItem, (prevProps, nextProps) => {
+  return (
+    prevProps.file === nextProps.file &&
+    prevProps.index === nextProps.index &&
+    prevProps.selectedFileIndexes === nextProps.selectedFileIndexes &&
+    prevProps.draggable === nextProps.draggable &&
+    prevProps.formatDate === nextProps.formatDate
+  );
+});

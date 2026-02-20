@@ -80,7 +80,7 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
         }}
       >
         <div className="file-context-menu-list">
-          <ul>
+          <ul role="menu">
             {menuItems
               .filter((item) => !item.hidden)
               .map((item, index) => {
@@ -89,9 +89,11 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
                 return (
                   <div key={item.title}>
                     <li
+                      role="menuitem"
                       onClick={item.onClick}
                       className={`${item.className ?? ""} ${activeSubMenu ? "active" : ""}`}
                       onMouseOver={() => handleMouseOver(index)}
+                      {...(hasChildren ? { "aria-haspopup": "true", "aria-expanded": activeSubMenu } : {})}
                     >
                       {item.icon}
                       <span>{item.title}</span>

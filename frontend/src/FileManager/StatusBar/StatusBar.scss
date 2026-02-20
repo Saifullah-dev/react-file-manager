@@ -1,0 +1,30 @@
+.fm-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--fm-statusbar-height, 28px);
+  padding: 0 var(--fm-space-3, 12px);
+  border-top: 1px solid var(--fm-color-border, #e0e0e8);
+  background: var(--fm-color-bg-secondary, #f8f9fa);
+  font-size: var(--fm-font-size-xs, 11px);
+  color: var(--fm-color-text-secondary, #5a5a7a);
+  font-family: var(--fm-font-family, "Nunito Sans", sans-serif);
+  user-select: none;
+  flex-shrink: 0;
+
+  .fm-status-left {
+    display: flex;
+    align-items: center;
+    gap: var(--fm-space-2, 8px);
+  }
+
+  .fm-status-right {
+    display: flex;
+    align-items: center;
+    gap: var(--fm-space-2, 8px);
+  }
+
+  .fm-status-divider {
+    color: var(--fm-color-border, #e0e0e8);
+  }
+}

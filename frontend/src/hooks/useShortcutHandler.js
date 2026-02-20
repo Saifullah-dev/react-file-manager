@@ -4,6 +4,7 @@ import { useClipBoard } from "../contexts/ClipboardContext";
 import { useFileNavigation } from "../contexts/FileNavigationContext";
 import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
+import { useUndoRedo } from "../contexts/UndoRedoContext";
 import { validateApiCallback } from "../utils/validateApiCallback";
 
 export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
@@ -11,6 +12,7 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { setActiveLayout } = useLayout();
+  const { undo, redo } = useUndoRedo();
 
   const triggerCreateFolder = () => {
     permissions.create && triggerAction.show("createFolder");
@@ -71,6 +73,14 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
     setClipBoard(null);
   };
 
+  const triggerUndo = () => {
+    undo();
+  };
+
+  const triggerRedo = () => {
+    redo();
+  };
+
   const triggerGridLayout = () => {
     setActiveLayout("grid");
   };
@@ -91,6 +101,8 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   useKeyPress(shortcuts.jumpToLast, triggerSelectLast, triggerAction.isActive);
   useKeyPress(shortcuts.selectAll, triggerSelectAll, triggerAction.isActive);
   useKeyPress(shortcuts.clearSelection, triggerClearSelection, triggerAction.isActive);
+  useKeyPress(shortcuts.undo, triggerUndo, triggerAction.isActive);
+  useKeyPress(shortcuts.redo, triggerRedo, triggerAction.isActive);
   useKeyPress(shortcuts.refresh, triggerRefresh, triggerAction.isActive);
   useKeyPress(shortcuts.gridLayout, triggerGridLayout, triggerAction.isActive);
   useKeyPress(shortcuts.listLayout, triggerListLayout, triggerAction.isActive);

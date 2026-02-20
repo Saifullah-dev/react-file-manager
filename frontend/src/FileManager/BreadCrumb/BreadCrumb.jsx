@@ -86,7 +86,7 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
   }, [isBreadCrumbOverflowing]);
 
   return (
-    <div className="bread-crumb-container">
+    <div className="bread-crumb-container" role="navigation" aria-label="Breadcrumb">
       <div className="breadcrumb" ref={breadCrumbRef}>
         {collapsibleNav && (
           <>
@@ -117,6 +117,7 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
               className="folder-name"
               onClick={() => switchPath(folder.path)}
               ref={(el) => (foldersRef.current[index] = el)}
+              {...(index === folders.length - 1 ? { "aria-current": "location" } : {})}
             >
               {index === 0 ? <MdHome /> : <MdOutlineNavigateNext />}
               {folder.name}

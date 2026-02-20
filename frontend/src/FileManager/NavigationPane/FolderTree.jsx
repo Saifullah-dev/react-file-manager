@@ -41,6 +41,10 @@ const FolderTree = ({ folder, onFileOpen }) => {
       <>
         <div
           className={`sb-folders-list-item ${isActive ? "active-list-item" : ""}`}
+          role="treeitem"
+          aria-expanded={isOpen}
+          aria-selected={isActive}
+          aria-label={folder.name}
           onClick={handleFolderSwitch}
         >
           <span onClick={handleCollapseChange}>
@@ -73,6 +77,9 @@ const FolderTree = ({ folder, onFileOpen }) => {
     return (
       <div
         className={`sb-folders-list-item ${isActive ? "active-list-item" : ""}`}
+        role="treeitem"
+        aria-selected={isActive}
+        aria-label={folder.name}
         onClick={handleFolderSwitch}
       >
         <span className="non-expanable"></span>

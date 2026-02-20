@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
-import DeleteAction from "./Delete/Delete.action";
-import UploadFileAction from "./UploadFile/UploadFile.action";
-import PreviewFileAction from "./PreviewFile/PreviewFile.action";
+import Loader from "../../components/Loader/Loader";
+
+const DeleteAction = lazy(() => import("./Delete/Delete.action"));
+const UploadFileAction = lazy(() => import("./UploadFile/UploadFile.action"));
+const PreviewFileAction = lazy(() => import("./PreviewFile/PreviewFile.action"));
 import { useSelection } from "../../contexts/SelectionContext";
 import { useShortcutHandler } from "../../hooks/useShortcutHandler";
 import { useTranslation } from "../../contexts/TranslationProvider";
@@ -78,7 +80,9 @@ const Actions = ({
         setShow={triggerAction.close}
         dialogWidth={activeAction.width}
       >
-        {activeAction?.component}
+        <Suspense fallback={<Loader loading={true} />}>
+          {activeAction?.component}
+        </Suspense>
       </Modal>
     );
   }
