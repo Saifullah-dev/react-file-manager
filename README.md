@@ -30,6 +30,21 @@ An open-source React.js package for easy integration of a file manager into appl
 - **Column Sorting**: Click on column headers in list view to sort files by name, modified date, or
   size. Click again to toggle between ascending (▲) and descending (▼) order. Folders are always
   displayed before files regardless of the sort criteria.
+- **Search & Filter**: Press `Ctrl + F` to open the search bar with fuzzy matching. Filter results
+  by file type (Images, Documents, Videos, Audio, Code, Archives) or by date (This Week). Toggle
+  recursive search to search across all folders.
+- **Details Panel**: A resizable sidebar that displays file metadata including name, type, size,
+  path, and modification date. Supports single-file, multi-selection, and folder summary views.
+  Toggle with `Alt + P` or the toolbar button.
+- **Advanced File Preview**: Enhanced previewer with file navigation (Previous/Next), zoom controls,
+  fullscreen mode, and built-in viewers for code files (with syntax highlighting and line numbers),
+  Markdown, and CSV/TSV files.
+- **Favorites & Quick Access**: Star files and folders for quick access from the navigation pane.
+  Automatically tracks recently accessed files with time-based grouping (Today, Yesterday, This
+  Week, Earlier).
+- **Theming**: Built-in light and dark themes with a comprehensive design token system. Supports
+  `"light"`, `"dark"`, and `"system"` (auto-detects OS preference) modes. Includes
+  `prefers-reduced-motion` support.
 
 ![React File Manager](https://github.com/user-attachments/assets/e68f750b-86bf-450d-b27e-fd3dedebf1bd)
 
@@ -106,6 +121,7 @@ type File = {
 | `acceptedFileTypes`      | string                                                                                                                          | (Optional) A comma-separated list of allowed file extensions for uploading specific file types (e.g., `.txt, .png, .pdf`). If omitted, all file types are accepted.                                                                                                                                                                                                                                                                                                                                                             |
 | `className`              | string                                                                                                                          | CSS class names to apply to the FileManager root element.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `collapsibleNav`         | boolean                                                                                                                         | Enables a collapsible navigation pane on the left side. When `true`, a toggle will be shown to expand or collapse the navigation pane. `default: false`.                                                                                                                                                                                                                                                                                                                                                                        |
+| `defaultDetailsPanelOpen` | boolean                                                                                                                        | Sets the initial open state of the details panel. `default: false`.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `defaultNavExpanded`     | boolean                                                                                                                         | Sets the default expanded (`true`) or collapsed (`false`) state of the navigation pane when `collapsibleNav` is enabled. This only affects the initial render. `default: true`.                                                                                                                                                                                                                                                                                                                                                 |
 | `enableFilePreview`      | boolean                                                                                                                         | A boolean flag indicating whether to use the default file previewer in the file manager `default: true`.                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `filePreviewPath`        | string                                                                                                                          | The base URL for file previews e.g.`https://example.com`, file path will be appended automatically to it i.e. `https://example.com/yourFilePath`.                                                                                                                                                                                                                                                                                                                                                                               |
@@ -113,7 +129,9 @@ type File = {
 | `fileUploadConfig`       | { url: string; method?: "POST" \| "PUT"; headers?: { [key: string]: string }; withCredentials?: boolean }                       | Configuration object for file uploads. It includes the upload URL (`url`), an optional HTTP method (`method`, default is `"POST"`), and an optional `headers` object for setting custom HTTP headers in the upload request. The `method` property allows only `"POST"` or `"PUT"` values. The `headers` object can accept any standard or custom headers required by the server. The `withCredentials` property allows sending HTTP cookies in the request. Example: `{ url: "https://example.com/fileupload", method: "PUT", headers: { Authorization: "Bearer " + TOKEN, "X-Custom-Header": "value" }, withCredentials: true }` |
 | `files`                  | Array<[File](#-file-structure)>                                                                                                 | An array of file and folder objects representing the current directory structure. Each object includes `name`, `isDirectory`, and `path` properties.                                                                                                                                                                                                                                                                                                                                                                            |
 | `fontFamily`             | string                                                                                                                          | The font family to be used throughout the component. Accepts any valid CSS font family (e.g., `'Arial, sans-serif'`, `'Roboto'`). You can customize the font styling to match your application's theme. `default: 'Nunito Sans, sans-serif'`.                                                                                                                                                                                                                                                                                   |
+| `formatDate`             | (date: string) => string                                                                                                        | (Optional) A custom date formatting function. Receives an ISO 8601 date string and should return a formatted string. Used in both the file list and the details panel. Falls back to the built-in formatter if not provided.                                                                                                                                                                                                                                                                                                     |
 | `height`                 | string \| number                                                                                                                | The height of the component `default: 600px`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `initialFavorites`       | Array\<string\>                                                                                                                 | (Optional) An array of file/folder paths to pre-populate as favorites on mount. Use this to restore previously saved favorites (e.g., from localStorage or a server).                                                                                                                                                                                                                                                                                                                                                            |
 | `initialPath`            | string                                                                                                                          | The path of the directory to be loaded initially e.g. `/Documents`. This should be the path of a folder which is included in `files` array. Default value is `""`                                                                                                                                                                                                                                                                                                                                                               |
 | `isLoading`              | boolean                                                                                                                         | A boolean state indicating whether the application is currently performing an operation, such as creating, renaming, or deleting a file/folder. Displays a loading state if set `true`.                                                                                                                                                                                                                                                                                                                                         |
 | `language` | string | A language code used for translations (e.g., `"en-US"`, `"fr-FR"`, `"tr-TR"`). Defaults to `"en-US"` for English. Allows the user to set the desired translation language manually. <br><br>**Available languages:** <br> 🇸🇦 `ar-SA` (Arabic, Saudi Arabia) <br> 🇩🇰 `da-DK` (Danish, Denmark) <br> 🇩🇪 `de-DE` (German, Germany) <br> 🇺🇸 `en-US` (English, United States) <br> 🇪🇸 `es-ES` (Spanish, Spain) <br> 🇮🇷 `fa-IR` (Persian, Iran) <br> 🇫🇮 `fi-FI` (Finnish, Finland) <br> 🇫🇷 `fr-FR` (French, France) <br> 🇮🇱 `he-IL` (Hebrew, Israel) <br> 🇮🇳 `hi-IN` (Hindi, India) <br> 🇮🇹 `it-IT` (Italian, Italy) <br> 🇯🇵 `ja-JP` (Japanese, Japan) <br> 🇰🇷 `ko-KR` (Korean, South Korea) <br> 🇳🇴 `nb-NO` (Norwegian, Norway) <br> 🇧🇷 `pt-BR` (Portuguese, Brazil) <br> 🇵🇹 `pt-PT` (Portuguese, Portugal) <br> 🇷🇺 `ru-RU` (Russian, Russia) <br> 🇸🇪 `sv-SE` (Swedish, Sweden) <br> 🇹🇷 `tr-TR` (Turkish, Turkey) <br> 🇺🇦 `uk-UA` (Ukrainian, Ukraine) <br> 🇵🇰 `ur-UR` (Urdu, Pakistan) <br> 🇻🇳 `vi-VN` (Vietnamese, Vietnam) <br> 🇨🇳 `zh-CN` (Chinese, Simplified) <br> 🇵🇱 `pl-PL` (Polish, Poland) |
@@ -125,20 +143,25 @@ type File = {
 | `onDelete`               | (files: Array<[File](#-file-structure)>) => void                                                                                | A callback function is triggered when one or more files or folders are deleted.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onDownload`             | (files: Array<[File](#-file-structure)>) => void                                                                                | A callback function triggered when one or more files or folders are downloaded.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onError`                | (error: { type: string, message: string }, file: [File](#-file-structure)) => void                                              | A callback function triggered whenever there is an error in the file manager. Where error is an object containing `type` ("upload", etc.) and a descriptive error `message`.                                                                                                                                                                                                                                                                                                                                                    |
+| `onFavoriteToggle`       | (file: [File](#-file-structure), isFavorited: boolean) => void                                                                  | (Optional) A callback triggered when a file or folder is starred or unstarred. Receives the file and the new favorited state. Use this to persist favorites to your backend or localStorage.                                                                                                                                                                                                                                                                                                                                     |
+| `onFileDetails`          | (files: Array<[File](#-file-structure)>) => void                                                                                | (Optional) A callback triggered when the details panel opens or when the selection changes while it is open. Receives the currently selected files.                                                                                                                                                                                                                                                                                                                                                                              |
 | `onFileOpen`             | (file: [File](#-file-structure)) => void                                                                                        | A callback function triggered when a file or folder is opened.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `onFolderChange`         | (path: string) => void                                                                                                          | A callback function triggered when the active folder changes. Receives the full path of the current folder as a string parameter. Useful for tracking the active folder path.                                                                                                                                                                                                                                                                                                                                                   |
 | `onFileUploaded`         | (response: { [key: string]: any }) => void                                                                                      | A callback function triggered after a file is successfully uploaded. Provides JSON `response` holding uploaded file details, use it to extract the uploaded file details and add it to the `files` state e.g. `setFiles((prev) => [...prev, JSON.parse(response)]);`                                                                                                                                                                                                                                                            |
 | `onFileUploading`        | (file: [File](#-file-structure), parentFolder: [File](#-file-structure)) => { [key: string]: any }                              | A callback function triggered during the file upload process. You can also return an object with key-value pairs that will be appended to the `FormData` along with the file being uploaded. The object can contain any number of valid properties.                                                                                                                                                                                                                                                                             |
 | `onLayoutChange`         | (layout: "list" \| "grid") => void                                                                                              | A callback function triggered when the layout of the file manager is changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `onPaste`                | (files: Array<[File](#-file-structure)>, destinationFolder: [File](#-file-structure), operationType: "copy" \| "move") => void  | A callback function triggered when when one or more files or folders are pasted into a new location. Depending on `operationType`, use this to either copy or move the `sourceItem` to the `destinationFolder`, updating the files state accordingly.                                                                                                                                                                                                                                                                           |
+| `onRecentFiles`          | (recentFiles: Array<[File](#-file-structure)>) => void                                                                          | (Optional) A callback triggered whenever the recent files list changes. Receives the updated array of recently accessed files. Use this to persist recents to your backend or localStorage.                                                                                                                                                                                                                                                                                                                                      |
 | `onRefresh`              | () => void                                                                                                                      | A callback function triggered when the file manager is refreshed. Use this to refresh the `files` state to reflect any changes or updates.                                                                                                                                                                                                                                                                                                                                                                                      |
 | `onRename`               | (file: [File](#-file-structure), newName: string) => void                                                                       | A callback function triggered when a file or folder is renamed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `onSearch`               | (query: string, filters: Array\<string\>) => void                                                                               | (Optional) A callback triggered when the search query or filters change. Receives the query string and active filter names. Use this to implement server-side search.                                                                                                                                                                                                                                                                                                                                                            |
 | `onSelectionChange`      | (files: Array<[File](#-file-structure)>) => void                                                                                | (Optional) A callback triggered whenever a file or folder is **selected or deselected**. The function receives the updated array of selected files or folders, allowing you to handle selection-related actions such as displaying file details, enabling toolbar actions, or updating the UI.                                                                                                                                                                                                                                  |
 | `onSelect`⚠️(deprecated) | (files: Array<[File](#-file-structure)>) => void                                                                                | (Optional) Legacy callback triggered only when a file or folder is **selected**. This prop is deprecated and will be removed in the next major release. Please migrate to `onSelectionChange`.                                                                                                                                                                                                                                                                                                                                  |
 | `onSortChange`           | (sortConfig: { key: "name" \| "modified" \| "size", direction: "asc" \| "desc" }) => void                                       | (Optional) A callback function triggered when the sorting order changes. Receives the new sort configuration with the column key and direction. Useful for persisting sort preferences or updating external state.                                                                                                                                                                                                                                                                                                              |
 | `permissions`            | { create?: boolean; upload?: boolean; move?: boolean; copy?: boolean; rename?: boolean; download?: boolean; delete?: boolean; } | An object that controls the availability of specific file management actions. Setting an action to `false` hides it from the toolbar, context menu, and any relevant UI. All actions default to `true` if not specified. This is useful for implementing role-based access control or restricting certain operations. Example: `{ create: false, delete: false }` disables folder creation and file deletion.                                                                                                                   |
 | `primaryColor`           | string                                                                                                                          | The primary color for the component's theme. Accepts any valid CSS color format (e.g., `'blue'`, `'#E97451'`, `'rgb(52, 152, 219)'`). This color will be applied to buttons, highlights, and other key elements. `default: #6155b4`.                                                                                                                                                                                                                                                                                            |
 | `style`                  | object                                                                                                                          | Inline styles applied to the FileManager root element.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `theme`                  | "light" \| "dark" \| "system"                                                                                                   | Sets the color theme. `"light"` and `"dark"` apply the respective theme directly. `"system"` auto-detects the user's OS preference via `prefers-color-scheme`. `default: "light"`.                                                                                                                                                                                                                                                                                                                                               |
 | `width`                  | string \| number                                                                                                                | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ## ⌨️ Keyboard Shortcuts
@@ -161,6 +184,10 @@ type File = {
 | Jump to First File in the List | `Home`             |
 | Jump to Last File in the List  | `End`              |
 | Refresh File List              | `F5`               |
+| Search                         | `CTRL + F`         |
+| Toggle Details Panel           | `Alt + P`          |
+| Previous File (in preview)     | `Left Arrow`       |
+| Next File (in preview)         | `Right Arrow`      |
 | Clear Selection                | `Esc`              |
 
 ## 🛡️ Permissions
@@ -238,6 +265,101 @@ function App() {
 - After that, folder changes are driven by `onFolderChange`.
 - If you want to keep the path in sync with user navigation, use a controlled state (as shown
   above).
+
+## 🔍 Search & Filter
+
+Press `Ctrl + F` or click the search icon in the toolbar to open the search bar. Search supports
+fuzzy case-insensitive matching across file names.
+
+### Filter chips
+
+Click filter chips below the search bar to narrow results by file type or date:
+
+- **Type filters**: Images, Documents, Videos, Audio, Code, Archives
+- **Date filter**: This Week (files modified in the last 7 days)
+
+Multiple filters can be active at once. Filters combine with the search query.
+
+### Recursive search
+
+Toggle "Search all folders" to search the entire file tree instead of just the current directory.
+
+### Server-side search
+
+Use the `onSearch` callback to delegate search to your backend:
+
+```jsx
+<FileManager
+  // Other props...
+  onSearch={(query, filters) => {
+    // Call your search API
+    fetchSearchResults(query, filters).then(setFiles);
+  }}
+/>
+```
+
+## 📋 Details Panel
+
+The details panel is a resizable sidebar that shows metadata for the current selection. Toggle it
+with `Alt + P`, the toolbar button, or set it open by default:
+
+```jsx
+<FileManager
+  // Other props...
+  defaultDetailsPanelOpen={true}
+  onFileDetails={(selectedFiles) => {
+    console.log("Inspecting:", selectedFiles);
+  }}
+/>
+```
+
+The panel displays different information based on the selection:
+
+- **No selection**: Current folder summary (file count, folder count, path)
+- **Single file/folder**: Name, type, size, path, modification date
+- **Multiple selection**: Count of selected items, total size, breakdown of files and folders
+
+The panel is resizable by dragging its left edge (200px to 50% of the container width).
+
+## ⭐ Favorites & Quick Access
+
+Users can star files and folders to add them to the Quick Access section in the navigation pane.
+Recent files are tracked automatically.
+
+```jsx
+<FileManager
+  // Other props...
+  initialFavorites={["/Documents", "/Pictures/photo.jpg"]}
+  onFavoriteToggle={(file, isFavorited) => {
+    // Persist to your backend or localStorage
+    saveFavorites(file.path, isFavorited);
+  }}
+  onRecentFiles={(recentFiles) => {
+    localStorage.setItem("recents", JSON.stringify(recentFiles));
+  }}
+/>
+```
+
+The Quick Access section in the navigation pane shows two collapsible groups:
+
+- **Quick Access**: All favorited files and folders
+- **Recent**: Up to 20 recently accessed files, grouped by Today, Yesterday, This Week, and Earlier
+
+## 🎨 Theming
+
+The file manager supports light and dark themes via the `theme` prop:
+
+```jsx
+// Explicit theme
+<FileManager theme="dark" />
+
+// Auto-detect from OS preference
+<FileManager theme="system" />
+```
+
+The component uses CSS custom properties (design tokens) for all colors, spacing, typography, and
+shadows. Dark theme overrides are applied automatically. The `"system"` option uses
+`prefers-color-scheme` to match the user's OS setting. Animations respect `prefers-reduced-motion`.
 
 ## 🤝 Contributing
 
