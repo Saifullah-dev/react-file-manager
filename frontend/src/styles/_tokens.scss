@@ -142,6 +142,44 @@
   --fm-scrollbar-color: var(--fm-color-primary);
   --fm-scrollbar-track: transparent;
   --fm-scrollbar-radius: 8px;
+
+  // ─── Search Tokens ───────────────────────────────────
+  --fm-search-bg: #f8f9fa;
+  --fm-search-border: #dee2e6;
+  --fm-search-focus-border: var(--file-manager-primary-color);
+  --fm-search-placeholder: #999;
+  --fm-search-result-highlight: rgba(97, 85, 180, 0.15);
+
+  // ─── Filter Chip Tokens ──────────────────────────────
+  --fm-chip-bg: #f0f0f0;
+  --fm-chip-active-bg: var(--file-manager-primary-color);
+  --fm-chip-active-text: #fff;
+  --fm-chip-text: #555;
+  --fm-chip-hover-bg: #e0e0e0;
+
+  // ─── Details Panel Tokens ────────────────────────────
+  --fm-details-bg: #fafafa;
+  --fm-details-border: var(--fm-border-color, #cfcfcf);
+  --fm-details-label: #666;
+  --fm-details-value: #333;
+  --fm-details-section-border: #eee;
+  --fm-details-header-bg: #f5f5f5;
+
+  // ─── Quick Access Tokens ─────────────────────────────
+  --fm-quickaccess-bg: #f8f9fa;
+  --fm-quickaccess-hover: rgba(0, 0, 0, 0.05);
+  --fm-quickaccess-star: #f5a623;
+  --fm-quickaccess-header: #666;
+  --fm-quickaccess-divider: #eee;
+
+  // ─── Thumbnail Tokens ────────────────────────────────
+  --fm-thumbnail-bg: #f5f5f5;
+  --fm-thumbnail-border: #eee;
+  --fm-thumbnail-radius: 4px;
+
+  // ─── Preview Tokens ──────────────────────────────────
+  --fm-preview-controls-bg: #f8f9fa;
+  --fm-preview-controls-border: #dee2e6;
 }
 
 // =============================================================
@@ -194,6 +232,44 @@
   --fm-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
   --fm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
   --fm-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+  // ─── Search Tokens ───────────────────────────────────
+  --fm-search-bg: #2a2a2a;
+  --fm-search-border: #444;
+  --fm-search-focus-border: var(--file-manager-primary-color);
+  --fm-search-placeholder: #888;
+  --fm-search-result-highlight: rgba(97, 85, 180, 0.25);
+
+  // ─── Filter Chip Tokens ──────────────────────────────
+  --fm-chip-bg: #333;
+  --fm-chip-active-bg: var(--file-manager-primary-color);
+  --fm-chip-active-text: #fff;
+  --fm-chip-text: #ccc;
+  --fm-chip-hover-bg: #444;
+
+  // ─── Details Panel Tokens ────────────────────────────
+  --fm-details-bg: #1e1e1e;
+  --fm-details-border: #444;
+  --fm-details-label: #999;
+  --fm-details-value: #ddd;
+  --fm-details-section-border: #333;
+  --fm-details-header-bg: #252525;
+
+  // ─── Quick Access Tokens ─────────────────────────────
+  --fm-quickaccess-bg: #1e1e1e;
+  --fm-quickaccess-hover: rgba(255, 255, 255, 0.05);
+  --fm-quickaccess-star: #f5a623;
+  --fm-quickaccess-header: #999;
+  --fm-quickaccess-divider: #333;
+
+  // ─── Thumbnail Tokens ────────────────────────────────
+  --fm-thumbnail-bg: #2a2a2a;
+  --fm-thumbnail-border: #444;
+  --fm-thumbnail-radius: 4px;
+
+  // ─── Preview Tokens ──────────────────────────────────
+  --fm-preview-controls-bg: #2a2a2a;
+  --fm-preview-controls-border: #444;
 }
 
 // System theme: follow OS preference
@@ -245,6 +321,44 @@
     --fm-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
     --fm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
     --fm-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+    // ─── Search Tokens ───────────────────────────────────
+    --fm-search-bg: #2a2a2a;
+    --fm-search-border: #444;
+    --fm-search-focus-border: var(--file-manager-primary-color);
+    --fm-search-placeholder: #888;
+    --fm-search-result-highlight: rgba(97, 85, 180, 0.25);
+
+    // ─── Filter Chip Tokens ──────────────────────────────
+    --fm-chip-bg: #333;
+    --fm-chip-active-bg: var(--file-manager-primary-color);
+    --fm-chip-active-text: #fff;
+    --fm-chip-text: #ccc;
+    --fm-chip-hover-bg: #444;
+
+    // ─── Details Panel Tokens ────────────────────────────
+    --fm-details-bg: #1e1e1e;
+    --fm-details-border: #444;
+    --fm-details-label: #999;
+    --fm-details-value: #ddd;
+    --fm-details-section-border: #333;
+    --fm-details-header-bg: #252525;
+
+    // ─── Quick Access Tokens ─────────────────────────────
+    --fm-quickaccess-bg: #1e1e1e;
+    --fm-quickaccess-hover: rgba(255, 255, 255, 0.05);
+    --fm-quickaccess-star: #f5a623;
+    --fm-quickaccess-header: #999;
+    --fm-quickaccess-divider: #333;
+
+    // ─── Thumbnail Tokens ────────────────────────────────
+    --fm-thumbnail-bg: #2a2a2a;
+    --fm-thumbnail-border: #444;
+    --fm-thumbnail-radius: 4px;
+
+    // ─── Preview Tokens ──────────────────────────────────
+    --fm-preview-controls-bg: #2a2a2a;
+    --fm-preview-controls-border: #444;
   }
 }
 

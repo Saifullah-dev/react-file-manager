@@ -18,4 +18,6 @@ export const shortcuts = {
   redo: ["Control", "Shift", "Z"],
   refresh: ["F5"],
   clearSelection: ["Escape"],
+  search: ["Control", "F"],
+  detailsPanel: ["Alt", "P"],
 };

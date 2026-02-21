@@ -1,0 +1,76 @@
+@import "../../styles/variables";
+
+.filter-chips-container {
+  display: flex;
+  align-items: center;
+  gap: var(--fm-space-2);
+  padding: var(--fm-space-1) var(--fm-space-3);
+  overflow-x: auto;
+  font-family: var(--fm-font-family);
+  border-bottom: 1px solid $border-color;
+
+  // Hide scrollbar but keep scrollable
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+
+  .filter-chips-group {
+    display: flex;
+    align-items: center;
+    gap: var(--fm-space-1);
+    flex-shrink: 0;
+  }
+
+  .filter-chips-separator {
+    width: 1px;
+    height: 20px;
+    background-color: var(--fm-color-border);
+    flex-shrink: 0;
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--fm-space-1) var(--fm-space-3);
+    border: 1px solid var(--fm-color-border);
+    border-radius: var(--fm-radius-full);
+    background-color: transparent;
+    color: var(--fm-color-text-secondary);
+    font-size: var(--fm-font-size-xs);
+    font-family: var(--fm-font-family);
+    font-weight: var(--fm-font-weight-medium);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color var(--fm-transition-fast),
+      color var(--fm-transition-fast),
+      border-color var(--fm-transition-fast),
+      box-shadow var(--fm-transition-fast);
+
+    &:hover {
+      background-color: var(--fm-color-surface-hover);
+      border-color: var(--fm-color-border-hover);
+      color: var(--fm-color-text-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--fm-color-primary);
+      outline-offset: 1px;
+    }
+
+    &.active {
+      background-color: var(--fm-color-primary);
+      color: var(--fm-color-primary-text);
+      border-color: var(--fm-color-primary);
+      box-shadow: var(--fm-shadow-sm);
+
+      &:hover {
+        background-color: var(--fm-color-primary-hover);
+        border-color: var(--fm-color-primary-hover);
+      }
+    }
+  }
+}

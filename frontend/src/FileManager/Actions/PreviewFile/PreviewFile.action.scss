@@ -1,5 +1,23 @@
 @import "../../../styles/variables";
 
+.preview-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &.preview-fullscreen {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+
+        .file-previewer {
+            height: calc(100vh - 56px);
+            flex: 1;
+        }
+    }
+}
+
 .file-previewer {
     padding: .8em;
     height: 40dvh;
@@ -7,11 +25,21 @@
     justify-content: center;
     font-size: $fm-font-size;
 
+    .image-zoom-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+
     .photo-popup-image {
         object-fit: contain;
-        width: -webkit-fill-available;
+        max-width: 100%;
+        max-height: 100%;
         opacity: 1;
-        transition: opacity 0.5s ease-in-out;
+        transition: opacity 0.5s ease-in-out, transform 0.2s ease;
     }
 
     .img-loading {

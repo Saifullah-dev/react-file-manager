@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FolderTree from "./FolderTree";
+import QuickAccess from "./QuickAccess";
 import { getParentPath } from "../../utils/getParentPath";
 import { useFiles } from "../../contexts/FilesContext";
 import { useTranslation } from "../../contexts/TranslationProvider";
@@ -35,6 +36,8 @@ const NavigationPane = ({ onFileOpen }) => {
 
   return (
     <div className="sb-folders-list" role="tree" aria-label="Folder navigation">
+      <QuickAccess onFileOpen={onFileOpen} />
+      <hr className="nav-pane-divider" />
       {foldersTree?.length > 0 ? (
         <>
           {foldersTree?.map((folder, index) => {

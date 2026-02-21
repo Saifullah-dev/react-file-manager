@@ -124,6 +124,12 @@
     &:hover {
       color: var(--file-manager-primary-color);
     }
+
+    &.active {
+      color: var(--file-manager-primary-color);
+      background-color: rgb(0 0 0 / 8%);
+      border-radius: 3px;
+    }
   }
 
   .item-separator {

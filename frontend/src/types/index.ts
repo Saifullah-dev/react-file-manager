@@ -22,6 +22,8 @@ export interface FileItem {
   isEditing?: boolean;
   /** Unique key identifier */
   key?: number;
+  /** URL for the file thumbnail image */
+  thumbnailUrl?: string;
 }
 
 /**
@@ -179,6 +181,24 @@ export interface FileManagerError {
 }
 
 // =============================================================================
+// Search State
+// =============================================================================
+
+/**
+ * Represents the current state of the search feature.
+ */
+export interface SearchState {
+  /** The current search query string */
+  query: string;
+  /** Whether search mode is currently active */
+  isActive: boolean;
+  /** Array of active filter chip names (e.g., "Images", "Documents", "This Week") */
+  activeFilters: string[];
+  /** Whether to search recursively through all folders */
+  isRecursive: boolean;
+}
+
+// =============================================================================
 // Undo / Redo Types
 // =============================================================================
 
@@ -321,9 +341,21 @@ export interface FileManagerProps {
   /** Custom date formatting function */
   formatDate?: (date: string) => string;
 
+  // ---- Search ----
+  /** Called when the user searches; can be used for server-side search delegation */
+  onSearch?: (query: string, filters: string[]) => void;
+
   // ---- Undo / Redo Callbacks ----
   /** Called when an action is undone */
   onUndo?: (action: UndoableAction) => void;
   /** Called when an action is redone */
   onRedo?: (action: UndoableAction) => void;
+
+  // ---- Favorites & Quick Access ----
+  /** Called when a file/folder is favorited or unfavorited */
+  onFavoriteToggle?: (file: FileItem, isFavorited: boolean) => void;
+  /** Called when recent files list changes */
+  onRecentFiles?: (recentFiles: FileItem[]) => void;
+  /** Initial favorite file paths */
+  initialFavorites?: string[];
 }

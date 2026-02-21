@@ -37,6 +37,7 @@ svg {
   font-family: var(--file-manager-font-family);
   border: 1px solid $border-color;
   border-radius: 8px;
+  overflow: hidden;
 
   button {
     font-family: var(--file-manager-font-family);
@@ -53,6 +54,7 @@ svg {
   .files-container {
     display: flex;
     height: calc(100% - 46px); // Toolbar total height = baseHeight: 35px, padding top + bottom: 10px, border: 1px.
+    overflow: hidden;
 
     .navigation-pane {
       z-index: 1;
@@ -95,6 +97,11 @@ svg {
       padding-left: 0px;
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
     }
   }
 }

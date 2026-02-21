@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
-import { FiRefreshCw } from "react-icons/fi";
+import { FiRefreshCw, FiSearch } from "react-icons/fi";
 import {
   MdClear,
   MdOutlineDelete,
   MdOutlineFileDownload,
   MdOutlineFileUpload,
+  MdOutlineInfo,
 } from "react-icons/md";
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
@@ -16,6 +17,8 @@ import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { validateApiCallback } from "../../utils/validateApiCallback";
 import { useTranslation } from "../../contexts/TranslationProvider";
+import { useDetailsPanel } from "../../contexts/DetailsPanelContext";
+import { useSearch } from "../../contexts/SearchContext";
 import "./Toolbar.scss";
 
 const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
@@ -24,6 +27,8 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
+  const { isDetailsPanelOpen, toggleDetailsPanel } = useDetailsPanel();
+  const { isSearchActive, setIsSearchActive } = useSearch();
   const t = useTranslation();
 
   // Toolbar Items
@@ -48,7 +53,23 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
     },
   ];
 
+  const handleToggleSearch = () => {
+    setIsSearchActive((prev) => !prev);
+  };
+
   const toolbarRightItems = [
+    {
+      icon: <FiSearch size={16} />,
+      title: t("search"),
+      onClick: handleToggleSearch,
+      active: isSearchActive,
+    },
+    {
+      icon: <MdOutlineInfo size={18} />,
+      title: t("toggleDetailsPanel"),
+      onClick: toggleDetailsPanel,
+      active: isDetailsPanelOpen,
+    },
     {
       icon: activeLayout === "grid" ? <BsGridFill size={16} /> : <FaListUl size={16} />,
       title: t("changeView"),
@@ -163,7 +184,13 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
         <div>
           {toolbarRightItems.map((item, index) => (
             <div key={index} className="toolbar-left-items">
-              <button className="item-action icon-only" title={item.title} aria-label={item.title} onClick={item.onClick}>
+              <button
+                className={`item-action icon-only${item.active ? " active" : ""}`}
+                title={item.title}
+                aria-label={item.title}
+                aria-pressed={item.active != null ? item.active : undefined}
+                onClick={item.onClick}
+              >
                 {item.icon}
               </button>
               {index !== toolbarRightItems.length - 1 && <div className="item-separator"></div>}

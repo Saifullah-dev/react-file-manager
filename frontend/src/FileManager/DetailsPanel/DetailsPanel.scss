@@ -1,0 +1,124 @@
+@import "../../styles/variables";
+
+.details-panel-wrapper {
+  position: relative;
+  height: 100%;
+  flex-shrink: 0;
+
+  .panel-resize {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    border-left: 1px solid $border-color;
+
+    &:hover {
+      border-left: 1px solid #1e3a8a;
+    }
+  }
+
+  .panel-dragging {
+    border-left: 1px solid #1e3a8a;
+  }
+}
+
+.details-panel {
+  border-left: 1px solid $border-color;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  font-size: 14px;
+
+  .details-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid $border-color;
+    min-height: 40px;
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .details-close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  .details-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    @include overflow-y-scroll;
+
+    .details-icon-area {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .details-file-name {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      word-break: break-word;
+      margin-bottom: 16px;
+    }
+  }
+
+  .details-section {
+    border-top: 1px solid $border-color;
+    padding: 12px 0;
+
+    .details-section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #888;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .details-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+
+    .details-label {
+      color: #666;
+      flex-shrink: 0;
+    }
+
+    .details-value {
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-left: 12px;
+    }
+  }
+
+  .details-empty {
+    text-align: center;
+    color: #888;
+    padding: 40px 0;
+  }
+}

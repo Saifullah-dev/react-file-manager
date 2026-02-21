@@ -11,7 +11,12 @@ import { FileNavigationProvider } from "../contexts/FileNavigationContext";
 import { SelectionProvider } from "../contexts/SelectionContext";
 import { ClipBoardProvider } from "../contexts/ClipboardContext";
 import { LayoutProvider } from "../contexts/LayoutContext";
+import { DetailsPanelProvider } from "../contexts/DetailsPanelContext";
+import DetailsPanel from "./DetailsPanel/DetailsPanel";
+import { FavoritesProvider } from "../contexts/FavoritesContext";
 import { UndoRedoProvider } from "../contexts/UndoRedoContext";
+import { SearchProvider } from "../contexts/SearchContext";
+import SearchBar from "./SearchBar/SearchBar";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
@@ -69,6 +74,12 @@ const FileManager = ({
   className = "",
   style = {},
   formatDate = defaultFormatDate,
+  onSearch,
+  onFileDetails,
+  defaultDetailsPanelOpen = false,
+  onFavoriteToggle,
+  onRecentFiles,
+  initialFavorites,
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
@@ -105,6 +116,13 @@ const FileManager = ({
               <UndoRedoProvider onUndo={onUndo} onRedo={onRedo}>
                 <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
                   <LayoutProvider layout={layout}>
+                    <DetailsPanelProvider defaultOpen={defaultDetailsPanelOpen}>
+                    <SearchProvider onSearch={onSearch}>
+                    <FavoritesProvider
+                      onFavoriteToggle={onFavoriteToggle}
+                      onRecentFiles={onRecentFiles}
+                      initialFavorites={initialFavorites}
+                    >
                     <MaybeToastProvider enabled={showNotifications}>
                       <Toolbar
                         onLayoutChange={onLayoutChange}
@@ -112,6 +130,7 @@ const FileManager = ({
                         triggerAction={triggerAction}
                         permissions={permissions}
                       />
+                      <SearchBar onSearch={onSearch} />
                       <section
                         ref={containerRef}
                         onMouseMove={handleMouseMove}
@@ -133,7 +152,7 @@ const FileManager = ({
 
                         <div
                           className="folders-preview"
-                          style={{ width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%" }}
+                          style={{ width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%", flex: 1, minWidth: 0 }}
                         >
                           <BreadCrumb
                             collapsibleNav={collapsibleNav}
@@ -151,6 +170,10 @@ const FileManager = ({
                             formatDate={formatDate}
                           />
                         </div>
+                        <DetailsPanel
+                          formatDate={formatDate}
+                          onFileDetails={onFileDetails}
+                        />
                       </section>
 
                       <Actions
@@ -168,6 +191,9 @@ const FileManager = ({
                       />
                       {showStatusBar && <StatusBar />}
                     </MaybeToastProvider>
+                    </FavoritesProvider>
+                    </SearchProvider>
+                    </DetailsPanelProvider>
                   </LayoutProvider>
                 </ClipBoardProvider>
               </UndoRedoProvider>
@@ -190,6 +216,7 @@ FileManager.propTypes = {
       path: PropTypes.string.isRequired,
       updatedAt: dateStringValidator,
       size: PropTypes.number,
+      thumbnailUrl: PropTypes.string,
     })
   ).isRequired,
   fileUploadConfig: PropTypes.shape({
@@ -245,6 +272,10 @@ FileManager.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   formatDate: PropTypes.func,
+  onSearch: PropTypes.func,
+  onFavoriteToggle: PropTypes.func,
+  onRecentFiles: PropTypes.func,
+  initialFavorites: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default FileManager;

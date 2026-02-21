@@ -1,5 +1,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
+import { MdStar, MdStarBorder } from "react-icons/md";
 import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
 import RenameAction from "../Actions/Rename/Rename.action";
@@ -8,9 +9,42 @@ import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
+import { useFavorites } from "../../contexts/FavoritesContext";
 import Checkbox from "../../components/Checkbox/Checkbox";
 
 const dragIconSize = 50;
+
+const imageExtensionsForThumb = ["jpg", "jpeg", "png", "gif", "webp", "svg", "bmp"];
+
+const Thumbnail = ({ file, iconSize, fallbackIcon }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  if (!file.thumbnailUrl) {
+    return fallbackIcon;
+  }
+
+  if (error) {
+    return fallbackIcon;
+  }
+
+  return (
+    <>
+      {loading && <div className="thumbnail-skeleton" />}
+      <img
+        src={file.thumbnailUrl}
+        alt={file.name}
+        className="file-thumbnail"
+        style={loading ? { display: "none" } : {}}
+        onLoad={() => setLoading(false)}
+        onError={() => {
+          setLoading(false);
+          setError(true);
+        }}
+      />
+    </>
+  );
+};
 
 const FileItem = ({
   index,
@@ -39,6 +73,8 @@ const FileItem = ({
   const { setCurrentPath, currentPathFiles, onFolderChange } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
   const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
+  const { toggleFavorite, isFavorite, addToRecent } = useFavorites();
+  const fileFavorited = isFavorite(file.path);
   const dragIconRef = useRef(null);
   const dragIcons = useFileIcons(dragIconSize);
 
@@ -54,6 +90,7 @@ const FileItem = ({
 
   const handleFileAccess = () => {
     onFileOpen(file);
+    addToRecent(file);
     if (file.isDirectory) {
       setCurrentPath(file.path);
       onFolderChange?.(file.path);
@@ -61,6 +98,11 @@ const FileItem = ({
     } else {
       enableFilePreview && triggerAction.show("previewFile");
     }
+  };
+
+  const handleStarClick = (e) => {
+    e.stopPropagation();
+    toggleFavorite(file);
   };
 
   const handleFileRangeSelection = (shiftKey, ctrlKey) => {
@@ -224,8 +266,25 @@ const FileItem = ({
             onClick={(e) => e.stopPropagation()}
           />
         )}
+        {!file.isEditing && (
+          <span
+            className={`favorite-star ${fileFavorited ? "favorited" : ""}`}
+            onClick={handleStarClick}
+            role="button"
+            aria-label={fileFavorited ? "Remove from favorites" : "Add to favorites"}
+            tabIndex={-1}
+          >
+            {fileFavorited ? <MdStar size={16} /> : <MdStarBorder size={16} />}
+          </span>
+        )}
         {file.isDirectory ? (
           <FaRegFolderOpen size={iconSize} />
+        ) : activeLayout === "grid" && file.thumbnailUrl ? (
+          <Thumbnail
+            file={file}
+            iconSize={iconSize}
+            fallbackIcon={fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={iconSize} />}
+          />
         ) : (
           <>
             {fileIcons[file.name?.split(".").pop()?.toLowerCase()] ?? <FaRegFile size={iconSize} />}

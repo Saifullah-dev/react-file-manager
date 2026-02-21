@@ -5,6 +5,8 @@ import { useFileNavigation } from "../contexts/FileNavigationContext";
 import { useSelection } from "../contexts/SelectionContext";
 import { useLayout } from "../contexts/LayoutContext";
 import { useUndoRedo } from "../contexts/UndoRedoContext";
+import { useDetailsPanel } from "../contexts/DetailsPanelContext";
+import { useSearch } from "../contexts/SearchContext";
 import { validateApiCallback } from "../utils/validateApiCallback";
 
 export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
@@ -13,6 +15,8 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { setActiveLayout } = useLayout();
   const { undo, redo } = useUndoRedo();
+  const { toggleDetailsPanel } = useDetailsPanel();
+  const { setIsSearchActive } = useSearch();
 
   const triggerCreateFolder = () => {
     permissions.create && triggerAction.show("createFolder");
@@ -88,6 +92,15 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
     setActiveLayout("list");
   };
 
+  const triggerSearch = () => {
+    setIsSearchActive(true);
+    // Focus happens via useEffect in SearchBar when isSearchActive becomes true
+  };
+
+  const triggerDetailsPanel = () => {
+    toggleDetailsPanel();
+  };
+
   // Keypress detection will be disbaled when some Action is in active state.
   useKeyPress(shortcuts.createFolder, triggerCreateFolder, triggerAction.isActive);
   useKeyPress(shortcuts.uploadFiles, triggerUploadFiles, triggerAction.isActive);
@@ -106,4 +119,6 @@ export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {
   useKeyPress(shortcuts.refresh, triggerRefresh, triggerAction.isActive);
   useKeyPress(shortcuts.gridLayout, triggerGridLayout, triggerAction.isActive);
   useKeyPress(shortcuts.listLayout, triggerListLayout, triggerAction.isActive);
+  useKeyPress(shortcuts.search, triggerSearch, triggerAction.isActive);
+  useKeyPress(shortcuts.detailsPanel, triggerDetailsPanel, triggerAction.isActive);
 };
