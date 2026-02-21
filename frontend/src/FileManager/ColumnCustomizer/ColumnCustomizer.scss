@@ -1,0 +1,89 @@
+.fm-column-customizer {
+  position: relative;
+  display: inline-flex;
+
+  .fm-column-customizer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--fm-color-text-tertiary, #8a8aa0);
+    border-radius: var(--fm-radius-sm, 4px);
+    padding: 0;
+
+    &:hover {
+      background: var(--fm-color-surface-hover, rgba(0, 0, 0, 0.04));
+      color: var(--fm-color-text-primary, #1a1a2e);
+    }
+  }
+
+  .fm-column-customizer-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: var(--fm-z-dropdown, 100);
+    background: var(--fm-color-bg, #fff);
+    border: 1px solid var(--fm-color-border, #e0e0e8);
+    border-radius: var(--fm-radius-md, 6px);
+    box-shadow: var(--fm-shadow-lg);
+    min-width: 180px;
+    padding: 4px 0;
+
+    .fm-column-customizer-title {
+      padding: 8px 12px 4px;
+      font-size: var(--fm-font-size-xs, 11px);
+      font-weight: var(--fm-font-weight-semibold, 600);
+      color: var(--fm-color-text-tertiary, #8a8aa0);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .fm-column-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: var(--fm-font-size-sm, 12px);
+      color: var(--fm-color-text-primary, #1a1a2e);
+      user-select: none;
+
+      &:hover {
+        background: var(--fm-color-surface-hover, rgba(0, 0, 0, 0.04));
+      }
+
+      &.fm-column-required {
+        opacity: 0.6;
+        cursor: default;
+      }
+
+      .fm-column-check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        color: var(--fm-color-primary, #6155b4);
+      }
+
+      .fm-column-drag {
+        display: flex;
+        align-items: center;
+        color: var(--fm-color-text-disabled, #b0b0c0);
+        cursor: grab;
+      }
+
+      .fm-column-checkbox-hidden {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+      }
+    }
+  }
+}

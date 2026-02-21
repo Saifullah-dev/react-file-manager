@@ -20,4 +20,7 @@ export const shortcuts = {
   clearSelection: ["Escape"],
   search: ["Control", "F"],
   detailsPanel: ["Alt", "P"],
+  newTab: ["Control", "T"],
+  closeTab: ["Control", "W"],
+  nextTab: ["Control", "Tab"],
 };

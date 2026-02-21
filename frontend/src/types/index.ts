@@ -318,6 +318,12 @@ export interface FileManagerProps {
   fontFamily?: string;
   /** Theme mode */
   theme?: "light" | "dark" | "system";
+  /**
+   * Custom design token overrides applied as inline CSS custom properties.
+   * Keys can be provided with or without the "--fm-" prefix.
+   * Example: `{ "color-bg": "#1a1a1a" }` sets `--fm-color-bg: #1a1a1a`.
+   */
+  customTokens?: Record<string, string>;
   /** Additional CSS class name for the root element */
   className?: string;
   /** Inline styles for the root element */
@@ -358,4 +364,74 @@ export interface FileManagerProps {
   onRecentFiles?: (recentFiles: FileItem[]) => void;
   /** Initial favorite file paths */
   initialFavorites?: string[];
+
+  // ---- Iteration 3: Tabs ----
+  /** Whether to enable multi-tab navigation */
+  enableTabs?: boolean;
+  /** Maximum number of tabs allowed */
+  maxTabs?: number;
+  /** Called when a tab is added, closed, or switched */
+  onTabChange?: (event: { type: "add" | "close" | "switch"; tabId?: number; path?: string }) => void;
+
+  // ---- Iteration 3: Advanced Drag & Drop ----
+  /** Called when files are dropped from the OS desktop */
+  onExternalDrop?: (files: File[], event: DragEvent) => void;
+
+  // ---- Iteration 3: Batch Operations ----
+  /** Called when batch operation progress changes */
+  onOperationProgress?: (event: BatchProgressEvent) => void;
+
+  // ---- Iteration 3: Tagging ----
+  /** Available tag definitions with name and color */
+  tags?: TagDefinition[];
+  /** Called when a tag is added or removed from a file */
+  onTagChange?: (file: FileItem, tagName: string, action: "add" | "remove") => void;
+
+  // ---- Iteration 3: Column Customization ----
+  /** Initial visible columns in list view */
+  columns?: string[];
+  /** Called when column visibility changes */
+  onColumnConfigChange?: (visibleColumns: string[]) => void;
+
+  // ---- Iteration 3: Clipboard ----
+  /** Called when the clipboard contents change */
+  onClipboardChange?: (clipboard: ClipboardState | null) => void;
+}
+
+// =============================================================================
+// Tag Types
+// =============================================================================
+
+/**
+ * Definition for a tag color option.
+ */
+export interface TagDefinition {
+  /** Display name of the tag */
+  name: string;
+  /** CSS color value for the tag */
+  color: string;
+}
+
+// =============================================================================
+// Batch Progress Types
+// =============================================================================
+
+/**
+ * Events emitted during batch operations.
+ */
+export interface BatchProgressEvent {
+  /** Event type */
+  type: "start" | "progress" | "cancel" | "close";
+  /** Operation being performed */
+  operationType?: string;
+  /** Total number of items in the batch */
+  totalItems?: number;
+  /** ID of the item being updated */
+  itemId?: number;
+  /** Item status */
+  status?: "pending" | "in_progress" | "completed" | "failed" | "skipped";
+  /** Progress percentage (0-100) */
+  progress?: number;
+  /** Error message if failed */
+  error?: string;
 }

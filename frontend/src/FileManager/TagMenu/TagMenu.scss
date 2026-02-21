@@ -1,0 +1,65 @@
+.fm-tag-menu {
+  padding: 4px 0;
+
+  .fm-tag-menu-title {
+    padding: 6px 12px 4px;
+    font-size: var(--fm-font-size-xs, 11px);
+    font-weight: var(--fm-font-weight-semibold, 600);
+    color: var(--fm-color-text-tertiary, #8a8aa0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .fm-tag-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: var(--fm-font-size-sm, 12px);
+    color: var(--fm-color-text-primary, #1a1a2e);
+    text-align: left;
+
+    &:hover {
+      background: var(--fm-color-surface-hover, rgba(0, 0, 0, 0.04));
+    }
+
+    &.fm-tag-active {
+      font-weight: var(--fm-font-weight-medium, 500);
+    }
+
+    .fm-tag-color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .fm-tag-name {
+      flex: 1;
+    }
+
+    .fm-tag-check {
+      display: flex;
+      align-items: center;
+      color: var(--fm-color-primary, #6155b4);
+    }
+  }
+}
+
+.fm-tag-badges {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-shrink: 0;
+
+  .fm-tag-badge {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+}

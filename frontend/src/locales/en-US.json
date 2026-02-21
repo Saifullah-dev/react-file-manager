@@ -104,5 +104,21 @@
   "thisWeek": "This Week",
   "earlier": "Earlier",
   "addToFavorites": "Add to favorites",
-  "removeFromFavorites": "Remove from favorites"
+  "removeFromFavorites": "Remove from favorites",
+  "newTab": "New Tab",
+  "closeTab": "Close Tab",
+  "openInNewTab": "Open in New Tab",
+  "tags": "Tags",
+  "addTag": "Add Tag",
+  "removeTag": "Remove Tag",
+  "columns": "Columns",
+  "customizeColumns": "Customize Columns",
+  "move": "Move",
+  "operationComplete": "Operation Complete",
+  "succeeded": "succeeded",
+  "failed": "failed",
+  "skipped": "skipped",
+  "clearClipboard": "Clear Clipboard",
+  "batchProgress": "Batch Progress",
+  "externalDrop": "Drop files here"
 }

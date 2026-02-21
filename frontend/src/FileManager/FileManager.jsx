@@ -17,13 +17,19 @@ import { FavoritesProvider } from "../contexts/FavoritesContext";
 import { UndoRedoProvider } from "../contexts/UndoRedoContext";
 import { SearchProvider } from "../contexts/SearchContext";
 import SearchBar from "./SearchBar/SearchBar";
+import { TabsProvider } from "../contexts/TabsContext";
+import TabBar from "./TabBar/TabBar";
+import { TagsProvider } from "../contexts/TagsContext";
+import { BatchOperationsProvider } from "../contexts/BatchOperationsContext";
+import BatchProgress from "./BatchProgress/BatchProgress";
+import ClipboardIndicator from "./ClipboardIndicator/ClipboardIndicator";
 import { useTriggerAction } from "../hooks/useTriggerAction";
 import { useColumnResize } from "../hooks/useColumnResize";
 import PropTypes from "prop-types";
 import { dateStringValidator, urlValidator } from "../validators/propValidators";
 import { TranslationProvider } from "../contexts/TranslationProvider";
 import { AnnouncerProvider } from "../components/ScreenReaderAnnouncer/ScreenReaderAnnouncer";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { defaultPermissions } from "../constants";
 import { formatDate as defaultFormatDate } from "../utils/formatDate";
 import "./FileManager.scss";
@@ -71,6 +77,7 @@ const FileManager = ({
   showStatusBar = true,
   showNotifications = true,
   theme = "light",
+  customTokens = {},
   className = "",
   style = {},
   formatDate = defaultFormatDate,
@@ -80,16 +87,42 @@ const FileManager = ({
   onFavoriteToggle,
   onRecentFiles,
   initialFavorites,
+  // Iteration 3 props
+  enableTabs = false,
+  maxTabs = 10,
+  onTabChange,
+  onExternalDrop,
+  onOperationProgress,
+  tags: availableTags,
+  onTagChange,
+  columns: initialColumns,
+  onColumnConfigChange,
+  onClipboardChange,
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
   const { containerRef, colSizes, isDragging, handleMouseMove, handleMouseUp, handleMouseDown } =
     useColumnResize(20, 80);
+  // Build token overrides from customTokens prop. Keys can be provided
+  // with or without the "--fm-" prefix; bare names are auto-prefixed.
+  const tokenOverrides = useMemo(() => {
+    const overrides = {};
+    if (customTokens && typeof customTokens === "object") {
+      Object.entries(customTokens).forEach(([key, value]) => {
+        if (value == null) return;
+        const cssVar = key.startsWith("--") ? key : `--fm-${key}`;
+        overrides[cssVar] = value;
+      });
+    }
+    return overrides;
+  }, [customTokens]);
+
   const customStyles = {
     "--file-manager-font-family": fontFamily,
     "--file-manager-primary-color": primaryColor,
     height,
     width,
+    ...tokenOverrides,
   };
 
   const permissions = useMemo(
@@ -97,10 +130,33 @@ const FileManager = ({
     [userPermissions]
   );
 
+  const handleExternalDrop = useCallback(
+    (e) => {
+      if (!onExternalDrop) return;
+      e.preventDefault();
+      const droppedFiles = Array.from(e.dataTransfer.files);
+      if (droppedFiles.length > 0) {
+        onExternalDrop(droppedFiles, e);
+      }
+    },
+    [onExternalDrop]
+  );
+
+  const handleExternalDragOver = useCallback(
+    (e) => {
+      if (!onExternalDrop) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "copy";
+    },
+    [onExternalDrop]
+  );
+
   return (
     <main
       className={`file-explorer fm-theme-${theme || 'light'} ${className}`}
       onContextMenu={(e) => e.preventDefault()}
+      onDrop={handleExternalDrop}
+      onDragOver={handleExternalDragOver}
       style={{ ...customStyles, ...style }}
     >
       <Loader loading={isLoading} />
@@ -123,7 +179,11 @@ const FileManager = ({
                       onRecentFiles={onRecentFiles}
                       initialFavorites={initialFavorites}
                     >
+                    <TagsProvider availableTags={availableTags} onTagChange={onTagChange}>
+                    <BatchOperationsProvider onOperationProgress={onOperationProgress}>
+                    <TabsProvider maxTabs={maxTabs} onTabChange={onTabChange}>
                     <MaybeToastProvider enabled={showNotifications}>
+                      {enableTabs && <TabBar />}
                       <Toolbar
                         onLayoutChange={onLayoutChange}
                         onRefresh={onRefresh}
@@ -189,8 +249,13 @@ const FileManager = ({
                         triggerAction={triggerAction}
                         permissions={permissions}
                       />
+                      <ClipboardIndicator />
+                      <BatchProgress />
                       {showStatusBar && <StatusBar />}
                     </MaybeToastProvider>
+                    </TabsProvider>
+                    </BatchOperationsProvider>
+                    </TagsProvider>
                     </FavoritesProvider>
                     </SearchProvider>
                     </DetailsPanelProvider>
@@ -269,6 +334,7 @@ FileManager.propTypes = {
   showStatusBar: PropTypes.bool,
   showNotifications: PropTypes.bool,
   theme: PropTypes.oneOf(["light", "dark", "system"]),
+  customTokens: PropTypes.object,
   className: PropTypes.string,
   style: PropTypes.object,
   formatDate: PropTypes.func,
@@ -276,6 +342,22 @@ FileManager.propTypes = {
   onFavoriteToggle: PropTypes.func,
   onRecentFiles: PropTypes.func,
   initialFavorites: PropTypes.arrayOf(PropTypes.string),
+  // Iteration 3 props
+  enableTabs: PropTypes.bool,
+  maxTabs: PropTypes.number,
+  onTabChange: PropTypes.func,
+  onExternalDrop: PropTypes.func,
+  onOperationProgress: PropTypes.func,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    })
+  ),
+  onTagChange: PropTypes.func,
+  columns: PropTypes.arrayOf(PropTypes.string),
+  onColumnConfigChange: PropTypes.func,
+  onClipboardChange: PropTypes.func,
 };
 
 export default FileManager;

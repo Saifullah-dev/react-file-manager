@@ -1,0 +1,54 @@
+.fm-clipboard-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--fm-color-primary-light, rgba(97, 85, 180, 0.1));
+  border: 1px solid var(--fm-color-primary, #6155b4);
+  border-radius: var(--fm-radius-full, 9999px);
+  font-size: var(--fm-font-size-xs, 11px);
+  color: var(--fm-color-primary, #6155b4);
+  position: absolute;
+  bottom: 36px;
+  right: 12px;
+  z-index: var(--fm-z-popover, 500);
+  box-shadow: var(--fm-shadow-md);
+  animation: fm-clipboard-slide-in 200ms ease-out;
+
+  .fm-clipboard-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .fm-clipboard-text {
+    white-space: nowrap;
+    font-weight: var(--fm-font-weight-medium, 500);
+  }
+
+  .fm-clipboard-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: inherit;
+    padding: 1px;
+    border-radius: 50%;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+@keyframes fm-clipboard-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

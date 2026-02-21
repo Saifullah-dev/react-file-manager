@@ -1,0 +1,189 @@
+.fm-batch-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--fm-z-modal, 400);
+}
+
+.fm-batch-modal {
+  background: var(--fm-color-bg, #fff);
+  border-radius: var(--fm-radius-lg, 8px);
+  box-shadow: var(--fm-shadow-xl);
+  width: 420px;
+  max-width: 90%;
+  max-height: 70%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .fm-batch-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+
+    h3 {
+      margin: 0;
+      font-size: var(--fm-font-size-base, 14px);
+      font-weight: var(--fm-font-weight-semibold, 600);
+      color: var(--fm-color-text-primary, #1a1a2e);
+    }
+
+    .fm-batch-close {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--fm-color-text-secondary);
+      border-radius: 4px;
+      padding: 2px;
+
+      &:hover {
+        background: var(--fm-color-surface-hover);
+      }
+    }
+  }
+
+  .fm-batch-progress-bar {
+    height: 4px;
+    background: var(--fm-color-bg-tertiary, #f0f1f3);
+    margin: 0 20px;
+    border-radius: 2px;
+    overflow: hidden;
+
+    .fm-batch-progress-fill {
+      height: 100%;
+      background: var(--fm-color-primary, #6155b4);
+      transition: width 200ms ease;
+      border-radius: 2px;
+
+      &.success {
+        background: var(--fm-color-success, #22c55e);
+      }
+
+      &.has-errors {
+        background: var(--fm-color-warning, #f59e0b);
+      }
+    }
+  }
+
+  .fm-batch-progress-text {
+    font-size: var(--fm-font-size-xs, 11px);
+    color: var(--fm-color-text-tertiary, #8a8aa0);
+    text-align: right;
+    padding: 4px 20px 8px;
+  }
+
+  .fm-batch-items {
+    overflow-y: auto;
+    max-height: 240px;
+    padding: 0 20px;
+
+    .fm-batch-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: var(--fm-font-size-sm, 12px);
+      border-bottom: 1px solid var(--fm-color-border, #e0e0e8);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .fm-batch-item-icon {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        width: 16px;
+      }
+
+      .fm-batch-item-name {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--fm-color-text-primary);
+      }
+
+      .fm-batch-item-status {
+        font-size: var(--fm-font-size-xs, 11px);
+        color: var(--fm-color-text-tertiary);
+        flex-shrink: 0;
+      }
+
+      &.fm-batch-item-completed .fm-batch-item-icon {
+        color: var(--fm-color-success, #22c55e);
+      }
+
+      &.fm-batch-item-failed .fm-batch-item-icon {
+        color: var(--fm-color-error, #ef4444);
+      }
+
+      &.fm-batch-item-failed .fm-batch-item-status {
+        color: var(--fm-color-error, #ef4444);
+      }
+
+      &.fm-batch-item-skipped .fm-batch-item-icon {
+        color: var(--fm-color-text-disabled, #b0b0c0);
+      }
+
+      .fm-batch-spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--fm-color-border);
+        border-top-color: var(--fm-color-primary);
+        border-radius: 50%;
+        animation: fm-spin 600ms linear infinite;
+      }
+    }
+  }
+
+  .fm-batch-summary {
+    display: flex;
+    gap: 12px;
+    padding: 12px 20px;
+    font-size: var(--fm-font-size-sm, 12px);
+
+    .fm-batch-summary-success {
+      color: var(--fm-color-success, #22c55e);
+    }
+
+    .fm-batch-summary-failed {
+      color: var(--fm-color-error, #ef4444);
+    }
+
+    .fm-batch-summary-skipped {
+      color: var(--fm-color-text-disabled, #b0b0c0);
+    }
+  }
+
+  .fm-batch-actions {
+    padding: 8px 20px 16px;
+    display: flex;
+    justify-content: flex-end;
+
+    .fm-batch-cancel {
+      padding: 6px 16px;
+      border: 1px solid var(--fm-color-border, #e0e0e8);
+      border-radius: var(--fm-radius-md, 6px);
+      background: transparent;
+      color: var(--fm-color-text-primary);
+      cursor: pointer;
+      font-size: var(--fm-font-size-sm, 12px);
+
+      &:hover {
+        background: var(--fm-color-surface-hover);
+      }
+    }
+  }
+}
+
+@keyframes fm-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

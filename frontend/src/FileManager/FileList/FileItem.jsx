@@ -10,6 +10,7 @@ import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { useFavorites } from "../../contexts/FavoritesContext";
+import { TagBadges } from "../TagMenu/TagMenu";
 import Checkbox from "../../components/Checkbox/Checkbox";
 
 const dragIconSize = 50;
@@ -312,6 +313,7 @@ const FileItem = ({
         ) : (
           <span className="text-truncate file-name">{file.name}</span>
         )}
+        <TagBadges file={file} />
       </div>
 
       {activeLayout === "list" && (
