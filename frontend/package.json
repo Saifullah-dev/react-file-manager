@@ -1,5 +1,5 @@
 {
-  "name": "@cubone/react-file-manager",
+  "name": "@sush0408/react-file-manager",
   "private": false,
   "version": "1.10.5",
   "type": "module",
@@ -68,18 +68,19 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Saifullah-dev/react-file-manager.git"
+    "url": "git+https://github.com/sush0408/react-file-manager.git"
   },
   "keywords": [
     "react",
     "file-manager",
     "component",
-    "react-file explorer"
+    "react-file-explorer",
+    "file-explorer"
   ],
-  "author": "Saifullah Zubair",
+  "author": "sush0408",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Saifullah-dev/react-file-manager/issues"
+    "url": "https://github.com/sush0408/react-file-manager/issues"
   },
-  "homepage": "https://github.com/Saifullah-dev/react-file-manager#readme"
+  "homepage": "https://github.com/sush0408/react-file-manager#readme"
 }
