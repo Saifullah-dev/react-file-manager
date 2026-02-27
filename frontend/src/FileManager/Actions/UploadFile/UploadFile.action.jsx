@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
+import PropTypes from "prop-types";
 import Button from "../../../components/Button/Button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "./UploadItem";
 import Loader from "../../../components/Loader/Loader";
+import OverwriteConfirmDialog from "../../../components/OverwriteConfirmDialog/OverwriteConfirmDialog";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
 import { getFileExtension } from "../../../utils/getFileExtension";
 import { getDataSize } from "../../../utils/getDataSize";
@@ -20,6 +22,9 @@ const UploadFileAction = ({
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState({});
+  const [showOverwriteDialog, setShowOverwriteDialog] = useState(false);
+  const [pendingFile, setPendingFile] = useState(null);
+  const [pendingFilesCallback, setPendingFilesCallback] = useState(null);
   const { currentFolder, currentPathFiles } = useFileNavigation();
   const { onError } = useFiles();
   const fileInputRef = useRef(null);
@@ -41,10 +46,47 @@ const UploadFileAction = ({
     const fileExists = currentPathFiles.some(
       (item) => item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
     );
-    if (fileExists) return t("fileAlreadyExist");
+    if (fileExists) {
+      const allowOverwrite = fileUploadConfig?.allowOverwrite || false;
+      if (!allowOverwrite) return t("fileAlreadyExist");
+      // If allowOverwrite is true, return special marker to trigger dialog
+      return "CONFIRM_OVERWRITE";
+    }
 
     const sizeError = maxFileSize && file.size > maxFileSize;
     if (sizeError) return `${t("maxUploadSize")} ${getDataSize(maxFileSize, 0)}.`;
+  };
+
+  const handleOverwriteConfirm = (selectedFiles) => {
+    const newFiles = selectedFiles.map((file) => {
+      const appendData = onFileUploading(file, currentFolder);
+      return {
+        file: file,
+        appendData: appendData,
+      };
+    });
+    setFiles((prev) => [...prev, ...newFiles]);
+    setShowOverwriteDialog(false);
+    setPendingFile(null);
+  };
+
+  const handleOverwriteCancel = () => {
+    const selectedFiles = pendingFilesCallback;
+    if (selectedFiles) {
+      const newFiles = selectedFiles.map((file) => {
+        const appendData = onFileUploading(file, currentFolder);
+        onError({ type: "upload", message: t("uploadCanceled") }, file);
+        return {
+          file: file,
+          appendData: appendData,
+          error: t("uploadCanceled"),
+        };
+      });
+      setFiles((prev) => [...prev, ...newFiles]);
+    }
+    setShowOverwriteDialog(false);
+    setPendingFile(null);
+    setPendingFilesCallback(null);
   };
 
   const setSelectedFiles = (selectedFiles) => {
@@ -54,17 +96,42 @@ const UploadFileAction = ({
     );
 
     if (selectedFiles.length > 0) {
-      const newFiles = selectedFiles.map((file) => {
-        const appendData = onFileUploading(file, currentFolder);
+      const filesNeedingConfirmation = [];
+      const filesWithoutErrors = [];
+
+      selectedFiles.forEach((file) => {
         const error = checkFileError(file);
-        error && onError({ type: "upload", message: error }, file);
-        return {
-          file: file,
-          appendData: appendData,
-          ...(error && { error: error }),
-        };
+        if (error === "CONFIRM_OVERWRITE") {
+          filesNeedingConfirmation.push(file);
+        } else if (!error) {
+          filesWithoutErrors.push(file);
+        } else {
+          // File has other errors, add with error state
+          const appendData = onFileUploading(file, currentFolder);
+          onError({ type: "upload", message: error }, file);
+          filesWithoutErrors.push({ file, appendData, error });
+        }
       });
-      setFiles((prev) => [...prev, ...newFiles]);
+
+      // Add files without errors immediately
+      if (filesWithoutErrors.length > 0) {
+        const newFiles = filesWithoutErrors.map((fileData) => {
+          const appendData = onFileUploading(fileData.file || fileData, currentFolder);
+          return {
+            file: fileData.file || fileData,
+            appendData: appendData,
+            ...(fileData.error && { error: fileData.error }),
+          };
+        });
+        setFiles((prev) => [...prev, ...newFiles]);
+      }
+
+      // Show confirmation dialog if there are files needing confirmation
+      if (filesNeedingConfirmation.length > 0) {
+        setPendingFile(filesNeedingConfirmation[0]);
+        setPendingFilesCallback(filesNeedingConfirmation);
+        setShowOverwriteDialog(true);
+      }
     }
   };
 
@@ -102,6 +169,14 @@ const UploadFileAction = ({
 
   return (
     <div className={`fm-upload-file ${files.length > 0 ? "file-selcted" : ""}`}>
+      <OverwriteConfirmDialog
+        show={showOverwriteDialog}
+        fileName={pendingFile?.name}
+        onConfirm={() =>
+          handleOverwriteConfirm(pendingFilesCallback)
+        }
+        onCancel={handleOverwriteCancel}
+      />
       <div className="select-files">
         <div
           className={`draggable-file-input ${isDragging ? "dragging" : ""}`}
@@ -160,6 +235,14 @@ const UploadFileAction = ({
       )}
     </div>
   );
+};
+
+UploadFileAction.propTypes = {
+  fileUploadConfig: PropTypes.object,
+  maxFileSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  acceptedFileTypes: PropTypes.string,
+  onFileUploading: PropTypes.func,
+  onFileUploaded: PropTypes.func,
 };
 
 export default UploadFileAction;

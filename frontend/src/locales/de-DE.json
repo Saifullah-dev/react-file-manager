@@ -47,7 +47,9 @@
   "deleteItemsConfirm": "Möchten Sie diese {{count}} Elemente wirklich löschen?",
   "percentDone": "{{percent}}% erledigt",
   "canceled": "Abgebrochen",
-  "invalidFileName": "Ein Dateiname darf keines der folgenden Zeichen enthalten: \\ / : * ? \" < > |",
+  "replaceExistingFile": "Vorhandene Datei ersetzen",
+  "confirmOverwrite": "Eine Datei mit diesem Namen existiert bereits. Möchten Sie sie ersetzen?",
+  "uploadCanceled": "Upload abgebrochen.",  "invalidFileName": "Ein Dateiname darf keines der folgenden Zeichen enthalten: \\ / : * ? \" < > |",
   "folderExists": "In diesem Zielordner gibt es bereits einen Ordner namens \"{{renameFile}}\".",
   "collapseNavigationPane": "Navigationsbereich einklappen",
   "expandNavigationPane": "Navigationsbereich erweitern"
