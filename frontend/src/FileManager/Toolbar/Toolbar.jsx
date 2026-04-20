@@ -7,7 +7,7 @@ import {
   MdOutlineFileDownload,
   MdOutlineFileUpload,
 } from "react-icons/md";
-import { BiRename } from "react-icons/bi";
+import { BiRename, BiQuestionMark } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
 import LayoutToggler from "./LayoutToggler";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
@@ -75,6 +75,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
 
   // Selected File/Folder Actions
   if (selectedFiles.length > 0) {
+    let customButtonId = 0;
     return (
       <div className="toolbar file-selected">
         <div className="file-action-container">
@@ -124,6 +125,32 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
                 <MdOutlineDelete size={19} />
                 <span>{t("delete")}</span>
               </button>
+            )}
+            {selectedFiles.length > 0 && selectedFiles[0].customActions && 
+             selectedFiles[0].customActions.filter(x => x.inToolbarMenu)
+             .filter(customButton => {
+              let hidden = (selectedFiles.length == 1) ? false : true;
+              if(selectedFiles.length > 1 && customButton.enableMultiItems) {
+                // Display button only if all the selected items have the same button
+                hidden = !selectedFiles.every(x=>x.customActions && x.customActions.includes(customButton))
+              }
+              return !hidden;
+             })
+             .map(customButton => (
+              <button key={"customButtonId_" + (customButtonId++)}
+                className="item-action file-action"
+                onClick={() => {
+                  if(customButton.onClick) {
+                    customButton.onClick(selectedFiles);
+                  } else {
+                    console.warn("no onClick specified for this custom button");
+                  }
+                }}
+              >
+                {customButton.icon ? customButton.icon : <BiQuestionMark />}
+                <span>{customButton.title ?? "??"}</span>
+              </button>
+            )
             )}
           </div>
           <button

@@ -1,4 +1,4 @@
-import { BiRename, BiSelectMultiple } from "react-icons/bi";
+import { BiRename, BiSelectMultiple, BiQuestionMark } from "react-icons/bi";
 import { BsCopy, BsFolderPlus, BsGrid, BsScissors } from "react-icons/bs";
 import { FaListUl, FaRegFile, FaRegPaste } from "react-icons/fa6";
 import { FiRefreshCw } from "react-icons/fi";
@@ -140,54 +140,82 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     },
   ];
 
-  const selecCtxItems = [
-    {
-      title: t("open"),
-      icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
-      onClick: handleFileOpen,
-      divider: true,
-    },
-    {
-      title: t("cut"),
-      icon: <BsScissors size={19} />,
-      onClick: () => handleMoveOrCopyItems(true),
-      divider: !lastSelectedFile?.isDirectory && !permissions.copy,
-      hidden: !permissions.move,
-    },
-    {
-      title: t("copy"),
-      icon: <BsCopy strokeWidth={0.1} size={17} />,
-      onClick: () => handleMoveOrCopyItems(false),
-      divider: !lastSelectedFile?.isDirectory,
-      hidden: !permissions.copy,
-    },
-    {
-      title: t("paste"),
-      icon: <FaRegPaste size={18} />,
-      onClick: handleFilePasting,
-      className: `${clipBoard ? "" : "disable-paste"}`,
-      hidden: !lastSelectedFile?.isDirectory || (!permissions.move && !permissions.copy),
-      divider: true,
-    },
-    {
-      title: t("rename"),
-      icon: <BiRename size={19} />,
-      onClick: handleRenaming,
-      hidden: selectedFiles.length > 1 || !permissions.rename,
-    },
-    {
-      title: t("download"),
-      icon: <MdOutlineFileDownload size={18} />,
-      onClick: handleDownloadItems,
-      hidden: !permissions.download,
-    },
-    {
-      title: t("delete"),
-      icon: <MdOutlineDelete size={19} />,
-      onClick: handleDelete,
-      hidden: !permissions.delete,
-    },
-  ];
+  let customButtons = [];
+
+  if(lastSelectedFile?.customActions) {
+    // Handle custom actions, that are tagged 'inContextMenu'
+    customButtons = lastSelectedFile.customActions.filter(x => x.inContextMenu).map(customButton => {
+      let hidden = (selectedFiles.length == 1) ? false : true;
+      if(selectedFiles.length > 1 && customButton.enableMultiItems) {
+        // Display button only if all the selected items have the same button
+        hidden = !selectedFiles.every(x=>x.customActions && x.customActions.includes(customButton))
+      }
+      return {
+        title: customButton.title ?? "??",
+        icon: customButton.icon ? customButton.icon : <BiQuestionMark />,
+        hidden,
+        onClick: () => {
+          if(customButton.onClick) {
+            // Send selected files as argument, to make it work the same for multi and single selection 
+            customButton.onClick(selectedFiles); 
+          } else {
+            console.warn("no onClick specified for this custom button");
+          }
+          setVisible(customButton.hideContextMenuOnClick === undefined ? false : !customButton.hideContextMenuOnClick);
+        },
+        divider: customButton.divider ? customButton.divider : false,
+      };
+    })
+  }
+
+  const selecCtxItems = customButtons.concat([
+      {
+        title: t("open"),
+        icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
+        onClick: handleFileOpen,
+        divider: true,
+      },
+      {
+        title: t("cut"),
+        icon: <BsScissors size={19} />,
+        onClick: () => handleMoveOrCopyItems(true),
+        divider: !lastSelectedFile?.isDirectory && !permissions.copy,
+        hidden: !permissions.move,
+      },
+      {
+        title: t("copy"),
+        icon: <BsCopy strokeWidth={0.1} size={17} />,
+        onClick: () => handleMoveOrCopyItems(false),
+        divider: !lastSelectedFile?.isDirectory,
+        hidden: !permissions.copy,
+      },
+      {
+        title: t("paste"),
+        icon: <FaRegPaste size={18} />,
+        onClick: handleFilePasting,
+        className: `${clipBoard ? "" : "disable-paste"}`,
+        hidden: !lastSelectedFile?.isDirectory || (!permissions.move && !permissions.copy),
+        divider: true,
+      },
+      {
+        title: t("rename"),
+        icon: <BiRename size={19} />,
+        onClick: handleRenaming,
+        hidden: selectedFiles.length > 1 || !permissions.rename,
+      },
+      {
+        title: t("download"),
+        icon: <MdOutlineFileDownload size={18} />,
+        onClick: handleDownloadItems,
+        hidden: !permissions.download,
+      },
+      {
+        title: t("delete"),
+        icon: <MdOutlineDelete size={19} />,
+        onClick: handleDelete,
+        hidden: !permissions.delete,
+      },
+    ]);
   //
 
   const handleFolderCreating = () => {

@@ -7,6 +7,17 @@ import { getAllFilesAPI } from "./api/getAllFilesAPI";
 import { renameAPI } from "./api/renameAPI";
 import "./App.scss";
 import FileManager from "./FileManager/FileManager";
+import { BiAperture } from "react-icons/bi";
+
+const customButtonExample = {
+  inContextMenu     : true,
+  inToolbarMenu     : true,
+  enableMultiItems  : true,
+  hideContextMenuOnClick : false,
+  title : "customButton",
+  icon : <BiAperture />,
+  onClick : (selectedFiles) => {console.log("click on custom button, with selected files : ", selectedFiles)}
+}
 
 function App() {
   const fileUploadConfig = {
@@ -22,6 +33,11 @@ function App() {
     setIsLoading(true);
     const response = await getAllFilesAPI();
     if (response.status === 200 && response.data) {
+      response.data.forEach(x=> {
+        if(x.name.startsWith("_custom")) {
+          x.customActions = [customButtonExample];
+        }
+      })
       setFiles(response.data);
     } else {
       console.error(response);
