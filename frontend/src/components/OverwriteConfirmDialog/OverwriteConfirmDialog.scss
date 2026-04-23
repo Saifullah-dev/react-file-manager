@@ -1,0 +1,61 @@
+@import "../../styles/variables";
+
+.overwrite-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overwrite-confirm-dialog {
+  border-radius: 4px;
+  min-width: 350px;
+  max-width: 500px;
+  overflow: hidden;
+}
+
+.dialog-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid $border-color;
+  
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.dialog-content {
+  padding: 20px;
+  
+  p {
+    margin: 0 0 12px 0;
+    font-size: $fm-font-size;
+    line-height: 1.5;
+    word-break: break-word;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &.filename {
+      font-weight: 600;
+      padding: 8px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.dialog-actions {
+  padding: 16px 20px;
+  border-top: 1px solid $border-color;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
