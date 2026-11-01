@@ -5,6 +5,8 @@ export { default as FileManager } from "./FileManager/FileManager";
 
 export default FileManager;
 
+export type { FileManagerProps } from "./FileManager/FileManager";
+
 export type {
     OnCopy,
     OnCreateFolder,

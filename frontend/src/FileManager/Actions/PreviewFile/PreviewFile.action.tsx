@@ -24,7 +24,7 @@ const iFrameExtensions = ["txt", "pdf"];
 const PreviewFileAction = ({ filePreviewPath, filePreviewComponent } : PreviewFileActionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const { selectedFiles } = useSelection();
+  const { selectedFiles, handleDownload: triggerDownload } = useSelection();
   const fileIcons = useFileIcons(73);
   const extension = getFileExtension(selectedFiles[0].name)?.toLowerCase();
   const filePath = `${filePreviewPath}${selectedFiles[0].path}`;
@@ -47,7 +47,8 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent } : PreviewFi
   };
 
   const handleDownload = () => {
-    window.location.href = filePath;
+    // Delegate to host download handler so the main app controls download (no navigation)
+    triggerDownload();
   };
 
   if (React.isValidElement(customPreview)) {
