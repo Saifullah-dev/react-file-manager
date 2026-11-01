@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+.app {
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #32363a;
+
+  .file-manager-container {
+    height: 70%;
+    width: 67%;
+  }
+}
