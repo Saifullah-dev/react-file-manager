@@ -2,6 +2,19 @@
 
 Sample projects for both TypeScript and JavaScript are provided in the `/samples` folder.
 
+Both samples install the library from a local package built from `frontend/`. Build it first (and
+again after changing the library source):
+
+```bash
+cd ./frontend
+npm i
+npm run pack:samples
+```
+
+This writes `samples/cubone-react-file-manager-typescript.tgz`, which is git-ignored. After
+rebuilding, run `rm -rf node_modules/@cubone && npm i` in a sample that is already installed, since
+a plain `npm i` keeps the previously installed copy.
+
 
 Start the JavaScript sample: 
 

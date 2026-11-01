@@ -28,6 +28,7 @@
     "build": "vite build",
     "lint": "eslint . --ext ts,tsx,js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "pack:samples": "npm run build && npm pack --pack-destination ../samples && mv ../samples/cubone-react-file-manager-$npm_package_version.tgz ../samples/cubone-react-file-manager-typescript.tgz",
     "semantic-release": "semantic-release"
   },
   "dependencies": {

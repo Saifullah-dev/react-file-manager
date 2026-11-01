@@ -27,3 +27,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local package built for the samples (npm run pack:samples)
+samples/*.tgz
