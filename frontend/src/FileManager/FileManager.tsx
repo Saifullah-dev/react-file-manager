@@ -20,6 +20,7 @@ import { ExtendedFileItem, FileItem } from "../types/File";
 import { FileUploadConfiguration } from "../types/FileUploadConfiguration";
 import { Layout } from "../types/Layout";
 import { Language } from "../types/Language";
+import { Permissions } from "../types/Permissions";
 import { 
     OnCreateFolder,
     OnFileUploading,
@@ -42,84 +43,86 @@ import {
   } from "../types/FileManagerFunctions";
 
 export interface FileManagerProps {
-  files?: FileItem[]; // x
-  fileUploadConfig?: FileUploadConfiguration; // x
-  isLoading?: boolean; // x
-  onCreateFolder?: OnCreateFolder; // x
-  onFileUploading?: OnFileUploading; // x
-  onFileUploaded?: OnFileUploaded; // x
-  onCut?: OnCut; // x
-  onCopy?: OnCopy; // x
-  onPaste?: OnPaste; // x
-  onRename?: OnRename; // x
-  onDownload?: OnDownload; // x
-  onDelete?: OnDelete // x
-  onLayoutChange?: OnLayoutChange // x
-  onRefresh?: OnRefresh; // x
-  onFileOpen?: OnFileOpen; // x
-  onFolderChange?: OnFolderChange; // x
-  onSelect?: OnSelect; // x (deprecated)
-  onSelectionChange?: OnSelectionChange; // x
-  onError?: OnError; // x 
-  onSortChange?: OnSortChange; // x 
-  layout?: Layout; // x
-  enableFilePreview?: boolean; // x
-  maxFileSize?: number; // x
-  filePreviewPath?: string; // x
-  acceptedFileTypes?: string; // x
-  height?: string | number; // x
-  width?: string | number; // x
-  initialPath?: string; // x
-  filePreviewComponent?: FilePreviewComponent; // x
-  primaryColor?: string; // x
-  fontFamily?: string; // x
-  language?: Language; // x
-  permissions?: Permissions; // x
-  collapsibleNav?: boolean; // x
-  defaultNavExpanded?: boolean; // x
-  className?: string; // x
-  style?: React.CSSProperties; // x
-  formatDate?: (date: string) => string; // x (Not in official docs but in your code)
+  files?: FileItem[];
+  fileUploadConfig?: FileUploadConfiguration;
+  isLoading?: boolean;
+  onCreateFolder?: OnCreateFolder;
+  onFileUploading?: OnFileUploading;
+  onFileUploaded?: OnFileUploaded;
+  onCut?: OnCut;
+  onCopy?: OnCopy;
+  onPaste?: OnPaste;
+  onRename?: OnRename;
+  onDownload?: OnDownload;
+  onDelete?: OnDelete
+  onLayoutChange?: OnLayoutChange
+  onRefresh?: OnRefresh;
+  onFileOpen?: OnFileOpen;
+  onFolderChange?: OnFolderChange;
+  /** @deprecated Use `onSelectionChange` instead. */
+  onSelect?: OnSelect;
+  onSelectionChange?: OnSelectionChange;
+  onError?: OnError;
+  onSortChange?: OnSortChange;
+  layout?: Layout;
+  enableFilePreview?: boolean;
+  maxFileSize?: number;
+  filePreviewPath?: string;
+  acceptedFileTypes?: string;
+  height?: string | number;
+  width?: string | number;
+  initialPath?: string;
+  filePreviewComponent?: FilePreviewComponent;
+  primaryColor?: string;
+  fontFamily?: string;
+  language?: Language;
+  permissions?: Permissions;
+  collapsibleNav?: boolean;
+  defaultNavExpanded?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  formatDate?: (date: string) => string;
 }
 
 const FileManager = ({
-  files = [], // x
-  fileUploadConfig, // x
-  isLoading, // x
-  onCreateFolder, // x
+  files = [],
+  fileUploadConfig,
+  isLoading,
+  onCreateFolder,
   onFileUploading,
   onFileUploaded,
-  onCut, // x
-  onCopy, // x
-  onPaste, // x
-  onRename, // x
-  onDownload, // x
-  onDelete = () => null, // x
-  onLayoutChange = () => {}, // x
-  onRefresh, // x
-  onFileOpen = () => {}, // x
-  onFolderChange = () => {}, // x
-  onSelect, // x
-  onSelectionChange, // x
-  onError = () => {}, // x
-  layout = "grid", // x
-  enableFilePreview = true, // x
-  maxFileSize, // x
-  filePreviewPath, // x
-  acceptedFileTypes, // x
-  height = "600px", // x
-  width = "100%", // x
-  initialPath = "", // x
-  filePreviewComponent, // x
-  primaryColor = "#6155b4", // x
-  fontFamily = "Nunito Sans, sans-serif", // x
-  language = "en-US", // x
-  permissions: userPermissions, // x
-  collapsibleNav = false, // x
-  defaultNavExpanded = true, // x
-  className = "", // x
-  style = {}, // x
-  formatDate = defaultFormatDate, // x
+  onCut,
+  onCopy,
+  onPaste,
+  onRename,
+  onDownload,
+  onDelete = () => null,
+  onLayoutChange = () => {},
+  onRefresh,
+  onFileOpen = () => {},
+  onFolderChange = () => {},
+  onSelect,
+  onSelectionChange,
+  onError = () => {},
+  onSortChange,
+  layout = "grid",
+  enableFilePreview = true,
+  maxFileSize,
+  filePreviewPath,
+  acceptedFileTypes,
+  height = "600px",
+  width = "100%",
+  initialPath = "",
+  filePreviewComponent,
+  primaryColor = "#6155b4",
+  fontFamily = "Nunito Sans, sans-serif",
+  language = "en-US",
+  permissions: userPermissions,
+  collapsibleNav = false,
+  defaultNavExpanded = true,
+  className = "",
+  style = {},
+  formatDate = defaultFormatDate,
 }: FileManagerProps) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
@@ -146,7 +149,11 @@ const FileManager = ({
       <Loader loading={isLoading} />
       <TranslationProvider language={language}>
         <FilesProvider filesData={files as ExtendedFileItem[]} onError={onError}>
-          <FileNavigationProvider initialPath={initialPath} onFolderChange={onFolderChange}>
+          <FileNavigationProvider
+            initialPath={initialPath}
+            onFolderChange={onFolderChange}
+            onSortChange={onSortChange}
+          >
             <SelectionProvider    
               onDownload={onDownload}
               onSelect={onSelect}

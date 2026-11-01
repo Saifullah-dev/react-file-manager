@@ -3,7 +3,7 @@ import { useFiles } from "./FilesContext";
 import sortFiles from "../utils/sortFiles";
 import { ExtendedFileItem } from "../types/File";
 import { SortConfiguration } from "../types/SortConfiguration";
-import { OnFolderChange } from "../types/FileManagerFunctions";
+import { OnFolderChange, OnSortChange } from "../types/FileManagerFunctions";
 
 export interface FileNavigationContextType {
   currentPath?: string;
@@ -21,17 +21,23 @@ export interface FileNavigationProviderProps {
   children: ReactNode;
   initialPath: string;
   onFolderChange: OnFolderChange;
+  onSortChange?: OnSortChange;
 }
 
 const FileNavigationContext = createContext<FileNavigationContextType | undefined>(undefined);
 
-export const FileNavigationProvider = ({ children, initialPath, onFolderChange } : FileNavigationProviderProps) => {
+export const FileNavigationProvider = ({ children, initialPath, onFolderChange, onSortChange } : FileNavigationProviderProps) => {
   const { files } = useFiles();
   const isMountRef = useRef(false);
   const [currentPath, setCurrentPath] = useState<string>("");
   const [currentFolder, setCurrentFolder] = useState<ExtendedFileItem | undefined>(undefined);
   const [currentPathFiles, setCurrentPathFiles] = useState<ExtendedFileItem[]>([]);
-  const [sortConfig, setSortConfig] = useState<SortConfiguration>({ key: "name", direction: "asc" });
+  const [sortConfig, setSortConfigState] = useState<SortConfiguration>({ key: "name", direction: "asc" });
+
+  const setSortConfig = (config: SortConfiguration) => {
+    setSortConfigState(config);
+    onSortChange?.(config);
+  };
 
   useEffect(() => {
     if (Array.isArray(files) && files.length > 0) {
