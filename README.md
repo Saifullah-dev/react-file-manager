@@ -84,7 +84,13 @@ export default App;
 ```
 
 > **Using TypeScript?** Import the `FileItem` type and pass it to `useState`:
-> `const [files, setFiles] = useState<FileItem[]>([...]);`
+>
+> ```tsx
+> import { FileManager, type FileItem } from "@cubone/react-file-manager";
+>
+> const [files, setFiles] = useState<FileItem[]>([...]);
+> ```
+>
 > See the [TypeScript](#-typescript) section for all available types.
 
 More detailed samples can be found in the [samples folder](https://github.com/Saifullah-dev/react-file-manager/tree/main/samples).
