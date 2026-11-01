@@ -52,7 +52,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sass": "^1.77.6",
-    "semantic-release": "^24.1.0",
+    "semantic-release": "^25.0.9",
     "typescript": "^5.9.3",
     "vite": "^6.4.2",
     "vite-plugin-dts": "^4.5.4"
