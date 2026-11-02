@@ -40,17 +40,14 @@
             display: flex;
             justify-content: center;
 
-            label {
-                display: inline-block;
-                padding: 0.4rem 0.8rem;
-
-                &:hover {
-                    cursor: pointer;
-                }
+            .choose-file-anchor {
+                position: relative;
             }
 
-            .choose-file-input {
-                display: none;
+            .choose-file-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
             }
         }
     }
@@ -60,7 +57,16 @@
 
         .heading {
             display: flex;
+            align-items: center;
             gap: 4px;
+
+            .upload-count {
+                margin-left: auto;
+                white-space: nowrap;
+                font-size: 0.75em;
+                color: #696969;
+                font-variant-numeric: tabular-nums;
+            }
         }
 
         h2 {
@@ -134,6 +140,166 @@
 
                         .upload-success {
                             color: var(--file-manager-primary-color);
+                        }
+                    }
+                }
+            }
+
+            // Shared by the folder row and its files
+            .icon-button {
+                display: inline-flex;
+                padding: 3px;
+                border: 0;
+                border-radius: 50%;
+                background: transparent;
+                color: inherit;
+                font-size: 1em;
+                line-height: 0;
+                cursor: pointer;
+
+                &:focus-visible {
+                    outline: 2px solid var(--file-manager-primary-color);
+                    outline-offset: 1px;
+                }
+
+                &.retry-upload:hover,
+                &.expand-folder:hover {
+                    background-color: rgba(0, 0, 0, 0.07);
+                    color: var(--file-manager-primary-color);
+                }
+
+                &.rm-file:hover {
+                    color: red;
+                }
+            }
+
+            .upload-error {
+                color: red;
+            }
+
+            .upload-success {
+                color: var(--file-manager-primary-color);
+                flex: none;
+            }
+
+            li.upload-folder {
+                .folder-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 2px;
+                    flex: none;
+                }
+
+                .expand-folder {
+                    svg {
+                        transition: transform 0.15s ease;
+                    }
+
+                    &[aria-expanded="true"] svg {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                .file-info .file-name {
+                    font-weight: 700;
+                }
+
+                .file-info .file-size {
+                    white-space: nowrap;
+                    font-variant-numeric: tabular-nums;
+                }
+
+                .folder-status {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    font-size: 0.75em;
+                    font-weight: 600;
+                    font-variant-numeric: tabular-nums;
+
+                    .status-separator {
+                        color: #696969;
+                    }
+
+                    .link-button {
+                        padding: 0;
+                        border: 0;
+                        background: none;
+                        color: var(--file-manager-primary-color);
+                        font: inherit;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            // The folder's file list sits inside the folder row; undo the list and row styles above
+            ul.folder-files {
+                height: auto;
+                overflow: visible;
+                margin: 10px 0 0;
+                padding: 8px 0 0 10px;
+                border-left: 2px solid #e6e6e6;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                li.folder-file {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    font-weight: 500;
+
+                    .folder-file-details {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        min-width: 0;
+                        font-size: 0.85em;
+                    }
+
+                    .folder-file-icon {
+                        flex: none;
+                    }
+
+                    .folder-file-name {
+                        min-width: 0;
+                        flex: 0 1 auto;
+                    }
+
+                    .folder-file-path {
+                        min-width: 0;
+                        flex: 0 2 auto;
+                        font-size: 0.8em;
+                        font-weight: 400;
+                        color: #696969;
+                    }
+
+                    .folder-file-status {
+                        margin-left: auto;
+                        flex: none;
+                        max-width: 45%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        font-size: 0.85em;
+                        font-weight: 600;
+                        font-variant-numeric: tabular-nums;
+                    }
+
+                    .fm-progress-bar {
+                        width: 100%;
+                        height: 3px;
+                        border-radius: 3px;
+                        background-color: #c6c6c6;
+
+                        .fm-progress-bar-fill {
+                            height: 100%;
+                            border-radius: 3px;
+                            background-color: var(--file-manager-primary-color);
                         }
                     }
                 }

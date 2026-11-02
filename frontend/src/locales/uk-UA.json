@@ -50,5 +50,21 @@
   "invalidFileName": "Ім'я файлу не може містити такі символи: \\ / : * ? \" < > |",
   "folderExists": "У цьому місці вже існує папка з назвою \"{{renameFile}}\".",
   "collapseNavigationPane": "Згорнути панель навігації",
-  "expandNavigationPane": "Розгорнути панель навігації"
+  "expandNavigationPane": "Розгорнути панель навігації",
+  "uploadFiles": "Завантажити файли",
+  "uploadFolder": "Завантажити папку",
+  "dragFilesOrFoldersToUpload": "Перетягніть файли або папки для завантаження",
+  "folderCreateFailed": "Не вдалося створити папку для цього файлу.",
+  "folderUploadNotAllowed": "Тут не можна завантажувати папки.",
+  "uploadedCount": "Завантажено {{done}} з {{total}}",
+  "waiting": "Очікування",
+  "retry": "Повторити",
+  "filesCount": "{{done}} з {{total}} файлів",
+  "failedCount": "Помилок: {{count}}",
+  "canceledCount": "Скасовано: {{count}}",
+  "skippedCount": "Пропущено: {{count}}",
+  "cancelFolderUpload": "Скасувати завантаження папки",
+  "retryFailed": "Повторити невдалі файли",
+  "showFiles": "Показати файли",
+  "hideFiles": "Сховати файли"
 }

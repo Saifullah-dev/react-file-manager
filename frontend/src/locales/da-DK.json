@@ -50,5 +50,21 @@
   "invalidFileName": "Et filnavn må ikke indeholde følgende tegn: \\ / : * ? \" < > |",
   "folderExists": "Denne destination indeholder allerede en mappe med navnet \"{{renameFile}}\".",
   "collapseNavigationPane": "Skjul navigationsrude",
-  "expandNavigationPane": "Udvid navigationsrude"
+  "expandNavigationPane": "Udvid navigationsrude",
+  "uploadFiles": "Upload filer",
+  "uploadFolder": "Upload mappe",
+  "dragFilesOrFoldersToUpload": "Træk filer eller mapper for at uploade",
+  "folderCreateFailed": "Mappen til denne fil kunne ikke oprettes.",
+  "folderUploadNotAllowed": "Mapper kan ikke uploades her.",
+  "uploadedCount": "{{done}} af {{total}} uploadet",
+  "waiting": "Venter",
+  "retry": "Prøv igen",
+  "filesCount": "{{done}} af {{total}} filer",
+  "failedCount": "{{count}} mislykkedes",
+  "canceledCount": "{{count}} annulleret",
+  "skippedCount": "{{count}} sprunget over",
+  "cancelFolderUpload": "Annuller upload af mappe",
+  "retryFailed": "Prøv mislykkede filer igen",
+  "showFiles": "Vis filer",
+  "hideFiles": "Skjul filer"
 }

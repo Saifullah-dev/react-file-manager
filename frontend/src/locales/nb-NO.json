@@ -50,5 +50,21 @@
   "invalidFileName": "Et filnavn kan ikke inneholde noen av følgende tegn: \\ / : * ? \" < > |",
   "folderExists": "Denne destinasjonen inneholder allerede en mappe med navnet «{{renameFile}}».",
   "collapseNavigationPane": "Skjul navigasjonsrute",
-  "expandNavigationPane": "Utvid navigasjonsrute"
+  "expandNavigationPane": "Utvid navigasjonsrute",
+  "uploadFiles": "Last opp filer",
+  "uploadFolder": "Last opp mappe",
+  "dragFilesOrFoldersToUpload": "Dra filer eller mapper for å laste opp",
+  "folderCreateFailed": "Kunne ikke opprette mappen for denne filen.",
+  "folderUploadNotAllowed": "Mapper kan ikke lastes opp her.",
+  "uploadedCount": "{{done}} av {{total}} lastet opp",
+  "waiting": "Venter",
+  "retry": "Prøv igjen",
+  "filesCount": "{{done}} av {{total}} filer",
+  "failedCount": "{{count}} mislyktes",
+  "canceledCount": "{{count}} avbrutt",
+  "skippedCount": "{{count}} hoppet over",
+  "cancelFolderUpload": "Avbryt opplasting av mappe",
+  "retryFailed": "Prøv mislykkede filer på nytt",
+  "showFiles": "Vis filer",
+  "hideFiles": "Skjul filer"
 }

@@ -2,7 +2,13 @@ import { BiRename, BiSelectMultiple } from "react-icons/bi";
 import { BsCopy, BsFolderPlus, BsGrid, BsScissors } from "react-icons/bs";
 import { FaListUl, FaRegFile, FaRegPaste } from "react-icons/fa6";
 import { FiRefreshCw } from "react-icons/fi";
-import { MdOutlineDelete, MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
+import {
+  MdOutlineDelete,
+  MdOutlineDriveFolderUpload,
+  MdOutlineFileDownload,
+  MdOutlineFileUpload,
+  MdOutlineUploadFile,
+} from "react-icons/md";
 import { PiFolderOpen } from "react-icons/pi";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { MouseEvent, useEffect, useState } from "react";
@@ -11,6 +17,7 @@ import { useLayout } from "../../contexts/LayoutContext";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { duplicateNameHandler } from "../../utils/duplicateNameHandler";
 import { useTranslation } from "../../contexts/TranslationProvider";
+import { useUpload } from "../../contexts/UploadContext";
 import { OnFileOpen, OnRefresh } from "../../types/FileManagerFunctions";
 import { TriggerAction } from "../../types/TriggerAction";
 import { Permissions } from "../../types/Permissions";
@@ -33,6 +40,7 @@ const useFileList = (onRefresh: OnRefresh | undefined, enableFilePreview : boole
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles, onFolderChange } = useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
+  const { canUploadFolder, openFilePicker, openFolderPicker } = useUpload();
   const t = useTranslation();
 
   // Context Menu
@@ -137,9 +145,31 @@ const useFileList = (onRefresh: OnRefresh | undefined, enableFilePreview : boole
     {
       title: t("upload"),
       icon: <MdOutlineFileUpload size={18} />,
-      onClick: handleUpload,
+      onClick: canUploadFolder ? () => {} : handleUpload,
       divider: true,
       hidden: !permissions.upload,
+      ...(canUploadFolder && {
+        children: [
+          {
+            title: t("uploadFiles"),
+            icon: <MdOutlineUploadFile size={18} />,
+            selected: false,
+            onClick: () => {
+              setVisible(false);
+              openFilePicker();
+            },
+          },
+          {
+            title: t("uploadFolder"),
+            icon: <MdOutlineDriveFolderUpload size={18} />,
+            selected: false,
+            onClick: () => {
+              setVisible(false);
+              openFolderPicker();
+            },
+          },
+        ],
+      }),
     },
     {
       title: t("selectAll"),

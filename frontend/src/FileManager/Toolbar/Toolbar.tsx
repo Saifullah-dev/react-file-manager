@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
 import {
@@ -10,11 +10,13 @@ import {
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
 import LayoutToggler from "./LayoutToggler";
+import UploadMenu from "../Actions/UploadFile/UploadMenu";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 import { useLayout } from "../../contexts/LayoutContext";
 import { useTranslation } from "../../contexts/TranslationProvider";
+import { useUpload } from "../../contexts/UploadContext";
 import "./Toolbar.scss";
 import { OnLayoutChange, OnRefresh } from "../../types/FileManagerFunctions";
 import { TriggerAction } from "../../types/TriggerAction";
@@ -29,10 +31,13 @@ export interface ToolbarProps {
 
 const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions } : ToolbarProps) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
+  const [showUploadMenu, setShowUploadMenu] = useState(false);
+  const uploadButtonRef = useRef<HTMLButtonElement>(null);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
+  const { canUploadFolder, openFilePicker, openFolderPicker } = useUpload();
   const t = useTranslation();
 
   // Toolbar Items
@@ -47,7 +52,19 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions } : Too
       icon: <MdOutlineFileUpload size={18} />,
       text: t("upload"),
       permission: permissions.upload,
-      onClick: () => triggerAction.show("uploadFile"),
+      // With folder upload available, the button opens a menu to pick files or a folder
+      onClick: () =>
+        canUploadFolder ? setShowUploadMenu((prev) => !prev) : triggerAction.show("uploadFile"),
+      ref: uploadButtonRef,
+      hasMenu: canUploadFolder,
+      menu: canUploadFolder && showUploadMenu && (
+        <UploadMenu
+          anchorRef={uploadButtonRef}
+          onUploadFiles={openFilePicker}
+          onUploadFolder={openFolderPicker}
+          onClose={() => setShowUploadMenu(false)}
+        />
+      ),
     },
     {
       icon: <FaRegPaste size={18} />,
@@ -159,10 +176,19 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions } : Too
           {toolbarLeftItems
             .filter((item) => item.permission)
             .map((item, index) => (
-              <button className="item-action" key={index} onClick={item.onClick}>
-                {item.icon}
-                <span>{item.text}</span>
-              </button>
+              <div className="toolbar-item" key={index}>
+                <button
+                  ref={item.ref}
+                  className="item-action"
+                  onClick={item.onClick}
+                  aria-haspopup={item.hasMenu ? "menu" : undefined}
+                  aria-expanded={item.hasMenu ? showUploadMenu : undefined}
+                >
+                  {item.icon}
+                  <span>{item.text}</span>
+                </button>
+                {item.menu}
+              </div>
             ))}
         </div>
         <div>

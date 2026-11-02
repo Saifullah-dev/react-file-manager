@@ -50,5 +50,21 @@
   "invalidFileName": "Ett filnamn får inte innehålla något av följande tecken: \\ / : * ? \" < > |",
   "folderExists": "Den här platsen innehåller redan en mapp med namnet \"{{renameFile}}\".",
   "collapseNavigationPane": "Dölj navigationsfönster",
-  "expandNavigationPane": "Visa navigationsfönster"
+  "expandNavigationPane": "Visa navigationsfönster",
+  "uploadFiles": "Ladda upp filer",
+  "uploadFolder": "Ladda upp mapp",
+  "dragFilesOrFoldersToUpload": "Dra filer eller mappar hit för uppladdning",
+  "folderCreateFailed": "Det gick inte att skapa mappen för den här filen.",
+  "folderUploadNotAllowed": "Mappar kan inte laddas upp här.",
+  "uploadedCount": "{{done}} av {{total}} uppladdade",
+  "waiting": "Väntar",
+  "retry": "Försök igen",
+  "filesCount": "{{done}} av {{total}} filer",
+  "failedCount": "{{count}} misslyckades",
+  "canceledCount": "{{count}} avbrutna",
+  "skippedCount": "{{count}} hoppades över",
+  "cancelFolderUpload": "Avbryt uppladdning av mapp",
+  "retryFailed": "Försök igen med misslyckade filer",
+  "showFiles": "Visa filer",
+  "hideFiles": "Dölj filer"
 }

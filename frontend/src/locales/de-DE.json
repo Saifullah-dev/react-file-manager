@@ -50,5 +50,21 @@
   "invalidFileName": "Ein Dateiname darf keines der folgenden Zeichen enthalten: \\ / : * ? \" < > |",
   "folderExists": "In diesem Zielordner gibt es bereits einen Ordner namens \"{{renameFile}}\".",
   "collapseNavigationPane": "Navigationsbereich einklappen",
-  "expandNavigationPane": "Navigationsbereich erweitern"
+  "expandNavigationPane": "Navigationsbereich erweitern",
+  "uploadFiles": "Dateien hochladen",
+  "uploadFolder": "Ordner hochladen",
+  "dragFilesOrFoldersToUpload": "Dateien oder Ordner zum Hochladen ziehen",
+  "folderCreateFailed": "Der Ordner für diese Datei konnte nicht erstellt werden.",
+  "folderUploadNotAllowed": "Ordner können hier nicht hochgeladen werden.",
+  "uploadedCount": "{{done}} von {{total}} hochgeladen",
+  "waiting": "Wartet",
+  "retry": "Erneut versuchen",
+  "filesCount": "{{done}} von {{total}} Dateien",
+  "failedCount": "{{count}} fehlgeschlagen",
+  "canceledCount": "{{count}} abgebrochen",
+  "skippedCount": "{{count}} übersprungen",
+  "cancelFolderUpload": "Ordner-Upload abbrechen",
+  "retryFailed": "Fehlgeschlagene Dateien erneut versuchen",
+  "showFiles": "Dateien anzeigen",
+  "hideFiles": "Dateien ausblenden"
 }

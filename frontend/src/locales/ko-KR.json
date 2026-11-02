@@ -50,5 +50,21 @@
   "invalidFileName": "파일 이름에는 다음 문자를 사용할 수 없습니다: \\ / : * ? \" < > |",
   "folderExists": "해당 위치에 \"{{renameFile}}\" 폴더가 이미 있습니다.",
   "collapseNavigationPane": "탐색 창 축소",
-  "expandNavigationPane": "탐색 창 확장"
+  "expandNavigationPane": "탐색 창 확장",
+  "uploadFiles": "파일 업로드",
+  "uploadFolder": "폴더 업로드",
+  "dragFilesOrFoldersToUpload": "업로드하려면 파일 또는 폴더를 끌어오세요",
+  "folderCreateFailed": "이 파일의 폴더를 만들 수 없습니다.",
+  "folderUploadNotAllowed": "여기에는 폴더를 업로드할 수 없습니다.",
+  "uploadedCount": "{{total}}개 중 {{done}}개 업로드됨",
+  "waiting": "대기 중",
+  "retry": "다시 시도",
+  "filesCount": "파일 {{total}}개 중 {{done}}개",
+  "failedCount": "{{count}}개 실패",
+  "canceledCount": "{{count}}개 취소됨",
+  "skippedCount": "{{count}}개 건너뜀",
+  "cancelFolderUpload": "폴더 업로드 취소",
+  "retryFailed": "실패한 파일 다시 시도",
+  "showFiles": "파일 보기",
+  "hideFiles": "파일 숨기기"
 }

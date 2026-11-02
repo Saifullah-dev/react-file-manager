@@ -50,5 +50,21 @@
   "invalidFileName": "שם קובץ לא יכול להכיל את התווים הבאים: \\ / : * ? \" < > |",
   "folderExists": "כבר קיימת תיקייה בשם \"{{renameFile}}\" במיקום זה.",
   "collapseNavigationPane": "כווץ את לוח הניווט",
-  "expandNavigationPane": "הרחב את לוח הניווט"
+  "expandNavigationPane": "הרחב את לוח הניווט",
+  "uploadFiles": "העלאת קבצים",
+  "uploadFolder": "העלאת תיקייה",
+  "dragFilesOrFoldersToUpload": "גרור קבצים או תיקיות להעלאה",
+  "folderCreateFailed": "לא ניתן היה ליצור את התיקייה עבור קובץ זה.",
+  "folderUploadNotAllowed": "לא ניתן להעלות תיקיות כאן.",
+  "uploadedCount": "{{done}} מתוך {{total}} הועלו",
+  "waiting": "ממתין",
+  "retry": "נסה שוב",
+  "filesCount": "{{done}} מתוך {{total}} קבצים",
+  "failedCount": "{{count}} נכשלו",
+  "canceledCount": "{{count}} בוטלו",
+  "skippedCount": "{{count}} דולגו",
+  "cancelFolderUpload": "ביטול העלאת התיקייה",
+  "retryFailed": "נסה שוב קבצים שנכשלו",
+  "showFiles": "הצג קבצים",
+  "hideFiles": "הסתר קבצים"
 }

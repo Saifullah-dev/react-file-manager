@@ -50,5 +50,21 @@
   "invalidFileName": "نام فایل نمی‌تواند شامل هیچ یک از کاراکترهای زیر باشد: \\ / : * ? \" < > |",
   "folderExists": "این مقصد از قبل شامل پوشه‌ای به نام \"{{renameFile}}\" است.",
   "collapseNavigationPane": "بستن پنل ناوبری",
-  "expandNavigationPane": "باز کردن پنل ناوبری"
+  "expandNavigationPane": "باز کردن پنل ناوبری",
+  "uploadFiles": "بارگذاری فایل‌ها",
+  "uploadFolder": "بارگذاری پوشه",
+  "dragFilesOrFoldersToUpload": "فایل‌ها یا پوشه‌ها را برای بارگذاری بکشید",
+  "folderCreateFailed": "ایجاد پوشه برای این فایل ممکن نشد.",
+  "folderUploadNotAllowed": "امکان بارگذاری پوشه در اینجا وجود ندارد.",
+  "uploadedCount": "{{done}} از {{total}} بارگذاری شد",
+  "waiting": "در انتظار",
+  "retry": "تلاش دوباره",
+  "filesCount": "{{done}} از {{total}} فایل",
+  "failedCount": "{{count}} ناموفق",
+  "canceledCount": "{{count}} لغو شد",
+  "skippedCount": "{{count}} رد شد",
+  "cancelFolderUpload": "لغو بارگذاری پوشه",
+  "retryFailed": "تلاش دوباره برای فایل‌های ناموفق",
+  "showFiles": "نمایش فایل‌ها",
+  "hideFiles": "پنهان کردن فایل‌ها"
 }

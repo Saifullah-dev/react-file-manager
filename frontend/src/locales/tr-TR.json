@@ -51,5 +51,21 @@
   "invalidFileName": "Bir dosya adı aşağıdaki karakterlerden hiçbirini içeremez: \\ / : * ? \" < > |",
   "folderExists": "Bu konumda \"{{renameFile}}\" adında bir klasör zaten var.",
   "collapseNavigationPane": "Gezinti Panelini Daralt",
-  "expandNavigationPane": "Gezinti Panelini Genişlet"
+  "expandNavigationPane": "Gezinti Panelini Genişlet",
+  "uploadFiles": "Dosya yükle",
+  "uploadFolder": "Klasör yükle",
+  "dragFilesOrFoldersToUpload": "Yüklemek için dosyaları veya klasörleri sürükleyin",
+  "folderCreateFailed": "Bu dosya için klasör oluşturulamadı.",
+  "folderUploadNotAllowed": "Buraya klasör yüklenemez.",
+  "uploadedCount": "{{total}} dosyadan {{done}} tanesi yüklendi",
+  "waiting": "Bekliyor",
+  "retry": "Yeniden dene",
+  "filesCount": "{{total}} dosyadan {{done}} tanesi",
+  "failedCount": "{{count}} başarısız",
+  "canceledCount": "{{count}} iptal edildi",
+  "skippedCount": "{{count}} atlandı",
+  "cancelFolderUpload": "Klasör yüklemesini iptal et",
+  "retryFailed": "Başarısız dosyaları yeniden dene",
+  "showFiles": "Dosyaları göster",
+  "hideFiles": "Dosyaları gizle"
 }

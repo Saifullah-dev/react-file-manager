@@ -50,5 +50,21 @@
   "invalidFileName": "لا يمكن أن يحتوي اسم الملف على أي من الحروف التالية: \\ / : * ? \" < > |",
   "folderExists": "هذا الموقع يحتوي بالفعل على مجلد باسم \"{{renameFile}}\".",
   "collapseNavigationPane": "طي لوحة التنقل",
-  "expandNavigationPane": "توسيع لوحة التنقل"
+  "expandNavigationPane": "توسيع لوحة التنقل",
+  "uploadFiles": "رفع ملفات",
+  "uploadFolder": "رفع مجلد",
+  "dragFilesOrFoldersToUpload": "اسحب الملفات أو المجلدات للرفع",
+  "folderCreateFailed": "تعذر إنشاء المجلد لهذا الملف.",
+  "folderUploadNotAllowed": "لا يمكن رفع المجلدات هنا.",
+  "uploadedCount": "تم رفع {{done}} من {{total}}",
+  "waiting": "في الانتظار",
+  "retry": "إعادة المحاولة",
+  "filesCount": "{{done}} من {{total}} ملفات",
+  "failedCount": "فشل {{count}}",
+  "canceledCount": "تم إلغاء {{count}}",
+  "skippedCount": "تم تخطي {{count}}",
+  "cancelFolderUpload": "إلغاء رفع المجلد",
+  "retryFailed": "إعادة محاولة الملفات الفاشلة",
+  "showFiles": "إظهار الملفات",
+  "hideFiles": "إخفاء الملفات"
 }

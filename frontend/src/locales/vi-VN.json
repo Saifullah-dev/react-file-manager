@@ -50,5 +50,21 @@
   "invalidFileName": "Tên tệp không được chứa các ký tự sau: \\ / : * ? \" < > |",
   "folderExists": "Đã có thư mục tên \"{{renameFile}}\" tại vị trí này.",
   "collapseNavigationPane": "Thu gọn ngăn điều hướng",
-  "expandNavigationPane": "Mở rộng ngăn điều hướng"
+  "expandNavigationPane": "Mở rộng ngăn điều hướng",
+  "uploadFiles": "Tải tệp lên",
+  "uploadFolder": "Tải thư mục lên",
+  "dragFilesOrFoldersToUpload": "Kéo tệp hoặc thư mục vào để tải lên",
+  "folderCreateFailed": "Không thể tạo thư mục cho tệp này.",
+  "folderUploadNotAllowed": "Không thể tải thư mục lên tại đây.",
+  "uploadedCount": "Đã tải lên {{done}}/{{total}}",
+  "waiting": "Đang chờ",
+  "retry": "Thử lại",
+  "filesCount": "{{done}}/{{total}} tệp",
+  "failedCount": "{{count}} thất bại",
+  "canceledCount": "Đã hủy {{count}}",
+  "skippedCount": "Đã bỏ qua {{count}}",
+  "cancelFolderUpload": "Hủy tải thư mục lên",
+  "retryFailed": "Thử lại các tệp thất bại",
+  "showFiles": "Hiện tệp",
+  "hideFiles": "Ẩn tệp"
 }

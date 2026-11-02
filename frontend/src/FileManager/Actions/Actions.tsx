@@ -6,8 +6,7 @@ import PreviewFileAction from "./PreviewFile/PreviewFile.action";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useShortcutHandler } from "../../hooks/useShortcutHandler";
 import { useTranslation } from "../../contexts/TranslationProvider";
-import { FileUploadConfiguration } from "../../types/FileUploadConfiguration";
-import { FilePreviewComponent, OnDelete, OnFileUploaded, OnFileUploading, OnRefresh } from "../../types/FileManagerFunctions";
+import { FilePreviewComponent, OnDelete, OnRefresh } from "../../types/FileManagerFunctions";
 import { TriggerAction } from "../../types/TriggerAction";
 import { Permissions } from "../../types/Permissions";
 
@@ -26,29 +25,19 @@ interface ActionList {
 type ActionKey = keyof ActionList;
 
 export interface ActionsProps {
-  fileUploadConfig?: FileUploadConfiguration;
-  onFileUploading?: OnFileUploading;
-  onFileUploaded?: OnFileUploaded;
   onDelete: OnDelete;
   onRefresh?: OnRefresh;
-  maxFileSize?: number;
   filePreviewPath?: string;
   filePreviewComponent?: FilePreviewComponent;
-  acceptedFileTypes?: string;
   triggerAction: TriggerAction;
   permissions: Permissions;
 }
 
 const Actions = ({
-  fileUploadConfig,
-  onFileUploading,
-  onFileUploaded,
   onDelete,
   onRefresh,
-  maxFileSize,
   filePreviewPath,
   filePreviewComponent,
-  acceptedFileTypes,
   triggerAction,
   permissions,
 }: ActionsProps) => {
@@ -62,15 +51,7 @@ const Actions = ({
   const actionTypes: ActionList = {
     uploadFile: {
       title: t("upload"),
-      component: (
-        <UploadFileAction
-          fileUploadConfig={fileUploadConfig}
-          maxFileSize={maxFileSize}
-          acceptedFileTypes={acceptedFileTypes}
-          onFileUploading={onFileUploading}
-          onFileUploaded={onFileUploaded}
-        />
-      ),
+      component: <UploadFileAction />,
       width: "35%",
     },
     delete: {
