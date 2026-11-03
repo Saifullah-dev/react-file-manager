@@ -67,7 +67,8 @@ function App() {
       return response.data;
     }
     console.error(response);
-    return undefined;
+    // Throwing lets folder uploads fail right away instead of waiting for the folder to appear
+    throw new Error("Failed to create folder");
   };
   //
 

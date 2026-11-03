@@ -37,7 +37,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions } : Too
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } = useClipBoard();
   const { activeLayout } = useLayout();
-  const { canUploadFolder, openFilePicker, openFolderPicker } = useUpload();
+  const { items: uploads, canUploadFolder, openFilePicker, openFolderPicker } = useUpload();
   const t = useTranslation();
 
   // Toolbar Items
@@ -62,6 +62,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions } : Too
           anchorRef={uploadButtonRef}
           onUploadFiles={openFilePicker}
           onUploadFolder={openFolderPicker}
+          onShowUploads={uploads.length > 0 ? () => triggerAction.show("uploadFile") : undefined}
           onClose={() => setShowUploadMenu(false)}
         />
       ),

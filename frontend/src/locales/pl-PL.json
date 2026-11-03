@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Anuluj przesyłanie folderu",
   "retryFailed": "Ponów nieudane pliki",
   "showFiles": "Pokaż pliki",
-  "hideFiles": "Ukryj pliki"
+  "hideFiles": "Ukryj pliki",
+  "viewUploads": "Pokaż przesyłane pliki"
 }

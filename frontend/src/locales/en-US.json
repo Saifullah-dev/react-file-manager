@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Cancel folder upload",
   "retryFailed": "Retry failed files",
   "showFiles": "Show files",
-  "hideFiles": "Hide files"
+  "hideFiles": "Hide files",
+  "viewUploads": "View uploads"
 }

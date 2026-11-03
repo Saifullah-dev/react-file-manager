@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Peruuta kansion lataus",
   "retryFailed": "Yritä epäonnistuneita uudelleen",
   "showFiles": "Näytä tiedostot",
-  "hideFiles": "Piilota tiedostot"
+  "hideFiles": "Piilota tiedostot",
+  "viewUploads": "Näytä lataukset"
 }

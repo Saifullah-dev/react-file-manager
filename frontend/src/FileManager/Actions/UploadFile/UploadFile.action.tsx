@@ -75,7 +75,15 @@ const UploadFileAction = () => {
   const handleDrop = async (e : DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    const upload = await collectFromDataTransfer(e.dataTransfer, { includeFolders: canUploadFolder });
+    let upload;
+    try {
+      upload = await collectFromDataTransfer(e.dataTransfer, { includeFolders: canUploadFolder });
+    } catch (cause) {
+      // A dropped folder couldn't be read, e.g. no permission or a file was removed meanwhile
+      const error = { type: "upload", message: t("uploadFail"), cause };
+      onError(error, { name: "", isDirectory: true, path: "" });
+      return;
+    }
 
     upload.skippedFolders.forEach((name) => {
       onError({ type: "upload", message: t("folderUploadNotAllowed") }, { name, isDirectory: true, path: "" });

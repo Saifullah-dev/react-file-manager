@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Hủy tải thư mục lên",
   "retryFailed": "Thử lại các tệp thất bại",
   "showFiles": "Hiện tệp",
-  "hideFiles": "Ẩn tệp"
+  "hideFiles": "Ẩn tệp",
+  "viewUploads": "Xem tệp tải lên"
 }

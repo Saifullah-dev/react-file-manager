@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Annuler le téléversement du dossier",
   "retryFailed": "Réessayer les fichiers en échec",
   "showFiles": "Afficher les fichiers",
-  "hideFiles": "Masquer les fichiers"
+  "hideFiles": "Masquer les fichiers",
+  "viewUploads": "Voir les téléversements"
 }

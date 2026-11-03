@@ -66,5 +66,6 @@
   "cancelFolderUpload": "폴더 업로드 취소",
   "retryFailed": "실패한 파일 다시 시도",
   "showFiles": "파일 보기",
-  "hideFiles": "파일 숨기기"
+  "hideFiles": "파일 숨기기",
+  "viewUploads": "업로드 보기"
 }

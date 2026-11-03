@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Annuller upload af mappe",
   "retryFailed": "Prøv mislykkede filer igen",
   "showFiles": "Vis filer",
-  "hideFiles": "Skjul filer"
+  "hideFiles": "Skjul filer",
+  "viewUploads": "Vis uploads"
 }

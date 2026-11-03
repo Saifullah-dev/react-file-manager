@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Cancelar carregamento da pasta",
   "retryFailed": "Tentar novamente ficheiros com falha",
   "showFiles": "Mostrar ficheiros",
-  "hideFiles": "Ocultar ficheiros"
+  "hideFiles": "Ocultar ficheiros",
+  "viewUploads": "Ver carregamentos"
 }

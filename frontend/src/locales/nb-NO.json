@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Avbryt opplasting av mappe",
   "retryFailed": "Prøv mislykkede filer på nytt",
   "showFiles": "Vis filer",
-  "hideFiles": "Skjul filer"
+  "hideFiles": "Skjul filer",
+  "viewUploads": "Vis opplastinger"
 }

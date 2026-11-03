@@ -167,15 +167,23 @@ export const UploadProvider = ({
     });
   }, [files]);
 
+  // Returns the folder at `path` if it's already in `files`
+  const findExisting = (name: string, path: string) => {
+    const existing = filesRef.current.find((f) => f.path === path);
+    if (existing && !existing.isDirectory) throw new Error(`A file named "${name}" already exists.`);
+    return existing;
+  };
+
   // Returns the folder at `path`, creating it through `onCreateFolder` if it doesn't exist yet
   const ensureFolder = async (name: string, parent: FileItem | undefined, path: string) => {
-    const existing = filesRef.current.find((f) => f.path === path);
-    if (existing) {
-      if (existing.isDirectory) return existing;
-      throw new Error(`A file named "${name}" already exists.`);
-    }
+    const existing = findExisting(name, path);
+    if (existing) return existing;
 
     return folderLimiter(async () => {
+      // It may have been added while this was waiting in the queue
+      const existing = findExisting(name, path);
+      if (existing) return existing;
+
       const { onCreateFolder } = callbacksRef.current;
       if (!onCreateFolder) throw new Error("onCreateFolder is not provided.");
 
@@ -185,23 +193,31 @@ export const UploadProvider = ({
     });
   };
 
+  // Folders resolved or being created, by full path. Shared by every upload so two uploads into
+  // the same new folder only create it once. Failed folders are removed so a retry creates them again.
+  const folderCacheRef = useRef(new Map<string, Promise<FileItem | undefined>>());
+
   // Creates folders parent-first. Each folder only waits for its own parent,
   // so sibling folders are created in parallel.
   const createFolderResolver = (baseFolder: FileItem | undefined, basePath: string) => {
-    const cache = new Map<string, Promise<FileItem | undefined>>();
+    const cache = folderCacheRef.current;
 
     const resolve = (folderPath: string): Promise<FileItem | undefined> => {
       if (!folderPath) return Promise.resolve(baseFolder);
 
-      if (!cache.has(folderPath)) {
-        cache.set(
-          folderPath,
-          resolve(getParentPath(folderPath)).then((parent) =>
-            ensureFolder(getName(folderPath), parent, `${basePath}/${folderPath}`)
-          )
+      const path = `${basePath}/${folderPath}`;
+      let folder = cache.get(path);
+      if (!folder) {
+        folder = resolve(getParentPath(folderPath)).then((parent) =>
+          ensureFolder(getName(folderPath), parent, path)
         );
+        const entry = folder;
+        cache.set(path, entry);
+        entry.catch(() => {
+          if (cache.get(path) === entry) cache.delete(path);
+        });
       }
-      return cache.get(folderPath)!;
+      return folder;
     };
 
     return resolve;
@@ -235,15 +251,16 @@ export const UploadProvider = ({
       });
   };
 
-  const getValidationError = (entry: UploadEntry, destinationPath: string) => {
+  const getValidationError = (
+    entry: UploadEntry,
+    destinationPath: string,
+    existingFilePaths: Set<string>
+  ) => {
     if (acceptedFileTypes) {
       if (!isFileTypeAccepted(entry.file, acceptedFileTypes)) return t("fileTypeNotAllowed");
     }
 
-    const fileExists = filesRef.current.some(
-      (item) => !item.isDirectory && item.path.toLowerCase() === destinationPath.toLowerCase()
-    );
-    if (fileExists) return t("fileAlreadyExist");
+    if (existingFilePaths.has(destinationPath.toLowerCase())) return t("fileAlreadyExist");
 
     const sizeError = maxFileSize && entry.file.size > maxFileSize;
     if (sizeError) return `${t("maxUploadSize")} ${getDataSize(maxFileSize, 0)}.`;
@@ -259,10 +276,15 @@ export const UploadProvider = ({
 
     // Start a fresh list unless an earlier upload is still running
     const isIdle = !itemsRef.current.some((item) => activeStatuses.includes(item.status));
+    // Folders may have been renamed or deleted since the last upload, so look them up again
+    if (isIdle) folderCacheRef.current.clear();
     const queuedPaths = new Set(
       (isIdle ? [] : itemsRef.current).map((item) =>
         `${item.basePath}/${item.relativePath}`.toLowerCase()
       )
+    );
+    const existingFilePaths = new Set(
+      filesRef.current.filter((f) => !f.isDirectory).map((f) => f.path.toLowerCase())
     );
 
     const newItems: UploadItemData[] = [];
@@ -272,7 +294,7 @@ export const UploadProvider = ({
       queuedPaths.add(destinationPath.toLowerCase());
 
       const folderPath = getParentPath(entry.relativePath);
-      const error = getValidationError(entry, destinationPath);
+      const error = getValidationError(entry, destinationPath, existingFilePaths);
       if (error) onError({ type: "upload", message: error }, entry.file);
 
       newItems.push({

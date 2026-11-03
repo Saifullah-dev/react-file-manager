@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Annulla caricamento cartella",
   "retryFailed": "Riprova i file non riusciti",
   "showFiles": "Mostra file",
-  "hideFiles": "Nascondi file"
+  "hideFiles": "Nascondi file",
+  "viewUploads": "Visualizza caricamenti"
 }

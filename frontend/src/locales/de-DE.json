@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Ordner-Upload abbrechen",
   "retryFailed": "Fehlgeschlagene Dateien erneut versuchen",
   "showFiles": "Dateien anzeigen",
-  "hideFiles": "Dateien ausblenden"
+  "hideFiles": "Dateien ausblenden",
+  "viewUploads": "Uploads anzeigen"
 }

@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Отменить загрузку папки",
   "retryFailed": "Повторить неудачные файлы",
   "showFiles": "Показать файлы",
-  "hideFiles": "Скрыть файлы"
+  "hideFiles": "Скрыть файлы",
+  "viewUploads": "Показать загрузки"
 }

@@ -66,5 +66,6 @@
   "cancelFolderUpload": "إلغاء رفع المجلد",
   "retryFailed": "إعادة محاولة الملفات الفاشلة",
   "showFiles": "إظهار الملفات",
-  "hideFiles": "إخفاء الملفات"
+  "hideFiles": "إخفاء الملفات",
+  "viewUploads": "عرض عمليات الرفع"
 }

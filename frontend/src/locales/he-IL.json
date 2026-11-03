@@ -66,5 +66,6 @@
   "cancelFolderUpload": "ביטול העלאת התיקייה",
   "retryFailed": "נסה שוב קבצים שנכשלו",
   "showFiles": "הצג קבצים",
-  "hideFiles": "הסתר קבצים"
+  "hideFiles": "הסתר קבצים",
+  "viewUploads": "הצגת העלאות"
 }

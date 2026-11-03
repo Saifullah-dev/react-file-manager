@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Cancelar subida de carpeta",
   "retryFailed": "Reintentar archivos con error",
   "showFiles": "Mostrar archivos",
-  "hideFiles": "Ocultar archivos"
+  "hideFiles": "Ocultar archivos",
+  "viewUploads": "Ver subidas"
 }

@@ -66,5 +66,6 @@
   "cancelFolderUpload": "Avbryt uppladdning av mapp",
   "retryFailed": "Försök igen med misslyckade filer",
   "showFiles": "Visa filer",
-  "hideFiles": "Dölj filer"
+  "hideFiles": "Dölj filer",
+  "viewUploads": "Visa uppladdningar"
 }

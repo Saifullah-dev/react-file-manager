@@ -67,5 +67,6 @@
   "cancelFolderUpload": "Klasör yüklemesini iptal et",
   "retryFailed": "Başarısız dosyaları yeniden dene",
   "showFiles": "Dosyaları göster",
-  "hideFiles": "Dosyaları gizle"
+  "hideFiles": "Dosyaları gizle",
+  "viewUploads": "Yüklemeleri görüntüle"
 }
