@@ -153,7 +153,6 @@ const useFileList = (onRefresh: OnRefresh | undefined, enableFilePreview : boole
           {
             title: t("uploadFiles"),
             icon: <MdOutlineUploadFile size={18} />,
-            selected: false,
             onClick: () => {
               setVisible(false);
               openFilePicker();
@@ -162,7 +161,6 @@ const useFileList = (onRefresh: OnRefresh | undefined, enableFilePreview : boole
           {
             title: t("uploadFolder"),
             icon: <MdOutlineDriveFolderUpload size={18} />,
-            selected: false,
             onClick: () => {
               setVisible(false);
               openFolderPicker();
