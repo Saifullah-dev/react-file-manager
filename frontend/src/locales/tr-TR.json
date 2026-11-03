@@ -68,5 +68,6 @@
   "retryFailed": "Başarısız dosyaları yeniden dene",
   "showFiles": "Dosyaları göster",
   "hideFiles": "Dosyaları gizle",
-  "viewUploads": "Yüklemeleri görüntüle"
+  "viewUploads": "Yüklemeleri görüntüle",
+  "folderNotCreated": "Klasör oluşturulamadı."
 }

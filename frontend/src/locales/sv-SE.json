@@ -67,5 +67,6 @@
   "retryFailed": "Försök igen med misslyckade filer",
   "showFiles": "Visa filer",
   "hideFiles": "Dölj filer",
-  "viewUploads": "Visa uppladdningar"
+  "viewUploads": "Visa uppladdningar",
+  "folderNotCreated": "Det gick inte att skapa mappen."
 }

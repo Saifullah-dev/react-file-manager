@@ -67,5 +67,6 @@
   "retryFailed": "失敗したファイルを再試行",
   "showFiles": "ファイルを表示",
   "hideFiles": "ファイルを非表示",
-  "viewUploads": "アップロードを表示"
+  "viewUploads": "アップロードを表示",
+  "folderNotCreated": "フォルダーを作成できませんでした。"
 }

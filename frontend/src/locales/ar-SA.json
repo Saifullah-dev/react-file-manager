@@ -67,5 +67,6 @@
   "retryFailed": "إعادة محاولة الملفات الفاشلة",
   "showFiles": "إظهار الملفات",
   "hideFiles": "إخفاء الملفات",
-  "viewUploads": "عرض عمليات الرفع"
+  "viewUploads": "عرض عمليات الرفع",
+  "folderNotCreated": "تعذّر إنشاء المجلد."
 }

@@ -67,5 +67,6 @@
   "retryFailed": "Thử lại các tệp thất bại",
   "showFiles": "Hiện tệp",
   "hideFiles": "Ẩn tệp",
-  "viewUploads": "Xem tệp tải lên"
+  "viewUploads": "Xem tệp tải lên",
+  "folderNotCreated": "Không thể tạo thư mục."
 }

@@ -4,6 +4,7 @@ import { duplicateNameHandler } from "../../../utils/duplicateNameHandler";
 import NameInput from "../../../components/NameInput/NameInput";
 import ErrorTooltip, { ErrorTooltipXPlacement, ErrorTooltipYPlacement } from "../../../components/ErrorTooltip/ErrorTooltip";
 import { useFileNavigation } from "../../../contexts/FileNavigationContext";
+import { useFiles } from "../../../contexts/FilesContext";
 import { useLayout } from "../../../contexts/LayoutContext";
 import { useTranslation } from "../../../contexts/TranslationProvider";
 import { ExtendedFileItem } from "../../../types/File";
@@ -29,7 +30,8 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     e.preventDefault();
     e.stopPropagation();
   });
-  const { currentFolder, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { currentPath, currentFolder, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { onError } = useFiles();
   const { activeLayout } = useLayout();
   const t = useTranslation();
 
@@ -102,7 +104,17 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
       newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
     }
 
-    onCreateFolder?.(newFolderName, currentFolder!);
+    // onCreateFolder may throw or return a rejected promise when the folder can't be created.
+    // Report both through onError, and always remove the placeholder below.
+    const handleError = (cause: unknown) => {
+      const error = { type: "createFolder", message: t("folderNotCreated"), cause };
+      onError(error, { name: newFolderName, isDirectory: true, path: `${currentPath ?? ""}/${newFolderName}` });
+    };
+    try {
+      Promise.resolve(onCreateFolder?.(newFolderName, currentFolder!)).catch(handleError);
+    } catch (cause) {
+      handleError(cause);
+    }
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     triggerAction.close();
   }

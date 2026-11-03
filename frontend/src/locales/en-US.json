@@ -67,5 +67,6 @@
   "retryFailed": "Retry failed files",
   "showFiles": "Show files",
   "hideFiles": "Hide files",
-  "viewUploads": "View uploads"
+  "viewUploads": "View uploads",
+  "folderNotCreated": "Couldn't create the folder."
 }

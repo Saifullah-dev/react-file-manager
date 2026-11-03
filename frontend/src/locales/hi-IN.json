@@ -67,5 +67,6 @@
   "retryFailed": "विफल फ़ाइलें फिर से आज़माएँ",
   "showFiles": "फ़ाइलें दिखाएँ",
   "hideFiles": "फ़ाइलें छिपाएँ",
-  "viewUploads": "अपलोड देखें"
+  "viewUploads": "अपलोड देखें",
+  "folderNotCreated": "फ़ोल्डर नहीं बनाया जा सका।"
 }

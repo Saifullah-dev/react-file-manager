@@ -67,5 +67,6 @@
   "retryFailed": "실패한 파일 다시 시도",
   "showFiles": "파일 보기",
   "hideFiles": "파일 숨기기",
-  "viewUploads": "업로드 보기"
+  "viewUploads": "업로드 보기",
+  "folderNotCreated": "폴더를 만들 수 없습니다."
 }

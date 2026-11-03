@@ -67,5 +67,6 @@
   "retryFailed": "Повторить неудачные файлы",
   "showFiles": "Показать файлы",
   "hideFiles": "Скрыть файлы",
-  "viewUploads": "Показать загрузки"
+  "viewUploads": "Показать загрузки",
+  "folderNotCreated": "Не удалось создать папку."
 }

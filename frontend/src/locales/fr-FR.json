@@ -67,5 +67,6 @@
   "retryFailed": "Réessayer les fichiers en échec",
   "showFiles": "Afficher les fichiers",
   "hideFiles": "Masquer les fichiers",
-  "viewUploads": "Voir les téléversements"
+  "viewUploads": "Voir les téléversements",
+  "folderNotCreated": "Impossible de créer le dossier."
 }

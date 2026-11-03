@@ -67,5 +67,6 @@
   "retryFailed": "Fehlgeschlagene Dateien erneut versuchen",
   "showFiles": "Dateien anzeigen",
   "hideFiles": "Dateien ausblenden",
-  "viewUploads": "Uploads anzeigen"
+  "viewUploads": "Uploads anzeigen",
+  "folderNotCreated": "Der Ordner konnte nicht erstellt werden."
 }

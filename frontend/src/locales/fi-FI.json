@@ -67,5 +67,6 @@
   "retryFailed": "Yritä epäonnistuneita uudelleen",
   "showFiles": "Näytä tiedostot",
   "hideFiles": "Piilota tiedostot",
-  "viewUploads": "Näytä lataukset"
+  "viewUploads": "Näytä lataukset",
+  "folderNotCreated": "Kansiota ei voitu luoda."
 }

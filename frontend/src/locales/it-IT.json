@@ -67,5 +67,6 @@
   "retryFailed": "Riprova i file non riusciti",
   "showFiles": "Mostra file",
   "hideFiles": "Nascondi file",
-  "viewUploads": "Visualizza caricamenti"
+  "viewUploads": "Visualizza caricamenti",
+  "folderNotCreated": "Impossibile creare la cartella."
 }

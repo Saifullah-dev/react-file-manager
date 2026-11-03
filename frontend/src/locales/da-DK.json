@@ -67,5 +67,6 @@
   "retryFailed": "Prøv mislykkede filer igen",
   "showFiles": "Vis filer",
   "hideFiles": "Skjul filer",
-  "viewUploads": "Vis uploads"
+  "viewUploads": "Vis uploads",
+  "folderNotCreated": "Mappen kunne ikke oprettes."
 }

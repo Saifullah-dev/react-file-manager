@@ -67,5 +67,6 @@
   "retryFailed": "Ponów nieudane pliki",
   "showFiles": "Pokaż pliki",
   "hideFiles": "Ukryj pliki",
-  "viewUploads": "Pokaż przesyłane pliki"
+  "viewUploads": "Pokaż przesyłane pliki",
+  "folderNotCreated": "Nie udało się utworzyć folderu."
 }

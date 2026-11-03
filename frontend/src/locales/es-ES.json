@@ -67,5 +67,6 @@
   "retryFailed": "Reintentar archivos con error",
   "showFiles": "Mostrar archivos",
   "hideFiles": "Ocultar archivos",
-  "viewUploads": "Ver subidas"
+  "viewUploads": "Ver subidas",
+  "folderNotCreated": "No se pudo crear la carpeta."
 }

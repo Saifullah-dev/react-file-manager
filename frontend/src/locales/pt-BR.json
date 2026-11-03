@@ -67,5 +67,6 @@
   "retryFailed": "Tentar novamente arquivos com falha",
   "showFiles": "Mostrar arquivos",
   "hideFiles": "Ocultar arquivos",
-  "viewUploads": "Ver carregamentos"
+  "viewUploads": "Ver carregamentos",
+  "folderNotCreated": "Não foi possível criar a pasta."
 }
