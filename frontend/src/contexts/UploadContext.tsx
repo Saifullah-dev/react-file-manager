@@ -5,7 +5,7 @@ import { useTranslation } from "./TranslationProvider";
 import { useUploadInputs } from "../hooks/useUploadInputs";
 import { CollectedUpload, UploadEntry } from "../utils/collectUploadEntries";
 import { createLimiter } from "../utils/createLimiter";
-import { getFileExtension } from "../utils/getFileExtension";
+import { isFileTypeAccepted } from "../utils/isFileTypeAccepted";
 import { getDataSize } from "../utils/getDataSize";
 import { FileItem } from "../types/File";
 import { FileUploadConfiguration } from "../types/FileUploadConfiguration";
@@ -237,8 +237,7 @@ export const UploadProvider = ({
 
   const getValidationError = (entry: UploadEntry, destinationPath: string) => {
     if (acceptedFileTypes) {
-      const extError = !acceptedFileTypes.includes(getFileExtension(entry.file.name));
-      if (extError) return t("fileTypeNotAllowed");
+      if (!isFileTypeAccepted(entry.file, acceptedFileTypes)) return t("fileTypeNotAllowed");
     }
 
     const fileExists = filesRef.current.some(
