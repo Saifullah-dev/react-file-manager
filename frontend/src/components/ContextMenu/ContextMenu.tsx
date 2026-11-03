@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, RefObject, useEffect, useRef, useState } from "react";
+import { MouseEvent, ReactNode, RefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
 import SubMenu, { SubMenuItem, SubMenuPosition } from "./SubMenu";
 import "./ContextMenu.scss";
@@ -87,6 +87,17 @@ const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPo
       setActiveSubMenuIndex(null);
     }
   }, [visible]);
+
+  // The side is first picked from the main menu's width alone. Once the submenu renders, flip it
+  // to the left if it would cross the right edge, so it isn't clipped and doesn't add a scrollbar.
+  useLayoutEffect(() => {
+    const subMenu = subMenuRef.current;
+    const container = filesViewRef.current;
+    if (activeSubMenuIndex === null || subMenuPosition !== "right" || !subMenu || !container) return;
+
+    const visibleRight = container.getBoundingClientRect().left + container.clientWidth;
+    if (subMenu.getBoundingClientRect().right > visibleRight) setSubMenuPosition("left");
+  }, [activeSubMenuIndex, subMenuPosition]);
 
   if (visible) {
     return (

@@ -5,9 +5,10 @@ export interface ProgressProps {
   percent?: number;
   isCanceled?: boolean;
   isCompleted?: boolean;
+  isWaiting?: boolean;
   error?: string;
 }
-const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, error } : ProgressProps) => {
+const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, isWaiting = false, error } : ProgressProps) => {
   const t = useTranslation();
 
   return (
@@ -23,7 +24,9 @@ const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, error 
         <span className="fm-upload-canceled">{error}</span>
       ) : (
         <div className="fm-progress-status">
-          <span>{isCompleted ? t("completed") : t("percentDone", { percent })}</span>
+          <span>
+            {isCompleted ? t("completed") : isWaiting ? t("waiting") : t("percentDone", { percent })}
+          </span>
         </div>
       )}
     </div>

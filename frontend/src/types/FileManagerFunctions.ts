@@ -4,7 +4,12 @@ import { SortConfiguration } from "./SortConfiguration";
 
 export type OnCopy = (files: IFile[]) => void;
 
-export type OnCreateFolder = (name: string, parentFolder: IFile) => void;
+// Return the created folder (or a promise of it) so folder uploads can upload into it right away.
+// Returning nothing also works: the folder is picked up once it appears in `files`.
+export type OnCreateFolder = (
+  name: string,
+  parentFolder: IFile
+) => void | IFile | Promise<void | IFile>;
 
 export type OnCut = (files: IFile[]) => void;
 

@@ -31,7 +31,13 @@ const Modal = ({
 
   useEffect(() => {
     if (show) {
-      modalRef.current?.showModal();
+      const dialog = modalRef.current;
+      dialog?.showModal();
+      // showModal() focuses the first focusable element. When that's an iframe (the text and PDF
+      // previews), key presses go to the iframe's page and Escape never reaches this dialog.
+      if (document.activeElement instanceof HTMLIFrameElement && dialog?.contains(document.activeElement)) {
+        dialog.focus();
+      }
     } else {
       modalRef.current?.close();
     }
@@ -42,7 +48,10 @@ const Modal = ({
       ref={modalRef}
       className={`fm-modal dialog`}
       style={{ width: dialogWidth }}
+      tabIndex={-1}
       onKeyDown={handleKeyDown}
+      // The browser can close the dialog by itself (e.g. Escape). Keep `show` in sync so it can open again.
+      onClose={() => show && setShow(false)}
     >
       <div className="fm-modal-header">
         <span className="fm-modal-heading">{heading}</span>

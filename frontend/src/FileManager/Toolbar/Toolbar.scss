@@ -49,6 +49,11 @@
       display: flex;
     }
 
+    .toolbar-item {
+      position: relative;
+      display: flex;
+    }
+
     .toggle-view {
       position: absolute;
       z-index: 3;
