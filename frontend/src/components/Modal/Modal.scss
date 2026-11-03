@@ -18,6 +18,11 @@
 .dialog[open] {
   animation: expand 0.4s forwards;
 
+  // Focused only so Escape works; the dialog itself needs no focus ring
+  &:focus {
+    outline: none;
+  }
+
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);
   }
